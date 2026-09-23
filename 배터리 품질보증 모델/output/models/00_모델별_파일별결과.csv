@@ -1,0 +1,26 @@
+﻿모델,파일,행 수,실제 이상,예측 이상,TP,FP,FN,TN,Accuracy
+Isolation Forest,Test03_OK_chg,1421,0,0,0,0,0,1421,1.0
+LSTM Autoencoder,Test03_OK_chg,1421,0,0,0,0,0,1421,1.0
+PCA (T²·SPE),Test03_OK_chg,1421,0,0,0,0,0,1421,1.0
+Random Forest,Test03_OK_chg,1421,0,1,0,1,0,1420,0.9993
+T²+SPE 결합지표,Test03_OK_chg,1421,0,0,0,0,0,1421,1.0
+Isolation Forest,Test04_OK_dchg,1505,0,10,0,10,0,1495,0.9934
+LSTM Autoencoder,Test04_OK_dchg,1505,0,10,0,10,0,1495,0.9934
+PCA (T²·SPE),Test04_OK_dchg,1505,0,10,0,10,0,1495,0.9934
+Random Forest,Test04_OK_dchg,1505,0,0,0,0,0,1505,1.0
+T²+SPE 결합지표,Test04_OK_dchg,1505,0,10,0,10,0,1495,0.9934
+Isolation Forest,Test06_NG_chg,854,854,854,854,0,0,0,1.0
+LSTM Autoencoder,Test06_NG_chg,854,854,853,853,0,1,0,0.9988
+PCA (T²·SPE),Test06_NG_chg,854,854,854,854,0,0,0,1.0
+Random Forest,Test06_NG_chg,854,854,0,0,0,854,0,0.0
+T²+SPE 결합지표,Test06_NG_chg,854,854,854,854,0,0,0,1.0
+Isolation Forest,Test07_NG_dchg,4594,227,44,44,0,183,4367,0.9602
+LSTM Autoencoder,Test07_NG_dchg,4594,227,106,106,0,121,4367,0.9737
+PCA (T²·SPE),Test07_NG_dchg,4594,227,145,145,0,82,4367,0.9822
+Random Forest,Test07_NG_dchg,4594,227,227,227,0,0,4367,1.0
+T²+SPE 결합지표,Test07_NG_dchg,4594,227,145,145,0,82,4367,0.9822
+Isolation Forest,Test08_NG_chg,2396,2396,858,858,0,1538,0,0.3581
+LSTM Autoencoder,Test08_NG_chg,2396,2396,16,16,0,2380,0,0.0067
+PCA (T²·SPE),Test08_NG_chg,2396,2396,2396,2396,0,0,0,1.0
+Random Forest,Test08_NG_chg,2396,2396,2396,2396,0,0,0,1.0
+T²+SPE 결합지표,Test08_NG_chg,2396,2396,2396,2396,0,0,0,1.0

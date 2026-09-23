@@ -1,0 +1,6 @@
+﻿모델,파일,행 수,실제 이상,예측 이상,TP,FP,FN,TN,Accuracy
+Random Forest,Test03_OK_chg,1421,0,1,0,1,0,1420,0.9993
+Random Forest,Test04_OK_dchg,1505,0,0,0,0,0,1505,1.0
+Random Forest,Test06_NG_chg,854,854,0,0,0,854,0,0.0
+Random Forest,Test07_NG_dchg,4594,227,227,227,0,0,4367,1.0
+Random Forest,Test08_NG_chg,2396,2396,2396,2396,0,0,0,1.0

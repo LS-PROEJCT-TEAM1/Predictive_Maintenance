@@ -1,0 +1,6 @@
+﻿모델,Accuracy,Precision,Recall,F1-score
+Random Forest,0.5603,0.6361,0.6528,0.6443
+Isolation Forest,0.6503,0.9686,0.4411,0.6062
+PCA (T²·SPE),0.8475,0.9663,0.7771,0.8615
+LSTM Autoencoder,0.5215,0.9195,0.2365,0.3762
+T²+SPE 결합지표,0.8111,0.9838,0.7021,0.8194

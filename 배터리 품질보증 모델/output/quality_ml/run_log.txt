@@ -1,0 +1,162 @@
+======================================================================
+BatteryFlow AI Control Tower - 배터리 품질 모듈
+======================================================================
+
+[단계 1] 데이터 정제 요약
+            파일 충방전 판정    구분  원본 행  원본 열  사용 열(셀전압+온도)  결측치  중복 행  전압 범위이탈  온도 범위이탈  센서고장 셀(열 전체 이탈)  최종 행  이상 시점 수  이상 비율(%)
+ Test01_OK_chg  충전 OK train  1723   231           208    0     0        0        0                0  1723        0       0.0
+Test02_OK_dchg  방전 OK train  1019   231           208    0     0        0        0                0  1019        0       0.0
+ Test03_OK_chg  충전 OK  test  1421   231           208    0     0        0        0                0  1421        0       0.0
+Test04_OK_dchg  방전 OK  test  1505   231           208    0     0        0        0                0  1505        0       0.0
+ Test05_NG_chg  충전 NG train  5016   231           208    0     0        0        0                0  5016     4259      84.9
+ Test06_NG_chg  충전 NG  test   854   231           208    0     0      854        0                1   854      854     100.0
+Test07_NG_dchg  방전 NG  test  4594   231           208    0     0        0        0                0  4594      227       4.9
+ Test08_NG_chg  충전 NG  test  2396   231           208    0     0        0        0                0  2396     2396     100.0
+Test09_NG_dchg  방전 NG train  4864   231           208    0     0        0        0                0  4864     4864     100.0
+
+전체 데이터: 23392행 / Feature 16개 / 이상 시점 비율 53.9%
+
+[단계 2] 충방전 구분 x 품질 판정별 평균 특성
+충방전 판정  셀전압_편차  셀전압_표준편차  이상셀_개수  모듈온도_최대  모듈온도_편차
+ 방전 NG  0.0307    0.0037  1.7984  32.5476   2.7962
+ 방전 OK  0.0139    0.0032  0.1747  30.3261   2.0563
+ 충전 NG  0.0266    0.0057  1.8083  29.3834   2.1861
+ 충전 OK  0.0218    0.0050  0.2774  25.8010   1.5668
+
+이상 여부(label)와의 상관계수 상위 5개
+모듈온도_최대      0.5870
+모듈온도_최소      0.5449
+모듈온도_편차      0.5324
+모듈온도_평균      0.5227
+모듈온도_표준편차    0.4568
+
+[단계 3] 학습 (12622, 16) / 테스트 (10770, 16)
+학습 파일: ['Test01_OK_chg', 'Test02_OK_dchg', 'Test05_NG_chg', 'Test09_NG_dchg']
+테스트 파일: ['Test03_OK_chg', 'Test04_OK_dchg', 'Test06_NG_chg', 'Test07_NG_dchg', 'Test08_NG_chg']
+[Decision Tree(전체)] 학습
+  Accuracy : 1.0000  Precision : 1.0000  Recall : 1.0000  F1-score : 1.0000
+  TP=9123  FP=0  FN=0  TN=3499
+[Decision Tree(전체)] 테스트
+  Accuracy : 0.7138  Precision : 0.5817  Recall : 0.4044  F1-score : 0.4771
+  TP=1406  FP=1011  FN=2071  TN=6282
+[Random Forest(전체)] 학습
+  Accuracy : 1.0000  Precision : 1.0000  Recall : 1.0000  F1-score : 1.0000
+  TP=9123  FP=0  FN=0  TN=3499
+[Random Forest(전체)] 테스트
+  Accuracy : 0.5775  Precision : 0.3863  Recall : 0.5243  F1-score : 0.4449
+  TP=1823  FP=2896  FN=1654  TN=4397
+[Decision Tree(상대)] 학습
+  Accuracy : 0.9907  Precision : 0.9887  Recall : 0.9985  F1-score : 0.9936
+  TP=9109  FP=104  FN=14  TN=3395
+[Decision Tree(상대)] 테스트
+  Accuracy : 0.4578  Precision : 0.3702  Recall : 0.9695  F1-score : 0.5358
+  TP=3371  FP=5734  FN=106  TN=1559
+[Random Forest(상대)] 학습
+  Accuracy : 1.0000  Precision : 1.0000  Recall : 1.0000  F1-score : 1.0000
+  TP=9123  FP=0  FN=0  TN=3499
+[Random Forest(상대)] 테스트
+  Accuracy : 0.5044  Precision : 0.3691  Recall : 0.7544  F1-score : 0.4957
+  TP=2623  FP=4484  FN=854  TN=2809
+
+[PCA] 주성분 6개 / 누적 설명분산 0.9765
+[PCA] 학습 데이터 기준 선택: 분위수 0.99, 연속 10시점 → Q=1.839, T2=26.146
+[PCA 이상탐지] 학습
+  Accuracy : 0.7725  Precision : 0.9025  Recall : 0.7683  F1-score : 0.8300
+  TP=7009  FP=757  FN=2114  TN=2742
+[PCA 이상탐지] 테스트
+  Accuracy : 0.4750  Precision : 0.3808  Recall : 1.0000  F1-score : 0.5516
+  TP=3477  FP=5654  FN=0  TN=1639
+
+[교안 규칙] 정상 데이터 기준 3σ 임계값: {'모듈온도_편차': 3.088, '셀전압_최대z': 3.325}
+[교안 규칙(3σ OR)] 학습
+  Accuracy : 0.7419  Precision : 0.9696  Recall : 0.6637  F1-score : 0.7880
+  TP=6055  FP=190  FN=3068  TN=3309
+[교안 규칙(3σ OR)] 테스트
+  Accuracy : 0.5797  Precision : 0.4344  Recall : 1.0000  F1-score : 0.6057
+  TP=3477  FP=4527  FN=0  TN=2766
+
+[단계 4] 파일 단위 GroupKFold 교차검증 (5-fold)
+  Decision Tree(전체): Accuracy 0.4715±0.2967, Precision 0.7540±0.3861, Recall 0.3166±0.2253, F1 0.4201±0.2838
+  Random Forest(전체): Accuracy 0.5571±0.3071, Precision 0.7863±0.3939, Recall 0.4590±0.3839, F1 0.5233±0.3942
+  Decision Tree(상대): Accuracy 0.5853±0.2766, Precision 0.7907±0.3957, Recall 0.4624±0.3794, F1 0.5295±0.3857
+  Random Forest(상대): Accuracy 0.5855±0.2924, Precision 0.7911±0.3958, Recall 0.4799±0.3887, F1 0.5399±0.4024
+
+[단계 4] 모델별 성능지표
+               모델  구분  Accuracy  Precision  Recall  F1-score   TP   FP   FN   TN
+Decision Tree(전체)  학습    1.0000     1.0000  1.0000    1.0000 9123    0    0 3499
+Decision Tree(전체) 테스트    0.7138     0.5817  0.4044    0.4771 1406 1011 2071 6282
+Random Forest(전체)  학습    1.0000     1.0000  1.0000    1.0000 9123    0    0 3499
+Random Forest(전체) 테스트    0.5775     0.3863  0.5243    0.4449 1823 2896 1654 4397
+Decision Tree(상대)  학습    0.9907     0.9887  0.9985    0.9936 9109  104   14 3395
+Decision Tree(상대) 테스트    0.4578     0.3702  0.9695    0.5358 3371 5734  106 1559
+Random Forest(상대)  학습    1.0000     1.0000  1.0000    1.0000 9123    0    0 3499
+Random Forest(상대) 테스트    0.5044     0.3691  0.7544    0.4957 2623 4484  854 2809
+         PCA 이상탐지  학습    0.7725     0.9025  0.7683    0.8300 7009  757 2114 2742
+         PCA 이상탐지 테스트    0.4750     0.3808  1.0000    0.5516 3477 5654    0 1639
+     교안 규칙(3σ OR)  학습    0.7419     0.9696  0.6637    0.7880 6055  190 3068 3309
+     교안 규칙(3σ OR) 테스트    0.5797     0.4344  1.0000    0.6057 3477 4527    0 2766
+
+[참고] 테스트 파일별 결과
+            파일                모델  행 수  실제 이상  예측 이상   TP   FP  FN   TN  Accuracy
+ Test03_OK_chg      교안 규칙(3σ OR) 1421      0    145    0  145   0 1276    0.8980
+ Test03_OK_chg Random Forest(상대) 1421      0    117    0  117   0 1304    0.9177
+ Test03_OK_chg          PCA 이상탐지 1421      0    821    0  821   0  600    0.4222
+Test04_OK_dchg      교안 규칙(3σ OR) 1505      0     15    0   15   0 1490    0.9900
+Test04_OK_dchg Random Forest(상대) 1505      0      0    0    0   0 1505    1.0000
+Test04_OK_dchg          PCA 이상탐지 1505      0    469    0  469   0 1036    0.6884
+ Test06_NG_chg      교안 규칙(3σ OR)  854    854    854  854    0   0    0    1.0000
+ Test06_NG_chg Random Forest(상대)  854    854      0    0    0 854    0    0.0000
+ Test06_NG_chg          PCA 이상탐지  854    854    854  854    0   0    0    1.0000
+Test07_NG_dchg      교안 규칙(3σ OR) 4594    227   4594  227 4367   0    0    0.0494
+Test07_NG_dchg Random Forest(상대) 4594    227   4594  227 4367   0    0    0.0494
+Test07_NG_dchg          PCA 이상탐지 4594    227   4591  227 4364   0    3    0.0501
+ Test08_NG_chg      교안 규칙(3σ OR) 2396   2396   2396 2396    0   0    0    1.0000
+ Test08_NG_chg Random Forest(상대) 2396   2396   2396 2396    0   0    0    1.0000
+ Test08_NG_chg          PCA 이상탐지 2396   2396   2396 2396    0   0    0    1.0000
+[교안 규칙(3σ OR)] 테스트(Test07 제외)
+  Accuracy : 0.9741  Precision : 0.9531  Recall : 1.0000  F1-score : 0.9760
+  TP=3250  FP=160  FN=0  TN=2766
+[Random Forest(상대)] 테스트(Test07 제외)
+  Accuracy : 0.8428  Precision : 0.9534  Recall : 0.7372  F1-score : 0.8315
+  TP=2396  FP=117  FN=854  TN=2809
+[PCA 이상탐지] 테스트(Test07 제외)
+  Accuracy : 0.7911  Precision : 0.7159  Recall : 1.0000  F1-score : 0.8344
+  TP=3250  FP=1290  FN=0  TN=1636
+
+변수 중요도 상위 5개
+  Feature  Decision Tree  Random Forest
+모듈온도_표준편차         0.0801         0.2350
+  모듈온도_편차         0.0000         0.2228
+   셀전압_편차         0.5615         0.1638
+  셀전압_최대z         0.3047         0.1609
+ 셀전압_표준편차         0.0044         0.1500
+
+파일별 이상 점수 상위 셀 (상위 2개만 표시)
+            파일  순위       셀  이상점수
+ Test05_NG_chg   1 M09CV07 2.679
+ Test05_NG_chg   2 M06CV02 2.162
+ Test06_NG_chg   1 M07CV06 3.915
+ Test06_NG_chg   2 M07CV07 3.833
+Test07_NG_dchg   1 M02CV01 5.853
+Test07_NG_dchg   2 M05CV01 2.441
+ Test08_NG_chg   1 M10CV10 2.903
+ Test08_NG_chg   2 M08CV02 2.687
+Test09_NG_dchg   1 M09CV01 2.913
+Test09_NG_dchg   2 M08CV11 2.529
+
+[단계 5] 시험(파일) 단위 품질 판정 - NG 기준 이상비율 0.05
+               모델             파일  이상비율 실제 예측 정답여부
+         PCA 이상탐지  Test03_OK_chg 0.578 OK NG    X
+         PCA 이상탐지 Test04_OK_dchg 0.312 OK NG    X
+         PCA 이상탐지  Test06_NG_chg 1.000 NG NG    O
+         PCA 이상탐지 Test07_NG_dchg 0.999 NG NG    O
+         PCA 이상탐지  Test08_NG_chg 1.000 NG NG    O
+Random Forest(상대)  Test03_OK_chg 0.082 OK NG    X
+Random Forest(상대) Test04_OK_dchg 0.000 OK OK    O
+Random Forest(상대)  Test06_NG_chg 0.000 NG OK    X
+Random Forest(상대) Test07_NG_dchg 1.000 NG NG    O
+Random Forest(상대)  Test08_NG_chg 1.000 NG NG    O
+  PCA 이상탐지: 3/5 파일 정답
+  Random Forest(상대): 3/5 파일 정답
+
+산출물 저장 위치: /home/claude/Battery_Quality/output/quality_ml

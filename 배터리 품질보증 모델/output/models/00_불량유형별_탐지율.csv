@@ -1,0 +1,4 @@
+﻿파일,Isolation Forest,LSTM Autoencoder,PCA (T²·SPE),Random Forest,T²+SPE 결합지표
+Test06_NG_chg,1.0,0.999,1.0,0.0,1.0
+Test07_NG_dchg,0.194,0.467,0.639,1.0,0.639
+Test08_NG_chg,0.358,0.007,1.0,1.0,1.0
