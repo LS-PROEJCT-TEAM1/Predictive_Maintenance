@@ -1,0 +1,470 @@
+ns=2;s=CloudDataSolution.CloudSolution.BasicConfiguration.InternetAddress, , , ,100,-1,,
+ns=2;s=CloudDataSolution.CloudSolution.BasicConfiguration.SamplingInterval, , , ,100,-1,,
+ns=2;s=CloudDataSolution.EdgeGWSolution.Edisontech_GW.BasicConfiguration.NetworkConnection, , , ,100,-1,,
+ns=2;s=CloudDataSolution.EdgeGWSolution.Edisontech_GW.BasicConfiguration.SamplingInterval, , , ,100,-1,,
+ns=2;s=CloudDataSolution.EdgeGWSolution.Edisontech_GW.EdgeHub.BasicConfiguration.NetworkConnection, , , ,100,-1,,
+ns=2;s=CloudDataSolution.EdgeGWSolution.Edisontech_GW.EdgeHub.BasicConfiguration.SamplingInterval, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Pack_Voltage, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Pack_Current, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.PCS_V, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.PCS_C, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.PCS_P, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.RSOCmin, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.RSOCmax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.RSOCavg, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.USOCmin, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.USOCmax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.USOCavg, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.SOH, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Power, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.ChgPmax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.DchgPmax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.ChgImax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.DchgImax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Vcell_min, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Vcell_max, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Vcell_DV, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Tcell_min, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Tcell_max, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.Tcell_avg, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV01, , , ,100,-1,M01CV01,모듈번호 1번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV02, , , ,100,-1,M01CV02,모듈번호 1번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV03, , , ,100,-1,M01CV03,모듈번호 1번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV04, , , ,100,-1,M01CV04,모듈번호 1번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV05, , , ,100,-1,M01CV05,모듈번호 1번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV06, , , ,100,-1,M01CV06,모듈번호 1번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV07, , , ,100,-1,M01CV07,모듈번호 1번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV08, , , ,100,-1,M01CV08,모듈번호 1번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV09, , , ,100,-1,M01CV09,모듈번호 1번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV10, , , ,100,-1,M01CV10,모듈번호 1번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01CV11, , , ,100,-1,M01CV11,모듈번호 1번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV01, , , ,100,-1,M02CV01,모듈번호 2번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV02, , , ,100,-1,M02CV02,모듈번호 2번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV03, , , ,100,-1,M02CV03,모듈번호 2번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV04, , , ,100,-1,M02CV04,모듈번호 2번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV05, , , ,100,-1,M02CV05,모듈번호 2번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV06, , , ,100,-1,M02CV06,모듈번호 2번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV07, , , ,100,-1,M02CV07,모듈번호 2번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV08, , , ,100,-1,M02CV08,모듈번호 2번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV09, , , ,100,-1,M02CV09,모듈번호 2번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV10, , , ,100,-1,M02CV10,모듈번호 2번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02CV11, , , ,100,-1,M02CV11,모듈번호 2번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV01, , , ,100,-1,M03CV01,모듈번호 3번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV02, , , ,100,-1,M03CV02,모듈번호 3번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV03, , , ,100,-1,M03CV03,모듈번호 3번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV04, , , ,100,-1,M03CV04,모듈번호 3번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV05, , , ,100,-1,M03CV05,모듈번호 3번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV06, , , ,100,-1,M03CV06,모듈번호 3번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV07, , , ,100,-1,M03CV07,모듈번호 3번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV08, , , ,100,-1,M03CV08,모듈번호 3번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV09, , , ,100,-1,M03CV09,모듈번호 3번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV10, , , ,100,-1,M03CV10,모듈번호 3번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03CV11, , , ,100,-1,M03CV11,모듈번호 3번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV01, , , ,100,-1,M04CV01,모듈번호 4번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV02, , , ,100,-1,M04CV02,모듈번호 4번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV03, , , ,100,-1,M04CV03,모듈번호 4번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV04, , , ,100,-1,M04CV04,모듈번호 4번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV05, , , ,100,-1,M04CV05,모듈번호 4번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV06, , , ,100,-1,M04CV06,모듈번호 4번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV07, , , ,100,-1,M04CV07,모듈번호 4번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV08, , , ,100,-1,M04CV08,모듈번호 4번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV09, , , ,100,-1,M04CV09,모듈번호 4번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV10, , , ,100,-1,M04CV10,모듈번호 4번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04CV11, , , ,100,-1,M04CV11,모듈번호 4번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV01, , , ,100,-1,M05CV01,모듈번호 5번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV02, , , ,100,-1,M05CV02,모듈번호 5번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV03, , , ,100,-1,M05CV03,모듈번호 5번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV04, , , ,100,-1,M05CV04,모듈번호 5번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV05, , , ,100,-1,M05CV05,모듈번호 5번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV06, , , ,100,-1,M05CV06,모듈번호 5번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV07, , , ,100,-1,M05CV07,모듈번호 5번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV08, , , ,100,-1,M05CV08,모듈번호 5번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV09, , , ,100,-1,M05CV09,모듈번호 5번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV10, , , ,100,-1,M05CV10,모듈번호 5번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05CV11, , , ,100,-1,M05CV11,모듈번호 5번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV01, , , ,100,-1,M06CV01,모듈번호 6번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV02, , , ,100,-1,M06CV02,모듈번호 6번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV03, , , ,100,-1,M06CV03,모듈번호 6번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV04, , , ,100,-1,M06CV04,모듈번호 6번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV05, , , ,100,-1,M06CV05,모듈번호 6번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV06, , , ,100,-1,M06CV06,모듈번호 6번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV07, , , ,100,-1,M06CV07,모듈번호 6번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV08, , , ,100,-1,M06CV08,모듈번호 6번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV09, , , ,100,-1,M06CV09,모듈번호 6번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV10, , , ,100,-1,M06CV10,모듈번호 6번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06CV11, , , ,100,-1,M06CV11,모듈번호 6번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV01, , , ,100,-1,M07CV01,모듈번호 7번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV02, , , ,100,-1,M07CV02,모듈번호 7번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV03, , , ,100,-1,M07CV03,모듈번호 7번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV04, , , ,100,-1,M07CV04,모듈번호 7번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV05, , , ,100,-1,M07CV05,모듈번호 7번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV06, , , ,100,-1,M07CV06,모듈번호 7번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV07, , , ,100,-1,M07CV07,모듈번호 7번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV08, , , ,100,-1,M07CV08,모듈번호 7번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV09, , , ,100,-1,M07CV09,모듈번호 7번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV10, , , ,100,-1,M07CV10,모듈번호 7번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07CV11, , , ,100,-1,M07CV11,모듈번호 7번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV01, , , ,100,-1,M08CV01,모듈번호 8번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV02, , , ,100,-1,M08CV02,모듈번호 8번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV03, , , ,100,-1,M08CV03,모듈번호 8번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV04, , , ,100,-1,M08CV04,모듈번호 8번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV05, , , ,100,-1,M08CV05,모듈번호 8번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV06, , , ,100,-1,M08CV06,모듈번호 8번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV07, , , ,100,-1,M08CV07,모듈번호 8번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV08, , , ,100,-1,M08CV08,모듈번호 8번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV09, , , ,100,-1,M08CV09,모듈번호 8번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV10, , , ,100,-1,M08CV10,모듈번호 8번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08CV11, , , ,100,-1,M08CV11,모듈번호 8번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV01, , , ,100,-1,M09CV01,모듈번호 9번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV02, , , ,100,-1,M09CV02,모듈번호 9번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV03, , , ,100,-1,M09CV03,모듈번호 9번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV04, , , ,100,-1,M09CV04,모듈번호 9번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV05, , , ,100,-1,M09CV05,모듈번호 9번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV06, , , ,100,-1,M09CV06,모듈번호 9번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV07, , , ,100,-1,M09CV07,모듈번호 9번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV08, , , ,100,-1,M09CV08,모듈번호 9번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV09, , , ,100,-1,M09CV09,모듈번호 9번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV10, , , ,100,-1,M09CV10,모듈번호 9번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09CV11, , , ,100,-1,M09CV11,모듈번호 9번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV01, , , ,100,-1,M10CV01,모듈번호 10번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV02, , , ,100,-1,M10CV02,모듈번호 10번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV03, , , ,100,-1,M10CV03,모듈번호 10번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV04, , , ,100,-1,M10CV04,모듈번호 10번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV05, , , ,100,-1,M10CV05,모듈번호 10번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV06, , , ,100,-1,M10CV06,모듈번호 10번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV07, , , ,100,-1,M10CV07,모듈번호 10번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV08, , , ,100,-1,M10CV08,모듈번호 10번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV09, , , ,100,-1,M10CV09,모듈번호 10번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV10, , , ,100,-1,M10CV10,모듈번호 10번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10CV11, , , ,100,-1,M10CV11,모듈번호 10번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV01, , , ,100,-1,M11CV01,모듈번호 11번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV02, , , ,100,-1,M11CV02,모듈번호 11번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV03, , , ,100,-1,M11CV03,모듈번호 11번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV04, , , ,100,-1,M11CV04,모듈번호 11번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV05, , , ,100,-1,M11CV05,모듈번호 11번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV06, , , ,100,-1,M11CV06,모듈번호 11번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV07, , , ,100,-1,M11CV07,모듈번호 11번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV08, , , ,100,-1,M11CV08,모듈번호 11번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV09, , , ,100,-1,M11CV09,모듈번호 11번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV10, , , ,100,-1,M11CV10,모듈번호 11번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11CV11, , , ,100,-1,M11CV11,모듈번호 11번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV01, , , ,100,-1,M12CV01,모듈번호 12번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV02, , , ,100,-1,M12CV02,모듈번호 12번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV03, , , ,100,-1,M12CV03,모듈번호 12번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV04, , , ,100,-1,M12CV04,모듈번호 12번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV05, , , ,100,-1,M12CV05,모듈번호 12번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV06, , , ,100,-1,M12CV06,모듈번호 12번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV07, , , ,100,-1,M12CV07,모듈번호 12번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV08, , , ,100,-1,M12CV08,모듈번호 12번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV09, , , ,100,-1,M12CV09,모듈번호 12번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV10, , , ,100,-1,M12CV10,모듈번호 12번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12CV11, , , ,100,-1,M12CV11,모듈번호 12번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV01, , , ,100,-1,M13CV01,모듈번호 13번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV02, , , ,100,-1,M13CV02,모듈번호 13번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV03, , , ,100,-1,M13CV03,모듈번호 13번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV04, , , ,100,-1,M13CV04,모듈번호 13번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV05, , , ,100,-1,M13CV05,모듈번호 13번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV06, , , ,100,-1,M13CV06,모듈번호 13번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV07, , , ,100,-1,M13CV07,모듈번호 13번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV08, , , ,100,-1,M13CV08,모듈번호 13번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV09, , , ,100,-1,M13CV09,모듈번호 13번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV10, , , ,100,-1,M13CV10,모듈번호 13번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13CV11, , , ,100,-1,M13CV11,모듈번호 13번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV01, , , ,100,-1,M14CV01,모듈번호 14번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV02, , , ,100,-1,M14CV02,모듈번호 14번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV03, , , ,100,-1,M14CV03,모듈번호 14번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV04, , , ,100,-1,M14CV04,모듈번호 14번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV05, , , ,100,-1,M14CV05,모듈번호 14번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV06, , , ,100,-1,M14CV06,모듈번호 14번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV07, , , ,100,-1,M14CV07,모듈번호 14번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV08, , , ,100,-1,M14CV08,모듈번호 14번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV09, , , ,100,-1,M14CV09,모듈번호 14번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV10, , , ,100,-1,M14CV10,모듈번호 14번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14CV11, , , ,100,-1,M14CV11,모듈번호 14번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV01, , , ,100,-1,M15CV01,모듈번호 15번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV02, , , ,100,-1,M15CV02,모듈번호 15번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV03, , , ,100,-1,M15CV03,모듈번호 15번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV04, , , ,100,-1,M15CV04,모듈번호 15번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV05, , , ,100,-1,M15CV05,모듈번호 15번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV06, , , ,100,-1,M15CV06,모듈번호 15번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV07, , , ,100,-1,M15CV07,모듈번호 15번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV08, , , ,100,-1,M15CV08,모듈번호 15번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV09, , , ,100,-1,M15CV09,모듈번호 15번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV10, , , ,100,-1,M15CV10,모듈번호 15번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15CV11, , , ,100,-1,M15CV11,모듈번호 15번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV01, , , ,100,-1,M16CV01,모듈번호 16번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV02, , , ,100,-1,M16CV02,모듈번호 16번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV03, , , ,100,-1,M16CV03,모듈번호 16번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV04, , , ,100,-1,M16CV04,모듈번호 16번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV05, , , ,100,-1,M16CV05,모듈번호 16번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV06, , , ,100,-1,M16CV06,모듈번호 16번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV07, , , ,100,-1,M16CV07,모듈번호 16번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV08, , , ,100,-1,M16CV08,모듈번호 16번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV09, , , ,100,-1,M16CV09,모듈번호 16번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV10, , , ,100,-1,M16CV10,모듈번호 16번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16CV11, , , ,100,-1,M16CV11,모듈번호 16번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01T01, , , ,100,-1,M01T01,모듈번호 1번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M01T02, , , ,100,-1,M01T02,모듈번호 1번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02T01, , , ,100,-1,M02T01,모듈번호 2번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M02T02, , , ,100,-1,M02T02,모듈번호 2번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03T01, , , ,100,-1,M03T01,모듈번호 3번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M03T02, , , ,100,-1,M03T02,모듈번호 3번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04T01, , , ,100,-1,M04T01,모듈번호 4번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M04T02, , , ,100,-1,M04T02,모듈번호 4번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05T01, , , ,100,-1,M05T01,모듈번호 5번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M05T02, , , ,100,-1,M05T02,모듈번호 5번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06T01, , , ,100,-1,M06T01,모듈번호 6번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M06T02, , , ,100,-1,M06T02,모듈번호 6번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07T01, , , ,100,-1,M07T01,모듈번호 7번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M07T02, , , ,100,-1,M07T02,모듈번호 7번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08T01, , , ,100,-1,M08T01,모듈번호 8번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M08T02, , , ,100,-1,M08T02,모듈번호 8번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09T01, , , ,100,-1,M09T01,모듈번호 9번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M09T02, , , ,100,-1,M09T02,모듈번호 9번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10T01, , , ,100,-1,M10T01,모듈번호 10번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M10T02, , , ,100,-1,M10T02,모듈번호 10번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11T01, , , ,100,-1,M11T01,모듈번호 11번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M11T02, , , ,100,-1,M11T02,모듈번호 11번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12T01, , , ,100,-1,M12T01,모듈번호 12번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M12T02, , , ,100,-1,M12T02,모듈번호 12번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13T01, , , ,100,-1,M13T01,모듈번호 13번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M13T02, , , ,100,-1,M13T02,모듈번호 13번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14T01, , , ,100,-1,M14T01,모듈번호 14번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M14T02, , , ,100,-1,M14T02,모듈번호 14번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15T01, , , ,100,-1,M15T01,모듈번호 15번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M15T02, , , ,100,-1,M15T02,모듈번호 15번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16T01, , , ,100,-1,M16T01,모듈번호 16번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.M16T02, , , ,100,-1,M16T02,모듈번호 16번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.ChargeTest.SerialNumber, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Pack_Voltage, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Pack_Current, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.PCS_V, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.PCS_C, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.PCS_P, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.RSOCmin, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.RSOCmax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.RSOCavg, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.USOCmin, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.USOCmax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.USOCavg, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.SOH, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Power, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.ChgPmax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.DchgPmax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.ChgImax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.DchgImax, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Vcell_min, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Vcell_max, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Vcell_DV, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Tcell_min, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Tcell_max, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.Tcell_avg, , , ,100,-1,,
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV01, , , ,100,-1,M01CV01,모듈번호 1번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV02, , , ,100,-1,M01CV02,모듈번호 1번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV03, , , ,100,-1,M01CV03,모듈번호 1번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV04, , , ,100,-1,M01CV04,모듈번호 1번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV05, , , ,100,-1,M01CV05,모듈번호 1번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV06, , , ,100,-1,M01CV06,모듈번호 1번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV07, , , ,100,-1,M01CV07,모듈번호 1번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV08, , , ,100,-1,M01CV08,모듈번호 1번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV09, , , ,100,-1,M01CV09,모듈번호 1번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV10, , , ,100,-1,M01CV10,모듈번호 1번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01CV11, , , ,100,-1,M01CV11,모듈번호 1번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV01, , , ,100,-1,M02CV01,모듈번호 2번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV02, , , ,100,-1,M02CV02,모듈번호 2번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV03, , , ,100,-1,M02CV03,모듈번호 2번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV04, , , ,100,-1,M02CV04,모듈번호 2번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV05, , , ,100,-1,M02CV05,모듈번호 2번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV06, , , ,100,-1,M02CV06,모듈번호 2번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV07, , , ,100,-1,M02CV07,모듈번호 2번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV08, , , ,100,-1,M02CV08,모듈번호 2번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV09, , , ,100,-1,M02CV09,모듈번호 2번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV10, , , ,100,-1,M02CV10,모듈번호 2번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02CV11, , , ,100,-1,M02CV11,모듈번호 2번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV01, , , ,100,-1,M03CV01,모듈번호 3번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV02, , , ,100,-1,M03CV02,모듈번호 3번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV03, , , ,100,-1,M03CV03,모듈번호 3번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV04, , , ,100,-1,M03CV04,모듈번호 3번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV05, , , ,100,-1,M03CV05,모듈번호 3번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV06, , , ,100,-1,M03CV06,모듈번호 3번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV07, , , ,100,-1,M03CV07,모듈번호 3번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV08, , , ,100,-1,M03CV08,모듈번호 3번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV09, , , ,100,-1,M03CV09,모듈번호 3번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV10, , , ,100,-1,M03CV10,모듈번호 3번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03CV11, , , ,100,-1,M03CV11,모듈번호 3번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV01, , , ,100,-1,M04CV01,모듈번호 4번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV02, , , ,100,-1,M04CV02,모듈번호 4번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV03, , , ,100,-1,M04CV03,모듈번호 4번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV04, , , ,100,-1,M04CV04,모듈번호 4번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV05, , , ,100,-1,M04CV05,모듈번호 4번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV06, , , ,100,-1,M04CV06,모듈번호 4번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV07, , , ,100,-1,M04CV07,모듈번호 4번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV08, , , ,100,-1,M04CV08,모듈번호 4번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV09, , , ,100,-1,M04CV09,모듈번호 4번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV10, , , ,100,-1,M04CV10,모듈번호 4번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04CV11, , , ,100,-1,M04CV11,모듈번호 4번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV01, , , ,100,-1,M05CV01,모듈번호 5번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV02, , , ,100,-1,M05CV02,모듈번호 5번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV03, , , ,100,-1,M05CV03,모듈번호 5번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV04, , , ,100,-1,M05CV04,모듈번호 5번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV05, , , ,100,-1,M05CV05,모듈번호 5번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV06, , , ,100,-1,M05CV06,모듈번호 5번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV07, , , ,100,-1,M05CV07,모듈번호 5번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV08, , , ,100,-1,M05CV08,모듈번호 5번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV09, , , ,100,-1,M05CV09,모듈번호 5번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV10, , , ,100,-1,M05CV10,모듈번호 5번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05CV11, , , ,100,-1,M05CV11,모듈번호 5번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV01, , , ,100,-1,M06CV01,모듈번호 6번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV02, , , ,100,-1,M06CV02,모듈번호 6번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV03, , , ,100,-1,M06CV03,모듈번호 6번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV04, , , ,100,-1,M06CV04,모듈번호 6번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV05, , , ,100,-1,M06CV05,모듈번호 6번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV06, , , ,100,-1,M06CV06,모듈번호 6번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV07, , , ,100,-1,M06CV07,모듈번호 6번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV08, , , ,100,-1,M06CV08,모듈번호 6번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV09, , , ,100,-1,M06CV09,모듈번호 6번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV10, , , ,100,-1,M06CV10,모듈번호 6번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06CV11, , , ,100,-1,M06CV11,모듈번호 6번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV01, , , ,100,-1,M07CV01,모듈번호 7번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV02, , , ,100,-1,M07CV02,모듈번호 7번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV03, , , ,100,-1,M07CV03,모듈번호 7번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV04, , , ,100,-1,M07CV04,모듈번호 7번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV05, , , ,100,-1,M07CV05,모듈번호 7번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV06, , , ,100,-1,M07CV06,모듈번호 7번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV07, , , ,100,-1,M07CV07,모듈번호 7번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV08, , , ,100,-1,M07CV08,모듈번호 7번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV09, , , ,100,-1,M07CV09,모듈번호 7번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV10, , , ,100,-1,M07CV10,모듈번호 7번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07CV11, , , ,100,-1,M07CV11,모듈번호 7번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV01, , , ,100,-1,M08CV01,모듈번호 8번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV02, , , ,100,-1,M08CV02,모듈번호 8번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV03, , , ,100,-1,M08CV03,모듈번호 8번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV04, , , ,100,-1,M08CV04,모듈번호 8번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV05, , , ,100,-1,M08CV05,모듈번호 8번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV06, , , ,100,-1,M08CV06,모듈번호 8번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV07, , , ,100,-1,M08CV07,모듈번호 8번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV08, , , ,100,-1,M08CV08,모듈번호 8번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV09, , , ,100,-1,M08CV09,모듈번호 8번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV10, , , ,100,-1,M08CV10,모듈번호 8번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08CV11, , , ,100,-1,M08CV11,모듈번호 8번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV01, , , ,100,-1,M09CV01,모듈번호 9번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV02, , , ,100,-1,M09CV02,모듈번호 9번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV03, , , ,100,-1,M09CV03,모듈번호 9번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV04, , , ,100,-1,M09CV04,모듈번호 9번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV05, , , ,100,-1,M09CV05,모듈번호 9번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV06, , , ,100,-1,M09CV06,모듈번호 9번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV07, , , ,100,-1,M09CV07,모듈번호 9번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV08, , , ,100,-1,M09CV08,모듈번호 9번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV09, , , ,100,-1,M09CV09,모듈번호 9번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV10, , , ,100,-1,M09CV10,모듈번호 9번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09CV11, , , ,100,-1,M09CV11,모듈번호 9번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV01, , , ,100,-1,M10CV01,모듈번호 10번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV02, , , ,100,-1,M10CV02,모듈번호 10번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV03, , , ,100,-1,M10CV03,모듈번호 10번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV04, , , ,100,-1,M10CV04,모듈번호 10번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV05, , , ,100,-1,M10CV05,모듈번호 10번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV06, , , ,100,-1,M10CV06,모듈번호 10번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV07, , , ,100,-1,M10CV07,모듈번호 10번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV08, , , ,100,-1,M10CV08,모듈번호 10번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV09, , , ,100,-1,M10CV09,모듈번호 10번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV10, , , ,100,-1,M10CV10,모듈번호 10번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10CV11, , , ,100,-1,M10CV11,모듈번호 10번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV01, , , ,100,-1,M11CV01,모듈번호 11번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV02, , , ,100,-1,M11CV02,모듈번호 11번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV03, , , ,100,-1,M11CV03,모듈번호 11번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV04, , , ,100,-1,M11CV04,모듈번호 11번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV05, , , ,100,-1,M11CV05,모듈번호 11번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV06, , , ,100,-1,M11CV06,모듈번호 11번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV07, , , ,100,-1,M11CV07,모듈번호 11번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV08, , , ,100,-1,M11CV08,모듈번호 11번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV09, , , ,100,-1,M11CV09,모듈번호 11번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV10, , , ,100,-1,M11CV10,모듈번호 11번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11CV11, , , ,100,-1,M11CV11,모듈번호 11번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV01, , , ,100,-1,M12CV01,모듈번호 12번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV02, , , ,100,-1,M12CV02,모듈번호 12번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV03, , , ,100,-1,M12CV03,모듈번호 12번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV04, , , ,100,-1,M12CV04,모듈번호 12번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV05, , , ,100,-1,M12CV05,모듈번호 12번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV06, , , ,100,-1,M12CV06,모듈번호 12번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV07, , , ,100,-1,M12CV07,모듈번호 12번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV08, , , ,100,-1,M12CV08,모듈번호 12번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV09, , , ,100,-1,M12CV09,모듈번호 12번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV10, , , ,100,-1,M12CV10,모듈번호 12번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12CV11, , , ,100,-1,M12CV11,모듈번호 12번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV01, , , ,100,-1,M13CV01,모듈번호 13번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV02, , , ,100,-1,M13CV02,모듈번호 13번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV03, , , ,100,-1,M13CV03,모듈번호 13번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV04, , , ,100,-1,M13CV04,모듈번호 13번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV05, , , ,100,-1,M13CV05,모듈번호 13번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV06, , , ,100,-1,M13CV06,모듈번호 13번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV07, , , ,100,-1,M13CV07,모듈번호 13번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV08, , , ,100,-1,M13CV08,모듈번호 13번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV09, , , ,100,-1,M13CV09,모듈번호 13번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV10, , , ,100,-1,M13CV10,모듈번호 13번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13CV11, , , ,100,-1,M13CV11,모듈번호 13번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV01, , , ,100,-1,M14CV01,모듈번호 14번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV02, , , ,100,-1,M14CV02,모듈번호 14번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV03, , , ,100,-1,M14CV03,모듈번호 14번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV04, , , ,100,-1,M14CV04,모듈번호 14번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV05, , , ,100,-1,M14CV05,모듈번호 14번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV06, , , ,100,-1,M14CV06,모듈번호 14번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV07, , , ,100,-1,M14CV07,모듈번호 14번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV08, , , ,100,-1,M14CV08,모듈번호 14번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV09, , , ,100,-1,M14CV09,모듈번호 14번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV10, , , ,100,-1,M14CV10,모듈번호 14번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14CV11, , , ,100,-1,M14CV11,모듈번호 14번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV01, , , ,100,-1,M15CV01,모듈번호 15번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV02, , , ,100,-1,M15CV02,모듈번호 15번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV03, , , ,100,-1,M15CV03,모듈번호 15번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV04, , , ,100,-1,M15CV04,모듈번호 15번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV05, , , ,100,-1,M15CV05,모듈번호 15번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV06, , , ,100,-1,M15CV06,모듈번호 15번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV07, , , ,100,-1,M15CV07,모듈번호 15번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV08, , , ,100,-1,M15CV08,모듈번호 15번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV09, , , ,100,-1,M15CV09,모듈번호 15번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV10, , , ,100,-1,M15CV10,모듈번호 15번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15CV11, , , ,100,-1,M15CV11,모듈번호 15번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV01, , , ,100,-1,M16CV01,모듈번호 16번 Cell번호 1번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV02, , , ,100,-1,M16CV02,모듈번호 16번 Cell번호 2번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV03, , , ,100,-1,M16CV03,모듈번호 16번 Cell번호 3번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV04, , , ,100,-1,M16CV04,모듈번호 16번 Cell번호 4번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV05, , , ,100,-1,M16CV05,모듈번호 16번 Cell번호 5번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV06, , , ,100,-1,M16CV06,모듈번호 16번 Cell번호 6번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV07, , , ,100,-1,M16CV07,모듈번호 16번 Cell번호 7번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV08, , , ,100,-1,M16CV08,모듈번호 16번 Cell번호 8번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV09, , , ,100,-1,M16CV09,모듈번호 16번 Cell번호 9번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV10, , , ,100,-1,M16CV10,모듈번호 16번 Cell번호 10번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16CV11, , , ,100,-1,M16CV11,모듈번호 16번 Cell번호 11번 셀전압
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01T01, , , ,100,-1,M01T01,모듈번호 1번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M01T02, , , ,100,-1,M01T02,모듈번호 1번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02T01, , , ,100,-1,M02T01,모듈번호 2번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M02T02, , , ,100,-1,M02T02,모듈번호 2번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03T01, , , ,100,-1,M03T01,모듈번호 3번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M03T02, , , ,100,-1,M03T02,모듈번호 3번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04T01, , , ,100,-1,M04T01,모듈번호 4번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M04T02, , , ,100,-1,M04T02,모듈번호 4번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05T01, , , ,100,-1,M05T01,모듈번호 5번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M05T02, , , ,100,-1,M05T02,모듈번호 5번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06T01, , , ,100,-1,M06T01,모듈번호 6번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M06T02, , , ,100,-1,M06T02,모듈번호 6번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07T01, , , ,100,-1,M07T01,모듈번호 7번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M07T02, , , ,100,-1,M07T02,모듈번호 7번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08T01, , , ,100,-1,M08T01,모듈번호 8번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M08T02, , , ,100,-1,M08T02,모듈번호 8번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09T01, , , ,100,-1,M09T01,모듈번호 9번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M09T02, , , ,100,-1,M09T02,모듈번호 9번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10T01, , , ,100,-1,M10T01,모듈번호 10번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M10T02, , , ,100,-1,M10T02,모듈번호 10번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11T01, , , ,100,-1,M11T01,모듈번호 11번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M11T02, , , ,100,-1,M11T02,모듈번호 11번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12T01, , , ,100,-1,M12T01,모듈번호 12번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M12T02, , , ,100,-1,M12T02,모듈번호 12번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13T01, , , ,100,-1,M13T01,모듈번호 13번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M13T02, , , ,100,-1,M13T02,모듈번호 13번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14T01, , , ,100,-1,M14T01,모듈번호 14번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M14T02, , , ,100,-1,M14T02,모듈번호 14번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15T01, , , ,100,-1,M15T01,모듈번호 15번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M15T02, , , ,100,-1,M15T02,모듈번호 15번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16T01, , , ,100,-1,M16T01,모듈번호 16번 온도센서 1번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.M16T02, , , ,100,-1,M16T02,모듈번호 16번 온도센서 2번 측정값
+ns=2;s=BatteryPackChargeAndDisChargeTest.OperationalData.DischargeTest.SerialNumber, , , ,100,-1,,
