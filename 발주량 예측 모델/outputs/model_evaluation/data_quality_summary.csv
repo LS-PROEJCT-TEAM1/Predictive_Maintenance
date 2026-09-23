@@ -1,0 +1,15 @@
+﻿Metric,Value
+source_rows,17364
+source_columns,84
+source_parts,117
+source_start,2021-09-13
+source_end,2021-11-01
+source_days,49
+source_missing_cells,0
+source_exact_duplicate_rows,0
+daily_rows_after_last_log,5478
+supervised_rows_before_sequence_filter,4247
+source_zero_actual_rate,0.1931582584657913
+common_sequence_rows,3665
+common_sequence_parts,116
+common_sequence_zero_target_rate,0.2

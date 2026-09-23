@@ -1,0 +1,77 @@
+{
+  "seed": 42,
+  "data_path": "C:\\Users\\USER\\Desktop\\발주량 예측 모델\\Dataset_공급망 최적화 AI 데이터셋\\data\\data.xls",
+  "daily_rows_part94": 49,
+  "daily_rows_part95": 49,
+  "sequence_shape_part94": [
+    44,
+    3,
+    4
+  ],
+  "sequence_shape_part95": [
+    44,
+    3,
+    4
+  ],
+  "split_counts": {
+    "train": 30,
+    "validation": 5,
+    "test": 9
+  },
+  "test_target_dates": [
+    "2021-10-23",
+    "2021-11-01"
+  ],
+  "test_targets_part94": [
+    35.0,
+    35.0,
+    38.0,
+    45.0,
+    45.0,
+    47.0,
+    45.0,
+    45.0,
+    28.0
+  ],
+  "published_guidebook": {
+    "Part 94 only": {
+      "scaled_mae": 1.2037,
+      "inverse_mae": 5.4498
+    },
+    "Part 94 + Part 95": {
+      "scaled_mae": 1.0878,
+      "inverse_mae": 4.9255
+    }
+  },
+  "scenario_details": {
+    "Part 94 only": {
+      "lstm": {
+        "epochs_ran": 16,
+        "best_epoch": 1,
+        "best_validation_scaled_mae": 0.8094607591629028,
+        "test_scaled_mae": 1.1810423135757446
+      },
+      "winner": "LightGBM",
+      "winner_mae": 5.230098876083087
+    },
+    "Part 94 + Part 95": {
+      "lstm": {
+        "epochs_ran": 16,
+        "best_epoch": 1,
+        "best_validation_scaled_mae": 0.8234395980834961,
+        "test_scaled_mae": 1.2077404260635376
+      },
+      "winner": "LightGBM",
+      "winner_mae": 5.407447462341334
+    }
+  },
+  "overall_best_scenario": "Part 94 only",
+  "overall_best_model": "LightGBM",
+  "overall_best_mae": 5.230098876083087,
+  "notes": [
+    "Guidebook stored total columns are used without replacing them by slot sums.",
+    "Daily last log, lookback=3, delay=3, and chronological 70/10/20 split reproduce the guidebook.",
+    "The target in both scenarios is Part 94 actual D quantity.",
+    "Tree-model hyperparameters are fixed before test evaluation and use the five validation samples for early stopping."
+  ]
+}
