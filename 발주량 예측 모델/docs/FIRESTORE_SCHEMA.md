@@ -47,4 +47,4 @@
 
 ## 추론 결과 저장안
 
-실제 Firestore 연결 시 `inference_results` 컬렉션을 추가한다. 문서에는 `part_number`, `origin_date`, `target_date`, `catboost_prediction`, `moving_average_3d`, `recommended_model`, `recommended_forecast`, `model_version`, `created_at`을 저장한다. 현재 로컬 Dash는 결과를 DB에 기록하지 않는다.
+실제 Firestore 연결 시 `inference_results` 컬렉션을 추가한다. 문서에는 `part_number`, `origin_date`, `target_date`, `xgboost_prediction`, `moving_average_3d`, `recommended_model`, `recommended_forecast`, `model_version`, `created_at`을 저장한다. 현재 로컬 Dash는 결과를 DB에 기록하지 않는다.

@@ -16,10 +16,10 @@ KAMP 제조 데이터를 활용한 예지보전 및 부품 발주량 예측 프�
 동일 부품의 연속 3일 실제 발주량과 D+3~D+5 계획량을 이용해 마지막 입력일 기준 D+3 실제 발주량을 예측합니다.
 
 - 비교 방법: XGBoost, LightGBM, CatBoost, LSTM, 3일 이동평균
-- 최종 holdout 전체 1위: 3일 이동평균, MAE 30.264
-- 최종 holdout 학습형 모델 1위: CatBoost, MAE 34.068
-- 5구간 walk-forward 학습형 모델 1위: XGBoost, MAE 42.070
-- 운영안: CatBoost 주 모델, 3일 이동평균 fallback
+- 누수 제거 3-fold walk-forward 전체 1위: 3일 이동평균, MAE 36.952
+- 누수 제거 3-fold walk-forward 학습형 모델 1위: XGBoost, MAE 48.390
+- 독립 최종 holdout 1위: CatBoost, MAE 25.315(모델 선정에는 사용하지 않음)
+- 운영안: 3일 이동평균 기본 예측, XGBoost 학습형 보조 예측
 - Dash: 부품별 예측 조회, 모델 성능, 계획 대비 확인 대상, 신규 CSV 추론
 - Firestore: 컬렉션별 JSONL과 업로드 매니페스트 준비 완료. 자동 업로드는 하지 않음
 
@@ -27,8 +27,8 @@ KAMP 제조 데이터를 활용한 예지보전 및 부품 발주량 예측 프�
 
 주요 결과:
 
-- [`최종 분석 보고서`](./발주량%20예측%20모델/outputs/final_model_evaluation/FINAL_ANALYSIS_REPORT.md)
-- [`Walk-forward 결과`](./발주량%20예측%20모델/outputs/final_walk_forward/metrics_pooled.csv)
+- [`누수 제거 최종 분석 보고서`](./발주량%20예측%20모델/outputs/purged_evaluation/PURGED_EVALUATION_REPORT.md)
+- [`Walk-forward 결과`](./발주량%20예측%20모델/outputs/purged_evaluation/source_total/cv_metrics_pooled.csv)
 - [`Firestore 데이터 구조`](./발주량%20예측%20모델/docs/FIRESTORE_SCHEMA.md)
 - [`대시보드 기능 정의`](./발주량%20예측%20모델/docs/DASHBOARD_REQUIREMENTS.md)
 

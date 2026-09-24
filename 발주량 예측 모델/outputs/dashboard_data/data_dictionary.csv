@@ -1,7 +1,8 @@
 ﻿dataset,column,dtype,nullable,row_count
 model_metrics,document_id,str,False,6
 model_metrics,Model,str,False,6
-model_metrics,Eligible_For_Ranking,bool,False,6
+model_metrics,Eligible_For_Overall_Ranking,bool,False,6
+model_metrics,Eligible_For_ML_Ranking,bool,False,6
 model_metrics,N,int64,False,6
 model_metrics,Parts,int64,False,6
 model_metrics,MAE,float64,False,6
@@ -9,7 +10,7 @@ model_metrics,RMSE,float64,False,6
 model_metrics,WAPE_pct,float64,False,6
 model_metrics,Forecast_Bias,float64,False,6
 model_metrics,R2,float64,False,6
-model_metrics,MAE_Rank,float64,True,6
+model_metrics,Eligible_For_Ranking,bool,False,6
 model_metrics,MAE_Improvement_vs_D3_Plan_pct,float64,False,6
 model_metrics_per_part,document_id,str,False,666
 model_metrics_per_part,part_number,str,False,666
@@ -36,7 +37,8 @@ model_metrics_per_part_macro,Per_Part_WAPE_Mean,float64,False,6
 model_metrics_per_part_macro,Per_Part_Bias_Mean,float64,False,6
 model_metrics_per_part_macro,Per_Part_R2_Mean,float64,False,6
 model_improvement_vs_baseline,Model,str,False,6
-model_improvement_vs_baseline,Eligible_For_Ranking,bool,False,6
+model_improvement_vs_baseline,Eligible_For_Overall_Ranking,bool,False,6
+model_improvement_vs_baseline,Eligible_For_ML_Ranking,bool,False,6
 model_improvement_vs_baseline,N,int64,False,6
 model_improvement_vs_baseline,Parts,int64,False,6
 model_improvement_vs_baseline,MAE,float64,False,6
@@ -44,32 +46,33 @@ model_improvement_vs_baseline,RMSE,float64,False,6
 model_improvement_vs_baseline,WAPE_pct,float64,False,6
 model_improvement_vs_baseline,Forecast_Bias,float64,False,6
 model_improvement_vs_baseline,R2,float64,False,6
-model_improvement_vs_baseline,MAE_Rank,float64,True,6
+model_improvement_vs_baseline,Eligible_For_Ranking,bool,False,6
 model_improvement_vs_baseline,MAE_Improvement_vs_D3_Plan_pct,float64,False,6
-predictions_test,document_id,str,False,976
-predictions_test,part_number,str,False,976
-predictions_test,origin_date,datetime64[us],False,976
-predictions_test,target_date,datetime64[us],False,976
-predictions_test,actual,float64,False,976
-predictions_test,plan_d3_reference,float64,False,976
-predictions_test,moving_average_3d,float64,False,976
-predictions_test,XGBoost,float64,False,976
-predictions_test,LightGBM,float64,False,976
-predictions_test,CatBoost,float64,False,976
-predictions_test,LSTM,float64,False,976
-predictions_test,3-day Moving Average,float64,False,976
-predictions_test,D+3 Plan Reference,float64,False,976
-daily_summary,collection_version,str,False,9
-daily_summary,target_date,datetime64[us],False,9
-daily_summary,actual,float64,False,9
-daily_summary,XGBoost,float64,False,9
-daily_summary,LightGBM,float64,False,9
-daily_summary,CatBoost,float64,False,9
-daily_summary,LSTM,float64,False,9
-daily_summary,3-day Moving Average,float64,False,9
-daily_summary,D+3 Plan Reference,float64,False,9
-daily_summary,document_id,str,False,9
-daily_summary,part_count,int64,False,9
+predictions_test,document_id,str,False,764
+predictions_test,Scenario,str,False,764
+predictions_test,part_number,str,False,764
+predictions_test,origin_date,datetime64[us],False,764
+predictions_test,target_date,datetime64[us],False,764
+predictions_test,actual,float64,False,764
+predictions_test,plan_d3_reference,float64,False,764
+predictions_test,moving_average_3d,float64,False,764
+predictions_test,XGBoost,float64,False,764
+predictions_test,LightGBM,float64,False,764
+predictions_test,CatBoost,float64,False,764
+predictions_test,LSTM,float64,False,764
+predictions_test,3-day Moving Average,float64,False,764
+predictions_test,D+3 Plan Reference,float64,False,764
+daily_summary,collection_version,str,False,7
+daily_summary,target_date,datetime64[us],False,7
+daily_summary,actual,float64,False,7
+daily_summary,XGBoost,float64,False,7
+daily_summary,LightGBM,float64,False,7
+daily_summary,CatBoost,float64,False,7
+daily_summary,LSTM,float64,False,7
+daily_summary,3-day Moving Average,float64,False,7
+daily_summary,D+3 Plan Reference,float64,False,7
+daily_summary,document_id,str,False,7
+daily_summary,part_count,int64,False,7
 parts,part_number,str,False,117
 parts,daily_rows,int64,False,117
 parts,first_date,datetime64[us],False,117
@@ -107,26 +110,27 @@ daily_history,plan_d2,int64,False,5478
 daily_history,plan_d3,int64,False,5478
 daily_history,plan_d4,int64,False,5478
 daily_history,plan_d5,int64,False,5478
-spike_events,document_id,str,False,159
-spike_events,part_number,str,False,159
-spike_events,origin_date,datetime64[us],False,159
-spike_events,target_date,datetime64[us],False,159
-spike_events,actual,float64,False,159
-spike_events,plan_d3_reference,float64,False,159
-spike_events,moving_average_3d,float64,False,159
-spike_events,XGBoost,float64,False,159
-spike_events,LightGBM,float64,False,159
-spike_events,CatBoost,float64,False,159
-spike_events,LSTM,float64,False,159
-spike_events,3-day Moving Average,float64,False,159
-spike_events,D+3 Plan Reference,float64,False,159
-spike_events,Part_Actual_P90,float64,False,159
-spike_events,XGBoost_Absolute_Error,float64,False,159
-spike_events,LightGBM_Absolute_Error,float64,False,159
-spike_events,CatBoost_Absolute_Error,float64,False,159
-spike_events,LSTM_Absolute_Error,float64,False,159
-spike_events,3-day Moving Average_Absolute_Error,float64,False,159
-spike_events,D+3 Plan Reference_Absolute_Error,float64,False,159
+spike_events,document_id,str,False,127
+spike_events,Scenario,str,False,127
+spike_events,part_number,str,False,127
+spike_events,origin_date,datetime64[us],False,127
+spike_events,target_date,datetime64[us],False,127
+spike_events,actual,float64,False,127
+spike_events,plan_d3_reference,float64,False,127
+spike_events,moving_average_3d,float64,False,127
+spike_events,XGBoost,float64,False,127
+spike_events,LightGBM,float64,False,127
+spike_events,CatBoost,float64,False,127
+spike_events,LSTM,float64,False,127
+spike_events,3-day Moving Average,float64,False,127
+spike_events,D+3 Plan Reference,float64,False,127
+spike_events,Part_Actual_P90,float64,False,127
+spike_events,XGBoost_Absolute_Error,float64,False,127
+spike_events,LightGBM_Absolute_Error,float64,False,127
+spike_events,CatBoost_Absolute_Error,float64,False,127
+spike_events,LSTM_Absolute_Error,float64,False,127
+spike_events,3-day Moving Average_Absolute_Error,float64,False,127
+spike_events,D+3 Plan Reference_Absolute_Error,float64,False,127
 spike_metrics,Model,str,False,6
 spike_metrics,Spike_Rows,int64,False,6
 spike_metrics,Spike_Parts,int64,False,6
@@ -135,8 +139,8 @@ spike_metrics,RMSE,float64,False,6
 spike_metrics,WAPE_pct,float64,False,6
 spike_metrics,Forecast_Bias,float64,False,6
 spike_metrics,R2,float64,False,6
-data_quality,Metric,str,False,39
-data_quality,Value,str,False,39
+data_quality,Metric,str,False,23
+data_quality,Value,object,False,23
 source_column_profile,column_position,int64,False,84
 source_column_profile,column_name,str,False,84
 source_column_profile,pandas_dtype,str,False,84
@@ -156,28 +160,27 @@ time_interval_summary,median_hours,float64,False,1
 time_interval_summary,min_hours,float64,False,1
 time_interval_summary,max_hours,float64,False,1
 time_interval_summary,p90_hours,float64,False,1
-abrupt_change_flags,part_number,str,False,340
-abrupt_change_flags,date,datetime64[us],False,340
-abrupt_change_flags,previous_actual,float64,False,340
-abrupt_change_flags,actual_d,int64,False,340
-abrupt_change_flags,absolute_change,float64,False,340
-abrupt_change_flags,part_change_threshold,float64,False,340
-walk_forward_metrics_by_fold,Fold,int64,False,30
-walk_forward_metrics_by_fold,Train_Start,str,False,30
-walk_forward_metrics_by_fold,Train_End,str,False,30
-walk_forward_metrics_by_fold,Validation_Start,str,False,30
-walk_forward_metrics_by_fold,Validation_End,str,False,30
-walk_forward_metrics_by_fold,Test_Start,str,False,30
-walk_forward_metrics_by_fold,Test_End,str,False,30
-walk_forward_metrics_by_fold,Model,str,False,30
-walk_forward_metrics_by_fold,N,int64,False,30
-walk_forward_metrics_by_fold,Parts,int64,False,30
-walk_forward_metrics_by_fold,MAE,float64,False,30
-walk_forward_metrics_by_fold,RMSE,float64,False,30
-walk_forward_metrics_by_fold,WAPE_pct,float64,False,30
-walk_forward_metrics_by_fold,Forecast_Bias,float64,False,30
-walk_forward_metrics_by_fold,R2,float64,False,30
+abrupt_change_flags,part_number,str,False,332
+abrupt_change_flags,date,datetime64[us],False,332
+abrupt_change_flags,previous_actual,float64,False,332
+abrupt_change_flags,actual_d,int64,False,332
+abrupt_change_flags,absolute_change,float64,False,332
+abrupt_change_flags,part_change_threshold,float64,False,332
+walk_forward_metrics_by_fold,Scenario,str,False,18
+walk_forward_metrics_by_fold,Fold,int64,False,18
+walk_forward_metrics_by_fold,Model,str,False,18
+walk_forward_metrics_by_fold,Eligible_For_Overall_Ranking,bool,False,18
+walk_forward_metrics_by_fold,Eligible_For_ML_Ranking,bool,False,18
+walk_forward_metrics_by_fold,N,int64,False,18
+walk_forward_metrics_by_fold,Parts,int64,False,18
+walk_forward_metrics_by_fold,MAE,float64,False,18
+walk_forward_metrics_by_fold,RMSE,float64,False,18
+walk_forward_metrics_by_fold,WAPE_pct,float64,False,18
+walk_forward_metrics_by_fold,Forecast_Bias,float64,False,18
+walk_forward_metrics_by_fold,R2,float64,False,18
 walk_forward_metrics_pooled,Model,str,False,6
+walk_forward_metrics_pooled,Eligible_For_Overall_Ranking,bool,False,6
+walk_forward_metrics_pooled,Eligible_For_ML_Ranking,bool,False,6
 walk_forward_metrics_pooled,N,int64,False,6
 walk_forward_metrics_pooled,Parts,int64,False,6
 walk_forward_metrics_pooled,MAE,float64,False,6
@@ -185,6 +188,3 @@ walk_forward_metrics_pooled,RMSE,float64,False,6
 walk_forward_metrics_pooled,WAPE_pct,float64,False,6
 walk_forward_metrics_pooled,Forecast_Bias,float64,False,6
 walk_forward_metrics_pooled,R2,float64,False,6
-walk_forward_metrics_pooled,MAE_Rank,int64,False,6
-walk_forward_metrics_pooled,Eligible_For_Ranking,bool,False,6
-walk_forward_metrics_pooled,Eligible_MAE_Rank,float64,True,6

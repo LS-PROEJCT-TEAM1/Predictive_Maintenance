@@ -1,11 +1,11 @@
 ﻿collection,file,document_count,document_id_field
 parts,parts.jsonl,117,document_id
 daily_history,daily_history.jsonl,5478,document_id
-forecasts,forecasts.jsonl,976,document_id
+forecasts,forecasts.jsonl,764,document_id
 model_metrics,model_metrics.jsonl,6,document_id
 part_metrics,part_metrics.jsonl,666,document_id
-daily_summary,daily_summary.jsonl,9,document_id
+daily_summary,daily_summary.jsonl,7,document_id
 alerts,alerts.jsonl,111,document_id
-data_quality,data_quality.jsonl,39,document_id
-walk_forward_metrics,walk_forward_metrics.jsonl,30,document_id
+data_quality,data_quality.jsonl,23,document_id
+walk_forward_metrics,walk_forward_metrics.jsonl,18,document_id
 dashboard_config,dashboard_config.jsonl,1,document_id

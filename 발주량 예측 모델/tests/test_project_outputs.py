@@ -19,7 +19,8 @@ class InferenceTests(unittest.TestCase):
         records = pd.read_csv(ROOT / "outputs" / "dashboard_data" / "inference_input_template.csv")
         result = predict_records(records)
         self.assertTrue(result["known_part"])
-        self.assertEqual(result["recommended_model"], "CatBoost")
+        self.assertEqual(result["recommended_model"], "3-day Moving Average")
+        self.assertIsNotNone(result["xgboost_prediction"])
         self.assertGreaterEqual(result["recommended_forecast"], 0)
         self.assertEqual(
             pd.Timestamp(result["target_date"]),
@@ -32,7 +33,7 @@ class InferenceTests(unittest.TestCase):
         result = predict_records(records)
         self.assertFalse(result["known_part"])
         self.assertEqual(result["recommended_model"], "3-day Moving Average")
-        self.assertIsNone(result["catboost_prediction"])
+        self.assertIsNone(result["xgboost_prediction"])
 
     def test_nonconsecutive_dates_are_rejected(self) -> None:
         records = pd.read_csv(ROOT / "outputs" / "dashboard_data" / "inference_input_template.csv")

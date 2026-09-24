@@ -107,7 +107,7 @@ app.layout = html.Div(
             [
                 html.H1("D+3 발주량 예측", style={"margin": 0, "fontSize": "28px"}),
                 html.P(
-                    "CatBoost 주 모델과 3일 이동평균 보조 모델을 함께 비교합니다. 데이터 기간이 약 50일이므로 장기 계절성은 포함하지 않습니다.",
+                    "누수 제거 반복검증 1위인 3일 이동평균과 학습형 1위 XGBoost를 함께 비교합니다. 데이터 기간이 약 50일이므로 장기 계절성은 포함하지 않습니다.",
                     style={"color": "#64748B", "marginBottom": 0},
                 ),
             ],
@@ -148,9 +148,9 @@ app.layout = html.Div(
         html.Div(
             [
                 kpi_card("실제 수량 합계", "kpi-actual"),
-                kpi_card("CatBoost 예측 합계", "kpi-catboost"),
+                kpi_card("XGBoost 예측 합계", "kpi-xgboost"),
                 kpi_card("3일 이동평균 합계", "kpi-moving"),
-                kpi_card("CatBoost MAE", "kpi-mae"),
+                kpi_card("3일 이동평균 MAE", "kpi-mae"),
             ],
             style={"display": "flex", "gap": "12px", "flexWrap": "wrap", "marginBottom": "18px"},
         ),
@@ -237,7 +237,7 @@ app.layout = html.Div(
 
 @app.callback(
     Output("kpi-actual", "children"),
-    Output("kpi-catboost", "children"),
+    Output("kpi-xgboost", "children"),
     Output("kpi-moving", "children"),
     Output("kpi-mae", "children"),
     Output("forecast-chart", "figure"),
@@ -257,12 +257,12 @@ def update_dashboard(part_number: str, start_date: str, end_date: str):
         filtered = filtered[filtered["part_number"] == part_number]
 
     grouped = filtered.groupby("target_date", as_index=False)[
-        ["actual", "CatBoost", "3-day Moving Average", "D+3 Plan Reference"]
+        ["actual", "XGBoost", "3-day Moving Average", "D+3 Plan Reference"]
     ].sum()
     forecast_chart = go.Figure()
     for column, color in [
         ("actual", "#0F172A"),
-        ("CatBoost", "#2563EB"),
+        ("XGBoost", "#2563EB"),
         ("3-day Moving Average", "#F59E0B"),
         ("D+3 Plan Reference", "#94A3B8"),
     ]:
@@ -304,14 +304,16 @@ def update_dashboard(part_number: str, start_date: str, end_date: str):
         ["part_number", "target_date", "recommended_model", "recommended_forecast", "D+3 Plan Reference", "alert_type"]
     ].sort_values("recommended_forecast", ascending=False)
 
-    cat_mae = (
-        (filtered["CatBoost"] - filtered["actual"]).abs().mean() if len(filtered) else float("nan")
+    moving_mae = (
+        (filtered["3-day Moving Average"] - filtered["actual"]).abs().mean()
+        if len(filtered)
+        else float("nan")
     )
     return (
         f"{filtered['actual'].sum():,.0f}",
-        f"{filtered['CatBoost'].sum():,.0f}",
+        f"{filtered['XGBoost'].sum():,.0f}",
         f"{filtered['3-day Moving Average'].sum():,.0f}",
-        f"{cat_mae:,.2f}",
+        f"{moving_mae:,.2f}",
         forecast_chart,
         metrics_chart,
         table_from_frame(selected_metrics.round(3)),
@@ -338,7 +340,7 @@ def run_inference(_: int, contents: str | None, filename: str | None) -> str:
             f"파일: {filename}\n"
             f"부품: {result['part_number']}\n"
             f"목표일: {result['target_date']}\n"
-            f"CatBoost: {result['catboost_prediction']}\n"
+            f"XGBoost: {result['xgboost_prediction']}\n"
             f"3일 이동평균: {result['moving_average_3d']:.2f}\n"
             f"권장 모델: {result['recommended_model']}\n"
             f"권장 예측량: {result['recommended_forecast']:.2f}\n"

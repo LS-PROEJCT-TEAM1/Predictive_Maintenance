@@ -24,13 +24,13 @@ from train_evaluate_final_models import (
     MODEL_NAMES,
     REFERENCE_MODEL,
     calculate_metrics,
-    load_daily_data,
 )
+from train_evaluate_purged_models import load_daily_data
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FINAL_DIR = ROOT / "outputs" / "final_model_evaluation"
-WALK_DIR = ROOT / "outputs" / "final_walk_forward"
+FINAL_DIR = ROOT / "outputs" / "purged_evaluation" / "source_total"
+WALK_DIR = FINAL_DIR
 OUTPUT_DIR = ROOT / "outputs" / "dashboard_data"
 CSV_DIR = OUTPUT_DIR / "csv"
 FIRESTORE_DIR = OUTPUT_DIR / "firestore"
@@ -230,7 +230,7 @@ def make_parts(
         actual_mean=("actual", "mean"),
         actual_zero_count=("actual", lambda values: int((values == 0).sum())),
     )
-    choices = part_metrics[part_metrics["Model"].isin(["CatBoost", "3-day Moving Average"])]
+    choices = part_metrics[part_metrics["Model"].isin(["XGBoost", "3-day Moving Average"])]
     choices = choices.sort_values(["part_number", "MAE", "RMSE"]).drop_duplicates("part_number")
     choices = choices.set_index("part_number")[["Model", "MAE"]].rename(
         columns={"Model": "recommended_model", "MAE": "recommended_model_test_mae"}
@@ -271,7 +271,7 @@ def latest_consecutive_three(
 def make_alerts(predictions: pd.DataFrame, parts: pd.DataFrame) -> pd.DataFrame:
     recommended = parts.set_index("part_number")["recommended_model"].to_dict()
     latest = predictions.sort_values("target_date").groupby("part_number", as_index=False).tail(1).copy()
-    latest["recommended_model"] = latest["part_number"].map(recommended).fillna("CatBoost")
+    latest["recommended_model"] = latest["part_number"].map(recommended).fillna("3-day Moving Average")
     latest["recommended_forecast"] = [
         row[model] for (_, row), model in zip(latest.iterrows(), latest["recommended_model"])
     ]
@@ -337,7 +337,7 @@ def save_figures(
     daily = make_daily_summary(predictions)
     fig, ax = plt.subplots(figsize=(13, 5))
     ax.plot(daily["target_date"], daily["actual"], marker="o", linewidth=2.5, label="Actual")
-    ax.plot(daily["target_date"], daily["CatBoost"], marker="o", label="CatBoost")
+    ax.plot(daily["target_date"], daily["XGBoost"], marker="o", label="XGBoost")
     ax.plot(
         daily["target_date"],
         daily["3-day Moving Average"],
@@ -353,7 +353,7 @@ def save_figures(
     fig.savefig(FIGURE_DIR / "actual_vs_predicted_daily.png", dpi=160, bbox_inches="tight")
     plt.close(fig)
 
-    comparison = part_metrics[part_metrics["Model"].isin(["CatBoost", "3-day Moving Average"])]
+    comparison = part_metrics[part_metrics["Model"].isin(["XGBoost", "3-day Moving Average"])]
     pivot = comparison.pivot(index="part_number", columns="Model", values="MAE")
     volume = predictions.groupby("part_number")["actual"].sum().sort_values(ascending=False)
     shown = pivot.reindex(volume.head(25).index)
@@ -423,11 +423,19 @@ def build_firestore_files(
 def main() -> None:
     CSV_DIR.mkdir(parents=True, exist_ok=True)
     FIRESTORE_DIR.mkdir(parents=True, exist_ok=True)
-    predictions = pd.read_csv(FINAL_DIR / "predictions_test.csv", parse_dates=["origin_date", "target_date"])
-    metrics = pd.read_csv(FINAL_DIR / "metrics_test.csv")
+    predictions = pd.read_csv(FINAL_DIR / "final_holdout_predictions.csv", parse_dates=["origin_date", "target_date"])
+    metrics = pd.read_csv(FINAL_DIR / "final_holdout_metrics.csv")
+    metrics["Eligible_For_Ranking"] = metrics["Eligible_For_Overall_Ranking"]
     coverage = pd.read_csv(FINAL_DIR / "part_sequence_coverage.csv", parse_dates=["first_date", "last_date"])
-    quality = pd.read_csv(FINAL_DIR / "data_quality_summary.csv")
-    daily, _ = load_daily_data()
+    run_metadata = json.loads((FINAL_DIR / "run_metadata.json").read_text(encoding="utf-8"))
+    quality_rows = []
+    for key, value in {**run_metadata["quality"], **run_metadata["sequence"]}.items():
+        if isinstance(value, dict):
+            quality_rows.extend({"Metric": f"{key}.{nested}", "Value": item} for nested, item in value.items())
+        else:
+            quality_rows.append({"Metric": key, "Value": value})
+    quality = pd.DataFrame(quality_rows)
+    daily, _ = load_daily_data("source_total")
 
     part_metrics, macro_metrics = metrics_by_part(predictions)
     spike_events, spike_metrics = spike_analysis(predictions)
@@ -444,9 +452,9 @@ def main() -> None:
 
     walk_fold = None
     walk_pooled = None
-    if (WALK_DIR / "metrics_by_fold.csv").exists():
-        walk_fold = pd.read_csv(WALK_DIR / "metrics_by_fold.csv")
-        walk_pooled = pd.read_csv(WALK_DIR / "metrics_pooled.csv")
+    if (WALK_DIR / "cv_metrics_by_fold.csv").exists():
+        walk_fold = pd.read_csv(WALK_DIR / "cv_metrics_by_fold.csv")
+        walk_pooled = pd.read_csv(WALK_DIR / "cv_metrics_pooled.csv")
 
     flat_predictions = predictions.copy()
     flat_predictions.insert(
@@ -535,14 +543,16 @@ def main() -> None:
         firestore_sets["walk_forward_metrics"] = walk_docs
 
     config = {
-        "primary_ml_model": "CatBoost",
+        "primary_method": "3-day Moving Average",
+        "primary_ml_model": "XGBoost",
         "fallback_model": "3-day Moving Average",
         "overall_holdout_winner": metrics.sort_values("MAE").iloc[0]["Model"],
         "forecast_horizon_days": 3,
         "sequence_length_days": 3,
         "test_start": predictions["target_date"].min(),
         "test_end": predictions["target_date"].max(),
-        "model_version": "final_v3",
+        "model_version": "purged_v1_source_total",
+        "selection_basis": "purged_3_fold_walk_forward_MAE",
         "data_limit": "Approximately 50 days; no annual seasonality conclusion",
     }
     manifest = build_firestore_files(firestore_sets, config)
@@ -574,7 +584,7 @@ def main() -> None:
     save_figures(metrics, predictions, part_metrics, walk_fold)
 
     holdout_winner = metrics[metrics["Eligible_For_Ranking"]].sort_values("MAE").iloc[0]
-    catboost = metrics[metrics["Model"] == "CatBoost"].iloc[0]
+    xgboost = walk_pooled[walk_pooled["Model"] == "XGBoost"].iloc[0]
     walk_text = "Walk-forward result was not available."
     if walk_pooled is not None:
         walk_winner = walk_pooled[walk_pooled["Model"].isin(MODEL_NAMES)].sort_values("MAE").iloc[0]
@@ -584,10 +594,11 @@ def main() -> None:
 ## 모델 결론
 
 - 단일 최종 holdout 1위: **{holdout_winner['Model']}**, MAE {holdout_winner['MAE']:.4f}
-- 학습형 모델 1위: **CatBoost**, MAE {catboost['MAE']:.4f}
-- CatBoost의 D+3 계획값 대비 MAE 개선율: {float(improvement.loc[improvement['Model'] == 'CatBoost', 'MAE_Improvement_vs_D3_Plan_pct'].iloc[0]):.2f}%
+- 누수 제거 반복검증 전체 1위: **3-day Moving Average**
+- 누수 제거 반복검증 학습형 모델 1위: **XGBoost**, MAE {xgboost['MAE']:.4f}
+- XGBoost의 독립 holdout D+3 계획값 대비 MAE 개선율: {float(improvement.loc[improvement['Model'] == 'XGBoost', 'MAE_Improvement_vs_D3_Plan_pct'].iloc[0]):.2f}%
 - {walk_text}
-- 운영안: CatBoost를 주 ML 모델로 사용하고, 미학습 부품 또는 모델 입력 불충분 시 3일 이동평균을 사용한다.
+- 운영안: 3일 이동평균을 기본 예측으로 사용하고 XGBoost를 학습형 보조 예측으로 함께 제공한다.
 
 ## 분석 범위
 
@@ -602,7 +613,7 @@ def main() -> None:
 - 예측값은 발주 수량 의사결정을 보조하며 재고, 단가, 리드타임 데이터가 없으므로 비용 최적화 결과는 아니다.
 - 테스트 기간에 나타나지 않은 부품은 최종 holdout 지표에 포함되지 않는다.
 """
-    (FINAL_DIR / "FINAL_ANALYSIS_REPORT.md").write_text(report, encoding="utf-8")
+    (FINAL_DIR / "DASHBOARD_ANALYSIS_REPORT.md").write_text(report, encoding="utf-8")
     print(f"Dashboard assets written to {OUTPUT_DIR}")
 
 

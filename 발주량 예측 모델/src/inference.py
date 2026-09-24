@@ -9,11 +9,12 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from catboost import CatBoostRegressor
+import joblib
+from xgboost import XGBRegressor
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MODEL_DIR = ROOT / "models" / "final_v3"
+MODEL_DIR = ROOT / "models" / "purged_v1" / "source_total"
 REQUIRED_COLUMNS = ["part_number", "date", "actual_d", "plan_d3", "plan_d4", "plan_d5"]
 SEQUENCE_FEATURES = ["actual_d", "plan_d3", "plan_d4", "plan_d5"]
 
@@ -24,17 +25,19 @@ def load_metadata() -> dict[str, object]:
 
 
 @lru_cache(maxsize=1)
-def load_catboost() -> CatBoostRegressor:
-    model = CatBoostRegressor()
-    model_path = MODEL_DIR / "catboost.cbm"
-    try:
-        model.load_model(str(model_path))
-    except Exception:
-        with tempfile.TemporaryDirectory() as directory:
-            temporary_path = Path(directory) / "catboost.cbm"
-            shutil.copy2(model_path, temporary_path)
-            model.load_model(str(temporary_path))
+def load_xgboost() -> XGBRegressor:
+    model = XGBRegressor()
+    model_path = MODEL_DIR / "xgboost.json"
+    with tempfile.TemporaryDirectory() as directory:
+        temporary_path = Path(directory) / "xgboost.json"
+        shutil.copy2(model_path, temporary_path)
+        model.load_model(temporary_path)
     return model
+
+
+@lru_cache(maxsize=1)
+def load_preprocessor():
+    return joblib.load(MODEL_DIR / "tree_preprocessor.joblib")
 
 
 def validate_records(records: pd.DataFrame) -> pd.DataFrame:
@@ -66,7 +69,7 @@ def build_feature_row(records: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, ob
     model_metadata = metadata["model"]
     feature_columns = list(model_metadata["feature_columns"])
     origin_date = pd.Timestamp(clean.iloc[-1]["date"])
-    source_start = pd.Timestamp(metadata["quality"]["source_start"])
+    source_start = pd.Timestamp("2021-09-13")
     day_of_week = origin_date.dayofweek
     values: dict[str, object] = {
         "part_number": str(clean.iloc[-1]["part_number"]),
@@ -95,24 +98,25 @@ def predict_records(records: pd.DataFrame) -> dict[str, object]:
     is_known_part = context["part_number"] in known_parts
     moving_average = max(0.0, float(context["moving_average_3d"]))
 
-    catboost_prediction: float | None = None
+    xgboost_prediction: float | None = None
     if is_known_part:
-        catboost_prediction = max(0.0, float(load_catboost().predict(feature_row)[0]))
+        transformed = load_preprocessor().transform(feature_row)
+        xgboost_prediction = max(0.0, float(load_xgboost().predict(transformed)[0]))
 
-    recommended_model = "CatBoost" if is_known_part else "3-day Moving Average"
-    recommended_forecast = catboost_prediction if is_known_part else moving_average
+    recommended_model = "3-day Moving Average"
+    recommended_forecast = moving_average
     return {
         "part_number": context["part_number"],
         "origin_date": context["origin_date"].date().isoformat(),
         "target_date": context["target_date"].date().isoformat(),
         "known_part": is_known_part,
-        "catboost_prediction": catboost_prediction,
+        "xgboost_prediction": xgboost_prediction,
         "moving_average_3d": moving_average,
         "plan_d3_reference": context["plan_d3_reference"],
         "recommended_model": recommended_model,
         "recommended_forecast": recommended_forecast,
-        "model_version": "final_v3",
-        "fallback_reason": None if is_known_part else "part_not_seen_in_training",
+        "model_version": "purged_v1_source_total",
+        "fallback_reason": None,
     }
 
 
