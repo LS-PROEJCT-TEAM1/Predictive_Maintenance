@@ -1,0 +1,69 @@
+{
+  "protocol": {
+    "source": "final_three_model_comparison.py 의 LightGBM 부분 추출 (대시보드는 LightGBM 단일 모델)",
+    "training_split": "chronological cycle split: first 70% train, last 30% normal calibration",
+    "threshold_rule": "normal calibration score 99.9th percentile",
+    "threshold_quantile": 0.999,
+    "test_files": [
+      "WeldingTest_01_OK",
+      "WeldingTest_02_OK",
+      "WeldingTest_03_NG",
+      "WeldingTest_04_NG"
+    ]
+  },
+  "split": {
+    "all_complete_cycles_kept": 3481,
+    "train_cycles": 2436,
+    "calibration_cycles": 1045,
+    "train_rows": 95004,
+    "calibration_rows": 40755,
+    "zero_power_cycles_kept": 1,
+    "train_start": "2022-01-08 10:11:45.181000",
+    "train_end": "2022-06-10 09:39:10.808000",
+    "calibration_start": "2022-06-10 09:39:57.539000",
+    "calibration_end": "2022-07-29 17:25:16.311000"
+  },
+  "threshold": 3.6564028850590193,
+  "best_iteration": 493,
+  "training_seconds": 2.454440861999956,
+  "inference_ms_per_1000_rows": 33.89744986605666,
+  "summary": [
+    {
+      "file": "전체 테스트",
+      "accuracy": 0.9975,
+      "precision": 0.9574,
+      "recall": 1.0,
+      "f1": 0.9782,
+      "tn": 4921,
+      "fp": 13,
+      "fn": 0,
+      "tp": 292,
+      "fpr": 0.0026,
+      "event_total": 20,
+      "event_detected": 20,
+      "missed_events": 0,
+      "normal_false_alarm_events": 5,
+      "mean_detection_delay_rows": 0.0,
+      "max_detection_delay_rows": 0.0,
+      "macro_f1_03_04": 0.9773,
+      "threshold": 3.6564,
+      "inference_ms_per_1000_rows": 33.8974
+    }
+  ],
+  "outputs": [
+    "anomaly_segments.csv",
+    "data_quality_summary.csv",
+    "eda_condition_summary.csv",
+    "eda_correlation.csv",
+    "eda_monthly_trend.csv",
+    "equipment_info.csv",
+    "inspection_log.csv",
+    "lightgbm_feature_importance.csv",
+    "metrics_by_file.csv",
+    "model_baseline_by_pageno.csv",
+    "module_judgement.csv",
+    "predictions.csv",
+    "regression_metrics.csv",
+    "threshold_sweep.csv"
+  ]
+}

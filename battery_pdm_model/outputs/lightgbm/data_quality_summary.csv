@@ -1,0 +1,66 @@
+﻿file,role,check_item,result,count,description
+Training_Data,train,필수 컬럼,정상,0,9개 컬럼 모두 있음
+Training_Data,train,WorkingTime 날짜 형식,정상,0,2022-01-08 10:11:45.181000 ~ 2022-07-29 17:25:16.311000
+Training_Data,train,전체 행 수,정상,135759,
+Training_Data,train,사이클(모듈) 수,정상,3481,PageNo 1~39 = 배터리모듈 1개
+Training_Data,train,불완전 사이클,정상,0,39행·PageNo 순서가 맞지 않는 사이클
+Training_Data,train,결측치,정상,0,
+Training_Data,train,중복 행,정상,0,
+Training_Data,train,IQR 4배 이상치 행,정상,0,제거하지 않고 기록만 함
+Training_Data,train,단일값 컬럼,정상,2,"SetFrequency,SetDuty (분석 변수에서 제외)"
+Training_Data,train,RealPower=0 행,경고,39,미출력
+Training_Data,train,레시피(Speed·Length·SetPower) 종류,정상,9,
+WeldingTest_01_OK,test,필수 컬럼,정상,0,9개 컬럼 모두 있음
+WeldingTest_01_OK,test,WorkingTime 날짜 형식,정상,0,2022-02-10 09:02:48.515000 ~ 2022-02-10 17:13:50.029000
+WeldingTest_01_OK,test,전체 행 수,정상,1950,
+WeldingTest_01_OK,test,사이클(모듈) 수,정상,50,PageNo 1~39 = 배터리모듈 1개
+WeldingTest_01_OK,test,불완전 사이클,정상,0,39행·PageNo 순서가 맞지 않는 사이클
+WeldingTest_01_OK,test,결측치,정상,0,
+WeldingTest_01_OK,test,중복 행,정상,0,
+WeldingTest_01_OK,test,IQR 4배 이상치 행,정상,0,제거하지 않고 기록만 함
+WeldingTest_01_OK,test,단일값 컬럼,정상,2,"SetFrequency,SetDuty (분석 변수에서 제외)"
+WeldingTest_01_OK,test,RealPower=0 행,정상,0,미출력
+WeldingTest_01_OK,test,레시피(Speed·Length·SetPower) 종류,정상,5,
+WeldingTest_01_OK,test,학습에 없는 SetPower 행,정상,0,예: 35%
+WeldingTest_01_OK,test,학습에 없는 레시피 행,정상,0,
+WeldingTest_02_OK,test,필수 컬럼,정상,0,9개 컬럼 모두 있음
+WeldingTest_02_OK,test,WorkingTime 날짜 형식,정상,0,2022-02-11 09:12:28.065000 ~ 2022-02-11 17:00:48.295000
+WeldingTest_02_OK,test,전체 행 수,정상,1872,
+WeldingTest_02_OK,test,사이클(모듈) 수,정상,48,PageNo 1~39 = 배터리모듈 1개
+WeldingTest_02_OK,test,불완전 사이클,정상,0,39행·PageNo 순서가 맞지 않는 사이클
+WeldingTest_02_OK,test,결측치,정상,0,
+WeldingTest_02_OK,test,중복 행,정상,0,
+WeldingTest_02_OK,test,IQR 4배 이상치 행,정상,0,제거하지 않고 기록만 함
+WeldingTest_02_OK,test,단일값 컬럼,정상,2,"SetFrequency,SetDuty (분석 변수에서 제외)"
+WeldingTest_02_OK,test,RealPower=0 행,정상,0,미출력
+WeldingTest_02_OK,test,레시피(Speed·Length·SetPower) 종류,정상,5,
+WeldingTest_02_OK,test,학습에 없는 SetPower 행,정상,0,예: 35%
+WeldingTest_02_OK,test,학습에 없는 레시피 행,정상,0,
+WeldingTest_03_NG,test,필수 컬럼,정상,0,9개 컬럼 모두 있음
+WeldingTest_03_NG,test,WorkingTime 날짜 형식,정상,0,2022-08-03 09:10:24.996000 ~ 2022-08-03 15:17:11.706000
+WeldingTest_03_NG,test,전체 행 수,정상,1053,
+WeldingTest_03_NG,test,사이클(모듈) 수,정상,27,PageNo 1~39 = 배터리모듈 1개
+WeldingTest_03_NG,test,불완전 사이클,정상,0,39행·PageNo 순서가 맞지 않는 사이클
+WeldingTest_03_NG,test,결측치,정상,0,
+WeldingTest_03_NG,test,중복 행,정상,0,
+WeldingTest_03_NG,test,IQR 4배 이상치 행,정상,0,제거하지 않고 기록만 함
+WeldingTest_03_NG,test,단일값 컬럼,정상,2,"SetFrequency,SetDuty (분석 변수에서 제외)"
+WeldingTest_03_NG,test,RealPower=0 행,정상,0,미출력
+WeldingTest_03_NG,test,레시피(Speed·Length·SetPower) 종류,정상,6,
+WeldingTest_03_NG,test,학습에 없는 SetPower 행,경고,21,예: 35%
+WeldingTest_03_NG,test,학습에 없는 레시피 행,경고,21,
+WeldingTest_03_NG,test,라벨 행 수 일치,정상,1053,라벨 이상 행 19개
+WeldingTest_04_NG,test,필수 컬럼,정상,0,9개 컬럼 모두 있음
+WeldingTest_04_NG,test,WorkingTime 날짜 형식,정상,0,2022-08-03 15:24:10.491000 ~ 2022-08-03 17:47:02.353000
+WeldingTest_04_NG,test,전체 행 수,정상,351,
+WeldingTest_04_NG,test,사이클(모듈) 수,정상,9,PageNo 1~39 = 배터리모듈 1개
+WeldingTest_04_NG,test,불완전 사이클,정상,0,39행·PageNo 순서가 맞지 않는 사이클
+WeldingTest_04_NG,test,결측치,정상,0,
+WeldingTest_04_NG,test,중복 행,정상,0,
+WeldingTest_04_NG,test,IQR 4배 이상치 행,정상,0,제거하지 않고 기록만 함
+WeldingTest_04_NG,test,단일값 컬럼,정상,2,"SetFrequency,SetDuty (분석 변수에서 제외)"
+WeldingTest_04_NG,test,RealPower=0 행,경고,39,미출력
+WeldingTest_04_NG,test,레시피(Speed·Length·SetPower) 종류,정상,6,
+WeldingTest_04_NG,test,학습에 없는 SetPower 행,경고,9,예: 35%
+WeldingTest_04_NG,test,학습에 없는 레시피 행,경고,9,
+WeldingTest_04_NG,test,라벨 행 수 일치,정상,351,라벨 이상 행 273개
