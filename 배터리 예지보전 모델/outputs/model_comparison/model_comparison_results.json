@@ -1,0 +1,1010 @@
+{
+  "winner": "RobustZ",
+  "training_split": {
+    "accepted_cycles": 3480,
+    "training_cycles": 2436,
+    "calibration_cycles": 1044,
+    "rejected_cycles": [
+      {
+        "cycle_id": 694,
+        "complete": true,
+        "contains_zero": true
+      }
+    ],
+    "training_start": "2022-01-08 10:11:45.181000",
+    "training_end": "2022-06-10 09:42:08.980000",
+    "calibration_start": "2022-06-10 09:42:55.853000",
+    "calibration_end": "2022-07-29 17:25:16.311000"
+  },
+  "selection_priority": [
+    "missed_events ascending",
+    "normal_false_alarm_events ascending",
+    "macro_f1_03_04 descending",
+    "mean_detection_delay_rows ascending",
+    "inference_ms_per_1000_rows ascending"
+  ],
+  "results": [
+    {
+      "rank": 1,
+      "model": "RobustZ",
+      "threshold": 8.43113449345744,
+      "precision": 0.9898305084745763,
+      "recall": 1.0,
+      "f1": 0.9948892674616695,
+      "tn": 4931,
+      "fp": 3,
+      "fn": 0,
+      "tp": 292,
+      "fpr": 0.0006080259424402108,
+      "macro_f1_03_04": 0.9972677595628415,
+      "total_true_events": 20,
+      "missed_events": 0,
+      "event_recall": 1.0,
+      "mean_detection_delay_rows": 0.0,
+      "max_detection_delay_rows": 0,
+      "normal_false_positive_rows": 0,
+      "normal_false_alarm_events": 0,
+      "normal_file_fpr": 0.0,
+      "training_seconds": 0.015448400052264333,
+      "inference_ms_per_1000_rows": 0.1602946758167615,
+      "parameter_count": 78,
+      "model_size_kb": 2.703125
+    },
+    {
+      "rank": 2,
+      "model": "LightGBM",
+      "threshold": 8.43113449345744,
+      "precision": 0.9898305084745763,
+      "recall": 1.0,
+      "f1": 0.9948892674616695,
+      "tn": 4931,
+      "fp": 3,
+      "fn": 0,
+      "tp": 292,
+      "fpr": 0.0006080259424402108,
+      "macro_f1_03_04": 0.9972677595628415,
+      "total_true_events": 20,
+      "missed_events": 0,
+      "event_recall": 1.0,
+      "mean_detection_delay_rows": 0.0,
+      "max_detection_delay_rows": 0,
+      "normal_false_positive_rows": 0,
+      "normal_false_alarm_events": 0,
+      "normal_file_fpr": 0.0,
+      "training_seconds": 0.6224691000534222,
+      "inference_ms_per_1000_rows": 7.132701877821088,
+      "parameter_count": 1000,
+      "model_size_kb": 181.697265625
+    },
+    {
+      "rank": 3,
+      "model": "Cycle_AE",
+      "threshold": 2.930222988128662,
+      "precision": 0.6327543424317618,
+      "recall": 0.8732876712328768,
+      "f1": 0.7338129496402878,
+      "tn": 4786,
+      "fp": 148,
+      "fn": 37,
+      "tp": 255,
+      "fpr": 0.029995946493717066,
+      "macro_f1_03_04": 0.5596427382141668,
+      "total_true_events": 20,
+      "missed_events": 0,
+      "event_recall": 1.0,
+      "mean_detection_delay_rows": 0.0,
+      "max_detection_delay_rows": 0,
+      "normal_false_positive_rows": 0,
+      "normal_false_alarm_events": 0,
+      "normal_file_fpr": 0.0,
+      "training_seconds": 3.7108980000484735,
+      "inference_ms_per_1000_rows": 0.5867011220309523,
+      "parameter_count": 1967,
+      "model_size_kb": 10.9501953125
+    },
+    {
+      "rank": 4,
+      "model": "EWMA_CUSUM",
+      "threshold": 34.80604721571832,
+      "precision": 0.5096322241681261,
+      "recall": 0.9965753424657534,
+      "f1": 0.6743916570104287,
+      "tn": 4654,
+      "fp": 280,
+      "fn": 1,
+      "tp": 291,
+      "fpr": 0.05674908796108634,
+      "macro_f1_03_04": 0.5694529391777099,
+      "total_true_events": 20,
+      "missed_events": 0,
+      "event_recall": 1.0,
+      "mean_detection_delay_rows": 0.05,
+      "max_detection_delay_rows": 1,
+      "normal_false_positive_rows": 48,
+      "normal_false_alarm_events": 18,
+      "normal_file_fpr": 0.012558869701726845,
+      "training_seconds": 0.04617530002724379,
+      "inference_ms_per_1000_rows": 1.2767700057147426,
+      "parameter_count": 81,
+      "model_size_kb": 2.73046875
+    },
+    {
+      "rank": 5,
+      "model": "NHiTS_Z4",
+      "threshold": 4.0,
+      "precision": 0.6674418604651163,
+      "recall": 0.9828767123287672,
+      "f1": 0.7950138504155124,
+      "tn": 4791,
+      "fp": 143,
+      "fn": 5,
+      "tp": 287,
+      "fpr": 0.02898256992298338,
+      "macro_f1_03_04": 0.6246766281683371,
+      "total_true_events": 20,
+      "missed_events": 1,
+      "event_recall": 0.95,
+      "mean_detection_delay_rows": 0.0,
+      "max_detection_delay_rows": 0,
+      "normal_false_positive_rows": 38,
+      "normal_false_alarm_events": 38,
+      "normal_file_fpr": 0.009942438513867086,
+      "training_seconds": 21.205428199958988,
+      "inference_ms_per_1000_rows": 1.3739571295724236,
+      "parameter_count": 19982,
+      "model_size_kb": 84.2314453125
+    }
+  ],
+  "details": {
+    "NHiTS_Z4": {
+      "per_file": {
+        "WeldingTest_01_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1930,
+          "fp": 20,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.010256410256410256
+        },
+        "WeldingTest_02_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1854,
+          "fp": 18,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.009615384615384616
+        },
+        "WeldingTest_03_NG": {
+          "precision": 0.16666666666666666,
+          "recall": 0.9473684210526315,
+          "f1": 0.28346456692913385,
+          "tn": 944,
+          "fp": 90,
+          "fn": 1,
+          "tp": 18,
+          "fpr": 0.08704061895551257
+        },
+        "WeldingTest_04_NG": {
+          "precision": 0.9471830985915493,
+          "recall": 0.9853479853479854,
+          "f1": 0.9658886894075404,
+          "tn": 63,
+          "fp": 15,
+          "fn": 4,
+          "tp": 269,
+          "fpr": 0.19230769230769232
+        }
+      },
+      "events": {
+        "WeldingTest_03_NG": [
+          {
+            "start": 13,
+            "end": 13,
+            "detected": false,
+            "delay": null
+          },
+          {
+            "start": 52,
+            "end": 52,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 91,
+            "end": 91,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 130,
+            "end": 130,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 169,
+            "end": 169,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 208,
+            "end": 208,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 247,
+            "end": 247,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 286,
+            "end": 286,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 325,
+            "end": 325,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 442,
+            "end": 442,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 481,
+            "end": 481,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 520,
+            "end": 520,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 559,
+            "end": 559,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 598,
+            "end": 598,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 637,
+            "end": 637,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 676,
+            "end": 676,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 715,
+            "end": 715,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 754,
+            "end": 754,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 793,
+            "end": 793,
+            "detected": true,
+            "delay": 0
+          }
+        ],
+        "WeldingTest_04_NG": [
+          {
+            "start": 78,
+            "end": 350,
+            "detected": true,
+            "delay": 0
+          }
+        ]
+      }
+    },
+    "RobustZ": {
+      "per_file": {
+        "WeldingTest_01_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1950,
+          "fp": 0,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.0
+        },
+        "WeldingTest_02_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1872,
+          "fp": 0,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.0
+        },
+        "WeldingTest_03_NG": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tn": 1034,
+          "fp": 0,
+          "fn": 0,
+          "tp": 19,
+          "fpr": 0.0
+        },
+        "WeldingTest_04_NG": {
+          "precision": 0.9891304347826086,
+          "recall": 1.0,
+          "f1": 0.994535519125683,
+          "tn": 75,
+          "fp": 3,
+          "fn": 0,
+          "tp": 273,
+          "fpr": 0.038461538461538464
+        }
+      },
+      "events": {
+        "WeldingTest_03_NG": [
+          {
+            "start": 13,
+            "end": 13,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 52,
+            "end": 52,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 91,
+            "end": 91,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 130,
+            "end": 130,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 169,
+            "end": 169,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 208,
+            "end": 208,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 247,
+            "end": 247,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 286,
+            "end": 286,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 325,
+            "end": 325,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 442,
+            "end": 442,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 481,
+            "end": 481,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 520,
+            "end": 520,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 559,
+            "end": 559,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 598,
+            "end": 598,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 637,
+            "end": 637,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 676,
+            "end": 676,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 715,
+            "end": 715,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 754,
+            "end": 754,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 793,
+            "end": 793,
+            "detected": true,
+            "delay": 0
+          }
+        ],
+        "WeldingTest_04_NG": [
+          {
+            "start": 78,
+            "end": 350,
+            "detected": true,
+            "delay": 0
+          }
+        ]
+      }
+    },
+    "LightGBM": {
+      "per_file": {
+        "WeldingTest_01_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1950,
+          "fp": 0,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.0
+        },
+        "WeldingTest_02_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1872,
+          "fp": 0,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.0
+        },
+        "WeldingTest_03_NG": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tn": 1034,
+          "fp": 0,
+          "fn": 0,
+          "tp": 19,
+          "fpr": 0.0
+        },
+        "WeldingTest_04_NG": {
+          "precision": 0.9891304347826086,
+          "recall": 1.0,
+          "f1": 0.994535519125683,
+          "tn": 75,
+          "fp": 3,
+          "fn": 0,
+          "tp": 273,
+          "fpr": 0.038461538461538464
+        }
+      },
+      "events": {
+        "WeldingTest_03_NG": [
+          {
+            "start": 13,
+            "end": 13,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 52,
+            "end": 52,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 91,
+            "end": 91,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 130,
+            "end": 130,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 169,
+            "end": 169,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 208,
+            "end": 208,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 247,
+            "end": 247,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 286,
+            "end": 286,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 325,
+            "end": 325,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 442,
+            "end": 442,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 481,
+            "end": 481,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 520,
+            "end": 520,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 559,
+            "end": 559,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 598,
+            "end": 598,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 637,
+            "end": 637,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 676,
+            "end": 676,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 715,
+            "end": 715,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 754,
+            "end": 754,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 793,
+            "end": 793,
+            "detected": true,
+            "delay": 0
+          }
+        ],
+        "WeldingTest_04_NG": [
+          {
+            "start": 78,
+            "end": 350,
+            "detected": true,
+            "delay": 0
+          }
+        ]
+      }
+    },
+    "EWMA_CUSUM": {
+      "per_file": {
+        "WeldingTest_01_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1950,
+          "fp": 0,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.0
+        },
+        "WeldingTest_02_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1824,
+          "fp": 48,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.02564102564102564
+        },
+        "WeldingTest_03_NG": {
+          "precision": 0.07569721115537849,
+          "recall": 1.0,
+          "f1": 0.14074074074074075,
+          "tn": 802,
+          "fp": 232,
+          "fn": 0,
+          "tp": 19,
+          "fpr": 0.22437137330754353
+        },
+        "WeldingTest_04_NG": {
+          "precision": 1.0,
+          "recall": 0.9963369963369964,
+          "f1": 0.998165137614679,
+          "tn": 78,
+          "fp": 0,
+          "fn": 1,
+          "tp": 272,
+          "fpr": 0.0
+        }
+      },
+      "events": {
+        "WeldingTest_03_NG": [
+          {
+            "start": 13,
+            "end": 13,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 52,
+            "end": 52,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 91,
+            "end": 91,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 130,
+            "end": 130,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 169,
+            "end": 169,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 208,
+            "end": 208,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 247,
+            "end": 247,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 286,
+            "end": 286,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 325,
+            "end": 325,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 442,
+            "end": 442,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 481,
+            "end": 481,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 520,
+            "end": 520,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 559,
+            "end": 559,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 598,
+            "end": 598,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 637,
+            "end": 637,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 676,
+            "end": 676,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 715,
+            "end": 715,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 754,
+            "end": 754,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 793,
+            "end": 793,
+            "detected": true,
+            "delay": 0
+          }
+        ],
+        "WeldingTest_04_NG": [
+          {
+            "start": 78,
+            "end": 350,
+            "detected": true,
+            "delay": 1
+          }
+        ]
+      }
+    },
+    "Cycle_AE": {
+      "per_file": {
+        "WeldingTest_01_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1950,
+          "fp": 0,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.0
+        },
+        "WeldingTest_02_OK": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tn": 1872,
+          "fp": 0,
+          "fn": 0,
+          "tp": 0,
+          "fpr": 0.0
+        },
+        "WeldingTest_03_NG": {
+          "precision": 0.1386861313868613,
+          "recall": 1.0,
+          "f1": 0.24358974358974358,
+          "tn": 916,
+          "fp": 118,
+          "fn": 0,
+          "tp": 19,
+          "fpr": 0.11411992263056092
+        },
+        "WeldingTest_04_NG": {
+          "precision": 0.8872180451127819,
+          "recall": 0.8644688644688645,
+          "f1": 0.87569573283859,
+          "tn": 48,
+          "fp": 30,
+          "fn": 37,
+          "tp": 236,
+          "fpr": 0.38461538461538464
+        }
+      },
+      "events": {
+        "WeldingTest_03_NG": [
+          {
+            "start": 13,
+            "end": 13,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 52,
+            "end": 52,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 91,
+            "end": 91,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 130,
+            "end": 130,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 169,
+            "end": 169,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 208,
+            "end": 208,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 247,
+            "end": 247,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 286,
+            "end": 286,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 325,
+            "end": 325,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 442,
+            "end": 442,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 481,
+            "end": 481,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 520,
+            "end": 520,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 559,
+            "end": 559,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 598,
+            "end": 598,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 637,
+            "end": 637,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 676,
+            "end": 676,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 715,
+            "end": 715,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 754,
+            "end": 754,
+            "detected": true,
+            "delay": 0
+          },
+          {
+            "start": 793,
+            "end": 793,
+            "detected": true,
+            "delay": 0
+          }
+        ],
+        "WeldingTest_04_NG": [
+          {
+            "start": 78,
+            "end": 350,
+            "detected": true,
+            "delay": 0
+          }
+        ]
+      }
+    }
+  }
+}

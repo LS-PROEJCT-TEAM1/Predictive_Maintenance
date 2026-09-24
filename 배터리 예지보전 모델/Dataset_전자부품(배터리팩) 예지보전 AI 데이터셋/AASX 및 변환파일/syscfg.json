@@ -1,0 +1,23 @@
+{
+	"namespaces":
+	[
+		{ "ns_index":1, "ns":"urn:open62541.server.application", "aas_id":"-" },
+		{ "ns_index":2, "ns":"https://www.smart-factory.kr/datasolution", "aas_id":"-" }
+	],
+	"system":
+	[
+		{
+			"GatewayName": "Edisontech_GW",
+			"NetworkConnection": "opc.tcp://192.168.1.250:4840",
+			"SamplingInterval": "100.0",
+			"FieldDevices" :
+			[
+				{
+					"DeviceName": "EdgeHub",
+					"NetworkConnection": "opc.tcp://192.168.1.250:1290",
+					"SamplingInterval": "100.0"
+				}
+			]
+		}
+	]
+}
