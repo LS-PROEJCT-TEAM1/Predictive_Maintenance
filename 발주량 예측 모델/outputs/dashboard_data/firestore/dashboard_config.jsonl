@@ -1,0 +1,1 @@
+{"document_id": "current", "primary_ml_model": "CatBoost", "fallback_model": "3-day Moving Average", "overall_holdout_winner": "3-day Moving Average", "forecast_horizon_days": 3, "sequence_length_days": 3, "test_start": "2021-10-23T00:00:00Z", "test_end": "2021-11-01T00:00:00Z", "model_version": "final_v3", "data_limit": "Approximately 50 days; no annual seasonality conclusion"}
