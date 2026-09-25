@@ -1,0 +1,6 @@
+﻿file,rows,columns,missing_cells,duplicate_rows,nonpositive_time_diffs,complete_cycles,positive_rows,realpower_zero_rows
+Training_Data,135759,13,0,0,6,3481,0,39
+WeldingTest_01_OK,1950,14,0,0,0,50,0,0
+WeldingTest_02_OK,1872,14,0,0,0,48,0,0
+WeldingTest_03_NG,1053,14,0,0,0,27,19,0
+WeldingTest_04_NG,351,14,0,0,0,9,273,39

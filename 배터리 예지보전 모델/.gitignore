@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local caches and scratch outputs
+tmp/
+**/.matplotlib/
+*.log
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*service-account*.json
+*serviceAccount*.json
+firebase-adminsdk-*.json
+
+# Source material with separate distribution terms
+Guidebook_*.pdf
+Dataset_*/
+
+# Legacy experiments; final evidence is kept under track_b_final_v2
+outputs/fair_four_model_comparison/
+outputs/final_three_model_comparison/
+outputs/final_track_b/
+outputs/guidebook_reproduction/
+outputs/model_comparison/

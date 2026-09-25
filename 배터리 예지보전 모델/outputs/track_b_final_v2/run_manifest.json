@@ -1,0 +1,109 @@
+{
+  "pipeline_version": "track-b-final-v2",
+  "seed": 42,
+  "evaluation_protocol": "independent_file_holdout",
+  "development_files": [
+    "WeldingTest_01_OK",
+    "WeldingTest_03_NG"
+  ],
+  "locked_test_files": [
+    "WeldingTest_02_OK",
+    "WeldingTest_04_NG"
+  ],
+  "winner_selected_on_validation": "RobustPhaseZ",
+  "locked_test_used_for_selection": false,
+  "reverse_stress_used_for_selection": false,
+  "reverse_stress_limitation": "NG04 has one continuous event, so its inner development split is not event-independent",
+  "event_definition": "contiguous anomaly labels in original file order",
+  "historical_split": {
+    "complete_cycles": 3481,
+    "train_cycles": 2436,
+    "calibration_cycles": 1045,
+    "train_rows": 95004,
+    "calibration_rows": 40755
+  },
+  "threshold_audit": {
+    "LogisticCurrent": {
+      "feasibility_rule_met": true,
+      "rule": "event_recall=1 and normal FPR<=1%; then recall, F1, precision, false alarms",
+      "selected_validation_metrics": {
+        "rows": 936,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tn": 933,
+        "fp": 0,
+        "fn": 0,
+        "tp": 3,
+        "false_positive_rate": 0.0,
+        "event_total": 3,
+        "event_detected": 3,
+        "event_recall": 1.0,
+        "missed_events": 0,
+        "false_alarm_events": 0,
+        "mean_detection_delay_rows": 0.0,
+        "max_detection_delay_rows": 0,
+        "mean_detection_delay_seconds": 0.0
+      }
+    },
+    "RandomForestCurrent": {
+      "feasibility_rule_met": true,
+      "rule": "event_recall=1 and normal FPR<=1%; then recall, F1, precision, false alarms",
+      "selected_validation_metrics": {
+        "rows": 936,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tn": 933,
+        "fp": 0,
+        "fn": 0,
+        "tp": 3,
+        "false_positive_rate": 0.0,
+        "event_total": 3,
+        "event_detected": 3,
+        "event_recall": 1.0,
+        "missed_events": 0,
+        "false_alarm_events": 0,
+        "mean_detection_delay_rows": 0.0,
+        "max_detection_delay_rows": 0,
+        "mean_detection_delay_seconds": 0.0
+      }
+    },
+    "LogisticHistoryOnly": {
+      "feasibility_rule_met": true,
+      "rule": "event_recall=1 and normal FPR<=1%; then recall, F1, precision, false alarms",
+      "selected_validation_metrics": {
+        "rows": 936,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tn": 933,
+        "fp": 0,
+        "fn": 0,
+        "tp": 3,
+        "false_positive_rate": 0.0,
+        "event_total": 3,
+        "event_detected": 3,
+        "event_recall": 1.0,
+        "missed_events": 0,
+        "false_alarm_events": 0,
+        "mean_detection_delay_rows": 0.0,
+        "max_detection_delay_rows": 0,
+        "mean_detection_delay_seconds": 0.0
+      }
+    }
+  },
+  "data_sha256": {
+    "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\raw_data\\train\\Training_Data.csv": "d54fff3df984c4be07169f00193639f10d5f26683967b8b1553907f2207c2010",
+    "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\raw_data\\test\\WeldingTest_01_OK.csv": "c6fae1c909887aacc8e98080e120837e21f26800cd7314e603f5b327260a36e3",
+    "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\raw_data\\test\\WeldingTest_02_OK.csv": "a5ff4dc99f39f3a9d51c263a4a61c53d1eecd0e333cff1585dc10022a5001ef1",
+    "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\raw_data\\test\\WeldingTest_03_NG.csv": "f0c7cb04f1ed64196ae8e48b11e445d58c4c4f7c0343cb3a5dc3f5c981c7fc71",
+    "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\raw_data\\test\\WeldingTest_04_NG.csv": "ab38fd7d20f16ab8b40027a2f5e0f7622b1b3256e9e6e6181be68b8cc3fd2065",
+    "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\preprocessed\\test\\WeldingTest_03_NG_Label.csv": "6f3ea39ee95614f3cc5fb88cb48d4edaa31878e9051c518c27f25e0079f1d541",
+    "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\preprocessed\\test\\WeldingTest_04_NG_Label.csv": "a630b5c0a6203a0890de6e459b49abfb1904a1bd1e3677a4ddc92144a3c11583"
+  },
+  "pipeline_sha256": "af9bd85b7a0585b8285201e35691fdc98d496194b0bf06eff3fb652555082299"
+}

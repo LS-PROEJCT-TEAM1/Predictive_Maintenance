@@ -1,0 +1,48 @@
+{
+  "format": "firestore-document-jsonl-v1",
+  "projectDocument": "projects/track-b-final-v2",
+  "generatedAt": "2026-09-25T03:37:01.370161+00:00",
+  "defaultModels": {
+    "supervised": "LogisticCurrent",
+    "unsupervised": "RobustPhaseZ"
+  },
+  "files": [
+    {
+      "file": "projects.jsonl",
+      "documents": 1,
+      "bytes": 376,
+      "sha256": "10b3befeb31b162936034254484f6671f4ecdb71ff61b0fd630a80a811a0fc8d"
+    },
+    {
+      "file": "model_evaluations.jsonl",
+      "documents": 10,
+      "bytes": 6345,
+      "sha256": "f3762838ebd5cf6351c5e747ecdb29c12bacc5081e6fae68be7c09f27c8627e0"
+    },
+    {
+      "file": "data_quality.jsonl",
+      "documents": 5,
+      "bytes": 1279,
+      "sha256": "5d5de92592bd92d142e9c66c1349227dcfe041feaf5d1e8aa9501cb4b1cf05a9"
+    },
+    {
+      "file": "welding_runs.jsonl",
+      "documents": 4,
+      "bytes": 1041,
+      "sha256": "a45ea48cdc16294ac800e7b2a604be5a2db0ba5cc107f8598138dd4f749eb955"
+    },
+    {
+      "file": "measurements.jsonl",
+      "documents": 5226,
+      "bytes": 5150347,
+      "sha256": "1af7c6ae2dd59895513b3081ca98a11106673ed38b7647f04a5d3ef3f880b277"
+    },
+    {
+      "file": "anomaly_events.jsonl",
+      "documents": 27,
+      "bytes": 20510,
+      "sha256": "071884394b0491821ab902fb17ed6c426598b5a10376dc4845bf6fde376e5ab2"
+    }
+  ],
+  "totalDocuments": 5273
+}

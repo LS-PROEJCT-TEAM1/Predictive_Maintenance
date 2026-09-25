@@ -1,0 +1,1 @@
+{"path":"projects/track-b-final-v2","data":{"name":"배터리팩 레이저 용접 예지보전","pipelineVersion":"track-b-final-v2","evaluationProtocol":"independent_file_holdout","selectedModel":"RobustPhaseZ","defaultSupervisedModel":"LogisticCurrent","defaultUnsupervisedModel":"RobustPhaseZ","generatedAt":"2026-09-25T03:37:01.370161+00:00","mode":"evaluation-replay"}}
