@@ -1,0 +1,24 @@
+﻿Metric,Value
+quantity_source,source_total
+source_rows,17364
+source_columns,84
+source_parts,117
+source_missing_cells,0
+selected_rows_with_missing_required_values,0
+duplicate_part_timestamp_rows,612
+daily_rows,5478
+daily_parts,117
+negative_quantity_rows,0
+stored_total_mismatch_rows.D,31
+stored_total_mismatch_rows.D+1,0
+stored_total_mismatch_rows.D+2,0
+stored_total_mismatch_rows.D+3,149
+stored_total_mismatch_rows.D+4,136
+sequence_length,3
+horizon_days,3
+minimum_sequence_count,10
+excluded_parts,['Part 115']
+eligible_rows,4837
+eligible_parts,116
+plan_zero_rows,2778
+target_zero_rows,1020

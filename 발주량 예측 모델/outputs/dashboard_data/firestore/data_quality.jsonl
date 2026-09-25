@@ -1,0 +1,23 @@
+{"document_id": "quantity_source", "metric": "quantity_source", "value": "source_total"}
+{"document_id": "source_rows", "metric": "source_rows", "value": 17364}
+{"document_id": "source_columns", "metric": "source_columns", "value": 84}
+{"document_id": "source_parts", "metric": "source_parts", "value": 117}
+{"document_id": "source_missing_cells", "metric": "source_missing_cells", "value": 0}
+{"document_id": "selected_rows_with_missing_required_values", "metric": "selected_rows_with_missing_required_values", "value": 0}
+{"document_id": "duplicate_part_timestamp_rows", "metric": "duplicate_part_timestamp_rows", "value": 612}
+{"document_id": "daily_rows", "metric": "daily_rows", "value": 5478}
+{"document_id": "daily_parts", "metric": "daily_parts", "value": 117}
+{"document_id": "negative_quantity_rows", "metric": "negative_quantity_rows", "value": 0}
+{"document_id": "stored_total_mismatch_rows_d", "metric": "stored_total_mismatch_rows.D", "value": 31}
+{"document_id": "stored_total_mismatch_rows_d_1", "metric": "stored_total_mismatch_rows.D+1", "value": 0}
+{"document_id": "stored_total_mismatch_rows_d_2", "metric": "stored_total_mismatch_rows.D+2", "value": 0}
+{"document_id": "stored_total_mismatch_rows_d_3", "metric": "stored_total_mismatch_rows.D+3", "value": 149}
+{"document_id": "stored_total_mismatch_rows_d_4", "metric": "stored_total_mismatch_rows.D+4", "value": 136}
+{"document_id": "sequence_length", "metric": "sequence_length", "value": 3}
+{"document_id": "horizon_days", "metric": "horizon_days", "value": 3}
+{"document_id": "minimum_sequence_count", "metric": "minimum_sequence_count", "value": 10}
+{"document_id": "excluded_parts", "metric": "excluded_parts", "value": ["Part 115"]}
+{"document_id": "eligible_rows", "metric": "eligible_rows", "value": 4837}
+{"document_id": "eligible_parts", "metric": "eligible_parts", "value": 116}
+{"document_id": "plan_zero_rows", "metric": "plan_zero_rows", "value": 2778}
+{"document_id": "target_zero_rows", "metric": "target_zero_rows", "value": 1020}

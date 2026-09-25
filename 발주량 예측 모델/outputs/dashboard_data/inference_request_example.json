@@ -1,0 +1,28 @@
+{
+  "records": [
+    {
+      "part_number": "Part 94",
+      "date": "2021-10-28T00:00:00Z",
+      "actual_d": 47,
+      "plan_d3": 0,
+      "plan_d4": 34,
+      "plan_d5": 34
+    },
+    {
+      "part_number": "Part 94",
+      "date": "2021-10-29T00:00:00Z",
+      "actual_d": 45,
+      "plan_d3": 0,
+      "plan_d4": 0,
+      "plan_d5": 0
+    },
+    {
+      "part_number": "Part 94",
+      "date": "2021-10-30T00:00:00Z",
+      "actual_d": 45,
+      "plan_d3": 0,
+      "plan_d4": 0,
+      "plan_d5": 0
+    }
+  ]
+}

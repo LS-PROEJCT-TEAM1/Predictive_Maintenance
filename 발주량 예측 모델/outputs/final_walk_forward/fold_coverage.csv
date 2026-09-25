@@ -1,0 +1,6 @@
+﻿Fold,Train_Rows,Train_Parts,Validation_Rows,Validation_Parts,Test_Rows,Test_Parts,Excluded_Cold_Start_Rows,Excluded_Cold_Start_Parts,Excluded_Cold_Start_Part_List,XGBoost_Trees,LightGBM_Trees,CatBoost_Trees,LSTM_Best_Epoch
+1,768,112,224,112,772,112,4,3,"Part 113, Part 114, Part 23",2000,352,594,148
+2,1434,112,330,110,768,110,21,3,"Part 113, Part 114, Part 23",56,1,1,1
+3,1994,115,563,113,769,112,5,1,Part 116,1948,329,479,4
+4,2669,115,657,112,735,105,7,1,Part 116,478,133,281,49
+5,3331,116,742,106,764,111,0,0,,737,507,256,2

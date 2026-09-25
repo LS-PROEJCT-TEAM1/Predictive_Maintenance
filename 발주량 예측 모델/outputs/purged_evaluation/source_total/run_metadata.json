@@ -1,0 +1,59 @@
+{
+  "quality": {
+    "quantity_source": "source_total",
+    "source_rows": 17364,
+    "source_columns": 84,
+    "source_parts": 117,
+    "source_missing_cells": 0,
+    "selected_rows_with_missing_required_values": 0,
+    "duplicate_part_timestamp_rows": 612,
+    "daily_rows": 5478,
+    "daily_parts": 117,
+    "negative_quantity_rows": 0,
+    "stored_total_mismatch_rows": {
+      "D": 31,
+      "D+1": 0,
+      "D+2": 0,
+      "D+3": 149,
+      "D+4": 136
+    }
+  },
+  "sequence": {
+    "sequence_length": 3,
+    "horizon_days": 3,
+    "minimum_sequence_count": 10,
+    "excluded_parts": [
+      "Part 115"
+    ],
+    "eligible_rows": 4837,
+    "eligible_parts": 116,
+    "plan_zero_rows": 2778,
+    "target_zero_rows": 1020
+  },
+  "selection": {
+    "selection_basis": "purged_3_fold_walk_forward_MAE",
+    "overall_method": "3-day Moving Average",
+    "overall_cv_mae": 36.952292504049886,
+    "ml_model": "XGBoost",
+    "ml_cv_mae": 48.38957765429307,
+    "final_holdout_is_selection_independent": true
+  },
+  "final_split": {
+    "Train_Rows": 3116,
+    "Train_Parts": 116,
+    "Validation_Rows": 318,
+    "Validation_Parts": 106,
+    "Test_Rows": 764,
+    "Test_Parts": 111,
+    "Cold_Start_Rows_Excluded": 0,
+    "Cold_Start_Parts_Excluded": 0,
+    "Cold_Start_Part_List": "",
+    "Train_Target_End": "2021-10-15",
+    "Validation_Origin_Start": "2021-10-16",
+    "Validation_Target_Start": "2021-10-19",
+    "Validation_Target_End": "2021-10-21",
+    "Test_Origin_Start": "2021-10-22",
+    "Test_Target_Start": "2021-10-25",
+    "Test_Target_End": "2021-11-01"
+  }
+}
