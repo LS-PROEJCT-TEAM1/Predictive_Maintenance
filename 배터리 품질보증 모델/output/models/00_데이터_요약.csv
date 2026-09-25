@@ -1,0 +1,18 @@
+﻿파일,충방전,판정,구분,행,범위이탈,센서고장 셀,이상 시점
+1000_chg,충전,OK,normal,6009,0,0,0
+1001_chg,충전,OK,normal,6009,0,0,0
+1002_chg,충전,OK,normal,6008,0,0,0
+1003_chg,충전,OK,normal,6008,0,0,0
+1004_chg,충전,OK,normal,8515,0,0,0
+1000_dchg,방전,OK,normal,5358,0,0,0
+1001_dchg,방전,OK,normal,5357,0,0,0
+1002_dchg,방전,OK,normal,4374,0,0,0
+1003_dchg,방전,OK,normal,4372,0,0,0
+1004_dchg,방전,OK,normal,4795,0,0,0
+Test05_NG_chg,충전,NG,train,5016,0,0,4259
+Test09_NG_dchg,방전,NG,train,4864,0,0,4864
+Test03_OK_chg,충전,OK,test,1421,0,0,0
+Test04_OK_dchg,방전,OK,test,1505,0,0,0
+Test06_NG_chg,충전,NG,test,854,854,1,854
+Test07_NG_dchg,방전,NG,test,4594,0,0,227
+Test08_NG_chg,충전,NG,test,2396,0,0,2396

@@ -1,0 +1,181 @@
+{
+  "training": {
+    "training_cutoff": 134758,
+    "epochs_completed": 30,
+    "training_seconds": 153.99146970000584,
+    "best_model_path": "C:\\Users\\USER\\Desktop\\배터리 예지보전 모델\\outputs\\guidebook_reproduction\\checkpoints\\guidebook-nhits-epoch=21-val_loss=3.8081.ckpt",
+    "guidebook_config": {
+      "context_length": 20,
+      "prediction_length": 10,
+      "batch_size": 128,
+      "max_epochs": 30,
+      "limit_train_batches": 30,
+      "learning_rate": 0.04,
+      "weight_decay": 0.01,
+      "hidden_size": 64,
+      "loss": "MQF2DistributionLoss",
+      "threshold": 4.0
+    }
+  },
+  "guidebook_nhits_z4": {
+    "per_file": {
+      "WeldingTest_01_OK": {
+        "evaluated_rows": 1950,
+        "accuracy": 1.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tn": 1950,
+        "fp": 0,
+        "fn": 0,
+        "tp": 0
+      },
+      "WeldingTest_02_OK": {
+        "evaluated_rows": 1872,
+        "accuracy": 1.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tn": 1872,
+        "fp": 0,
+        "fn": 0,
+        "tp": 0
+      },
+      "WeldingTest_03_NG": {
+        "evaluated_rows": 1053,
+        "accuracy": 0.9819563152896487,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tn": 1034,
+        "fp": 0,
+        "fn": 19,
+        "tp": 0
+      },
+      "WeldingTest_04_NG": {
+        "evaluated_rows": 351,
+        "accuracy": 0.2222222222222222,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tn": 78,
+        "fp": 0,
+        "fn": 273,
+        "tp": 0
+      }
+    },
+    "details": {
+      "WeldingTest_01_OK": {
+        "prediction_error_count": 1840,
+        "alignment_shift": 12,
+        "test_error_mean": 0.28898993134498596,
+        "test_error_std": 15.267047882080078,
+        "note": "The guidebook standardizes with each test file's own errors in codes 99/107."
+      },
+      "WeldingTest_02_OK": {
+        "prediction_error_count": 1762,
+        "alignment_shift": 12,
+        "test_error_mean": -0.22746188938617706,
+        "test_error_std": 14.917227745056152,
+        "note": "The guidebook standardizes with each test file's own errors in codes 99/107."
+      },
+      "WeldingTest_03_NG": {
+        "prediction_error_count": 993,
+        "alignment_shift": 12,
+        "test_error_mean": 1.634206771850586,
+        "test_error_std": 17.4094181060791,
+        "note": "The guidebook standardizes with each test file's own errors in codes 99/107."
+      },
+      "WeldingTest_04_NG": {
+        "prediction_error_count": 291,
+        "alignment_shift": 12,
+        "test_error_mean": 26.484210968017578,
+        "test_error_std": 528.0947265625,
+        "note": "The guidebook standardizes with each test file's own errors in codes 99/107."
+      }
+    },
+    "published_reference_03": {
+      "accuracy": 0.996,
+      "precision": 0.8947,
+      "recall": 0.8947,
+      "f1": 0.8947
+    }
+  },
+  "guidebook_two_band_z4": {
+    "fitted": {
+      "low_mean": 687.1890675856787,
+      "low_std": 19.049512739780003,
+      "high_mean": 1700.379827324001,
+      "high_std": 13.73034776548735
+    },
+    "per_file_full_length": {
+      "WeldingTest_01_OK": {
+        "evaluated_rows": 1950,
+        "accuracy": 1.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tn": 1950,
+        "fp": 0,
+        "fn": 0,
+        "tp": 0
+      },
+      "WeldingTest_02_OK": {
+        "evaluated_rows": 1872,
+        "accuracy": 1.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tn": 1872,
+        "fp": 0,
+        "fn": 0,
+        "tp": 0
+      },
+      "WeldingTest_03_NG": {
+        "evaluated_rows": 1053,
+        "accuracy": 0.9819563152896487,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tn": 1034,
+        "fp": 0,
+        "fn": 19,
+        "tp": 0
+      },
+      "WeldingTest_04_NG": {
+        "evaluated_rows": 351,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tn": 78,
+        "fp": 0,
+        "fn": 0,
+        "tp": 273
+      }
+    },
+    "published_protocol_04_first_n_minus_20_rows": {
+      "evaluated_rows": 331,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tn": 78,
+      "fp": 0,
+      "fn": 0,
+      "tp": 253
+    },
+    "published_reference_04": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    }
+  },
+  "methodology_notes": [
+    "Guidebook N-HiTS uses official pytorch_forecasting.NHiTS with MQF2DistributionLoss.",
+    "Guidebook code standardizes N-HiTS errors using each test file's own mean and standard deviation.",
+    "Guidebook code evaluates the two-band Z method on WeldingTest_04_NG after dropping the final 20 rows.",
+    "These published-protocol results must be separated from leakage-free common-protocol comparison."
+  ]
+}

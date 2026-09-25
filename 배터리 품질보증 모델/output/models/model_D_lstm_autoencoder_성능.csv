@@ -1,0 +1,3 @@
+﻿모델,구분,Accuracy,Precision,Recall,F1-score,TP,FP,FN,TN
+LSTM Autoencoder,학습,0.8887,0.9532,0.1963,0.3256,1791,88,7332,57474
+LSTM Autoencoder,테스트,0.7668,0.9898,0.2804,0.437,975,10,2502,7283
