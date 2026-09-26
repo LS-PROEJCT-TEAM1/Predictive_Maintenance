@@ -1,0 +1,121 @@
+{
+  "protocol": {
+    "training_split": "chronological cycle split: first 70% train, last 30% normal calibration",
+    "all_training_rows_kept": true,
+    "zero_power_cycle_kept": true,
+    "iqr": "guidebook c=4 check had 0 rows; no rows removed",
+    "common_threshold_rule": "normal calibration score 99.9th percentile",
+    "threshold_quantile": 0.999,
+    "test_files": [
+      "WeldingTest_01_OK",
+      "WeldingTest_02_OK",
+      "WeldingTest_03_NG",
+      "WeldingTest_04_NG"
+    ],
+    "test_rows_evaluated": 5226,
+    "N-HiTS_unscored_rule": "keep every test row; N-HiTS rows without a forecast score are predicted normal",
+    "event_rule": "an anomaly event is detected if at least one row within its contiguous labeled interval is predicted anomalous",
+    "false_alarm_event_rule": "count each contiguous predicted-positive run on label-0 rows, including normal portions of NG files"
+  },
+  "split": {
+    "all_complete_cycles_kept": 3481,
+    "train_cycles": 2436,
+    "calibration_cycles": 1045,
+    "train_rows": 95004,
+    "calibration_rows": 40755,
+    "zero_power_cycles_kept": 1,
+    "train_start": "2022-01-08 10:11:45.181000",
+    "train_end": "2022-06-10 09:39:10.808000",
+    "calibration_start": "2022-06-10 09:39:57.539000",
+    "calibration_end": "2022-07-29 17:25:16.311000"
+  },
+  "thresholds": {
+    "calibration_quantile": 0.999,
+    "rule": "normal calibration score 99.9th percentile",
+    "RobustZ": 3.0817941636829187,
+    "LightGBM": 5.564163172929663,
+    "N-HiTS": 3.4081647396087646,
+    "N-HiTS_calibration_error_mean": 14.433345794677734,
+    "N-HiTS_calibration_error_std": 21.941436767578125,
+    "N-HiTS_calibration_scored_rows": 40716
+  },
+  "nhits_training": {
+    "checkpoint_reused": true,
+    "checkpoint": "C:\\Users\\USER\\Desktop\\배터리 예지보전 모델\\outputs\\final_three_model_comparison\\checkpoints\\three-model-nhits-epoch=20-val_loss=3.7180.ckpt",
+    "training_seconds": 0.0
+  },
+  "nhits_test_coverage": {
+    "WeldingTest_01_OK": {
+      "total_rows": 1950,
+      "scored_rows": 1911,
+      "unscored_rows_assumed_normal": 39,
+      "first_scored_index": 30,
+      "last_scored_index": 1940
+    },
+    "WeldingTest_02_OK": {
+      "total_rows": 1872,
+      "scored_rows": 1833,
+      "unscored_rows_assumed_normal": 39,
+      "first_scored_index": 30,
+      "last_scored_index": 1862
+    },
+    "WeldingTest_03_NG": {
+      "total_rows": 1053,
+      "scored_rows": 1014,
+      "unscored_rows_assumed_normal": 39,
+      "first_scored_index": 30,
+      "last_scored_index": 1043
+    },
+    "WeldingTest_04_NG": {
+      "total_rows": 351,
+      "scored_rows": 312,
+      "unscored_rows_assumed_normal": 39,
+      "first_scored_index": 30,
+      "last_scored_index": 341
+    }
+  },
+  "results": [
+    {
+      "model": "RobustZ",
+      "accuracy": 0.9984691924990432,
+      "precision": 0.9733333333333334,
+      "recall": 1.0,
+      "f1": 0.9864864864864865,
+      "tn": 4926,
+      "fp": 8,
+      "fn": 0,
+      "tp": 292,
+      "event_detected": 20,
+      "event_total": 20,
+      "normal_false_alarm_events": 7
+    },
+    {
+      "model": "LightGBM",
+      "accuracy": 0.9984691924990432,
+      "precision": 0.9733333333333334,
+      "recall": 1.0,
+      "f1": 0.9864864864864865,
+      "tn": 4926,
+      "fp": 8,
+      "fn": 0,
+      "tp": 292,
+      "event_detected": 20,
+      "event_total": 20,
+      "normal_false_alarm_events": 7
+    },
+    {
+      "model": "N-HiTS",
+      "accuracy": 0.9944508228090317,
+      "precision": 1.0,
+      "recall": 0.9006849315068494,
+      "f1": 0.9477477477477477,
+      "tn": 4934,
+      "fp": 0,
+      "fn": 29,
+      "tp": 263,
+      "event_detected": 1,
+      "event_total": 20,
+      "normal_false_alarm_events": 0
+    }
+  ]
+}

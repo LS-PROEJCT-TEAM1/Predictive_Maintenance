@@ -1,0 +1,11 @@
+﻿model,family,split,threshold,threshold_source,training_seconds,rows,accuracy,precision,recall,f1,tn,fp,fn,tp,false_positive_rate,event_total,event_detected,event_recall,missed_events,false_alarm_events,mean_detection_delay_rows,max_detection_delay_rows,mean_detection_delay_seconds
+LogisticCurrent,supervised,validation,0.5,development_validation_labels,0.03393959999084473,936,1.0,1.0,1.0,1.0,933,0,0,3,0.0,3,3,1.0,0,0,0.0,0.0,0.0
+LogisticCurrent,supervised,locked_test,0.5,development_validation_labels,0.03393959999084473,2223,0.9991003148897886,0.9927272727272727,1.0,0.9963503649635036,1948,2,0,273,0.0010256410256410256,1,1,1.0,0,2,0.0,0.0,0.0
+RandomForestCurrent,supervised,validation,0.5,development_validation_labels,1.4002091999864206,936,1.0,1.0,1.0,1.0,933,0,0,3,0.0,3,3,1.0,0,0,0.0,0.0,0.0
+RandomForestCurrent,supervised,locked_test,0.5,development_validation_labels,1.4002091999864206,2223,0.9523166891587944,0.9940828402366864,0.6153846153846154,0.7601809954751131,1949,1,105,168,0.0005128205128205128,1,1,1.0,0,1,0.0,0.0,0.0
+LogisticHistoryOnly,supervised,validation,0.9287262723268388,development_validation_labels,0.019074899959377944,936,1.0,1.0,1.0,1.0,933,0,0,3,0.0,3,3,1.0,0,0,0.0,0.0,0.0
+LogisticHistoryOnly,supervised,locked_test,0.9287262723268388,development_validation_labels,0.019074899959377944,2223,0.8920377867746289,0.9714285714285714,0.12454212454212454,0.22077922077922077,1949,1,239,34,0.0005128205128205128,1,1,1.0,0,1,12.0,12.0,41.156
+RobustPhaseZ,unsupervised,validation,3.0817941636829143,historical_normal_calibration_99.9pct,0.0,936,1.0,1.0,1.0,1.0,933,0,0,3,0.0,3,3,1.0,0,0,0.0,0.0,0.0
+RobustPhaseZ,unsupervised,locked_test,3.0817941636829143,historical_normal_calibration_99.9pct,0.0,2223,0.9964012595591543,0.9715302491103203,1.0,0.9855595667870036,1942,8,0,273,0.0041025641025641026,1,1,1.0,0,7,0.0,0.0,0.0
+IsolationForestNormal,unsupervised,validation,0.20049228854677614,historical_normal_calibration_99.9pct,2.6959326999494806,936,0.9850427350427351,0.0,0.0,0.0,922,11,3,0,0.011789924973204717,3,0,0.0,3,11,,,
+IsolationForestNormal,unsupervised,locked_test,0.20049228854677614,historical_normal_calibration_99.9pct,2.6959326999494806,2223,0.9316239316239316,0.8666666666666667,0.5238095238095238,0.6529680365296804,1928,22,130,143,0.011282051282051283,1,1,1.0,0,22,0.0,0.0,0.0

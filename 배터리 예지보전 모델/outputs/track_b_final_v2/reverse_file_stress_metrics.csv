@@ -1,0 +1,6 @@
+﻿model,family,split,threshold,threshold_source,training_seconds,rows,accuracy,precision,recall,f1,tn,fp,fn,tp,false_positive_rate,event_total,event_detected,event_recall,missed_events,false_alarm_events,mean_detection_delay_rows,max_detection_delay_rows,mean_detection_delay_seconds
+LogisticCurrent,supervised,reverse_file_stress,0.5,development_validation_labels,0.0174073000671342,3003,0.9936729936729937,0.0,0.0,0.0,2984,0,19,0,0.0,19,0,0.0,19,0,,,
+RandomForestCurrent,supervised,reverse_file_stress,0.5,development_validation_labels,1.293086800025776,3003,0.9936729936729937,0.0,0.0,0.0,2984,0,19,0,0.0,19,0,0.0,19,0,,,
+LogisticHistoryOnly,supervised,reverse_file_stress,0.5,development_validation_labels,0.02613270003348589,3003,0.9936729936729937,0.0,0.0,0.0,2984,0,19,0,0.0,19,0,0.0,19,0,,,
+RobustPhaseZ,unsupervised,reverse_file_stress,3.0817941636829143,historical_normal_calibration_99.9pct,0.0,3003,1.0,1.0,1.0,1.0,2984,0,0,19,0.0,19,19,1.0,0,0,0.0,0.0,0.0
+IsolationForestNormal,unsupervised,reverse_file_stress,0.20049228854677614,historical_normal_calibration_99.9pct,2.775512699969113,3003,0.9790209790209791,0.0,0.0,0.0,2940,44,19,0,0.014745308310991957,19,0,0.0,19,44,,,

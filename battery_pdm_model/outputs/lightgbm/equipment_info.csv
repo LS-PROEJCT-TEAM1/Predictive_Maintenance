@@ -1,0 +1,65 @@
+﻿category,item,value,source
+CloudSolution,BasicConfiguration.InternetAddress,192.168.1.150,BatteryModuleWelding.xml
+CloudSolution,BasicConfiguration.SamplingInterval,100.0,BatteryModuleWelding.xml
+EdgeGWSolution,Edisontech_GW.BasicConfiguration.NetworkConnection,opc.tcp://192.168.1.250:4840,BatteryModuleWelding.xml
+EdgeGWSolution,Edisontech_GW.BasicConfiguration.SamplingInterval,100.0,BatteryModuleWelding.xml
+EdgeGWSolution,Edisontech_GW.EdgeHub.BasicConfiguration.NetworkConnection,opc.tcp://192.168.1.250:1290,BatteryModuleWelding.xml
+EdgeGWSolution,Edisontech_GW.EdgeHub.BasicConfiguration.SamplingInterval,100.0,BatteryModuleWelding.xml
+Nameplate,ManufacturerName,미등록,BatteryModuleWelding.xml
+Nameplate,ManufacturerTypName,미등록,BatteryModuleWelding.xml
+Nameplate,PhysicalAddress01.CountryCode,미등록,BatteryModuleWelding.xml
+Nameplate,PhysicalAddress01.Street,미등록,BatteryModuleWelding.xml
+Nameplate,PhysicalAddress01.PostalCode,미등록,BatteryModuleWelding.xml
+Nameplate,PhysicalAddress01.City,미등록,BatteryModuleWelding.xml
+Nameplate,PhysicalAddress01.StateCounty,미등록,BatteryModuleWelding.xml
+Nameplate,TypClass,미등록,BatteryModuleWelding.xml
+Nameplate,SerialNo,미등록,BatteryModuleWelding.xml
+Nameplate,ChargeId,미등록,BatteryModuleWelding.xml
+Nameplate,CountryOfOrigin,미등록,BatteryModuleWelding.xml
+Nameplate,YearOfConstruction,미등록,BatteryModuleWelding.xml
+Identification,ManufacturerName,미등록,BatteryModuleWelding.xml
+Identification,SupplierName,미등록,BatteryModuleWelding.xml
+Identification,TypClass,미등록,BatteryModuleWelding.xml
+Identification,ClassificationSystem,미등록,BatteryModuleWelding.xml
+Identification,AssetId,미등록,BatteryModuleWelding.xml
+Identification,ManufacturingDate,미등록,BatteryModuleWelding.xml
+Identification,DeviceRevision,미등록,BatteryModuleWelding.xml
+Identification,SoftwareRevision,미등록,BatteryModuleWelding.xml
+Identification,HardwareRevision,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.Name,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.Role,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.PhysicalAddress.CountryCode,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.PhysicalAddress.Street,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.PhysicalAddress.PostalCode,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.PhysicalAddress.City,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.PhysicalAddress.StateCounty,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.Email,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.URL,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.Phone,미등록,BatteryModuleWelding.xml
+Identification,ContactInfo01.Fax,미등록,BatteryModuleWelding.xml
+Identification,URL,미등록,BatteryModuleWelding.xml
+TechnicalData,GeneralInformation.ManufacturerName,미등록,BatteryModuleWelding.xml
+TechnicalData,GeneralInformation.ManufacturerProductDesignation,미등록,BatteryModuleWelding.xml
+TechnicalData,GeneralInformation.ManufacturerPartNumber,미등록,BatteryModuleWelding.xml
+TechnicalData,GeneralInformation.ManufacturerOrderCode,미등록,BatteryModuleWelding.xml
+TechnicalData,ProductClassifications.ProductClassificationItem101.ProductClassificationSystem,미등록,BatteryModuleWelding.xml
+TechnicalData,ProductClassifications.ProductClassificationItem101.ClassificationSystemVersion,미등록,BatteryModuleWelding.xml
+TechnicalData,ProductClassifications.ProductClassificationItem101.ProductClassId,미등록,BatteryModuleWelding.xml
+TechnicalData,TechnicalProperties.SemanticIdNotAvailable01,미등록,BatteryModuleWelding.xml
+TechnicalData,TechnicalProperties.MainSection01.SemanticIdNotAvailable01,미등록,BatteryModuleWelding.xml
+TechnicalData,TechnicalProperties.MainSection01.SubSection01.SemanticIdNotAvailable01,미등록,BatteryModuleWelding.xml
+TechnicalData,FurtherInformation.TextStatement01,미등록,BatteryModuleWelding.xml
+TechnicalData,FurtherInformation.ValidDate,미등록,BatteryModuleWelding.xml
+수집 게이트웨이,GatewayName,Edisontech_GW,syscfg.json
+수집 게이트웨이,NetworkConnection,opc.tcp://192.168.1.250:4840,syscfg.json
+수집 게이트웨이,SamplingInterval(ms),100.0,syscfg.json
+수집 게이트웨이,FieldDevice.EdgeHub,opc.tcp://192.168.1.250:1290,syscfg.json
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.PageNo,PageNo,engineering.csv
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.SetSpeed,Speed,engineering.csv
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.SetLength,Length,engineering.csv
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.SetFrequency,SetFrequency,engineering.csv
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.SetDuty,SetDuty,engineering.csv
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.SetPower,SetPower,engineering.csv
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.WeldingOutput,RealPower,engineering.csv
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.WeldingOutputTime,GateOnTime,engineering.csv
+태그-컬럼 매핑,BatteryModuleWelding.OperationalData.WorkingDateTime,WorkingTime,engineering.csv

@@ -1,0 +1,110 @@
+{
+  "results": [
+    {
+      "model": "RobustZ",
+      "rows": 5070,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tn": 4788,
+      "fp": 0,
+      "fn": 0,
+      "tp": 282,
+      "total_evaluable_events": 19,
+      "missed_events": 0,
+      "event_recall": 1.0,
+      "normal_false_alarm_events": 0
+    },
+    {
+      "model": "LightGBM",
+      "rows": 5070,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tn": 4788,
+      "fp": 0,
+      "fn": 0,
+      "tp": 282,
+      "total_evaluable_events": 19,
+      "missed_events": 0,
+      "event_recall": 1.0,
+      "normal_false_alarm_events": 0
+    },
+    {
+      "model": "Guidebook_TwoBand_Z4",
+      "rows": 5070,
+      "accuracy": 0.9662721893491124,
+      "precision": 0.6225165562913907,
+      "recall": 1.0,
+      "f1": 0.7673469387755102,
+      "tn": 4617,
+      "fp": 171,
+      "fn": 0,
+      "tp": 282,
+      "total_evaluable_events": 19,
+      "missed_events": 0,
+      "event_recall": 1.0,
+      "normal_false_alarm_events": 28
+    },
+    {
+      "model": "Guidebook_NHiTS_FixedZ4",
+      "rows": 5070,
+      "accuracy": 0.9942800788954635,
+      "precision": 1.0,
+      "recall": 0.8971631205673759,
+      "f1": 0.9457943925233645,
+      "tn": 4788,
+      "fp": 0,
+      "fn": 29,
+      "tp": 253,
+      "total_evaluable_events": 19,
+      "missed_events": 18,
+      "event_recall": 0.05263157894736842,
+      "normal_false_alarm_events": 0
+    }
+  ],
+  "metadata": {
+    "split": {
+      "accepted_cycles": 3480,
+      "training_cycles": 2436,
+      "calibration_cycles": 1044,
+      "rejected_cycles": [
+        {
+          "cycle_id": 694,
+          "complete": true,
+          "contains_zero": true
+        }
+      ],
+      "training_start": "2022-01-08 10:11:45.181000",
+      "training_end": "2022-06-10 09:42:08.980000",
+      "calibration_start": "2022-06-10 09:42:55.853000",
+      "calibration_end": "2022-07-29 17:25:16.311000"
+    },
+    "common_evaluation": {
+      "first_time_idx": 30,
+      "last_rows_excluded": 9,
+      "total_rows": 5070
+    },
+    "nhits_training": {
+      "reused_checkpoint": false,
+      "checkpoint": "C:\\Users\\USER\\Desktop\\배터리 예지보전 모델\\outputs\\fair_four_model_comparison\\checkpoints\\fair-nhits-epoch=20-val_loss=3.5557.ckpt",
+      "training_seconds": 245.3557817999972,
+      "epochs_completed": 30,
+      "internal_validation_rows": 1000
+    },
+    "nhits_calibration": {
+      "error_count": 40677,
+      "error_mean": 7.483897686004639,
+      "error_std": 24.109207153320312,
+      "threshold": 4.0
+    },
+    "guidebook_two_band_z": {
+      "low_mean": 689.2522788864252,
+      "low_std": 2.0721498981947906,
+      "high_mean": 1704.2893606829418,
+      "high_std": 12.360964920800726
+    }
+  }
+}

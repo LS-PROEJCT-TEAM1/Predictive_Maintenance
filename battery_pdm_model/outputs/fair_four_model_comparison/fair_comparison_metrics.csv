@@ -1,0 +1,5 @@
+﻿model,rows,accuracy,precision,recall,f1,tn,fp,fn,tp,total_evaluable_events,missed_events,event_recall,normal_false_alarm_events
+RobustZ,5070,1.0,1.0,1.0,1.0,4788,0,0,282,19,0,1.0,0
+LightGBM,5070,1.0,1.0,1.0,1.0,4788,0,0,282,19,0,1.0,0
+Guidebook_TwoBand_Z4,5070,0.9662721893491124,0.6225165562913907,1.0,0.7673469387755102,4617,171,0,282,19,0,1.0,28
+Guidebook_NHiTS_FixedZ4,5070,0.9942800788954635,1.0,0.8971631205673759,0.9457943925233645,4788,0,29,253,19,18,0.05263157894736842,0
