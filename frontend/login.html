@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>직원 로그인 · BatteryFlow AI 운영센터</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/auth/theme.css"></head>
+<body class="login-page"><main class="login-workspace">
+<section class="login-context"><div class="login-brand"><img src="/auth/ci_img02.png" alt="LS"><span>BatteryFlow AI 운영센터</span></div><p class="eyebrow">MANUFACTURING INTELLIGENCE</p><h1>데이터를 확인하고,<br>근거를 남기는 업무 공간.</h1><p>공급망 예측 · 예지보전 · 품질 보증</p><div class="login-domains"><div><b>01</b><span>예측과 계획의 차이 확인</span></div><div><b>02</b><span>이상 신호와 품질 근거 검토</span></div><div><b>03</b><span>업무 기록과 나만의 AI 대화</span></div></div><small>공식 로컬 시드 기반 분석 / Firebase 직원 인증</small></section>
+<section class="login-panel"><p class="eyebrow">EMPLOYEE ACCESS</p><h2>직원 로그인</h2><p>관리자가 등록한 계정으로 접속하세요.</p><form id="login-form"><label for="email">이메일</label><input id="email" type="email" autocomplete="username" placeholder="name@company.com" required maxlength="254"><label for="password">비밀번호</label><input id="password" type="password" autocomplete="current-password" required maxlength="256"><p id="login-error" role="alert"></p><button type="submit" id="login-submit">로그인</button></form><div class="login-help">계정 등록·변경은 관리자에게 문의하세요.<br>Copilot 대화는 작성한 본인만 조회할 수 있습니다.</div></section>
+</main><script>
+document.getElementById('login-form').addEventListener('submit', async event => {
+ event.preventDefault(); const button=document.getElementById('login-submit'); const error=document.getElementById('login-error');
+ button.disabled=true; button.textContent='로그인 확인 중…'; error.textContent='';
+ try {const csrf=document.cookie.split('; ').find(x=>x.startsWith('manufacturing_csrf='))?.split('=').slice(1).join('=');
+ const response=await fetch('/auth/login',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf||''},body:JSON.stringify({email:document.getElementById('email').value,password:document.getElementById('password').value})});
+ const result=await response.json(); if(!response.ok) throw new Error(typeof result.detail==='string'?result.detail:'입력 내용을 확인하세요.'); location.replace('/');
+ } catch(e) {error.textContent=e.message||'연결을 확인하세요.';} finally {button.disabled=false;button.textContent='로그인';}
+});
+</script></body></html>

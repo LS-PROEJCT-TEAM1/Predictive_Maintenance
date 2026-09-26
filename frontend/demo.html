@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>로컬 체험 · BatteryFlow AI 운영센터</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/auth/theme.css"></head>
+<body class="login-page"><main class="login-workspace">
+<section class="login-context"><div class="login-brand"><img src="/auth/ci_img02.png" alt="LS"><span>BatteryFlow AI 운영센터</span></div><p class="eyebrow">LOCAL PREVIEW</p><h1>공식 데이터로,<br>분석 흐름을 확인하세요.</h1><p>통합 현황 · 공급망 예측 · 예지보전 · 품질 보증</p><div class="login-domains"><div><b>01</b><span>화면별 필터와 분석 근거 탐색</span></div><div><b>02</b><span>CSV 내보내기와 발주량 재예측</span></div><div><b>03</b><span>기존 모델의 검증 결과 확인</span></div></div></section>
+<section class="login-panel"><p class="eyebrow">TEAM PREVIEW</p><h2>로컬 체험</h2><p>계정이나 API 키 없이 이 PC에서 분석 기능을 확인합니다.</p><form id="demo-form"><p id="login-error" role="alert"></p><button id="demo-start" type="submit">체험 시작</button></form><div class="login-help">업무 기록 저장·조회와 Copilot은 비활성화됩니다.<br>실제 Firebase·Gemini에는 연결하지 않습니다.</div></section>
+</main><script>
+document.getElementById('demo-form').addEventListener('submit',async event=>{
+ event.preventDefault(); const button=document.getElementById('demo-start'); button.disabled=true;
+ try { const csrf=document.cookie.split('; ').find(x=>x.startsWith('manufacturing_csrf='))?.split('=').slice(1).join('=');
+ const response=await fetch('/auth/login',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf||''},body:JSON.stringify({email:'demo@local.test',password:'local-demo'})});
+ const result=await response.json(); if(!response.ok) throw new Error(result.detail || '체험 시작에 실패했습니다.'); location.replace('/');
+ }catch(error){document.getElementById('login-error').textContent=error.message;button.disabled=false;}
+});
+</script></body></html>

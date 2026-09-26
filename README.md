@@ -1,4 +1,18 @@
-# Predictive Maintenance & Demand Forecasting
+# BatteryFlow AI 운영센터
+
+## 팀원용 빠른 시작
+
+Python 3.12 설치 → Git clone → **setup_local.cmd** → **start_demo.cmd** → http://127.0.0.1:8070
+
+계정이나 API 키 없이 네 화면·필터·CSV 내보내기·발주량 추론을 체험할 수 있습니다.
+체험 모드에서는 Firebase 기록 저장과 Gemini Copilot을 사용하지 않습니다.
+
+- [팀원 설치·데이터 구성](TEAM_SETUP.md)
+- [실제 Firebase·Gemini 연결](LOCAL_RUN.md)
+- 공식 DB 원본: `firestore/seed` (v2, 266문서)
+- FastAPI + Dash, 실행에 필요한 압축 데이터·기존 모델은 `runtime/`에 포함
+
+아래는 개별 연구 트랙의 설명입니다. 통합 화면은 위 8070 주소로 실행하세요.
 
 KAMP 제조 데이터를 활용한 예지보전 및 부품 발주량 예측 프로젝트 저장소입니다.
 

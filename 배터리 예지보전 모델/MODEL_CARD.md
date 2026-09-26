@@ -10,7 +10,8 @@
 - 독립 잠금 시험 파일: WeldingTest_02_OK, WeldingTest_04_NG
 - 개발 내부 분할 단위: 39행 용접 사이클, 시간순 train/validation
 - 지도학습: Logistic Regression, Random Forest, 현재 RealPower 제외 진단 Logistic
-- 비지도학습: PageNo별 Robust Z-score, Isolation Forest
+- 비지도학습: PageNo별 Robust Z-score, LightGBM 정상 출력 회귀·잔차 탐지, Isolation Forest
+- 정상 기준 정제: `Training_Data.csv`의 RealPower 전체 0인 39행 사이클 1개 제외
 - 지도모델 불균형 처리: `class_weight="balanced"` 또는 `balanced_subsample`
 - 모델 선택: validation의 이벤트 누락, FN, 오경보 이벤트, F1, FP, 학습시간 순
 - 최종 보고: 모델 선택에 사용하지 않은 전체 잠금 시험 파일
@@ -21,8 +22,9 @@
 ## 검증 결과 요약
 
 - 최종 선택: RobustPhaseZ
-- 독립 파일 시험: Precision 0.9715, Recall 1.0000, F1 0.9856, FN 0, FP 8
+- 독립 파일 시험: Precision 0.9891, Recall 1.0000, F1 0.9945, FN 0, FP 3
 - 지도 LogisticCurrent: Precision 0.9927, Recall 1.0000, F1 0.9964
+- 비지도 LightGBMResidual: Precision 0.9579, Recall 1.0000, F1 0.9785, FN 0, FP 12
 - 반대 파일 방향 스트레스 테스트에서 지도 모델은 NG03 19개 이벤트를 놓쳤고 RobustPhaseZ는 19개를 모두 탐지했다. 이 고장 유형 강건성 때문에 validation 동률에서 단순하고 계산비용이 낮은 RobustPhaseZ를 선택했다.
 
 ## 배포 모델

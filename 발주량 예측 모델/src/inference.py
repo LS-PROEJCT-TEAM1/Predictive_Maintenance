@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import tempfile
 from functools import lru_cache
@@ -14,7 +15,7 @@ from xgboost import XGBRegressor
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MODEL_DIR = ROOT / "models" / "purged_v1" / "source_total"
+MODEL_DIR = Path(os.environ.get('MANUFACTURING_DEMAND_MODEL_DIR', ROOT / "models" / "purged_v1" / "source_total"))
 REQUIRED_COLUMNS = ["part_number", "date", "actual_d", "plan_d3", "plan_d4", "plan_d5"]
 SEQUENCE_FEATURES = ["actual_d", "plan_d3", "plan_d4", "plan_d5"]
 

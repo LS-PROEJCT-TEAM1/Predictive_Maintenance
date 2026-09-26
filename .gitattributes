@@ -1,0 +1,8 @@
+# Keep checksummed data byte-for-byte identical across Windows/Linux checkouts.
+firestore/seed/** -text
+runtime/** -text
+*.png binary
+*.jpg binary
+*.woff binary
+*.joblib binary
+*.gz binary

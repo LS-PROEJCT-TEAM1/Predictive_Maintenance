@@ -9,6 +9,7 @@
 - 잠금 시험 파일은 학습, 임계값 결정, 모델 선택에 사용하지 않았다.
 - 개발 파일 내부도 39행 용접 사이클을 유지하고 시간순으로 분할했다.
 - 비지도 모델은 Training_Data 정상 구간만 학습하고 정상 보정 구간으로 임계값을 고정했다.
+- Training_Data의 RealPower가 전체 0인 용접 사이클은 정상 기준을 오염시키므로 학습·보정에서 제외했다.
 - 지도 모델은 희소한 이상 행에 balanced class weight를 적용했다.
 - 이벤트는 원본 파일의 연속 이상 구간으로 계산하여 NG04의 한 이벤트를 여러 cycle 이벤트로 부풀리지 않았다.
 
@@ -18,9 +19,10 @@
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | LogisticCurrent | supervised | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 1.0000 | 0 |
 | RandomForestCurrent | supervised | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 1.0000 | 0 |
-| LogisticHistoryOnly | supervised | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 1.0000 | 0 |
+| LogisticHistoryOnly | supervised | 0.1500 | 1.0000 | 0.2609 | 0.0182 | 1.0000 | 17 |
 | RobustPhaseZ | unsupervised | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 1.0000 | 0 |
-| IsolationForestNormal | unsupervised | 0.0000 | 0.0000 | 0.0000 | 0.0118 | 0.0000 | 11 |
+| LightGBMResidual | unsupervised | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 1.0000 | 0 |
+| IsolationForestNormal | unsupervised | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 |
 
 ## 독립 파일 잠금 시험 결과
 
@@ -28,16 +30,17 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | LogisticCurrent | supervised | 0.9991 | 0.9927 | 1.0000 | 0.9964 | 1948 | 2 | 0 | 273 | 1.0000 | 2 | 0.0000 |
 | RandomForestCurrent | supervised | 0.9523 | 0.9941 | 0.6154 | 0.7602 | 1949 | 1 | 105 | 168 | 1.0000 | 1 | 0.0000 |
-| LogisticHistoryOnly | supervised | 0.8920 | 0.9714 | 0.1245 | 0.2208 | 1949 | 1 | 239 | 34 | 1.0000 | 1 | 12.0000 |
-| RobustPhaseZ | unsupervised | 0.9964 | 0.9715 | 1.0000 | 0.9856 | 1942 | 8 | 0 | 273 | 1.0000 | 7 | 0.0000 |
-| IsolationForestNormal | unsupervised | 0.9316 | 0.8667 | 0.5238 | 0.6530 | 1928 | 22 | 130 | 143 | 1.0000 | 22 | 0.0000 |
+| LogisticHistoryOnly | supervised | 0.8547 | 0.0000 | 0.0000 | 0.0000 | 1900 | 50 | 273 | 0 | 0.0000 | 49 |  |
+| RobustPhaseZ | unsupervised | 0.9987 | 0.9891 | 1.0000 | 0.9945 | 1947 | 3 | 0 | 273 | 1.0000 | 2 | 0.0000 |
+| LightGBMResidual | unsupervised | 0.9946 | 0.9579 | 1.0000 | 0.9785 | 1938 | 12 | 0 | 273 | 1.0000 | 2 | 0.0000 |
+| IsolationForestNormal | unsupervised | 0.8844 | 0.9444 | 0.0623 | 0.1168 | 1949 | 1 | 256 | 17 | 1.0000 | 1 | 51.0000 |
 
 ## 최종 모델의 파일별 성능
 
 | source_file | rows | precision | recall | f1 | tn | fp | fn | tp |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | WeldingTest_02_OK | 1872 | 0.0000 | 0.0000 | 0.0000 | 1872 | 0 | 0 | 0 |
-| WeldingTest_04_NG | 351 | 0.9715 | 1.0000 | 0.9856 | 70 | 8 | 0 | 273 |
+| WeldingTest_04_NG | 351 | 0.9891 | 1.0000 | 0.9945 | 75 | 3 | 0 | 273 |
 
 ## 반대 방향 파일 스트레스 테스트
 
@@ -49,14 +52,15 @@
 | RandomForestCurrent | supervised | 0.0000 | 0.0000 | 0.0000 | 19 | 0 | 0.0000 | 0 |
 | LogisticHistoryOnly | supervised | 0.0000 | 0.0000 | 0.0000 | 19 | 0 | 0.0000 | 0 |
 | RobustPhaseZ | unsupervised | 1.0000 | 1.0000 | 1.0000 | 0 | 0 | 1.0000 | 0 |
-| IsolationForestNormal | unsupervised | 0.0000 | 0.0000 | 0.0000 | 19 | 44 | 0.0000 | 44 |
+| LightGBMResidual | unsupervised | 1.0000 | 1.0000 | 1.0000 | 0 | 0 | 1.0000 | 0 |
+| IsolationForestNormal | unsupervised | 0.0000 | 0.0000 | 0.0000 | 19 | 0 | 0.0000 | 0 |
 
 ## 성공 기준 판정
 
 - 불량 행 Recall >= 0.90: PASS (1.0000)
 - 물리 이벤트 Recall = 1.00: PASS (1.0000)
-- 정상 행 FPR <= 0.01: PASS (0.0041)
-- 독립 시험 FN: 0, FP: 8
+- 정상 행 FPR <= 0.01: PASS (0.0015)
+- 독립 시험 FN: 0, FP: 3
 
 ## 높은 성능에 대한 점검
 
@@ -67,14 +71,15 @@
 
 ## 주요 특징
 
-- LogisticCurrent: RelativePowerError (0.279), PhaseSignedZ (0.276), PhaseAbsZ (0.276), RealPowerDelta (0.062), TimeGapSeconds (0.021)
-- LogisticHistoryOnly: PageSin (0.370), SetPower (0.287), TimeGapSeconds (0.117), PageNo (0.095), GateOnTime (0.085)
-- RandomForestCurrent: RealPower (0.210), RelativePowerError (0.187), PhaseSignedZ (0.169), PhaseAbsZ (0.146), SetPower (0.104)
+- LogisticCurrent: RelativePowerError (0.387), PhaseSignedZ (0.237), PhaseAbsZ (0.237), TimeGapSeconds (0.034), RealPowerDelta (0.031)
+- LogisticHistoryOnly: PageSin (0.340), SetPower (0.284), TimeGapSeconds (0.098), GateOnTime (0.087), PageNo (0.063)
+- RandomForestCurrent: RealPower (0.211), RelativePowerError (0.190), PhaseSignedZ (0.164), PhaseAbsZ (0.149), SetPower (0.102)
 
 ## 데이터 규모
 
+- 정상 기준 제외: 1 cycles / 39 rows (RealPower 전체 0)
 - 정상 기준 학습: 2436 cycles / 95004 rows
-- 정상 임계값 보정: 1045 cycles / 40755 rows
+- 정상 임계값 보정: 1044 cycles / 40716 rows
 - 지도 개발 train: 53 cycles
 - 지도 개발 validation: 24 cycles
 - 잠금 시험: WeldingTest_02_OK 48 cycles + WeldingTest_04_NG 9 cycles.

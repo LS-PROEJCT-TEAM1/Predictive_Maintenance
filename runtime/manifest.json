@@ -1,0 +1,89 @@
+{
+  "dataVersion": "2026-09-26.v2",
+  "files": [
+    {
+      "file": "quality/Test03_OK_chg.csv.gz",
+      "bytes": 141493,
+      "sha256": "1b4c96f8acb9468dd03a0d316a82ec4cd7594e0097a6dabf89e2d890e4aab4c7",
+      "source": "배터리 품질보증 모델/data/raw_data/test/Test03_OK_chg.csv",
+      "sourceSha256": "694ddcdae78e5d1b2b7de536da85882fa3a30ab66d2bf9502759d65b48c039a2"
+    },
+    {
+      "file": "quality/Test04_OK_dchg.csv.gz",
+      "bytes": 81833,
+      "sha256": "60812ca21d0081f3af1def922ea5128ffab74d719e3ecefa5fffcfcae8d0f77a",
+      "source": "배터리 품질보증 모델/data/raw_data/test/Test04_OK_dchg.csv",
+      "sourceSha256": "bfd7093559e389f38c5c1efbe39ca6f21b4638fdf9d54be8398b93da13020728"
+    },
+    {
+      "file": "quality/Test06_NG_chg.csv.gz",
+      "bytes": 140861,
+      "sha256": "4f97e2d63a1635e0550476dbcd9d7cf5d2848529e02ae62781f70b0a60dff9ce",
+      "source": "배터리 품질보증 모델/data/raw_data/test/Test06_NG_chg.csv",
+      "sourceSha256": "7e24dca08c95135c23c3d4c239194f4baeeb3e0b7ab627b6338a380e1819ea4c"
+    },
+    {
+      "file": "quality/Test07_NG_dchg.csv.gz",
+      "bytes": 649989,
+      "sha256": "bc746fd3726ba2da3a8b67a9a48e381a5894d4700f639cebb3f5eaab7ff4d129",
+      "source": "배터리 품질보증 모델/data/raw_data/test/Test07_NG_dchg.csv",
+      "sourceSha256": "e22d809b7549b36e4404ae552be295b0e0bf269673395d97f33345fda3252ad7"
+    },
+    {
+      "file": "quality/Test08_NG_chg.csv.gz",
+      "bytes": 568558,
+      "sha256": "d80a044635cf91db18d202e3d28d5fc4aaf2fac557d5a25a70399fa32ed36331",
+      "source": "배터리 품질보증 모델/data/raw_data/test/Test08_NG_chg.csv",
+      "sourceSha256": "7c190681baae053ce7fc0229f8582a2e0653353af8809074a3cdc44076b6cb26"
+    },
+    {
+      "file": "validation/demand_folds.csv",
+      "bytes": 2624,
+      "sha256": "8449b9c6fd9cd281dce57c79afb5d8a3dd84989816eed0d54c159bf4de5839f4",
+      "source": "발주량 예측 모델/outputs/purged_evaluation/source_total/cv_metrics_by_fold.csv",
+      "sourceSha256": "8449b9c6fd9cd281dce57c79afb5d8a3dd84989816eed0d54c159bf4de5839f4"
+    },
+    {
+      "file": "validation/demand_errors.csv",
+      "bytes": 75102,
+      "sha256": "a3ec3bc95a366cc140f21848a61eb406a117dc9d98b5cb9ffe7e48a5c3845bc4",
+      "source": "발주량 예측 모델/outputs/purged_evaluation/source_total/final_holdout_part_metrics.csv",
+      "sourceSha256": "a3ec3bc95a366cc140f21848a61eb406a117dc9d98b5cb9ffe7e48a5c3845bc4"
+    },
+    {
+      "file": "validation/maintenance_features.csv",
+      "bytes": 2712,
+      "sha256": "bc12e9e58d2a8dbad1953f5c7cfc05e89c256b6d35cf0cbae71df5a6d83cfa4a",
+      "source": "배터리 예지보전 모델/outputs/track_b_final_v2/feature_importance.csv",
+      "sourceSha256": "bc12e9e58d2a8dbad1953f5c7cfc05e89c256b6d35cf0cbae71df5a6d83cfa4a"
+    },
+    {
+      "file": "validation/quality_features.csv",
+      "bytes": 321,
+      "sha256": "55859b52afe0863da17e5d158275f5094b48e18637869c005794054eb8e1902d",
+      "source": "배터리 품질보증 모델/output/models/model_A_random_forest_변수중요도.csv",
+      "sourceSha256": "55859b52afe0863da17e5d158275f5094b48e18637869c005794054eb8e1902d"
+    },
+    {
+      "file": "demand/metadata.json",
+      "bytes": 4918,
+      "sha256": "3537d765645e2db147bba2cb1cf8ae759c1b5b37980fd61430eefdf4bd4cccac",
+      "source": "발주량 예측 모델/models/purged_v1/source_total/metadata.json",
+      "sourceSha256": "3537d765645e2db147bba2cb1cf8ae759c1b5b37980fd61430eefdf4bd4cccac"
+    },
+    {
+      "file": "demand/tree_preprocessor.joblib",
+      "bytes": 4124,
+      "sha256": "5c3c39b2571e36ff8fcb5a3e7d02508e751f63678b747e190cf485f2424b17da",
+      "source": "발주량 예측 모델/models/purged_v1/source_total/tree_preprocessor.joblib",
+      "sourceSha256": "5c3c39b2571e36ff8fcb5a3e7d02508e751f63678b747e190cf485f2424b17da"
+    },
+    {
+      "file": "demand/xgboost.json",
+      "bytes": 1695144,
+      "sha256": "713d4e3240451ecf7c850d17b47a7271a130aa8ac33d207fb316bffb12203f33",
+      "source": "발주량 예측 모델/models/purged_v1/source_total/xgboost.json",
+      "sourceSha256": "713d4e3240451ecf7c850d17b47a7271a130aa8ac33d207fb316bffb12203f33"
+    }
+  ]
+}
