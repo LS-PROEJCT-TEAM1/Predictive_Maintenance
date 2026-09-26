@@ -1,0 +1,2282 @@
+[
+ {
+  "pack_id": "1000_dchg",
+  "start": 2694,
+  "end": 2718,
+  "duration": 25,
+  "max_phi": 58.069,
+  "max_spe": 0.349
+ },
+ {
+  "pack_id": "1001_dchg",
+  "start": 2736,
+  "end": 2747,
+  "duration": 12,
+  "max_phi": 216.782,
+  "max_spe": 8.345
+ },
+ {
+  "pack_id": "1002_dchg",
+  "start": 13,
+  "end": 23,
+  "duration": 11,
+  "max_phi": 149.223,
+  "max_spe": 4.26
+ },
+ {
+  "pack_id": "1003_dchg",
+  "start": 1634,
+  "end": 1643,
+  "duration": 10,
+  "max_phi": 219.964,
+  "max_spe": 12.479
+ },
+ {
+  "pack_id": "1004_chg",
+  "start": 27,
+  "end": 37,
+  "duration": 11,
+  "max_phi": 342.036,
+  "max_spe": 19.026
+ },
+ {
+  "pack_id": "1005_chg",
+  "start": 27,
+  "end": 37,
+  "duration": 11,
+  "max_phi": 338.524,
+  "max_spe": 13.731
+ },
+ {
+  "pack_id": "1005_dchg",
+  "start": 26,
+  "end": 36,
+  "duration": 11,
+  "max_phi": 69.557,
+  "max_spe": 1.495
+ },
+ {
+  "pack_id": "1005_dchg",
+  "start": 636,
+  "end": 645,
+  "duration": 10,
+  "max_phi": 1.648,
+  "max_spe": 0.18
+ },
+ {
+  "pack_id": "1005_dchg",
+  "start": 2215,
+  "end": 2224,
+  "duration": 10,
+  "max_phi": 2.527,
+  "max_spe": 0.604
+ },
+ {
+  "pack_id": "1005_dchg",
+  "start": 4649,
+  "end": 4659,
+  "duration": 11,
+  "max_phi": 2.727,
+  "max_spe": 0.586
+ },
+ {
+  "pack_id": "1006_chg",
+  "start": 30,
+  "end": 39,
+  "duration": 10,
+  "max_phi": 266.821,
+  "max_spe": 26.984
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 2035,
+  "end": 2044,
+  "duration": 10,
+  "max_phi": 6.061,
+  "max_spe": 1.014
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 2849,
+  "end": 2858,
+  "duration": 10,
+  "max_phi": 2.968,
+  "max_spe": 0.991
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 2873,
+  "end": 2888,
+  "duration": 16,
+  "max_phi": 5.75,
+  "max_spe": 0.923
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 2890,
+  "end": 3009,
+  "duration": 120,
+  "max_phi": 61.304,
+  "max_spe": 1.151
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 3049,
+  "end": 3064,
+  "duration": 16,
+  "max_phi": 2.086,
+  "max_spe": 0.958
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 3080,
+  "end": 3113,
+  "duration": 34,
+  "max_phi": 2.077,
+  "max_spe": 1.001
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 3133,
+  "end": 3147,
+  "duration": 15,
+  "max_phi": 1.91,
+  "max_spe": 0.94
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 3221,
+  "end": 3258,
+  "duration": 38,
+  "max_phi": 2.739,
+  "max_spe": 1.059
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 3301,
+  "end": 3311,
+  "duration": 11,
+  "max_phi": 1.672,
+  "max_spe": 0.866
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 3389,
+  "end": 3403,
+  "duration": 15,
+  "max_phi": 1.691,
+  "max_spe": 0.885
+ },
+ {
+  "pack_id": "1007_dchg",
+  "start": 3563,
+  "end": 3575,
+  "duration": 13,
+  "max_phi": 2.199,
+  "max_spe": 0.64
+ },
+ {
+  "pack_id": "1008_dchg",
+  "start": 2719,
+  "end": 3184,
+  "duration": 466,
+  "max_phi": 308.757,
+  "max_spe": 20.647
+ },
+ {
+  "pack_id": "1008_dchg",
+  "start": 3227,
+  "end": 3238,
+  "duration": 12,
+  "max_phi": 1.147,
+  "max_spe": 0.063
+ },
+ {
+  "pack_id": "1009_dchg",
+  "start": 0,
+  "end": 17,
+  "duration": 18,
+  "max_phi": 3761.158,
+  "max_spe": 289.434
+ },
+ {
+  "pack_id": "1009_dchg",
+  "start": 2907,
+  "end": 2916,
+  "duration": 10,
+  "max_phi": 260.266,
+  "max_spe": 15.591
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 921,
+  "end": 930,
+  "duration": 10,
+  "max_phi": 6.792,
+  "max_spe": 5.174
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 946,
+  "end": 956,
+  "duration": 11,
+  "max_phi": 5.63,
+  "max_spe": 3.663
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 996,
+  "end": 1016,
+  "duration": 21,
+  "max_phi": 5.32,
+  "max_spe": 4.056
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1040,
+  "end": 1049,
+  "duration": 10,
+  "max_phi": 3.864,
+  "max_spe": 2.883
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1091,
+  "end": 1101,
+  "duration": 11,
+  "max_phi": 5.983,
+  "max_spe": 3.896
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1195,
+  "end": 1214,
+  "duration": 20,
+  "max_phi": 4.837,
+  "max_spe": 3.647
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1218,
+  "end": 1234,
+  "duration": 17,
+  "max_phi": 3.853,
+  "max_spe": 2.911
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1260,
+  "end": 1269,
+  "duration": 10,
+  "max_phi": 3.558,
+  "max_spe": 2.689
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1421,
+  "end": 1430,
+  "duration": 10,
+  "max_phi": 7.211,
+  "max_spe": 4.754
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1432,
+  "end": 1441,
+  "duration": 10,
+  "max_phi": 3.435,
+  "max_spe": 2.59
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1471,
+  "end": 1483,
+  "duration": 13,
+  "max_phi": 5.671,
+  "max_spe": 4.251
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1537,
+  "end": 1547,
+  "duration": 11,
+  "max_phi": 4.657,
+  "max_spe": 3.201
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1578,
+  "end": 1589,
+  "duration": 12,
+  "max_phi": 3.594,
+  "max_spe": 2.315
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1746,
+  "end": 1763,
+  "duration": 18,
+  "max_phi": 5.221,
+  "max_spe": 3.384
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1765,
+  "end": 1774,
+  "duration": 10,
+  "max_phi": 3.061,
+  "max_spe": 1.809
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 1996,
+  "end": 2007,
+  "duration": 12,
+  "max_phi": 3.333,
+  "max_spe": 2.396
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 2201,
+  "end": 2212,
+  "duration": 12,
+  "max_phi": 3.772,
+  "max_spe": 2.904
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 2614,
+  "end": 2624,
+  "duration": 11,
+  "max_phi": 2.85,
+  "max_spe": 1.201
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 3127,
+  "end": 3137,
+  "duration": 11,
+  "max_phi": 2.259,
+  "max_spe": 1.11
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 4342,
+  "end": 4352,
+  "duration": 11,
+  "max_phi": 1.578,
+  "max_spe": 1.099
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 4418,
+  "end": 4433,
+  "duration": 16,
+  "max_phi": 1.618,
+  "max_spe": 1.094
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 4519,
+  "end": 4537,
+  "duration": 19,
+  "max_phi": 1.614,
+  "max_spe": 1.105
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 4666,
+  "end": 4684,
+  "duration": 19,
+  "max_phi": 2.384,
+  "max_spe": 1.096
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 4855,
+  "end": 4868,
+  "duration": 14,
+  "max_phi": 1.506,
+  "max_spe": 1.044
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 4870,
+  "end": 4915,
+  "duration": 46,
+  "max_phi": 1.696,
+  "max_spe": 1.167
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 5167,
+  "end": 5186,
+  "duration": 20,
+  "max_phi": 1.527,
+  "max_spe": 1.044
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 5188,
+  "end": 5208,
+  "duration": 21,
+  "max_phi": 1.575,
+  "max_spe": 1.081
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 5210,
+  "end": 5231,
+  "duration": 22,
+  "max_phi": 1.698,
+  "max_spe": 1.15
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 5573,
+  "end": 5596,
+  "duration": 24,
+  "max_phi": 1.386,
+  "max_spe": 0.933
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 5598,
+  "end": 5726,
+  "duration": 129,
+  "max_phi": 1.623,
+  "max_spe": 1.104
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 5728,
+  "end": 5744,
+  "duration": 17,
+  "max_phi": 1.642,
+  "max_spe": 1.109
+ },
+ {
+  "pack_id": "1010_chg",
+  "start": 5747,
+  "end": 5761,
+  "duration": 15,
+  "max_phi": 1.726,
+  "max_spe": 1.118
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 0,
+  "end": 53,
+  "duration": 54,
+  "max_phi": 118.459,
+  "max_spe": 3.6
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 72,
+  "end": 82,
+  "duration": 11,
+  "max_phi": 3.976,
+  "max_spe": 2.451
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 84,
+  "end": 179,
+  "duration": 96,
+  "max_phi": 69.456,
+  "max_spe": 3.403
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 181,
+  "end": 216,
+  "duration": 36,
+  "max_phi": 1.864,
+  "max_spe": 1.332
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 224,
+  "end": 241,
+  "duration": 18,
+  "max_phi": 2.289,
+  "max_spe": 0.968
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 244,
+  "end": 333,
+  "duration": 90,
+  "max_phi": 2.636,
+  "max_spe": 1.309
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 431,
+  "end": 443,
+  "duration": 13,
+  "max_phi": 1.39,
+  "max_spe": 0.98
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 445,
+  "end": 472,
+  "duration": 28,
+  "max_phi": 1.626,
+  "max_spe": 1.052
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 474,
+  "end": 494,
+  "duration": 21,
+  "max_phi": 72.291,
+  "max_spe": 3.003
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 501,
+  "end": 514,
+  "duration": 14,
+  "max_phi": 2.903,
+  "max_spe": 2.063
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 521,
+  "end": 530,
+  "duration": 10,
+  "max_phi": 3.285,
+  "max_spe": 2.303
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 543,
+  "end": 557,
+  "duration": 15,
+  "max_phi": 3.133,
+  "max_spe": 2.239
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 559,
+  "end": 571,
+  "duration": 13,
+  "max_phi": 4.807,
+  "max_spe": 3.712
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 573,
+  "end": 582,
+  "duration": 10,
+  "max_phi": 3.048,
+  "max_spe": 2.17
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 662,
+  "end": 674,
+  "duration": 13,
+  "max_phi": 3.861,
+  "max_spe": 2.361
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 1362,
+  "end": 1377,
+  "duration": 16,
+  "max_phi": 5.638,
+  "max_spe": 3.499
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 1400,
+  "end": 1413,
+  "duration": 14,
+  "max_phi": 6.288,
+  "max_spe": 4.13
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 1757,
+  "end": 1775,
+  "duration": 19,
+  "max_phi": 1.683,
+  "max_spe": 1.007
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 1797,
+  "end": 1822,
+  "duration": 26,
+  "max_phi": 2.259,
+  "max_spe": 1.097
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 2112,
+  "end": 2123,
+  "duration": 12,
+  "max_phi": 5.685,
+  "max_spe": 3.814
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 2129,
+  "end": 2138,
+  "duration": 10,
+  "max_phi": 5.342,
+  "max_spe": 3.911
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 2144,
+  "end": 2153,
+  "duration": 10,
+  "max_phi": 6.391,
+  "max_spe": 4.493
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 2180,
+  "end": 2194,
+  "duration": 15,
+  "max_phi": 5.101,
+  "max_spe": 3.127
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 2196,
+  "end": 2207,
+  "duration": 12,
+  "max_phi": 5.268,
+  "max_spe": 3.488
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 2292,
+  "end": 2303,
+  "duration": 12,
+  "max_phi": 4.27,
+  "max_spe": 3.19
+ },
+ {
+  "pack_id": "1010_dchg",
+  "start": 3718,
+  "end": 3730,
+  "duration": 13,
+  "max_phi": 260.829,
+  "max_spe": 17.077
+ },
+ {
+  "pack_id": "1011_dchg",
+  "start": 3213,
+  "end": 3222,
+  "duration": 10,
+  "max_phi": 242.192,
+  "max_spe": 18.021
+ },
+ {
+  "pack_id": "1012_chg",
+  "start": 20,
+  "end": 30,
+  "duration": 11,
+  "max_phi": 231.973,
+  "max_spe": 5.621
+ },
+ {
+  "pack_id": "1012_dchg",
+  "start": 229,
+  "end": 238,
+  "duration": 10,
+  "max_phi": 103.696,
+  "max_spe": 14.012
+ },
+ {
+  "pack_id": "1012_dchg",
+  "start": 813,
+  "end": 823,
+  "duration": 11,
+  "max_phi": 202.162,
+  "max_spe": 8.738
+ },
+ {
+  "pack_id": "1014_chg",
+  "start": 15,
+  "end": 25,
+  "duration": 11,
+  "max_phi": 196.335,
+  "max_spe": 4.469
+ },
+ {
+  "pack_id": "1015_chg",
+  "start": 12,
+  "end": 21,
+  "duration": 10,
+  "max_phi": 212.699,
+  "max_spe": 12.552
+ },
+ {
+  "pack_id": "1020_dchg",
+  "start": 415,
+  "end": 429,
+  "duration": 15,
+  "max_phi": 2.402,
+  "max_spe": 1.682
+ },
+ {
+  "pack_id": "1020_dchg",
+  "start": 440,
+  "end": 461,
+  "duration": 22,
+  "max_phi": 2.656,
+  "max_spe": 1.829
+ },
+ {
+  "pack_id": "1020_dchg",
+  "start": 471,
+  "end": 495,
+  "duration": 25,
+  "max_phi": 3.128,
+  "max_spe": 2.303
+ },
+ {
+  "pack_id": "1020_dchg",
+  "start": 504,
+  "end": 1122,
+  "duration": 619,
+  "max_phi": 5.3,
+  "max_spe": 3.732
+ },
+ {
+  "pack_id": "1021_chg",
+  "start": 10852,
+  "end": 10893,
+  "duration": 42,
+  "max_phi": 1725.94,
+  "max_spe": 2.006
+ },
+ {
+  "pack_id": "1021_chg",
+  "start": 10899,
+  "end": 10911,
+  "duration": 13,
+  "max_phi": 1.787,
+  "max_spe": 0.927
+ },
+ {
+  "pack_id": "1021_chg",
+  "start": 10932,
+  "end": 10948,
+  "duration": 17,
+  "max_phi": 1.791,
+  "max_spe": 0.932
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 21,
+  "end": 31,
+  "duration": 11,
+  "max_phi": 85.934,
+  "max_spe": 2.285
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 33,
+  "end": 52,
+  "duration": 20,
+  "max_phi": 5.006,
+  "max_spe": 2.883
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 54,
+  "end": 69,
+  "duration": 16,
+  "max_phi": 5.254,
+  "max_spe": 3.352
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 74,
+  "end": 106,
+  "duration": 33,
+  "max_phi": 5.75,
+  "max_spe": 3.183
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 108,
+  "end": 120,
+  "duration": 13,
+  "max_phi": 7.662,
+  "max_spe": 5.242
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 129,
+  "end": 158,
+  "duration": 30,
+  "max_phi": 7.548,
+  "max_spe": 4.849
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 160,
+  "end": 203,
+  "duration": 44,
+  "max_phi": 6.5,
+  "max_spe": 3.972
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 205,
+  "end": 214,
+  "duration": 10,
+  "max_phi": 5.686,
+  "max_spe": 3.424
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 229,
+  "end": 243,
+  "duration": 15,
+  "max_phi": 4.863,
+  "max_spe": 3.18
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 245,
+  "end": 255,
+  "duration": 11,
+  "max_phi": 3.668,
+  "max_spe": 2.147
+ },
+ {
+  "pack_id": "1021_dchg",
+  "start": 311,
+  "end": 1108,
+  "duration": 798,
+  "max_phi": 50.609,
+  "max_spe": 11.062
+ },
+ {
+  "pack_id": "1022_chg",
+  "start": 0,
+  "end": 35,
+  "duration": 36,
+  "max_phi": 37.519,
+  "max_spe": 1.205
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 349,
+  "end": 358,
+  "duration": 10,
+  "max_phi": 1.512,
+  "max_spe": 1.039
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 366,
+  "end": 376,
+  "duration": 11,
+  "max_phi": 2.386,
+  "max_spe": 1.105
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 410,
+  "end": 421,
+  "duration": 12,
+  "max_phi": 2.285,
+  "max_spe": 1.007
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 440,
+  "end": 453,
+  "duration": 14,
+  "max_phi": 1.477,
+  "max_spe": 0.99
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 469,
+  "end": 495,
+  "duration": 27,
+  "max_phi": 1.493,
+  "max_spe": 1.027
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 520,
+  "end": 553,
+  "duration": 34,
+  "max_phi": 2.357,
+  "max_spe": 1.046
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 603,
+  "end": 636,
+  "duration": 34,
+  "max_phi": 2.236,
+  "max_spe": 1.073
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 698,
+  "end": 784,
+  "duration": 87,
+  "max_phi": 2.309,
+  "max_spe": 1.12
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 786,
+  "end": 797,
+  "duration": 12,
+  "max_phi": 1.383,
+  "max_spe": 0.964
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 799,
+  "end": 808,
+  "duration": 10,
+  "max_phi": 2.269,
+  "max_spe": 1.05
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 814,
+  "end": 828,
+  "duration": 15,
+  "max_phi": 2.324,
+  "max_spe": 1.099
+ },
+ {
+  "pack_id": "1022_dchg",
+  "start": 923,
+  "end": 932,
+  "duration": 10,
+  "max_phi": 2.012,
+  "max_spe": 0.877
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 505,
+  "end": 515,
+  "duration": 11,
+  "max_phi": 5.236,
+  "max_spe": 3.778
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 560,
+  "end": 570,
+  "duration": 11,
+  "max_phi": 3.704,
+  "max_spe": 2.453
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 576,
+  "end": 590,
+  "duration": 15,
+  "max_phi": 4.372,
+  "max_spe": 2.211
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 609,
+  "end": 624,
+  "duration": 16,
+  "max_phi": 3.137,
+  "max_spe": 1.849
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 626,
+  "end": 639,
+  "duration": 14,
+  "max_phi": 3.819,
+  "max_spe": 2.559
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 651,
+  "end": 665,
+  "duration": 15,
+  "max_phi": 4.227,
+  "max_spe": 2.284
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 672,
+  "end": 694,
+  "duration": 23,
+  "max_phi": 5.134,
+  "max_spe": 2.79
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 696,
+  "end": 706,
+  "duration": 11,
+  "max_phi": 3.421,
+  "max_spe": 1.556
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 708,
+  "end": 733,
+  "duration": 26,
+  "max_phi": 4.798,
+  "max_spe": 2.343
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 736,
+  "end": 1002,
+  "duration": 267,
+  "max_phi": 5.344,
+  "max_spe": 3.597
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1063,
+  "end": 1116,
+  "duration": 54,
+  "max_phi": 2.595,
+  "max_spe": 1.081
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1142,
+  "end": 1170,
+  "duration": 29,
+  "max_phi": 2.669,
+  "max_spe": 1.24
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1178,
+  "end": 1197,
+  "duration": 20,
+  "max_phi": 2.821,
+  "max_spe": 1.016
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1210,
+  "end": 1246,
+  "duration": 37,
+  "max_phi": 2.978,
+  "max_spe": 1.238
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1265,
+  "end": 1369,
+  "duration": 105,
+  "max_phi": 3.085,
+  "max_spe": 1.222
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1399,
+  "end": 1463,
+  "duration": 65,
+  "max_phi": 2.597,
+  "max_spe": 0.93
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1507,
+  "end": 1528,
+  "duration": 22,
+  "max_phi": 2.05,
+  "max_spe": 1.103
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1531,
+  "end": 1543,
+  "duration": 13,
+  "max_phi": 2.047,
+  "max_spe": 1.1
+ },
+ {
+  "pack_id": "1024_chg",
+  "start": 1640,
+  "end": 1667,
+  "duration": 28,
+  "max_phi": 2.46,
+  "max_spe": 0.872
+ },
+ {
+  "pack_id": "1024_dchg",
+  "start": 57,
+  "end": 1015,
+  "duration": 959,
+  "max_phi": 60.14,
+  "max_spe": 4.579
+ },
+ {
+  "pack_id": "1025_chg",
+  "start": 102,
+  "end": 111,
+  "duration": 10,
+  "max_phi": 612.195,
+  "max_spe": 9.8
+ },
+ {
+  "pack_id": "1028_dchg",
+  "start": 543,
+  "end": 552,
+  "duration": 10,
+  "max_phi": 269.363,
+  "max_spe": 4.198
+ },
+ {
+  "pack_id": "1033_chg",
+  "start": 427,
+  "end": 438,
+  "duration": 12,
+  "max_phi": 214.94,
+  "max_spe": 1.894
+ },
+ {
+  "pack_id": "1033_chg",
+  "start": 1768,
+  "end": 1779,
+  "duration": 12,
+  "max_phi": 4.264,
+  "max_spe": 2.842
+ },
+ {
+  "pack_id": "1033_chg",
+  "start": 3058,
+  "end": 3072,
+  "duration": 15,
+  "max_phi": 2.074,
+  "max_spe": 0.148
+ },
+ {
+  "pack_id": "1033_chg",
+  "start": 3074,
+  "end": 3084,
+  "duration": 11,
+  "max_phi": 2.02,
+  "max_spe": 0.179
+ },
+ {
+  "pack_id": "1033_chg",
+  "start": 3154,
+  "end": 3165,
+  "duration": 12,
+  "max_phi": 2.27,
+  "max_spe": 0.202
+ },
+ {
+  "pack_id": "1033_chg",
+  "start": 3173,
+  "end": 3185,
+  "duration": 13,
+  "max_phi": 2.103,
+  "max_spe": 0.158
+ },
+ {
+  "pack_id": "1033_chg",
+  "start": 3973,
+  "end": 3984,
+  "duration": 12,
+  "max_phi": 2.449,
+  "max_spe": 0.769
+ },
+ {
+  "pack_id": "1033_chg",
+  "start": 4418,
+  "end": 4437,
+  "duration": 20,
+  "max_phi": 3.324,
+  "max_spe": 0.937
+ },
+ {
+  "pack_id": "1033_dchg",
+  "start": 4246,
+  "end": 4255,
+  "duration": 10,
+  "max_phi": 74.927,
+  "max_spe": 0.764
+ },
+ {
+  "pack_id": "1033_dchg",
+  "start": 5653,
+  "end": 5662,
+  "duration": 10,
+  "max_phi": 129.718,
+  "max_spe": 8.809
+ },
+ {
+  "pack_id": "1033_dchg",
+  "start": 5758,
+  "end": 5767,
+  "duration": 10,
+  "max_phi": 1.682,
+  "max_spe": 0.348
+ },
+ {
+  "pack_id": "1039_dchg",
+  "start": 415,
+  "end": 429,
+  "duration": 15,
+  "max_phi": 2.402,
+  "max_spe": 1.682
+ },
+ {
+  "pack_id": "1039_dchg",
+  "start": 440,
+  "end": 461,
+  "duration": 22,
+  "max_phi": 2.656,
+  "max_spe": 1.829
+ },
+ {
+  "pack_id": "1039_dchg",
+  "start": 471,
+  "end": 495,
+  "duration": 25,
+  "max_phi": 3.128,
+  "max_spe": 2.303
+ },
+ {
+  "pack_id": "1039_dchg",
+  "start": 504,
+  "end": 1122,
+  "duration": 619,
+  "max_phi": 5.3,
+  "max_spe": 3.732
+ },
+ {
+  "pack_id": "1040_chg",
+  "start": 10852,
+  "end": 10893,
+  "duration": 42,
+  "max_phi": 1725.94,
+  "max_spe": 2.006
+ },
+ {
+  "pack_id": "1040_chg",
+  "start": 10899,
+  "end": 10911,
+  "duration": 13,
+  "max_phi": 1.787,
+  "max_spe": 0.927
+ },
+ {
+  "pack_id": "1040_chg",
+  "start": 10932,
+  "end": 10948,
+  "duration": 17,
+  "max_phi": 1.791,
+  "max_spe": 0.932
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 21,
+  "end": 31,
+  "duration": 11,
+  "max_phi": 85.934,
+  "max_spe": 2.285
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 33,
+  "end": 52,
+  "duration": 20,
+  "max_phi": 5.006,
+  "max_spe": 2.883
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 54,
+  "end": 69,
+  "duration": 16,
+  "max_phi": 5.254,
+  "max_spe": 3.352
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 74,
+  "end": 106,
+  "duration": 33,
+  "max_phi": 5.75,
+  "max_spe": 3.183
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 108,
+  "end": 120,
+  "duration": 13,
+  "max_phi": 7.662,
+  "max_spe": 5.242
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 129,
+  "end": 158,
+  "duration": 30,
+  "max_phi": 7.548,
+  "max_spe": 4.849
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 160,
+  "end": 203,
+  "duration": 44,
+  "max_phi": 6.5,
+  "max_spe": 3.972
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 205,
+  "end": 214,
+  "duration": 10,
+  "max_phi": 5.686,
+  "max_spe": 3.424
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 229,
+  "end": 243,
+  "duration": 15,
+  "max_phi": 4.863,
+  "max_spe": 3.18
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 245,
+  "end": 255,
+  "duration": 11,
+  "max_phi": 3.668,
+  "max_spe": 2.147
+ },
+ {
+  "pack_id": "1040_dchg",
+  "start": 311,
+  "end": 1108,
+  "duration": 798,
+  "max_phi": 50.609,
+  "max_spe": 11.062
+ },
+ {
+  "pack_id": "1041_chg",
+  "start": 79,
+  "end": 88,
+  "duration": 10,
+  "max_phi": 612.195,
+  "max_spe": 9.8
+ },
+ {
+  "pack_id": "1042_chg",
+  "start": 0,
+  "end": 34,
+  "duration": 35,
+  "max_phi": 37.519,
+  "max_spe": 1.205
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 349,
+  "end": 358,
+  "duration": 10,
+  "max_phi": 1.512,
+  "max_spe": 1.039
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 366,
+  "end": 376,
+  "duration": 11,
+  "max_phi": 2.386,
+  "max_spe": 1.105
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 410,
+  "end": 421,
+  "duration": 12,
+  "max_phi": 2.285,
+  "max_spe": 1.007
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 440,
+  "end": 453,
+  "duration": 14,
+  "max_phi": 1.477,
+  "max_spe": 0.99
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 469,
+  "end": 495,
+  "duration": 27,
+  "max_phi": 1.493,
+  "max_spe": 1.027
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 520,
+  "end": 553,
+  "duration": 34,
+  "max_phi": 2.357,
+  "max_spe": 1.046
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 603,
+  "end": 636,
+  "duration": 34,
+  "max_phi": 2.236,
+  "max_spe": 1.073
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 698,
+  "end": 784,
+  "duration": 87,
+  "max_phi": 2.309,
+  "max_spe": 1.12
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 786,
+  "end": 797,
+  "duration": 12,
+  "max_phi": 1.383,
+  "max_spe": 0.964
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 799,
+  "end": 808,
+  "duration": 10,
+  "max_phi": 2.269,
+  "max_spe": 1.05
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 814,
+  "end": 828,
+  "duration": 15,
+  "max_phi": 2.324,
+  "max_spe": 1.099
+ },
+ {
+  "pack_id": "1042_dchg",
+  "start": 923,
+  "end": 932,
+  "duration": 10,
+  "max_phi": 2.012,
+  "max_spe": 0.877
+ },
+ {
+  "pack_id": "1045_chg",
+  "start": 11819,
+  "end": 11829,
+  "duration": 11,
+  "max_phi": 1.132,
+  "max_spe": 0.844
+ },
+ {
+  "pack_id": "1045_chg",
+  "start": 11832,
+  "end": 11846,
+  "duration": 15,
+  "max_phi": 1.965,
+  "max_spe": 0.859
+ },
+ {
+  "pack_id": "1045_chg",
+  "start": 11870,
+  "end": 11880,
+  "duration": 11,
+  "max_phi": 1.952,
+  "max_spe": 0.863
+ },
+ {
+  "pack_id": "1045_chg",
+  "start": 11898,
+  "end": 11907,
+  "duration": 10,
+  "max_phi": 1.154,
+  "max_spe": 0.85
+ },
+ {
+  "pack_id": "1045_chg",
+  "start": 11993,
+  "end": 12003,
+  "duration": 11,
+  "max_phi": 1.164,
+  "max_spe": 0.85
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 529,
+  "end": 544,
+  "duration": 16,
+  "max_phi": 10.675,
+  "max_spe": 7.831
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 546,
+  "end": 555,
+  "duration": 10,
+  "max_phi": 7.905,
+  "max_spe": 5.685
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 557,
+  "end": 578,
+  "duration": 22,
+  "max_phi": 10.99,
+  "max_spe": 8.081
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 601,
+  "end": 612,
+  "duration": 12,
+  "max_phi": 10.413,
+  "max_spe": 7.674
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 644,
+  "end": 663,
+  "duration": 20,
+  "max_phi": 8.167,
+  "max_spe": 5.556
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 670,
+  "end": 696,
+  "duration": 27,
+  "max_phi": 10.341,
+  "max_spe": 7.479
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 706,
+  "end": 717,
+  "duration": 12,
+  "max_phi": 7.465,
+  "max_spe": 5.358
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 729,
+  "end": 748,
+  "duration": 20,
+  "max_phi": 7.175,
+  "max_spe": 5.157
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 765,
+  "end": 788,
+  "duration": 24,
+  "max_phi": 7.855,
+  "max_spe": 5.768
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 790,
+  "end": 802,
+  "duration": 13,
+  "max_phi": 3.481,
+  "max_spe": 2.433
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 2603,
+  "end": 2615,
+  "duration": 13,
+  "max_phi": 2.756,
+  "max_spe": 1.35
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 3375,
+  "end": 3392,
+  "duration": 18,
+  "max_phi": 4.52,
+  "max_spe": 2.638
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 3416,
+  "end": 3425,
+  "duration": 10,
+  "max_phi": 3.594,
+  "max_spe": 2.568
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 4524,
+  "end": 4536,
+  "duration": 13,
+  "max_phi": 4.426,
+  "max_spe": 2.669
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 4570,
+  "end": 4581,
+  "duration": 12,
+  "max_phi": 3.688,
+  "max_spe": 2.643
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 4589,
+  "end": 4602,
+  "duration": 14,
+  "max_phi": 6.908,
+  "max_spe": 2.738
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 5907,
+  "end": 5936,
+  "duration": 30,
+  "max_phi": 3.762,
+  "max_spe": 2.693
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 5949,
+  "end": 5960,
+  "duration": 12,
+  "max_phi": 3.711,
+  "max_spe": 2.657
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 5990,
+  "end": 6026,
+  "duration": 37,
+  "max_phi": 3.727,
+  "max_spe": 2.67
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 6072,
+  "end": 6083,
+  "duration": 12,
+  "max_phi": 3.755,
+  "max_spe": 2.693
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 6124,
+  "end": 6138,
+  "duration": 15,
+  "max_phi": 3.888,
+  "max_spe": 2.792
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7560,
+  "end": 7570,
+  "duration": 11,
+  "max_phi": 2.685,
+  "max_spe": 1.289
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7735,
+  "end": 7753,
+  "duration": 19,
+  "max_phi": 3.685,
+  "max_spe": 2.637
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7777,
+  "end": 7815,
+  "duration": 39,
+  "max_phi": 3.686,
+  "max_spe": 2.638
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7817,
+  "end": 7845,
+  "duration": 29,
+  "max_phi": 4.404,
+  "max_spe": 2.629
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7847,
+  "end": 7883,
+  "duration": 37,
+  "max_phi": 4.436,
+  "max_spe": 2.618
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7885,
+  "end": 7897,
+  "duration": 13,
+  "max_phi": 3.618,
+  "max_spe": 2.585
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7944,
+  "end": 7954,
+  "duration": 11,
+  "max_phi": 3.658,
+  "max_spe": 2.616
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7961,
+  "end": 7971,
+  "duration": 11,
+  "max_phi": 3.676,
+  "max_spe": 2.632
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 7973,
+  "end": 7982,
+  "duration": 10,
+  "max_phi": 3.675,
+  "max_spe": 2.63
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 9819,
+  "end": 9876,
+  "duration": 58,
+  "max_phi": 4.345,
+  "max_spe": 2.558
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 9899,
+  "end": 9915,
+  "duration": 17,
+  "max_phi": 3.578,
+  "max_spe": 2.553
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 9926,
+  "end": 9998,
+  "duration": 73,
+  "max_phi": 3.587,
+  "max_spe": 2.562
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 10007,
+  "end": 10016,
+  "duration": 10,
+  "max_phi": 3.523,
+  "max_spe": 2.495
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 10018,
+  "end": 10028,
+  "duration": 11,
+  "max_phi": 3.587,
+  "max_spe": 2.562
+ },
+ {
+  "pack_id": "1046_chg",
+  "start": 10037,
+  "end": 10046,
+  "duration": 10,
+  "max_phi": 3.542,
+  "max_spe": 2.52
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 303,
+  "end": 333,
+  "duration": 31,
+  "max_phi": 18.395,
+  "max_spe": 13.406
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 347,
+  "end": 357,
+  "duration": 11,
+  "max_phi": 17.258,
+  "max_spe": 12.957
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 363,
+  "end": 378,
+  "duration": 16,
+  "max_phi": 17.074,
+  "max_spe": 12.842
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 387,
+  "end": 407,
+  "duration": 21,
+  "max_phi": 17.412,
+  "max_spe": 13.128
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 418,
+  "end": 453,
+  "duration": 36,
+  "max_phi": 17.397,
+  "max_spe": 13.22
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 472,
+  "end": 512,
+  "duration": 41,
+  "max_phi": 13.672,
+  "max_spe": 10.137
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 537,
+  "end": 592,
+  "duration": 56,
+  "max_phi": 17.393,
+  "max_spe": 13.251
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 656,
+  "end": 711,
+  "duration": 56,
+  "max_phi": 13.459,
+  "max_spe": 10.096
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 878,
+  "end": 913,
+  "duration": 36,
+  "max_phi": 7.804,
+  "max_spe": 5.727
+ },
+ {
+  "pack_id": "1046_dchg",
+  "start": 982,
+  "end": 999,
+  "duration": 18,
+  "max_phi": 2.007,
+  "max_spe": 0.898
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 505,
+  "end": 515,
+  "duration": 11,
+  "max_phi": 5.236,
+  "max_spe": 3.778
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 560,
+  "end": 570,
+  "duration": 11,
+  "max_phi": 3.704,
+  "max_spe": 2.453
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 576,
+  "end": 590,
+  "duration": 15,
+  "max_phi": 4.372,
+  "max_spe": 2.211
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 609,
+  "end": 624,
+  "duration": 16,
+  "max_phi": 3.137,
+  "max_spe": 1.849
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 626,
+  "end": 639,
+  "duration": 14,
+  "max_phi": 3.819,
+  "max_spe": 2.559
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 651,
+  "end": 665,
+  "duration": 15,
+  "max_phi": 4.227,
+  "max_spe": 2.284
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 672,
+  "end": 694,
+  "duration": 23,
+  "max_phi": 5.134,
+  "max_spe": 2.79
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 696,
+  "end": 706,
+  "duration": 11,
+  "max_phi": 3.421,
+  "max_spe": 1.556
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 708,
+  "end": 733,
+  "duration": 26,
+  "max_phi": 4.798,
+  "max_spe": 2.343
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 736,
+  "end": 1002,
+  "duration": 267,
+  "max_phi": 5.344,
+  "max_spe": 3.597
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1063,
+  "end": 1116,
+  "duration": 54,
+  "max_phi": 2.595,
+  "max_spe": 1.081
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1142,
+  "end": 1170,
+  "duration": 29,
+  "max_phi": 2.669,
+  "max_spe": 1.24
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1178,
+  "end": 1197,
+  "duration": 20,
+  "max_phi": 2.821,
+  "max_spe": 1.016
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1210,
+  "end": 1246,
+  "duration": 37,
+  "max_phi": 2.978,
+  "max_spe": 1.238
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1265,
+  "end": 1369,
+  "duration": 105,
+  "max_phi": 3.085,
+  "max_spe": 1.222
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1399,
+  "end": 1463,
+  "duration": 65,
+  "max_phi": 2.597,
+  "max_spe": 0.93
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1507,
+  "end": 1528,
+  "duration": 22,
+  "max_phi": 2.05,
+  "max_spe": 1.103
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1531,
+  "end": 1543,
+  "duration": 13,
+  "max_phi": 2.047,
+  "max_spe": 1.1
+ },
+ {
+  "pack_id": "1048_chg",
+  "start": 1640,
+  "end": 1667,
+  "duration": 28,
+  "max_phi": 2.46,
+  "max_spe": 0.872
+ },
+ {
+  "pack_id": "1048_dchg",
+  "start": 56,
+  "end": 1014,
+  "duration": 959,
+  "max_phi": 60.14,
+  "max_spe": 4.579
+ },
+ {
+  "pack_id": "1050_dchg",
+  "start": 650,
+  "end": 659,
+  "duration": 10,
+  "max_phi": 269.363,
+  "max_spe": 4.198
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 554,
+  "end": 693,
+  "duration": 140,
+  "max_phi": 248.624,
+  "max_spe": 29.185
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 767,
+  "end": 781,
+  "duration": 15,
+  "max_phi": 4.635,
+  "max_spe": 3.457
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 800,
+  "end": 816,
+  "duration": 17,
+  "max_phi": 21.106,
+  "max_spe": 13.551
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 891,
+  "end": 901,
+  "duration": 11,
+  "max_phi": 230.616,
+  "max_spe": 28.041
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 903,
+  "end": 1199,
+  "duration": 297,
+  "max_phi": 4.194,
+  "max_spe": 2.902
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 1201,
+  "end": 1266,
+  "duration": 66,
+  "max_phi": 3.949,
+  "max_spe": 2.405
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 1539,
+  "end": 1941,
+  "duration": 403,
+  "max_phi": 5.673,
+  "max_spe": 4.08
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 2128,
+  "end": 2142,
+  "duration": 15,
+  "max_phi": 2.167,
+  "max_spe": 1.009
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 2144,
+  "end": 2164,
+  "duration": 21,
+  "max_phi": 1.35,
+  "max_spe": 1.001
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 2170,
+  "end": 2187,
+  "duration": 18,
+  "max_phi": 1.308,
+  "max_spe": 0.972
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 2189,
+  "end": 2198,
+  "duration": 10,
+  "max_phi": 1.382,
+  "max_spe": 1.014
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 2210,
+  "end": 2261,
+  "duration": 52,
+  "max_phi": 1.394,
+  "max_spe": 1.023
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 2333,
+  "end": 2345,
+  "duration": 13,
+  "max_phi": 1.271,
+  "max_spe": 0.905
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "start": 4544,
+  "end": 5015,
+  "duration": 472,
+  "max_phi": 2.275,
+  "max_spe": 0.27
+ },
+ {
+  "pack_id": "Test09_NG_dchg",
+  "start": 0,
+  "end": 4863,
+  "duration": 4864,
+  "max_phi": 117.823,
+  "max_spe": 3.031
+ },
+ {
+  "pack_id": "Test04_OK_dchg",
+  "start": 728,
+  "end": 737,
+  "duration": 10,
+  "max_phi": 277.18,
+  "max_spe": 8.791
+ },
+ {
+  "pack_id": "Test06_NG_chg",
+  "start": 0,
+  "end": 690,
+  "duration": 691,
+  "max_phi": 231.399,
+  "max_spe": 32.948
+ },
+ {
+  "pack_id": "Test06_NG_chg",
+  "start": 697,
+  "end": 724,
+  "duration": 28,
+  "max_phi": 6.852,
+  "max_spe": 4.302
+ },
+ {
+  "pack_id": "Test06_NG_chg",
+  "start": 726,
+  "end": 735,
+  "duration": 10,
+  "max_phi": 5.085,
+  "max_spe": 3.046
+ },
+ {
+  "pack_id": "Test06_NG_chg",
+  "start": 742,
+  "end": 759,
+  "duration": 18,
+  "max_phi": 4.996,
+  "max_spe": 3.0
+ },
+ {
+  "pack_id": "Test06_NG_chg",
+  "start": 768,
+  "end": 780,
+  "duration": 13,
+  "max_phi": 5.227,
+  "max_spe": 3.206
+ },
+ {
+  "pack_id": "Test06_NG_chg",
+  "start": 782,
+  "end": 792,
+  "duration": 11,
+  "max_phi": 3.337,
+  "max_spe": 1.787
+ },
+ {
+  "pack_id": "Test06_NG_chg",
+  "start": 794,
+  "end": 805,
+  "duration": 12,
+  "max_phi": 5.002,
+  "max_spe": 3.009
+ },
+ {
+  "pack_id": "Test07_NG_dchg",
+  "start": 4367,
+  "end": 4593,
+  "duration": 227,
+  "max_phi": 172775.205,
+  "max_spe": 5374.237
+ },
+ {
+  "pack_id": "Test08_NG_chg",
+  "start": 0,
+  "end": 2395,
+  "duration": 2396,
+  "max_phi": 289.469,
+  "max_spe": 7.024
+ },
+ {
+  "pack_id": "Test01_OK_chg",
+  "start": 94,
+  "end": 105,
+  "duration": 12,
+  "max_phi": 2.388,
+  "max_spe": 1.18
+ },
+ {
+  "pack_id": "Test02_OK_dchg",
+  "start": 297,
+  "end": 306,
+  "duration": 10,
+  "max_phi": 256.995,
+  "max_spe": 13.535
+ }
+]

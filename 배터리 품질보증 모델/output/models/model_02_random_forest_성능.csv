@@ -1,0 +1,4 @@
+﻿모델,구분,Accuracy,Precision,Recall,F1-score,TP,FP,FN,TN
+Random Forest,학습,1.0,1.0,0.9997,0.9998,9120,0,3,57562
+Random Forest,테스트,0.9206,0.9996,0.7544,0.8599,2623,1,854,7292
+Random Forest,테스트(Test07 제외),0.8616,0.9996,0.7372,0.8486,2396,1,854,2925

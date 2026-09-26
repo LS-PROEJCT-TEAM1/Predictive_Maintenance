@@ -1,0 +1,4664 @@
+[
+ {
+  "pack_id": "1000_chg",
+  "pack_no": "1000",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6009,
+  "dv_mv": 18.0,
+  "temp_dev": 1.2,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.051,
+  "cell_v_max": 4.069,
+  "anomaly_ratio": 0.0,
+  "max_phi": 46.336,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV07",
+    "score": 2.755
+   },
+   {
+    "cell": "M16CV08",
+    "score": 2.338
+   },
+   {
+    "cell": "M07CV03",
+    "score": 2.275
+   },
+   {
+    "cell": "M02CV09",
+    "score": 2.224
+   },
+   {
+    "cell": "M07CV05",
+    "score": 2.185
+   }
+  ]
+ },
+ {
+  "pack_id": "1000_dchg",
+  "pack_no": "1000",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 5358,
+  "dv_mv": 8.0,
+  "temp_dev": 2.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.526,
+  "cell_v_max": 3.534,
+  "anomaly_ratio": 0.0047,
+  "max_phi": 125.708,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV03",
+    "score": 2.915
+   },
+   {
+    "cell": "M07CV07",
+    "score": 2.679
+   },
+   {
+    "cell": "M07CV09",
+    "score": 2.432
+   },
+   {
+    "cell": "M11CV07",
+    "score": 2.334
+   },
+   {
+    "cell": "M03CV08",
+    "score": 2.27
+   }
+  ]
+ },
+ {
+  "pack_id": "1001_chg",
+  "pack_no": "1001",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6009,
+  "dv_mv": 22.0,
+  "temp_dev": 1.3,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.043,
+  "cell_v_max": 4.065,
+  "anomaly_ratio": 0.0,
+  "max_phi": 40.65,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV08",
+    "score": 2.348
+   },
+   {
+    "cell": "M07CV02",
+    "score": 2.283
+   },
+   {
+    "cell": "M07CV06",
+    "score": 2.14
+   },
+   {
+    "cell": "M07CV03",
+    "score": 2.131
+   },
+   {
+    "cell": "M03CV01",
+    "score": 2.125
+   }
+  ]
+ },
+ {
+  "pack_id": "1001_dchg",
+  "pack_no": "1001",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 5357,
+  "dv_mv": 10.0,
+  "temp_dev": 2.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.526,
+  "cell_v_max": 3.536,
+  "anomaly_ratio": 0.0022,
+  "max_phi": 216.782,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV11",
+    "score": 2.321
+   },
+   {
+    "cell": "M07CV02",
+    "score": 2.3
+   },
+   {
+    "cell": "M07CV01",
+    "score": 2.266
+   },
+   {
+    "cell": "M03CV11",
+    "score": 2.26
+   },
+   {
+    "cell": "M06CV04",
+    "score": 2.044
+   }
+  ]
+ },
+ {
+  "pack_id": "1002_chg",
+  "pack_no": "1002",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6008,
+  "dv_mv": 17.0,
+  "temp_dev": 1.0,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.052,
+  "cell_v_max": 4.069,
+  "anomaly_ratio": 0.0,
+  "max_phi": 38.369,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M12CV06",
+    "score": 2.623
+   },
+   {
+    "cell": "M05CV09",
+    "score": 2.528
+   },
+   {
+    "cell": "M16CV04",
+    "score": 2.391
+   },
+   {
+    "cell": "M14CV05",
+    "score": 2.244
+   },
+   {
+    "cell": "M12CV08",
+    "score": 2.206
+   }
+  ]
+ },
+ {
+  "pack_id": "1002_dchg",
+  "pack_no": "1002",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4374,
+  "dv_mv": 7.0,
+  "temp_dev": 2.2,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.528,
+  "cell_v_max": 3.535,
+  "anomaly_ratio": 0.0025,
+  "max_phi": 835.741,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M01CV04",
+    "score": 2.468
+   },
+   {
+    "cell": "M05CV09",
+    "score": 2.327
+   },
+   {
+    "cell": "M01CV06",
+    "score": 2.156
+   },
+   {
+    "cell": "M12CV06",
+    "score": 1.937
+   },
+   {
+    "cell": "M14CV01",
+    "score": 1.901
+   }
+  ]
+ },
+ {
+  "pack_id": "1003_chg",
+  "pack_no": "1003",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6008,
+  "dv_mv": 30.0,
+  "temp_dev": 1.2,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.038,
+  "cell_v_max": 4.068,
+  "anomaly_ratio": 0.0,
+  "max_phi": 45.271,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M02CV06",
+    "score": 3.215
+   },
+   {
+    "cell": "M02CV08",
+    "score": 3.192
+   },
+   {
+    "cell": "M01CV04",
+    "score": 2.713
+   },
+   {
+    "cell": "M02CV01",
+    "score": 2.682
+   },
+   {
+    "cell": "M02CV03",
+    "score": 2.637
+   }
+  ]
+ },
+ {
+  "pack_id": "1003_dchg",
+  "pack_no": "1003",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4372,
+  "dv_mv": 12.0,
+  "temp_dev": 2.3,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.523,
+  "cell_v_max": 3.535,
+  "anomaly_ratio": 0.0023,
+  "max_phi": 1046.707,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M02CV01",
+    "score": 2.52
+   },
+   {
+    "cell": "M01CV02",
+    "score": 2.514
+   },
+   {
+    "cell": "M02CV11",
+    "score": 2.292
+   },
+   {
+    "cell": "M02CV09",
+    "score": 2.255
+   },
+   {
+    "cell": "M02CV08",
+    "score": 2.218
+   }
+  ]
+ },
+ {
+  "pack_id": "1004_chg",
+  "pack_no": "1004",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 8515,
+  "dv_mv": 18.0,
+  "temp_dev": 1.8,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.067,
+  "cell_v_max": 4.085,
+  "anomaly_ratio": 0.0013,
+  "max_phi": 342.036,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV01",
+    "score": 2.561
+   },
+   {
+    "cell": "M13CV04",
+    "score": 1.798
+   },
+   {
+    "cell": "M14CV01",
+    "score": 1.625
+   },
+   {
+    "cell": "M10CV09",
+    "score": 1.603
+   },
+   {
+    "cell": "M14CV03",
+    "score": 1.601
+   }
+  ]
+ },
+ {
+  "pack_id": "1004_dchg",
+  "pack_no": "1004",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4795,
+  "dv_mv": 8.0,
+  "temp_dev": 3.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.527,
+  "cell_v_max": 3.535,
+  "anomaly_ratio": 0.0,
+  "max_phi": 28.602,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M16CV01",
+    "score": 2.646
+   },
+   {
+    "cell": "M16CV09",
+    "score": 2.256
+   },
+   {
+    "cell": "M15CV10",
+    "score": 2.245
+   },
+   {
+    "cell": "M09CV01",
+    "score": 1.98
+   },
+   {
+    "cell": "M03CV06",
+    "score": 1.942
+   }
+  ]
+ },
+ {
+  "pack_id": "1005_chg",
+  "pack_no": "1005",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 8514,
+  "dv_mv": 29.0,
+  "temp_dev": 2.4,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.054,
+  "cell_v_max": 4.083,
+  "anomaly_ratio": 0.0013,
+  "max_phi": 338.524,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M11CV08",
+    "score": 2.239
+   },
+   {
+    "cell": "M11CV06",
+    "score": 1.861
+   },
+   {
+    "cell": "M10CV01",
+    "score": 1.664
+   },
+   {
+    "cell": "M15CV05",
+    "score": 1.66
+   },
+   {
+    "cell": "M14CV03",
+    "score": 1.631
+   }
+  ]
+ },
+ {
+  "pack_id": "1005_dchg",
+  "pack_no": "1005",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4795,
+  "dv_mv": 12.0,
+  "temp_dev": 3.5,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.527,
+  "cell_v_max": 3.539,
+  "anomaly_ratio": 0.0088,
+  "max_phi": 69.557,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M12CV10",
+    "score": 1.977
+   },
+   {
+    "cell": "M13CV08",
+    "score": 1.597
+   },
+   {
+    "cell": "M12CV09",
+    "score": 1.571
+   },
+   {
+    "cell": "M13CV04",
+    "score": 1.566
+   },
+   {
+    "cell": "M01CV11",
+    "score": 1.552
+   }
+  ]
+ },
+ {
+  "pack_id": "1006_chg",
+  "pack_no": "1006",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4796,
+  "dv_mv": 27.0,
+  "temp_dev": 1.6,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.064,
+  "cell_v_max": 4.091,
+  "anomaly_ratio": 0.0021,
+  "max_phi": 266.821,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M16CV10",
+    "score": 2.221
+   },
+   {
+    "cell": "M06CV07",
+    "score": 2.057
+   },
+   {
+    "cell": "M16CV08",
+    "score": 1.756
+   },
+   {
+    "cell": "M16CV05",
+    "score": 1.708
+   },
+   {
+    "cell": "M16CV06",
+    "score": 1.644
+   }
+  ]
+ },
+ {
+  "pack_id": "1006_dchg",
+  "pack_no": "1006",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4306,
+  "dv_mv": 10.0,
+  "temp_dev": 2.3,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.528,
+  "cell_v_max": 3.538,
+  "anomaly_ratio": 0.0,
+  "max_phi": 35.703,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV01",
+    "score": 2.27
+   },
+   {
+    "cell": "M08CV11",
+    "score": 2.066
+   },
+   {
+    "cell": "M03CV01",
+    "score": 1.865
+   },
+   {
+    "cell": "M06CV06",
+    "score": 1.859
+   },
+   {
+    "cell": "M04CV06",
+    "score": 1.843
+   }
+  ]
+ },
+ {
+  "pack_id": "1007_chg",
+  "pack_no": "1007",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4795,
+  "dv_mv": 26.0,
+  "temp_dev": 1.5,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.044,
+  "cell_v_max": 4.07,
+  "anomaly_ratio": 0.0,
+  "max_phi": 23.096,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M16CV09",
+    "score": 2.307
+   },
+   {
+    "cell": "M14CV07",
+    "score": 2.256
+   },
+   {
+    "cell": "M14CV06",
+    "score": 2.118
+   },
+   {
+    "cell": "M14CV08",
+    "score": 2.074
+   },
+   {
+    "cell": "M14CV11",
+    "score": 2.006
+   }
+  ]
+ },
+ {
+  "pack_id": "1007_dchg",
+  "pack_no": "1007",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 3920,
+  "dv_mv": 14.0,
+  "temp_dev": 2.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.522,
+  "cell_v_max": 3.536,
+  "anomaly_ratio": 0.076,
+  "max_phi": 61.304,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M14CV11",
+    "score": 2.363
+   },
+   {
+    "cell": "M15CV03",
+    "score": 2.34
+   },
+   {
+    "cell": "M16CV09",
+    "score": 2.293
+   },
+   {
+    "cell": "M14CV01",
+    "score": 2.232
+   },
+   {
+    "cell": "M15CV05",
+    "score": 2.231
+   }
+  ]
+ },
+ {
+  "pack_id": "1008_chg",
+  "pack_no": "1008",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6055,
+  "dv_mv": 24.0,
+  "temp_dev": 1.8,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.042,
+  "cell_v_max": 4.066,
+  "anomaly_ratio": 0.0,
+  "max_phi": 19.229,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV05",
+    "score": 2.262
+   },
+   {
+    "cell": "M04CV11",
+    "score": 2.256
+   },
+   {
+    "cell": "M07CV10",
+    "score": 1.919
+   },
+   {
+    "cell": "M15CV02",
+    "score": 1.888
+   },
+   {
+    "cell": "M15CV07",
+    "score": 1.839
+   }
+  ]
+ },
+ {
+  "pack_id": "1008_dchg",
+  "pack_no": "1008",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4492,
+  "dv_mv": 12.0,
+  "temp_dev": 3.3,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.524,
+  "cell_v_max": 3.536,
+  "anomaly_ratio": 0.1064,
+  "max_phi": 308.757,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV11",
+    "score": 2.509
+   },
+   {
+    "cell": "M16CV08",
+    "score": 2.119
+   },
+   {
+    "cell": "M15CV08",
+    "score": 2.058
+   },
+   {
+    "cell": "M06CV08",
+    "score": 2.011
+   },
+   {
+    "cell": "M05CV05",
+    "score": 1.923
+   }
+  ]
+ },
+ {
+  "pack_id": "1009_chg",
+  "pack_no": "1009",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6049,
+  "dv_mv": 12.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.794,
+  "cell_v_max": 3.806,
+  "anomaly_ratio": 0.0,
+  "max_phi": 30.776,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M11CV11",
+    "score": 3.206
+   },
+   {
+    "cell": "M10CV04",
+    "score": 3.149
+   },
+   {
+    "cell": "M10CV06",
+    "score": 2.602
+   },
+   {
+    "cell": "M10CV09",
+    "score": 2.547
+   },
+   {
+    "cell": "M10CV02",
+    "score": 2.409
+   }
+  ]
+ },
+ {
+  "pack_id": "1009_dchg",
+  "pack_no": "1009",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4491,
+  "dv_mv": 9.0,
+  "temp_dev": 2.2,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.53,
+  "cell_v_max": 3.539,
+  "anomaly_ratio": 0.0062,
+  "max_phi": 3761.158,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M11CV11",
+    "score": 3.047
+   },
+   {
+    "cell": "M10CV04",
+    "score": 2.698
+   },
+   {
+    "cell": "M11CV09",
+    "score": 2.671
+   },
+   {
+    "cell": "M11CV10",
+    "score": 2.338
+   },
+   {
+    "cell": "M10CV09",
+    "score": 2.327
+   }
+  ]
+ },
+ {
+  "pack_id": "1010_chg",
+  "pack_no": "1010",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6092,
+  "dv_mv": 25.0,
+  "temp_dev": 1.9,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.043,
+  "cell_v_max": 4.068,
+  "anomaly_ratio": 0.1006,
+  "max_phi": 37.58,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M14CV08",
+    "score": 4.097
+   },
+   {
+    "cell": "M07CV07",
+    "score": 3.277
+   },
+   {
+    "cell": "M14CV06",
+    "score": 2.684
+   },
+   {
+    "cell": "M07CV11",
+    "score": 2.657
+   },
+   {
+    "cell": "M14CV07",
+    "score": 2.443
+   }
+  ]
+ },
+ {
+  "pack_id": "1010_dchg",
+  "pack_no": "1010",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 3777,
+  "dv_mv": 11.0,
+  "temp_dev": 2.4,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.504,
+  "cell_v_max": 3.515,
+  "anomaly_ratio": 0.1591,
+  "max_phi": 323.561,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M14CV08",
+    "score": 4.135
+   },
+   {
+    "cell": "M07CV07",
+    "score": 3.294
+   },
+   {
+    "cell": "M14CV06",
+    "score": 2.813
+   },
+   {
+    "cell": "M14CV07",
+    "score": 2.596
+   },
+   {
+    "cell": "M14CV05",
+    "score": 2.54
+   }
+  ]
+ },
+ {
+  "pack_id": "1011_chg",
+  "pack_no": "1011",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6093,
+  "dv_mv": 13.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.043,
+  "cell_v_max": 4.056,
+  "anomaly_ratio": 0.0,
+  "max_phi": 44.275,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M01CV02",
+    "score": 2.164
+   },
+   {
+    "cell": "M11CV08",
+    "score": 1.949
+   },
+   {
+    "cell": "M01CV04",
+    "score": 1.922
+   },
+   {
+    "cell": "M08CV02",
+    "score": 1.903
+   },
+   {
+    "cell": "M01CV01",
+    "score": 1.884
+   }
+  ]
+ },
+ {
+  "pack_id": "1011_dchg",
+  "pack_no": "1011",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 3776,
+  "dv_mv": 5.0,
+  "temp_dev": 2.3,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.532,
+  "cell_v_max": 3.537,
+  "anomaly_ratio": 0.0026,
+  "max_phi": 242.192,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV04",
+    "score": 2.073
+   },
+   {
+    "cell": "M08CV02",
+    "score": 1.985
+   },
+   {
+    "cell": "M15CV06",
+    "score": 1.916
+   },
+   {
+    "cell": "M13CV07",
+    "score": 1.911
+   },
+   {
+    "cell": "M08CV11",
+    "score": 1.905
+   }
+  ]
+ },
+ {
+  "pack_id": "1012_chg",
+  "pack_no": "1012",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 4982,
+  "dv_mv": 27.0,
+  "temp_dev": 1.5,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.035,
+  "cell_v_max": 4.062,
+  "anomaly_ratio": 0.0022,
+  "max_phi": 231.973,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M01CV04",
+    "score": 1.843
+   },
+   {
+    "cell": "M01CV09",
+    "score": 1.84
+   },
+   {
+    "cell": "M11CV06",
+    "score": 1.609
+   },
+   {
+    "cell": "M01CV02",
+    "score": 1.571
+   },
+   {
+    "cell": "M01CV03",
+    "score": 1.483
+   }
+  ]
+ },
+ {
+  "pack_id": "1012_dchg",
+  "pack_no": "1012",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1967,
+  "dv_mv": 10.0,
+  "temp_dev": 2.6,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.653,
+  "cell_v_max": 3.663,
+  "anomaly_ratio": 0.0107,
+  "max_phi": 202.162,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV04",
+    "score": 2.224
+   },
+   {
+    "cell": "M11CV02",
+    "score": 2.206
+   },
+   {
+    "cell": "M13CV09",
+    "score": 2.179
+   },
+   {
+    "cell": "M12CV08",
+    "score": 2.069
+   },
+   {
+    "cell": "M13CV11",
+    "score": 2.047
+   }
+  ]
+ },
+ {
+  "pack_id": "1013_chg",
+  "pack_no": "1013",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 8240,
+  "dv_mv": 14.0,
+  "temp_dev": 1.0,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.052,
+  "cell_v_max": 4.066,
+  "anomaly_ratio": 0.0,
+  "max_phi": 5.312,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV01",
+    "score": 2.184
+   },
+   {
+    "cell": "M13CV01",
+    "score": 2.038
+   },
+   {
+    "cell": "M15CV05",
+    "score": 2.038
+   },
+   {
+    "cell": "M06CV08",
+    "score": 2.024
+   },
+   {
+    "cell": "M13CV05",
+    "score": 1.887
+   }
+  ]
+ },
+ {
+  "pack_id": "1013_dchg",
+  "pack_no": "1013",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 5964,
+  "dv_mv": 11.0,
+  "temp_dev": 0.7,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.045,
+  "cell_v_max": 4.056,
+  "anomaly_ratio": 0.0,
+  "max_phi": 1.477,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV05",
+    "score": 2.316
+   },
+   {
+    "cell": "M15CV01",
+    "score": 2.316
+   },
+   {
+    "cell": "M06CV08",
+    "score": 2.315
+   },
+   {
+    "cell": "M02CV01",
+    "score": 1.96
+   },
+   {
+    "cell": "M02CV02",
+    "score": 1.955
+   }
+  ]
+ },
+ {
+  "pack_id": "1014_chg",
+  "pack_no": "1014",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 8408,
+  "dv_mv": 32.0,
+  "temp_dev": 1.0,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.04,
+  "cell_v_max": 4.072,
+  "anomaly_ratio": 0.0013,
+  "max_phi": 196.335,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M14CV06",
+    "score": 1.883
+   },
+   {
+    "cell": "M15CV04",
+    "score": 1.642
+   },
+   {
+    "cell": "M13CV01",
+    "score": 1.642
+   },
+   {
+    "cell": "M05CV02",
+    "score": 1.633
+   },
+   {
+    "cell": "M02CV02",
+    "score": 1.625
+   }
+  ]
+ },
+ {
+  "pack_id": "1014_dchg",
+  "pack_no": "1014",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 5332,
+  "dv_mv": 30.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.04,
+  "cell_v_max": 4.07,
+  "anomaly_ratio": 0.0,
+  "max_phi": 1.76,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV09",
+    "score": 1.523
+   },
+   {
+    "cell": "M02CV11",
+    "score": 1.369
+   },
+   {
+    "cell": "M02CV03",
+    "score": 1.367
+   },
+   {
+    "cell": "M15CV10",
+    "score": 1.333
+   },
+   {
+    "cell": "M15CV04",
+    "score": 1.332
+   }
+  ]
+ },
+ {
+  "pack_id": "1015_chg",
+  "pack_no": "1015",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 8334,
+  "dv_mv": 34.0,
+  "temp_dev": 1.6,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.038,
+  "cell_v_max": 4.072,
+  "anomaly_ratio": 0.0012,
+  "max_phi": 212.699,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M03CV02",
+    "score": 1.807
+   },
+   {
+    "cell": "M03CV01",
+    "score": 1.652
+   },
+   {
+    "cell": "M02CV06",
+    "score": 1.622
+   },
+   {
+    "cell": "M02CV11",
+    "score": 1.531
+   },
+   {
+    "cell": "M02CV01",
+    "score": 1.518
+   }
+  ]
+ },
+ {
+  "pack_id": "1015_dchg",
+  "pack_no": "1015",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 5382,
+  "dv_mv": 35.0,
+  "temp_dev": 1.2,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.037,
+  "cell_v_max": 4.072,
+  "anomaly_ratio": 0.0,
+  "max_phi": 1.93,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M01CV10",
+    "score": 2.678
+   },
+   {
+    "cell": "M13CV10",
+    "score": 2.312
+   },
+   {
+    "cell": "M06CV05",
+    "score": 1.594
+   },
+   {
+    "cell": "M14CV10",
+    "score": 1.58
+   },
+   {
+    "cell": "M02CV09",
+    "score": 1.58
+   }
+  ]
+ },
+ {
+  "pack_id": "1016_chg",
+  "pack_no": "1016",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 5022,
+  "dv_mv": 27.0,
+  "temp_dev": 0.9,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.045,
+  "cell_v_max": 4.072,
+  "anomaly_ratio": 0.0,
+  "max_phi": 22.952,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M03CV06",
+    "score": 1.71
+   },
+   {
+    "cell": "M16CV07",
+    "score": 1.549
+   },
+   {
+    "cell": "M11CV10",
+    "score": 1.545
+   },
+   {
+    "cell": "M02CV07",
+    "score": 1.476
+   },
+   {
+    "cell": "M09CV08",
+    "score": 1.467
+   }
+  ]
+ },
+ {
+  "pack_id": "1016_dchg",
+  "pack_no": "1016",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6964,
+  "dv_mv": 23.0,
+  "temp_dev": 0.9,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.033,
+  "cell_v_max": 4.056,
+  "anomaly_ratio": 0.0,
+  "max_phi": 1.816,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV07",
+    "score": 1.572
+   },
+   {
+    "cell": "M01CV04",
+    "score": 1.572
+   },
+   {
+    "cell": "M12CV09",
+    "score": 1.463
+   },
+   {
+    "cell": "M09CV04",
+    "score": 1.463
+   },
+   {
+    "cell": "M01CV09",
+    "score": 1.441
+   }
+  ]
+ },
+ {
+  "pack_id": "1017_chg",
+  "pack_no": "1017",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 7246,
+  "dv_mv": 4.0,
+  "temp_dev": 0.8,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.611,
+  "cell_v_max": 3.615,
+  "anomaly_ratio": 0.0,
+  "max_phi": 0.67,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV06",
+    "score": 3.13
+   },
+   {
+    "cell": "M02CV11",
+    "score": 3.13
+   },
+   {
+    "cell": "M02CV10",
+    "score": 3.13
+   },
+   {
+    "cell": "M13CV08",
+    "score": 1.914
+   },
+   {
+    "cell": "M13CV02",
+    "score": 1.914
+   }
+  ]
+ },
+ {
+  "pack_id": "1017_dchg",
+  "pack_no": "1017",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1432,
+  "dv_mv": 33.0,
+  "temp_dev": 1.2,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.028,
+  "cell_v_max": 4.061,
+  "anomaly_ratio": 0.0,
+  "max_phi": 0.539,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV08",
+    "score": 3.459
+   },
+   {
+    "cell": "M13CV06",
+    "score": 3.29
+   },
+   {
+    "cell": "M02CV05",
+    "score": 3.122
+   },
+   {
+    "cell": "M13CV10",
+    "score": 2.954
+   },
+   {
+    "cell": "M05CV02",
+    "score": 2.786
+   }
+  ]
+ },
+ {
+  "pack_id": "1018_chg",
+  "pack_no": "1018",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 10454,
+  "dv_mv": 31.0,
+  "temp_dev": 1.3,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.033,
+  "cell_v_max": 4.064,
+  "anomaly_ratio": 0.0,
+  "max_phi": 29.029,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M05CV07",
+    "score": 2.188
+   },
+   {
+    "cell": "M05CV09",
+    "score": 2.097
+   },
+   {
+    "cell": "M05CV08",
+    "score": 1.955
+   },
+   {
+    "cell": "M05CV03",
+    "score": 1.907
+   },
+   {
+    "cell": "M05CV04",
+    "score": 1.897
+   }
+  ]
+ },
+ {
+  "pack_id": "1018_dchg",
+  "pack_no": "1018",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1128,
+  "dv_mv": 15.0,
+  "temp_dev": 1.5,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.688,
+  "cell_v_max": 3.703,
+  "anomaly_ratio": 0.0,
+  "max_phi": 69.583,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M05CV03",
+    "score": 2.161
+   },
+   {
+    "cell": "M05CV09",
+    "score": 2.078
+   },
+   {
+    "cell": "M05CV02",
+    "score": 1.994
+   },
+   {
+    "cell": "M05CV07",
+    "score": 1.97
+   },
+   {
+    "cell": "M05CV01",
+    "score": 1.939
+   }
+  ]
+ },
+ {
+  "pack_id": "1019_chg",
+  "pack_no": "1019",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 10914,
+  "dv_mv": 2.0,
+  "temp_dev": 1.0,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.611,
+  "cell_v_max": 3.613,
+  "anomaly_ratio": 0.0,
+  "max_phi": 0.618,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV07",
+    "score": 1.949
+   },
+   {
+    "cell": "M14CV07",
+    "score": 1.949
+   },
+   {
+    "cell": "M12CV09",
+    "score": 1.949
+   },
+   {
+    "cell": "M13CV08",
+    "score": 1.949
+   },
+   {
+    "cell": "M14CV09",
+    "score": 1.949
+   }
+  ]
+ },
+ {
+  "pack_id": "1019_dchg",
+  "pack_no": "1019",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1156,
+  "dv_mv": 11.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.691,
+  "cell_v_max": 3.702,
+  "anomaly_ratio": 0.0,
+  "max_phi": 75.174,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M03CV02",
+    "score": 2.688
+   },
+   {
+    "cell": "M03CV08",
+    "score": 2.586
+   },
+   {
+    "cell": "M03CV05",
+    "score": 2.574
+   },
+   {
+    "cell": "M11CV10",
+    "score": 2.471
+   },
+   {
+    "cell": "M03CV01",
+    "score": 2.372
+   }
+  ]
+ },
+ {
+  "pack_id": "1020_chg",
+  "pack_no": "1020",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 11008,
+  "dv_mv": 18.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.037,
+  "cell_v_max": 4.055,
+  "anomaly_ratio": 0.0,
+  "max_phi": 29.089,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M02CV02",
+    "score": 2.85
+   },
+   {
+    "cell": "M14CV01",
+    "score": 2.677
+   },
+   {
+    "cell": "M12CV02",
+    "score": 2.462
+   },
+   {
+    "cell": "M12CV05",
+    "score": 2.276
+   },
+   {
+    "cell": "M01CV08",
+    "score": 2.058
+   }
+  ]
+ },
+ {
+  "pack_id": "1020_dchg",
+  "pack_no": "1020",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1123,
+  "dv_mv": 11.0,
+  "temp_dev": 1.7,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.692,
+  "cell_v_max": 3.703,
+  "anomaly_ratio": 0.6064,
+  "max_phi": 77.745,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M12CV02",
+    "score": 4.241
+   },
+   {
+    "cell": "M12CV06",
+    "score": 2.539
+   },
+   {
+    "cell": "M02CV02",
+    "score": 2.492
+   },
+   {
+    "cell": "M12CV05",
+    "score": 2.173
+   },
+   {
+    "cell": "M12CV10",
+    "score": 1.962
+   }
+  ]
+ },
+ {
+  "pack_id": "1021_chg",
+  "pack_no": "1021",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 10998,
+  "dv_mv": 29.0,
+  "temp_dev": 1.6,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.038,
+  "cell_v_max": 4.067,
+  "anomaly_ratio": 0.0065,
+  "max_phi": 7295.665,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV03",
+    "score": 3.772
+   },
+   {
+    "cell": "M04CV11",
+    "score": 3.772
+   },
+   {
+    "cell": "M04CV01",
+    "score": 3.732
+   },
+   {
+    "cell": "M03CV08",
+    "score": 3.363
+   },
+   {
+    "cell": "M04CV09",
+    "score": 3.231
+   }
+  ]
+ },
+ {
+  "pack_id": "1021_dchg",
+  "pack_no": "1021",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1119,
+  "dv_mv": 15.0,
+  "temp_dev": 2.0,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.692,
+  "cell_v_max": 3.707,
+  "anomaly_ratio": 0.8945,
+  "max_phi": 85.934,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV03",
+    "score": 3.928
+   },
+   {
+    "cell": "M04CV11",
+    "score": 3.655
+   },
+   {
+    "cell": "M03CV08",
+    "score": 3.627
+   },
+   {
+    "cell": "M04CV01",
+    "score": 3.452
+   },
+   {
+    "cell": "M04CV07",
+    "score": 3.443
+   }
+  ]
+ },
+ {
+  "pack_id": "1022_chg",
+  "pack_no": "1022",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 2370,
+  "dv_mv": 26.0,
+  "temp_dev": 1.5,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.038,
+  "cell_v_max": 4.064,
+  "anomaly_ratio": 0.0152,
+  "max_phi": 37.519,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV01",
+    "score": 1.45
+   },
+   {
+    "cell": "M07CV06",
+    "score": 1.445
+   },
+   {
+    "cell": "M08CV02",
+    "score": 1.437
+   },
+   {
+    "cell": "M06CV03",
+    "score": 1.437
+   },
+   {
+    "cell": "M06CV09",
+    "score": 1.437
+   }
+  ]
+ },
+ {
+  "pack_id": "1022_dchg",
+  "pack_no": "1022",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1051,
+  "dv_mv": 15.0,
+  "temp_dev": 1.9,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.69,
+  "cell_v_max": 3.705,
+  "anomaly_ratio": 0.2626,
+  "max_phi": 65.001,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV02",
+    "score": 1.749
+   },
+   {
+    "cell": "M16CV09",
+    "score": 1.712
+   },
+   {
+    "cell": "M07CV06",
+    "score": 1.649
+   },
+   {
+    "cell": "M01CV06",
+    "score": 1.619
+   },
+   {
+    "cell": "M03CV10",
+    "score": 1.557
+   }
+  ]
+ },
+ {
+  "pack_id": "1023_chg",
+  "pack_no": "1023",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1069,
+  "dv_mv": 25.0,
+  "temp_dev": 1.9,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.071,
+  "cell_v_max": 4.096,
+  "anomaly_ratio": 0.0,
+  "max_phi": 50.092,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M05CV06",
+    "score": 1.849
+   },
+   {
+    "cell": "M01CV09",
+    "score": 1.744
+   },
+   {
+    "cell": "M10CV05",
+    "score": 1.664
+   },
+   {
+    "cell": "M01CV11",
+    "score": 1.647
+   },
+   {
+    "cell": "M05CV04",
+    "score": 1.61
+   }
+  ]
+ },
+ {
+  "pack_id": "1023_dchg",
+  "pack_no": "1023",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1048,
+  "dv_mv": 14.0,
+  "temp_dev": 2.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.693,
+  "cell_v_max": 3.707,
+  "anomaly_ratio": 0.0,
+  "max_phi": 80.539,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV03",
+    "score": 2.05
+   },
+   {
+    "cell": "M02CV08",
+    "score": 1.86
+   },
+   {
+    "cell": "M11CV07",
+    "score": 1.825
+   },
+   {
+    "cell": "M06CV01",
+    "score": 1.813
+   },
+   {
+    "cell": "M14CV04",
+    "score": 1.789
+   }
+  ]
+ },
+ {
+  "pack_id": "1024_chg",
+  "pack_no": "1024",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1685,
+  "dv_mv": 13.0,
+  "temp_dev": 3.5,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "NG",
+  "cell_v_min": 4.047,
+  "cell_v_max": 4.06,
+  "anomaly_ratio": 0.4641,
+  "max_phi": 47.787,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M05CV08",
+    "score": 2.802
+   },
+   {
+    "cell": "M05CV03",
+    "score": 2.772
+   },
+   {
+    "cell": "M15CV01",
+    "score": 2.665
+   },
+   {
+    "cell": "M05CV07",
+    "score": 2.43
+   },
+   {
+    "cell": "M02CV06",
+    "score": 2.384
+   }
+  ]
+ },
+ {
+  "pack_id": "1024_dchg",
+  "pack_no": "1024",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1016,
+  "dv_mv": 10.0,
+  "temp_dev": 4.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "NG",
+  "cell_v_min": 3.693,
+  "cell_v_max": 3.703,
+  "anomaly_ratio": 0.9439,
+  "max_phi": 77.876,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M14CV07",
+    "score": 2.176
+   },
+   {
+    "cell": "M05CV05",
+    "score": 1.93
+   },
+   {
+    "cell": "M05CV03",
+    "score": 1.761
+   },
+   {
+    "cell": "M14CV11",
+    "score": 1.751
+   },
+   {
+    "cell": "M02CV06",
+    "score": 1.734
+   }
+  ]
+ },
+ {
+  "pack_id": "1025_chg",
+  "pack_no": "1025",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1805,
+  "dv_mv": 17.0,
+  "temp_dev": 1.3,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.043,
+  "cell_v_max": 4.06,
+  "anomaly_ratio": 0.0055,
+  "max_phi": 612.195,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M02CV04",
+    "score": 2.676
+   },
+   {
+    "cell": "M08CV10",
+    "score": 2.14
+   },
+   {
+    "cell": "M02CV03",
+    "score": 2.026
+   },
+   {
+    "cell": "M02CV08",
+    "score": 1.895
+   },
+   {
+    "cell": "M11CV06",
+    "score": 1.832
+   }
+  ]
+ },
+ {
+  "pack_id": "1025_dchg",
+  "pack_no": "1025",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1069,
+  "dv_mv": 12.0,
+  "temp_dev": 1.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.692,
+  "cell_v_max": 3.704,
+  "anomaly_ratio": 0.0,
+  "max_phi": 66.739,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV02",
+    "score": 3.055
+   },
+   {
+    "cell": "M15CV09",
+    "score": 2.983
+   },
+   {
+    "cell": "M15CV01",
+    "score": 2.404
+   },
+   {
+    "cell": "M02CV03",
+    "score": 2.278
+   },
+   {
+    "cell": "M09CV04",
+    "score": 2.066
+   }
+  ]
+ },
+ {
+  "pack_id": "1026_chg",
+  "pack_no": "1026",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1285,
+  "dv_mv": 15.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.05,
+  "cell_v_max": 4.065,
+  "anomaly_ratio": 0.0,
+  "max_phi": 2068.485,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV02",
+    "score": 2.938
+   },
+   {
+    "cell": "M04CV07",
+    "score": 2.862
+   },
+   {
+    "cell": "M13CV10",
+    "score": 1.818
+   },
+   {
+    "cell": "M06CV09",
+    "score": 1.766
+   },
+   {
+    "cell": "M06CV05",
+    "score": 1.721
+   }
+  ]
+ },
+ {
+  "pack_id": "1026_dchg",
+  "pack_no": "1026",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1759,
+  "dv_mv": 12.0,
+  "temp_dev": 2.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.693,
+  "cell_v_max": 3.705,
+  "anomaly_ratio": 0.0,
+  "max_phi": 73.719,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV02",
+    "score": 2.564
+   },
+   {
+    "cell": "M04CV02",
+    "score": 2.395
+   },
+   {
+    "cell": "M04CV09",
+    "score": 2.332
+   },
+   {
+    "cell": "M04CV05",
+    "score": 2.31
+   },
+   {
+    "cell": "M11CV01",
+    "score": 2.261
+   }
+  ]
+ },
+ {
+  "pack_id": "1027_chg",
+  "pack_no": "1027",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1044,
+  "dv_mv": 19.0,
+  "temp_dev": 2.3,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.078,
+  "cell_v_max": 4.097,
+  "anomaly_ratio": 0.0,
+  "max_phi": 45.609,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV01",
+    "score": 3.24
+   },
+   {
+    "cell": "M06CV11",
+    "score": 2.98
+   },
+   {
+    "cell": "M07CV09",
+    "score": 2.974
+   },
+   {
+    "cell": "M07CV03",
+    "score": 2.721
+   },
+   {
+    "cell": "M07CV07",
+    "score": 2.599
+   }
+  ]
+ },
+ {
+  "pack_id": "1027_dchg",
+  "pack_no": "1027",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1069,
+  "dv_mv": 14.0,
+  "temp_dev": 3.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.698,
+  "cell_v_max": 3.712,
+  "anomaly_ratio": 0.0,
+  "max_phi": 78.912,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV01",
+    "score": 3.293
+   },
+   {
+    "cell": "M06CV07",
+    "score": 3.027
+   },
+   {
+    "cell": "M06CV05",
+    "score": 2.765
+   },
+   {
+    "cell": "M07CV09",
+    "score": 2.719
+   },
+   {
+    "cell": "M07CV05",
+    "score": 2.623
+   }
+  ]
+ },
+ {
+  "pack_id": "1028_chg",
+  "pack_no": "1028",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1056,
+  "dv_mv": 14.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.052,
+  "cell_v_max": 4.066,
+  "anomaly_ratio": 0.0,
+  "max_phi": 49.511,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV11",
+    "score": 2.287
+   },
+   {
+    "cell": "M04CV09",
+    "score": 2.054
+   },
+   {
+    "cell": "M04CV10",
+    "score": 1.982
+   },
+   {
+    "cell": "M12CV10",
+    "score": 1.892
+   },
+   {
+    "cell": "M12CV09",
+    "score": 1.847
+   }
+  ]
+ },
+ {
+  "pack_id": "1028_dchg",
+  "pack_no": "1028",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1583,
+  "dv_mv": 9.0,
+  "temp_dev": 2.0,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.694,
+  "cell_v_max": 3.703,
+  "anomaly_ratio": 0.0063,
+  "max_phi": 269.363,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV09",
+    "score": 2.844
+   },
+   {
+    "cell": "M07CV06",
+    "score": 2.598
+   },
+   {
+    "cell": "M12CV10",
+    "score": 2.458
+   },
+   {
+    "cell": "M04CV10",
+    "score": 2.42
+   },
+   {
+    "cell": "M04CV11",
+    "score": 2.348
+   }
+  ]
+ },
+ {
+  "pack_id": "1029_chg",
+  "pack_no": "1029",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1752,
+  "dv_mv": 11.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.048,
+  "cell_v_max": 4.059,
+  "anomaly_ratio": 0.0,
+  "max_phi": 44.07,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M16CV09",
+    "score": 2.658
+   },
+   {
+    "cell": "M16CV01",
+    "score": 2.105
+   },
+   {
+    "cell": "M09CV03",
+    "score": 2.09
+   },
+   {
+    "cell": "M03CV06",
+    "score": 2.044
+   },
+   {
+    "cell": "M16CV11",
+    "score": 2.039
+   }
+  ]
+ },
+ {
+  "pack_id": "1029_dchg",
+  "pack_no": "1029",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1255,
+  "dv_mv": 8.0,
+  "temp_dev": 1.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.696,
+  "cell_v_max": 3.704,
+  "anomaly_ratio": 0.0,
+  "max_phi": 67.684,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M09CV03",
+    "score": 2.125
+   },
+   {
+    "cell": "M16CV06",
+    "score": 2.088
+   },
+   {
+    "cell": "M06CV09",
+    "score": 2.028
+   },
+   {
+    "cell": "M04CV02",
+    "score": 2.027
+   },
+   {
+    "cell": "M06CV03",
+    "score": 1.994
+   }
+  ]
+ },
+ {
+  "pack_id": "1030_chg",
+  "pack_no": "1030",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1240,
+  "dv_mv": 2.0,
+  "temp_dev": 0.6,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.611,
+  "cell_v_max": 3.613,
+  "anomaly_ratio": 0.0,
+  "max_phi": 54.798,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M10CV09",
+    "score": 2.175
+   },
+   {
+    "cell": "M10CV04",
+    "score": 2.175
+   },
+   {
+    "cell": "M10CV07",
+    "score": 2.175
+   },
+   {
+    "cell": "M08CV08",
+    "score": 2.167
+   },
+   {
+    "cell": "M03CV10",
+    "score": 2.127
+   }
+  ]
+ },
+ {
+  "pack_id": "1030_dchg",
+  "pack_no": "1030",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1111,
+  "dv_mv": 11.0,
+  "temp_dev": 1.7,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.695,
+  "cell_v_max": 3.706,
+  "anomaly_ratio": 0.0,
+  "max_phi": 69.297,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M10CV04",
+    "score": 2.929
+   },
+   {
+    "cell": "M10CV09",
+    "score": 2.587
+   },
+   {
+    "cell": "M11CV06",
+    "score": 1.939
+   },
+   {
+    "cell": "M10CV07",
+    "score": 1.899
+   },
+   {
+    "cell": "M15CV04",
+    "score": 1.892
+   }
+  ]
+ },
+ {
+  "pack_id": "1031_chg",
+  "pack_no": "1031",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 9609,
+  "dv_mv": 29.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.043,
+  "cell_v_max": 4.072,
+  "anomaly_ratio": 0.0,
+  "max_phi": 52.815,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV07",
+    "score": 1.863
+   },
+   {
+    "cell": "M13CV09",
+    "score": 1.844
+   },
+   {
+    "cell": "M13CV06",
+    "score": 1.77
+   },
+   {
+    "cell": "M16CV03",
+    "score": 1.761
+   },
+   {
+    "cell": "M16CV02",
+    "score": 1.747
+   }
+  ]
+ },
+ {
+  "pack_id": "1031_dchg",
+  "pack_no": "1031",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 5160,
+  "dv_mv": 14.0,
+  "temp_dev": 1.0,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.695,
+  "cell_v_max": 3.709,
+  "anomaly_ratio": 0.0,
+  "max_phi": 4135.561,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M12CV10",
+    "score": 1.913
+   },
+   {
+    "cell": "M16CV02",
+    "score": 1.826
+   },
+   {
+    "cell": "M16CV04",
+    "score": 1.793
+   },
+   {
+    "cell": "M13CV11",
+    "score": 1.734
+   },
+   {
+    "cell": "M12CV06",
+    "score": 1.734
+   }
+  ]
+ },
+ {
+  "pack_id": "1032_chg",
+  "pack_no": "1032",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6620,
+  "dv_mv": 2.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.612,
+  "cell_v_max": 3.614,
+  "anomaly_ratio": 0.0,
+  "max_phi": 0.288,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV10",
+    "score": 2.715
+   },
+   {
+    "cell": "M10CV11",
+    "score": 2.715
+   },
+   {
+    "cell": "M16CV09",
+    "score": 1.59
+   },
+   {
+    "cell": "M16CV05",
+    "score": 1.59
+   },
+   {
+    "cell": "M15CV10",
+    "score": 1.59
+   }
+  ]
+ },
+ {
+  "pack_id": "1032_dchg",
+  "pack_no": "1032",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 7021,
+  "dv_mv": 12.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.046,
+  "cell_v_max": 4.058,
+  "anomaly_ratio": 0.0,
+  "max_phi": 1.462,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M08CV05",
+    "score": 2.855
+   },
+   {
+    "cell": "M11CV10",
+    "score": 2.801
+   },
+   {
+    "cell": "M12CV08",
+    "score": 2.8
+   },
+   {
+    "cell": "M07CV01",
+    "score": 2.386
+   },
+   {
+    "cell": "M06CV10",
+    "score": 2.054
+   }
+  ]
+ },
+ {
+  "pack_id": "1033_chg",
+  "pack_no": "1033",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 5061,
+  "dv_mv": 23.0,
+  "temp_dev": 1.0,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.061,
+  "cell_v_max": 4.084,
+  "anomaly_ratio": 0.0211,
+  "max_phi": 214.94,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV09",
+    "score": 4.072
+   },
+   {
+    "cell": "M06CV11",
+    "score": 3.787
+   },
+   {
+    "cell": "M06CV03",
+    "score": 3.68
+   },
+   {
+    "cell": "M06CV01",
+    "score": 3.373
+   },
+   {
+    "cell": "M06CV07",
+    "score": 3.227
+   }
+  ]
+ },
+ {
+  "pack_id": "1033_dchg",
+  "pack_no": "1033",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 9458,
+  "dv_mv": 14.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.694,
+  "cell_v_max": 3.708,
+  "anomaly_ratio": 0.0032,
+  "max_phi": 129.718,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV11",
+    "score": 4.244
+   },
+   {
+    "cell": "M06CV09",
+    "score": 3.923
+   },
+   {
+    "cell": "M06CV05",
+    "score": 3.348
+   },
+   {
+    "cell": "M06CV03",
+    "score": 3.194
+   },
+   {
+    "cell": "M06CV07",
+    "score": 2.829
+   }
+  ]
+ },
+ {
+  "pack_id": "1034_chg",
+  "pack_no": "1034",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 8618,
+  "dv_mv": 32.0,
+  "temp_dev": 0.8,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.039,
+  "cell_v_max": 4.071,
+  "anomaly_ratio": 0.0,
+  "max_phi": 54.601,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M10CV11",
+    "score": 1.686
+   },
+   {
+    "cell": "M06CV02",
+    "score": 1.588
+   },
+   {
+    "cell": "M11CV02",
+    "score": 1.561
+   },
+   {
+    "cell": "M09CV10",
+    "score": 1.541
+   },
+   {
+    "cell": "M03CV09",
+    "score": 1.534
+   }
+  ]
+ },
+ {
+  "pack_id": "1034_dchg",
+  "pack_no": "1034",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 9589,
+  "dv_mv": 17.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.691,
+  "cell_v_max": 3.708,
+  "anomaly_ratio": 0.0,
+  "max_phi": 38.365,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV08",
+    "score": 1.869
+   },
+   {
+    "cell": "M03CV11",
+    "score": 1.843
+   },
+   {
+    "cell": "M10CV11",
+    "score": 1.628
+   },
+   {
+    "cell": "M10CV02",
+    "score": 1.591
+   },
+   {
+    "cell": "M14CV09",
+    "score": 1.526
+   }
+  ]
+ },
+ {
+  "pack_id": "1035_chg",
+  "pack_no": "1035",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 7271,
+  "dv_mv": 3.0,
+  "temp_dev": 1.3,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.612,
+  "cell_v_max": 3.615,
+  "anomaly_ratio": 0.0,
+  "max_phi": 1.568,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV01",
+    "score": 2.199
+   },
+   {
+    "cell": "M07CV08",
+    "score": 2.182
+   },
+   {
+    "cell": "M14CV04",
+    "score": 1.553
+   },
+   {
+    "cell": "M12CV02",
+    "score": 1.553
+   },
+   {
+    "cell": "M12CV03",
+    "score": 1.553
+   }
+  ]
+ },
+ {
+  "pack_id": "1035_dchg",
+  "pack_no": "1035",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6449,
+  "dv_mv": 14.0,
+  "temp_dev": 1.6,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.688,
+  "cell_v_max": 3.702,
+  "anomaly_ratio": 0.0,
+  "max_phi": 57.583,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M16CV07",
+    "score": 1.882
+   },
+   {
+    "cell": "M16CV02",
+    "score": 1.859
+   },
+   {
+    "cell": "M16CV09",
+    "score": 1.84
+   },
+   {
+    "cell": "M12CV10",
+    "score": 1.799
+   },
+   {
+    "cell": "M12CV11",
+    "score": 1.684
+   }
+  ]
+ },
+ {
+  "pack_id": "1036_chg",
+  "pack_no": "1036",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 11316,
+  "dv_mv": 4.0,
+  "temp_dev": 0.8,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.611,
+  "cell_v_max": 3.615,
+  "anomaly_ratio": 0.0,
+  "max_phi": 3.486,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV06",
+    "score": 3.076
+   },
+   {
+    "cell": "M02CV11",
+    "score": 2.839
+   },
+   {
+    "cell": "M02CV10",
+    "score": 2.837
+   },
+   {
+    "cell": "M02CV05",
+    "score": 1.977
+   },
+   {
+    "cell": "M02CV03",
+    "score": 1.966
+   }
+  ]
+ },
+ {
+  "pack_id": "1036_dchg",
+  "pack_no": "1036",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 6272,
+  "dv_mv": 15.0,
+  "temp_dev": 1.7,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.69,
+  "cell_v_max": 3.705,
+  "anomaly_ratio": 0.0,
+  "max_phi": 6314.102,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV08",
+    "score": 3.363
+   },
+   {
+    "cell": "M13CV06",
+    "score": 3.358
+   },
+   {
+    "cell": "M02CV05",
+    "score": 3.227
+   },
+   {
+    "cell": "M13CV10",
+    "score": 2.871
+   },
+   {
+    "cell": "M05CV02",
+    "score": 2.728
+   }
+  ]
+ },
+ {
+  "pack_id": "1037_chg",
+  "pack_no": "1037",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 11024,
+  "dv_mv": 31.0,
+  "temp_dev": 1.2,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.033,
+  "cell_v_max": 4.064,
+  "anomaly_ratio": 0.0,
+  "max_phi": 29.029,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M05CV07",
+    "score": 2.187
+   },
+   {
+    "cell": "M05CV09",
+    "score": 2.095
+   },
+   {
+    "cell": "M05CV08",
+    "score": 1.954
+   },
+   {
+    "cell": "M05CV03",
+    "score": 1.906
+   },
+   {
+    "cell": "M05CV04",
+    "score": 1.897
+   }
+  ]
+ },
+ {
+  "pack_id": "1037_dchg",
+  "pack_no": "1037",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1128,
+  "dv_mv": 15.0,
+  "temp_dev": 1.5,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.688,
+  "cell_v_max": 3.703,
+  "anomaly_ratio": 0.0,
+  "max_phi": 69.583,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M05CV03",
+    "score": 2.161
+   },
+   {
+    "cell": "M05CV09",
+    "score": 2.078
+   },
+   {
+    "cell": "M05CV02",
+    "score": 1.994
+   },
+   {
+    "cell": "M05CV07",
+    "score": 1.97
+   },
+   {
+    "cell": "M05CV01",
+    "score": 1.939
+   }
+  ]
+ },
+ {
+  "pack_id": "1038_chg",
+  "pack_no": "1038",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 11270,
+  "dv_mv": 2.0,
+  "temp_dev": 1.0,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.611,
+  "cell_v_max": 3.613,
+  "anomaly_ratio": 0.0,
+  "max_phi": 2.114,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M14CV11",
+    "score": 1.617
+   },
+   {
+    "cell": "M14CV09",
+    "score": 1.616
+   },
+   {
+    "cell": "M12CV07",
+    "score": 1.616
+   },
+   {
+    "cell": "M14CV07",
+    "score": 1.616
+   },
+   {
+    "cell": "M10CV04",
+    "score": 1.616
+   }
+  ]
+ },
+ {
+  "pack_id": "1038_dchg",
+  "pack_no": "1038",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1156,
+  "dv_mv": 11.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.691,
+  "cell_v_max": 3.702,
+  "anomaly_ratio": 0.0,
+  "max_phi": 75.174,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M03CV02",
+    "score": 2.688
+   },
+   {
+    "cell": "M03CV08",
+    "score": 2.586
+   },
+   {
+    "cell": "M03CV05",
+    "score": 2.574
+   },
+   {
+    "cell": "M11CV10",
+    "score": 2.471
+   },
+   {
+    "cell": "M03CV01",
+    "score": 2.372
+   }
+  ]
+ },
+ {
+  "pack_id": "1039_chg",
+  "pack_no": "1039",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 11008,
+  "dv_mv": 18.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.037,
+  "cell_v_max": 4.055,
+  "anomaly_ratio": 0.0,
+  "max_phi": 29.089,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M02CV02",
+    "score": 2.85
+   },
+   {
+    "cell": "M14CV01",
+    "score": 2.677
+   },
+   {
+    "cell": "M12CV02",
+    "score": 2.462
+   },
+   {
+    "cell": "M12CV05",
+    "score": 2.276
+   },
+   {
+    "cell": "M01CV08",
+    "score": 2.058
+   }
+  ]
+ },
+ {
+  "pack_id": "1039_dchg",
+  "pack_no": "1039",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1123,
+  "dv_mv": 11.0,
+  "temp_dev": 1.7,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.692,
+  "cell_v_max": 3.703,
+  "anomaly_ratio": 0.6064,
+  "max_phi": 77.745,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M12CV02",
+    "score": 4.241
+   },
+   {
+    "cell": "M12CV06",
+    "score": 2.539
+   },
+   {
+    "cell": "M02CV02",
+    "score": 2.492
+   },
+   {
+    "cell": "M12CV05",
+    "score": 2.173
+   },
+   {
+    "cell": "M12CV10",
+    "score": 1.962
+   }
+  ]
+ },
+ {
+  "pack_id": "1040_chg",
+  "pack_no": "1040",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 10998,
+  "dv_mv": 29.0,
+  "temp_dev": 1.6,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.038,
+  "cell_v_max": 4.067,
+  "anomaly_ratio": 0.0065,
+  "max_phi": 7295.665,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV03",
+    "score": 3.772
+   },
+   {
+    "cell": "M04CV11",
+    "score": 3.772
+   },
+   {
+    "cell": "M04CV01",
+    "score": 3.732
+   },
+   {
+    "cell": "M03CV08",
+    "score": 3.363
+   },
+   {
+    "cell": "M04CV09",
+    "score": 3.231
+   }
+  ]
+ },
+ {
+  "pack_id": "1040_dchg",
+  "pack_no": "1040",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1119,
+  "dv_mv": 15.0,
+  "temp_dev": 2.0,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.692,
+  "cell_v_max": 3.707,
+  "anomaly_ratio": 0.8945,
+  "max_phi": 85.934,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV03",
+    "score": 3.928
+   },
+   {
+    "cell": "M04CV11",
+    "score": 3.655
+   },
+   {
+    "cell": "M03CV08",
+    "score": 3.627
+   },
+   {
+    "cell": "M04CV01",
+    "score": 3.452
+   },
+   {
+    "cell": "M04CV07",
+    "score": 3.443
+   }
+  ]
+ },
+ {
+  "pack_id": "1041_chg",
+  "pack_no": "1041",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1711,
+  "dv_mv": 18.0,
+  "temp_dev": 1.2,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.043,
+  "cell_v_max": 4.061,
+  "anomaly_ratio": 0.0058,
+  "max_phi": 612.195,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M02CV04",
+    "score": 2.676
+   },
+   {
+    "cell": "M08CV10",
+    "score": 2.14
+   },
+   {
+    "cell": "M02CV03",
+    "score": 2.026
+   },
+   {
+    "cell": "M02CV08",
+    "score": 1.895
+   },
+   {
+    "cell": "M11CV06",
+    "score": 1.832
+   }
+  ]
+ },
+ {
+  "pack_id": "1041_dchg",
+  "pack_no": "1041",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 509,
+  "dv_mv": 9.0,
+  "temp_dev": 1.9,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.691,
+  "cell_v_max": 3.7,
+  "anomaly_ratio": 0.0,
+  "max_phi": 66.739,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV09",
+    "score": 2.974
+   },
+   {
+    "cell": "M07CV02",
+    "score": 2.482
+   },
+   {
+    "cell": "M15CV01",
+    "score": 2.208
+   },
+   {
+    "cell": "M16CV01",
+    "score": 2.058
+   },
+   {
+    "cell": "M12CV03",
+    "score": 2.057
+   }
+  ]
+ },
+ {
+  "pack_id": "1042_chg",
+  "pack_no": "1042",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 2369,
+  "dv_mv": 26.0,
+  "temp_dev": 1.5,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.038,
+  "cell_v_max": 4.064,
+  "anomaly_ratio": 0.0148,
+  "max_phi": 37.519,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M15CV01",
+    "score": 1.451
+   },
+   {
+    "cell": "M07CV06",
+    "score": 1.446
+   },
+   {
+    "cell": "M08CV02",
+    "score": 1.437
+   },
+   {
+    "cell": "M06CV03",
+    "score": 1.437
+   },
+   {
+    "cell": "M06CV09",
+    "score": 1.437
+   }
+  ]
+ },
+ {
+  "pack_id": "1042_dchg",
+  "pack_no": "1042",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1051,
+  "dv_mv": 15.0,
+  "temp_dev": 1.9,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.69,
+  "cell_v_max": 3.705,
+  "anomaly_ratio": 0.2626,
+  "max_phi": 65.001,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV02",
+    "score": 1.749
+   },
+   {
+    "cell": "M16CV09",
+    "score": 1.712
+   },
+   {
+    "cell": "M07CV06",
+    "score": 1.649
+   },
+   {
+    "cell": "M01CV06",
+    "score": 1.619
+   },
+   {
+    "cell": "M03CV10",
+    "score": 1.557
+   }
+  ]
+ },
+ {
+  "pack_id": "1043_chg",
+  "pack_no": "1043",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 12582,
+  "dv_mv": 3.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.611,
+  "cell_v_max": 3.614,
+  "anomaly_ratio": 0.0,
+  "max_phi": 0.515,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M14CV01",
+    "score": 2.889
+   },
+   {
+    "cell": "M13CV08",
+    "score": 2.889
+   },
+   {
+    "cell": "M13CV07",
+    "score": 2.889
+   },
+   {
+    "cell": "M14CV07",
+    "score": 2.889
+   },
+   {
+    "cell": "M15CV11",
+    "score": 1.529
+   }
+  ]
+ },
+ {
+  "pack_id": "1043_dchg",
+  "pack_no": "1043",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1349,
+  "dv_mv": 12.0,
+  "temp_dev": 1.6,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.69,
+  "cell_v_max": 3.702,
+  "anomaly_ratio": 0.0,
+  "max_phi": 6059.189,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M13CV05",
+    "score": 2.659
+   },
+   {
+    "cell": "M13CV09",
+    "score": 2.533
+   },
+   {
+    "cell": "M13CV08",
+    "score": 2.474
+   },
+   {
+    "cell": "M13CV06",
+    "score": 2.415
+   },
+   {
+    "cell": "M14CV01",
+    "score": 2.413
+   }
+  ]
+ },
+ {
+  "pack_id": "1044_chg",
+  "pack_no": "1044",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 12110,
+  "dv_mv": 29.0,
+  "temp_dev": 1.6,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.035,
+  "cell_v_max": 4.064,
+  "anomaly_ratio": 0.0,
+  "max_phi": 34.885,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV05",
+    "score": 2.322
+   },
+   {
+    "cell": "M06CV09",
+    "score": 2.21
+   },
+   {
+    "cell": "M13CV05",
+    "score": 2.093
+   },
+   {
+    "cell": "M06CV10",
+    "score": 2.019
+   },
+   {
+    "cell": "M10CV08",
+    "score": 1.87
+   }
+  ]
+ },
+ {
+  "pack_id": "1044_dchg",
+  "pack_no": "1044",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1823,
+  "dv_mv": 16.0,
+  "temp_dev": 1.9,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.688,
+  "cell_v_max": 3.704,
+  "anomaly_ratio": 0.0,
+  "max_phi": 93.388,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV05",
+    "score": 2.09
+   },
+   {
+    "cell": "M06CV09",
+    "score": 2.017
+   },
+   {
+    "cell": "M13CV05",
+    "score": 1.993
+   },
+   {
+    "cell": "M06CV10",
+    "score": 1.896
+   },
+   {
+    "cell": "M05CV09",
+    "score": 1.725
+   }
+  ]
+ },
+ {
+  "pack_id": "1045_chg",
+  "pack_no": "1045",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 12005,
+  "dv_mv": 27.0,
+  "temp_dev": 1.2,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.038,
+  "cell_v_max": 4.065,
+  "anomaly_ratio": 0.0048,
+  "max_phi": 69.276,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M09CV01",
+    "score": 2.963
+   },
+   {
+    "cell": "M09CV08",
+    "score": 2.647
+   },
+   {
+    "cell": "M09CV03",
+    "score": 2.639
+   },
+   {
+    "cell": "M09CV10",
+    "score": 2.152
+   },
+   {
+    "cell": "M09CV04",
+    "score": 2.152
+   }
+  ]
+ },
+ {
+  "pack_id": "1045_dchg",
+  "pack_no": "1045",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1146,
+  "dv_mv": 15.0,
+  "temp_dev": 1.3,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.691,
+  "cell_v_max": 3.706,
+  "anomaly_ratio": 0.0,
+  "max_phi": 83.654,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M09CV01",
+    "score": 2.804
+   },
+   {
+    "cell": "M09CV03",
+    "score": 2.589
+   },
+   {
+    "cell": "M09CV08",
+    "score": 2.529
+   },
+   {
+    "cell": "M02CV09",
+    "score": 2.335
+   },
+   {
+    "cell": "M02CV10",
+    "score": 2.126
+   }
+  ]
+ },
+ {
+  "pack_id": "1046_chg",
+  "pack_no": "1046",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 11955,
+  "dv_mv": 24.0,
+  "temp_dev": 1.4,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.036,
+  "cell_v_max": 4.06,
+  "anomaly_ratio": 0.0603,
+  "max_phi": 68.067,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV03",
+    "score": 3.276
+   },
+   {
+    "cell": "M06CV09",
+    "score": 3.24
+   },
+   {
+    "cell": "M06CV04",
+    "score": 3.066
+   },
+   {
+    "cell": "M06CV05",
+    "score": 3.049
+   },
+   {
+    "cell": "M06CV07",
+    "score": 3.049
+   }
+  ]
+ },
+ {
+  "pack_id": "1046_dchg",
+  "pack_no": "1046",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1289,
+  "dv_mv": 13.0,
+  "temp_dev": 1.2,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.692,
+  "cell_v_max": 3.705,
+  "anomaly_ratio": 0.2498,
+  "max_phi": 81.661,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV04",
+    "score": 3.369
+   },
+   {
+    "cell": "M06CV09",
+    "score": 3.143
+   },
+   {
+    "cell": "M06CV07",
+    "score": 3.143
+   },
+   {
+    "cell": "M06CV02",
+    "score": 3.103
+   },
+   {
+    "cell": "M06CV05",
+    "score": 3.101
+   }
+  ]
+ },
+ {
+  "pack_id": "1047_chg",
+  "pack_no": "1047",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1069,
+  "dv_mv": 25.0,
+  "temp_dev": 1.9,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.071,
+  "cell_v_max": 4.096,
+  "anomaly_ratio": 0.0,
+  "max_phi": 50.092,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M05CV06",
+    "score": 1.849
+   },
+   {
+    "cell": "M01CV09",
+    "score": 1.744
+   },
+   {
+    "cell": "M10CV05",
+    "score": 1.664
+   },
+   {
+    "cell": "M01CV11",
+    "score": 1.647
+   },
+   {
+    "cell": "M05CV04",
+    "score": 1.61
+   }
+  ]
+ },
+ {
+  "pack_id": "1047_dchg",
+  "pack_no": "1047",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1048,
+  "dv_mv": 14.0,
+  "temp_dev": 2.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.693,
+  "cell_v_max": 3.707,
+  "anomaly_ratio": 0.0,
+  "max_phi": 80.539,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M06CV03",
+    "score": 2.05
+   },
+   {
+    "cell": "M02CV08",
+    "score": 1.86
+   },
+   {
+    "cell": "M11CV07",
+    "score": 1.825
+   },
+   {
+    "cell": "M06CV01",
+    "score": 1.813
+   },
+   {
+    "cell": "M14CV04",
+    "score": 1.789
+   }
+  ]
+ },
+ {
+  "pack_id": "1048_chg",
+  "pack_no": "1048",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1685,
+  "dv_mv": 13.0,
+  "temp_dev": 3.5,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "NG",
+  "cell_v_min": 4.047,
+  "cell_v_max": 4.06,
+  "anomaly_ratio": 0.4641,
+  "max_phi": 47.787,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M05CV08",
+    "score": 2.802
+   },
+   {
+    "cell": "M05CV03",
+    "score": 2.772
+   },
+   {
+    "cell": "M15CV01",
+    "score": 2.665
+   },
+   {
+    "cell": "M05CV07",
+    "score": 2.43
+   },
+   {
+    "cell": "M02CV06",
+    "score": 2.384
+   }
+  ]
+ },
+ {
+  "pack_id": "1048_dchg",
+  "pack_no": "1048",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1015,
+  "dv_mv": 10.0,
+  "temp_dev": 4.8,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "NG",
+  "cell_v_min": 3.693,
+  "cell_v_max": 3.703,
+  "anomaly_ratio": 0.9448,
+  "max_phi": 77.88,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M14CV07",
+    "score": 2.176
+   },
+   {
+    "cell": "M05CV05",
+    "score": 1.93
+   },
+   {
+    "cell": "M05CV03",
+    "score": 1.761
+   },
+   {
+    "cell": "M14CV11",
+    "score": 1.751
+   },
+   {
+    "cell": "M02CV06",
+    "score": 1.734
+   }
+  ]
+ },
+ {
+  "pack_id": "1049_chg",
+  "pack_no": "1049",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1044,
+  "dv_mv": 19.0,
+  "temp_dev": 2.3,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.078,
+  "cell_v_max": 4.097,
+  "anomaly_ratio": 0.0,
+  "max_phi": 45.609,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV01",
+    "score": 3.24
+   },
+   {
+    "cell": "M06CV11",
+    "score": 2.98
+   },
+   {
+    "cell": "M07CV09",
+    "score": 2.974
+   },
+   {
+    "cell": "M07CV03",
+    "score": 2.721
+   },
+   {
+    "cell": "M07CV07",
+    "score": 2.599
+   }
+  ]
+ },
+ {
+  "pack_id": "1049_dchg",
+  "pack_no": "1049",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1069,
+  "dv_mv": 14.0,
+  "temp_dev": 3.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.698,
+  "cell_v_max": 3.712,
+  "anomaly_ratio": 0.0,
+  "max_phi": 78.912,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M07CV01",
+    "score": 3.293
+   },
+   {
+    "cell": "M06CV07",
+    "score": 3.027
+   },
+   {
+    "cell": "M06CV05",
+    "score": 2.765
+   },
+   {
+    "cell": "M07CV09",
+    "score": 2.719
+   },
+   {
+    "cell": "M07CV05",
+    "score": 2.623
+   }
+  ]
+ },
+ {
+  "pack_id": "1050_chg",
+  "pack_no": "1050",
+  "mode": "충전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 2654,
+  "dv_mv": 13.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.078,
+  "cell_v_max": 4.091,
+  "anomaly_ratio": 0.0,
+  "max_phi": 49.511,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV11",
+    "score": 2.795
+   },
+   {
+    "cell": "M04CV09",
+    "score": 2.696
+   },
+   {
+    "cell": "M04CV10",
+    "score": 2.674
+   },
+   {
+    "cell": "M12CV10",
+    "score": 2.408
+   },
+   {
+    "cell": "M12CV09",
+    "score": 2.17
+   }
+  ]
+ },
+ {
+  "pack_id": "1050_dchg",
+  "pack_no": "1050",
+  "mode": "방전",
+  "source": "train",
+  "grade": "OK",
+  "has_label": false,
+  "n_rows": 1690,
+  "dv_mv": 9.0,
+  "temp_dev": 2.0,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.694,
+  "cell_v_max": 3.703,
+  "anomaly_ratio": 0.0059,
+  "max_phi": 269.363,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": null,
+  "top_cells": [
+   {
+    "cell": "M04CV09",
+    "score": 2.844
+   },
+   {
+    "cell": "M07CV06",
+    "score": 2.598
+   },
+   {
+    "cell": "M12CV10",
+    "score": 2.458
+   },
+   {
+    "cell": "M04CV10",
+    "score": 2.42
+   },
+   {
+    "cell": "M04CV11",
+    "score": 2.348
+   }
+  ]
+ },
+ {
+  "pack_id": "Test05_NG_chg",
+  "pack_no": "Test05",
+  "mode": "충전",
+  "source": "test",
+  "grade": "NG",
+  "has_label": true,
+  "n_rows": 5016,
+  "dv_mv": 53.0,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "NG",
+  "cell_v_min": 4.0806,
+  "cell_v_max": 4.1336,
+  "anomaly_ratio": 0.309,
+  "max_phi": 248.624,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": 0.8491,
+  "top_cells": [
+   {
+    "cell": "M09CV07",
+    "score": 2.889
+   },
+   {
+    "cell": "M06CV02",
+    "score": 2.536
+   },
+   {
+    "cell": "M15CV06",
+    "score": 2.307
+   },
+   {
+    "cell": "M04CV02",
+    "score": 2.025
+   },
+   {
+    "cell": "M16CV10",
+    "score": 1.764
+   }
+  ]
+ },
+ {
+  "pack_id": "Test09_NG_dchg",
+  "pack_no": "Test09",
+  "mode": "방전",
+  "source": "test",
+  "grade": "NG",
+  "has_label": true,
+  "n_rows": 4864,
+  "dv_mv": 26.9,
+  "temp_dev": 4.2,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "NG",
+  "cell_v_min": 3.4146,
+  "cell_v_max": 3.4415,
+  "anomaly_ratio": 1.0,
+  "max_phi": 117.823,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": 1.0,
+  "top_cells": [
+   {
+    "cell": "M09CV01",
+    "score": 2.913
+   },
+   {
+    "cell": "M08CV11",
+    "score": 2.529
+   },
+   {
+    "cell": "M15CV05",
+    "score": 2.429
+   },
+   {
+    "cell": "M04CV09",
+    "score": 2.317
+   },
+   {
+    "cell": "M05CV11",
+    "score": 2.138
+   }
+  ]
+ },
+ {
+  "pack_id": "Test03_OK_chg",
+  "pack_no": "Test03",
+  "mode": "충전",
+  "source": "test",
+  "grade": "OK",
+  "has_label": true,
+  "n_rows": 1421,
+  "dv_mv": 15.0,
+  "temp_dev": 1.3,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.043,
+  "cell_v_max": 4.058,
+  "anomaly_ratio": 0.0,
+  "max_phi": 90.794,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": 0.0,
+  "top_cells": [
+   {
+    "cell": "M02CV05",
+    "score": 2.388
+   },
+   {
+    "cell": "M15CV07",
+    "score": 2.165
+   },
+   {
+    "cell": "M13CV06",
+    "score": 1.914
+   },
+   {
+    "cell": "M05CV06",
+    "score": 1.704
+   },
+   {
+    "cell": "M14CV05",
+    "score": 1.639
+   }
+  ]
+ },
+ {
+  "pack_id": "Test04_OK_dchg",
+  "pack_no": "Test04",
+  "mode": "방전",
+  "source": "test",
+  "grade": "OK",
+  "has_label": true,
+  "n_rows": 1505,
+  "dv_mv": 8.0,
+  "temp_dev": 2.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.689,
+  "cell_v_max": 3.697,
+  "anomaly_ratio": 0.0066,
+  "max_phi": 277.18,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": 0.0,
+  "top_cells": [
+   {
+    "cell": "M12CV07",
+    "score": 2.291
+   },
+   {
+    "cell": "M15CV07",
+    "score": 2.152
+   },
+   {
+    "cell": "M11CV09",
+    "score": 2.096
+   },
+   {
+    "cell": "M10CV08",
+    "score": 2.096
+   },
+   {
+    "cell": "M12CV09",
+    "score": 2.003
+   }
+  ]
+ },
+ {
+  "pack_id": "Test06_NG_chg",
+  "pack_no": "Test06",
+  "mode": "충전",
+  "source": "test",
+  "grade": "NG",
+  "has_label": true,
+  "n_rows": 854,
+  "dv_mv": 41.5,
+  "temp_dev": 2.7,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "NG",
+  "cell_v_min": 3.6675,
+  "cell_v_max": 3.709,
+  "anomaly_ratio": 0.9169,
+  "max_phi": 231.399,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": 1.0,
+  "top_cells": [
+   {
+    "cell": "M07CV06",
+    "score": 3.907
+   },
+   {
+    "cell": "M07CV07",
+    "score": 3.819
+   },
+   {
+    "cell": "M07CV11",
+    "score": 3.815
+   },
+   {
+    "cell": "M07CV02",
+    "score": 3.737
+   },
+   {
+    "cell": "M07CV09",
+    "score": 3.656
+   }
+  ]
+ },
+ {
+  "pack_id": "Test07_NG_dchg",
+  "pack_no": "Test07",
+  "mode": "방전",
+  "source": "test",
+  "grade": "NG",
+  "has_label": true,
+  "n_rows": 4594,
+  "dv_mv": 1157.6,
+  "temp_dev": 1.1,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "NG",
+  "cell_v_min": 3.1092,
+  "cell_v_max": 4.2668,
+  "anomaly_ratio": 0.0494,
+  "max_phi": 172775.205,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": 0.0494,
+  "top_cells": [
+   {
+    "cell": "M02CV01",
+    "score": 5.853
+   },
+   {
+    "cell": "M05CV01",
+    "score": 2.441
+   },
+   {
+    "cell": "M02CV02",
+    "score": 2.181
+   },
+   {
+    "cell": "M09CV05",
+    "score": 1.851
+   },
+   {
+    "cell": "M09CV01",
+    "score": 1.71
+   }
+  ]
+ },
+ {
+  "pack_id": "Test08_NG_chg",
+  "pack_no": "Test08",
+  "mode": "충전",
+  "source": "test",
+  "grade": "NG",
+  "has_label": true,
+  "n_rows": 2396,
+  "dv_mv": 26.4,
+  "temp_dev": 4.4,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "NG",
+  "cell_v_min": 4.0654,
+  "cell_v_max": 4.0918,
+  "anomaly_ratio": 1.0,
+  "max_phi": 289.469,
+  "ai_verdict": "NG",
+  "label_anomaly_ratio": 1.0,
+  "top_cells": [
+   {
+    "cell": "M10CV10",
+    "score": 2.903
+   },
+   {
+    "cell": "M08CV02",
+    "score": 2.687
+   },
+   {
+    "cell": "M05CV08",
+    "score": 2.66
+   },
+   {
+    "cell": "M14CV06",
+    "score": 2.543
+   },
+   {
+    "cell": "M12CV08",
+    "score": 2.25
+   }
+  ]
+ },
+ {
+  "pack_id": "Test01_OK_chg",
+  "pack_no": "Test01",
+  "mode": "충전",
+  "source": "test",
+  "grade": "OK",
+  "has_label": true,
+  "n_rows": 1723,
+  "dv_mv": 32.0,
+  "temp_dev": 2.0,
+  "thr_dv_mv": 48.2,
+  "thr_temp": 2.56,
+  "rule_verdict": "OK",
+  "cell_v_min": 4.049,
+  "cell_v_max": 4.081,
+  "anomaly_ratio": 0.007,
+  "max_phi": 869.45,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": 0.0,
+  "top_cells": [
+   {
+    "cell": "M10CV02",
+    "score": 3.302
+   },
+   {
+    "cell": "M08CV11",
+    "score": 2.875
+   },
+   {
+    "cell": "M10CV06",
+    "score": 2.51
+   },
+   {
+    "cell": "M08CV06",
+    "score": 2.144
+   },
+   {
+    "cell": "M10CV01",
+    "score": 2.128
+   }
+  ]
+ },
+ {
+  "pack_id": "Test02_OK_dchg",
+  "pack_no": "Test02",
+  "mode": "방전",
+  "source": "test",
+  "grade": "OK",
+  "has_label": true,
+  "n_rows": 1019,
+  "dv_mv": 18.0,
+  "temp_dev": 2.6,
+  "thr_dv_mv": 40.2,
+  "thr_temp": 4.17,
+  "rule_verdict": "OK",
+  "cell_v_min": 3.692,
+  "cell_v_max": 3.71,
+  "anomaly_ratio": 0.0098,
+  "max_phi": 256.995,
+  "ai_verdict": "OK",
+  "label_anomaly_ratio": 0.0,
+  "top_cells": [
+   {
+    "cell": "M16CV02",
+    "score": 1.889
+   },
+   {
+    "cell": "M01CV01",
+    "score": 1.877
+   },
+   {
+    "cell": "M16CV03",
+    "score": 1.793
+   },
+   {
+    "cell": "M09CV01",
+    "score": 1.777
+   },
+   {
+    "cell": "M12CV08",
+    "score": 1.77
+   }
+  ]
+ }
+]
