@@ -3,10 +3,22 @@
 ## GitHub clone 후 로컬 체험 (Windows)
 
 1. Python **3.12 (64비트)**와 Git을 설치합니다.
-2. 저장소를 clone하고 해당 폴더를 엽니다.
+2. 아래 명령으로 **팀원 테스트 브랜치**를 clone하고 해당 폴더를 엽니다.
 3. **setup_local.cmd**를 실행합니다. 최초 설치에는 인터넷이 필요합니다.
 4. **start_demo.cmd**를 실행하고 http://127.0.0.1:8070 을 엽니다.
 5. **체험 시작**을 누릅니다. 이메일·비밀번호·API 키가 필요하지 않습니다.
+
+```powershell
+git clone --depth 1 --branch codex/team-local-preview https://github.com/LS-PROEJCT-TEAM1/Predictive_Maintenance.git BatteryFlow-team
+cd BatteryFlow-team
+.\setup_local.cmd
+.\start_demo.cmd
+```
+
+현재 테스트 배포는 `codex/team-local-preview` 브랜치입니다.
+기존 연구 자료를 포함한 해당 브랜치의 파일 합계는 약 178.66MiB이며,
+대시보드 최소 실행 묶음은 약 10.49MiB입니다. 가장 큰 파일은 약 46.37MiB입니다.
+`--depth 1`은 과거 커밋 이력 다운로드를 줄이며 현재 브랜치의 연구 자료는 포함합니다.
 
 이미 8070 포트가 사용 중이면 `start_demo.cmd --port 8071`로 실행하세요.
 종료는 실행 창에서 Ctrl+C입니다. `.venv`는 팀원 PC에서 생성하며 Git에 넣지 않습니다.
