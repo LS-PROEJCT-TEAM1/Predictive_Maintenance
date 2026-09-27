@@ -43,10 +43,10 @@ def overview(data, meta, actions):
     return html.Div([
         html.Div(cards, className="track-cards"),
         html.Div([
-            panel("발주 계획과 예측 흐름", graph(demand_chart(data["trend"])), "목표일 기준 · 서로 다른 부품을 날짜별 합산", badge("3일 이동평균", "info")),
-            panel("운영 모델의 선택 근거", [metric_rows([("3일 이동평균", "36.95", "공급망 · Walk-forward MAE / 개"), ("RobustPhaseZ", "0.9945", "예지보전 · 잠금 시험 F1"), ("PCA (T²·SPE)", "0.9866", "품질 보증 · 잠금 시험 F1")]), section_note("트랙별 평가 단위가 달라 점수를 서로 직접 비교하지 않습니다.")])], className="grid-main"),
+            panel("발주 계획과 예측 흐름", graph(demand_chart(data["trend"])), "목표일 기준 · 서로 다른 부품을 날짜별 합산", badge(d["operatingModel"], "info")),
+            panel("운영 모델의 선택 근거", [metric_rows([(d["operatingModel"], num(d["bestWalkForwardMae"], 2), "공급망 · Walk-forward MAE / 개"), ("RobustPhaseZ", "0.9945", "예지보전 · 잠금 시험 F1"), ("PCA (T²·SPE)", "0.9866", "품질 보증 · 잠금 시험 F1")]), section_note("트랙별 평가 단위가 달라 점수를 서로 직접 비교하지 않습니다.")])], className="grid-main"),
         html.Div([panel("우선 검토 목록", grid(queue, "main-grid", [{"field": "priority", "headerName": "순위", "maxWidth": 75, "minWidth": 65}, {"field": "track", "headerName": "영역", "maxWidth": 125}, {"field": "target", "headerName": "대상", "flex": 1.2}, {"field": "title", "headerName": "검토 내용", "flex": 2.5}, {"field": "status", "headerName": "상태", "maxWidth": 125}], 285), "행을 선택해 분석 화면으로 이동하세요. 예지보전 확인 수는 기본 모델 조합 기준입니다.", badge("공식 시드 · 공유 기록")),
-            panel("분석 범위", [metric_rows([("공급망", "117 부품", "최신 목표일 예측 109개"), ("레이저 용접", "4 시험", "현재 이상 탐지 · 시험 데이터 재생"), ("배터리 품질", "5 시험", "잠금 시험 · 176셀 / 32온도")]), section_note(("공유 기록 조회 불가" if actions.get("__unavailable__") else f"공유 검토 상태 {len(actions)}건 · Firebase 저장")), callout("독립 데이터셋", "세 트랙의 원본 행을 합치지 않고 상태와 조치만 통합합니다.")])], className="grid-main")])
+            panel("분석 범위", [metric_rows([("공급망", "117 부품", f"최신 목표일 예측 {d['forecastPartCount']}개 · 충돌 2개 격리"), ("레이저 용접", "4 시험", "현재 이상 탐지 · 시험 데이터 재생"), ("배터리 품질", "5 시험", "잠금 시험 · 176셀 / 32온도")]), section_note(("공유 기록 조회 불가" if actions.get("__unavailable__") else f"공유 검토 상태 {len(actions)}건 · Firebase 저장")), callout("독립 데이터셋", "세 트랙의 원본 행을 합치지 않고 상태와 조치만 통합합니다.")])], className="grid-main")])
 
 
 DEMAND_COLUMNS = [{"field": "part", "headerName": "부품", "maxWidth": 140}, {"field": "forecast", "headerName": "선택 예측 (개)", "type": "numericColumn"},
@@ -55,6 +55,10 @@ DEMAND_COLUMNS = [{"field": "part", "headerName": "부품", "maxWidth": 140}, {"
 
 
 def demand_view(data, tab, actions, query, direction):
+    config = data["config"]
+    scores = {row["Model"]: row["MAE"] for row in config["walkForwardMetrics"]}
+    if (data.get("partInfo") or {}).get("quarantined"):
+        return html.Div([callout("원본 기록 충돌 · 예측 제외", "이 부품은 같은 시각에 서로 다른 수량이 기록되어 있습니다. 원본 정정 전까지 예측과 발주 검토에서 제외합니다.", "warning")]), []
     rows = []
     for r in data["rows"]:
         status = "조회 불가" if actions.get("__unavailable__") else "확인 완료" if f"demand:{r['part']}:{r['date']}:{r['model']}" in actions else "미확인" if r["review"] else "계획 범위"
@@ -72,8 +76,8 @@ def demand_view(data, tab, actions, query, direction):
     content = [html.Div([kpi("선택 모델 예상량", num(data["forecast"]), data["model"], unit="개"), kpi("기존 D+3 계획", num(data["plan"]), data["date"], unit="개"),
                        kpi("계획 대비 차이", f"{data['gap']:+,.0f}", f"{num(data['gapPct'], 2)}%", "accent", "개"), kpi("검토 필요 부품", data["reviewCount"], f"선택일 예측 {data['count']}개 부품", "danger", "개")], className="kpi-strip"),
         html.Div([panel("D+3 발주량 예측", graph(demand_chart(data["trend"])), "계획·실제·예측을 동일한 목표일로 비교합니다."),
-                  panel("발주 판단 가이드", [metric_rows([("운영 기본", "이동평균", "검증 MAE 36.9523"), ("학습형 보조", "XGBoost", "검증 MAE 48.3896")]),
-                    callout("차이가 큰 부품부터 검토", "예측은 발주 판단의 근거입니다. 재고·조달 리드타임은 포함되어 있지 않습니다."), section_note("신규 CSV 3일 자료를 업로드하면 D+3 이동평균·XGBoost 추론을 직접 시험할 수 있습니다.")])], className="grid-main"), table]
+                  panel("발주 판단 가이드", [metric_rows([("운영 기본", config["primaryModel"], f"검증 MAE {scores[config['primaryModel']]:.4f}"), ("학습형 보조", config["auxiliaryModel"], f"검증 MAE {scores[config['auxiliaryModel']]:.4f}")]),
+                    callout("차이가 큰 부품부터 검토", "예측은 발주 판단의 근거입니다. 재고·조달 리드타임은 포함되어 있지 않습니다."), section_note("최근 8일 CSV로 D+3 예측을 시험할 수 있습니다. 일별 최종 ERP 계획량이 예측 대상이며 실측 소비량은 아닙니다.")])], className="grid-main"), table]
     if not data["count"]:
         content.insert(0, callout("선택한 조건의 예측 없음", "부품은 등록되어 있지만 해당 목표일의 예측 자료가 없습니다. 날짜 또는 부품을 변경하세요.", "warning"))
     return html.Div(content), rows
@@ -116,7 +120,7 @@ def quality_view(data, tab, actions, mode):
 
 def validation_view(data, track):
     explanations = {
-        "demand": ("운영 기본은 3일 이동평균", "3-fold purged walk-forward에서 선정했습니다. 입력과 목표 사이 D+3 간격을 유지하고 최종 7개 목표일은 독립 holdout으로 분리합니다.", "시간순 train → 3일 간격 → validation → 독립 holdout", "MAE·RMSE·WAPE와 과대/과소 예측을 함께 확인하세요. 약 50일 자료로 장기 계절성은 검증되지 않았습니다."),
+        "demand": (f"운영 기본: {data.get('config', {}).get('primaryModel', '')}", "내부 5일 검증과 외부 3-fold 시간순 검증으로 선정했습니다. 마지막 7개 목표일은 이전 실험에서 본 기간이므로 회고 평가로 표시합니다.", "학습 → D+3 간격 → 내부 검증 → 시간순 반복검증 → 회고 평가", "MAE·RMSE·WAPE와 과대/과소 예측을 함께 확인하세요. 약 50일 자료로 장기 계절성은 검증되지 않았습니다."),
         "maintenance": ("RobustPhaseZ를 기본 탐지기로 사용", "지도·비지도 모델은 같은 잠금 시험에서 비교합니다. 01_OK·03_NG로 개발하고 02_OK·04_NG를 독립 시험으로 보존합니다.", "39행 사이클 단위 개발 분리 → validation 선정 → 파일 단위 잠금 시험", "현재값 기반 이상 탐지입니다. 새로운 고장 유형에 대한 외부 검증이 필요하며 지도모델은 class_weight로 불균형을 처리합니다."),
         "quality": ("PCA 운영 근거와 지도 분류 성능을 함께 확인", "정상 10개 파일로 정상 구조를 학습하고 개발 Test05·09와 잠금 Test03·04·06·07·08을 구분합니다. Random Forest는 학습에 없던 센서 고장 유형의 미탐 한계를 드러냅니다.", "정상 기준 10파일 → 개발 Test05·09 → 잠금 5파일", "불량 Recall을 함께 확인하세요. 셀별 정답은 없어 시점 단위로 평가합니다. MTadGAN은 윈도우 정렬로 평가 행 수가 다릅니다.")}
     title, intro, split, caveat = explanations[track]
@@ -124,7 +128,7 @@ def validation_view(data, track):
                panel("검증 설계", [html.Div(split, className="split-flow"), callout("평가 해석", caveat), section_note("최종 시험 성능으로 운영 모델을 재선정하지 않습니다.")])], className="grid-main"),
                panel("모델별 지표 · 혼동행렬 값", grid(data["rows"], "main-grid", height=385), "열 제목으로 정렬·필터 · TP/FP/FN/TN 등 원 지표를 확인하세요.")]
     if track == "demand":
-        content += [panel("독립 최종 holdout", grid(data["holdout"], "validation-holdout", height=300)), panel("Fold별 반복 검증", grid(data["extra"], "validation-extra", height=315)), panel("부품별 오차", grid(data["partErrors"], "validation-parts", height=315))]
+        content += [panel("회고 평가 · 이전에 관측한 기간", grid(data["holdout"], "validation-holdout", height=300)), panel("Fold별 반복 검증", grid(data["extra"], "validation-extra", height=315)), panel("부품별 오차", grid(data["partErrors"], "validation-parts", height=315))]
     elif track == "quality":
         content += [panel("파일 그룹 교차검증", grid(data["extra"], "validation-extra", height=300)), panel("불량 유형·시험별 결과", grid(data["fileResults"], "validation-files", height=340)), panel("지도모델 변수 중요도", grid(data["features"], "validation-features", height=290))]
     else:
@@ -140,11 +144,11 @@ def project_view():
         panel("세 가지 업무 질문", grid(rows, "main-grid", height=240)),
         panel("분석에서 의사결정까지", html.Div([html.Div([html.B(f"0{i+1}"), html.Strong(t), html.P(s)]) for i, (t, s) in enumerate([("데이터 품질", "결측·중복·시간 순서 확인"), ("검증 설계", "시간·파일 그룹 분리"), ("모델 비교", "기준모델과 공정한 비교"), ("근거 탐색", "차트·이벤트·셀 상세"), ("검토와 조치", "사람이 최종 판단")])], className="workflow")),
         html.Div([panel("데이터 출처", [html.P("Korea AI Manufacturing Platform (KAMP)"), html.P("공급망 최적화 / 전자부품(배터리팩) 예지보전 / 전자부품(배터리팩) 품질보증 AI 데이터셋"), html.A("KAMP 출처 확인", href="https://www.kamp-ai.kr", target="_blank", rel="noreferrer")]),
-                  panel("통합의 기준", [html.P("서로 다른 데이터셋을 행 단위로 병합하지 않습니다."), html.P("공통으로 묶는 것은 분석 상태, 근거 조회, 검토 대상입니다."), badge("공식 시드 v2", "info")])], className="grid-equal")]), rows
+                  panel("통합의 기준", [html.P("서로 다른 데이터셋을 행 단위로 병합하지 않습니다."), html.P("공통으로 묶는 것은 분석 상태, 근거 조회, 검토 대상입니다."), badge("공식 시드 v3", "info")])], className="grid-equal")]), rows
 
 
-def conclusion_view():
-    rows = [{"영역": "공급망", "결론": "이동평균 기본 + XGBoost 보조", "가치": "계획과 예측 차이의 우선 검토", "한계": "짧은 관측 기간·재고/리드타임 미포함", "다음 단계": "운영 변수와 신규 기간 검증"},
+def conclusion_view(meta):
+    rows = [{"영역": "공급망", "결론": f"{meta['demandPrimary']} 기본 + {meta['demandAuxiliary']} 보조", "가치": "계획과 예측 차이의 우선 검토", "한계": "짧은 관측 기간·재고/리드타임 미포함", "다음 단계": "운영 변수와 신규 기간 검증"},
             {"영역": "예지보전", "결론": "RobustPhaseZ 기본 탐지", "가치": "이상 구간과 공정 근거 연결", "한계": "현재 이상 탐지·제한된 고장 유형", "다음 단계": "실제 설비 신호와 신규 고장 검증"},
             {"영역": "품질", "결론": "PCA (T²·SPE) 운영 근거", "가치": "검사 우선 시험과 셀 탐색", "한계": "셀별 정답 없음·유형별 일반화 차이", "다음 단계": "검사 결과와 작업자 피드백 확보"}]
     return html.Div([callout("모델의 점수보다, 검토 가능한 근거와 일관된 판단 흐름", "운영 화면에서 데이터·검증·한계를 함께 확인하도록 구성했습니다."), panel("결론과 다음 과제", grid(rows, "main-grid", height=240)),

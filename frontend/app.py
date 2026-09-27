@@ -64,7 +64,7 @@ def create_dashboard(meta):
                     dmc.Tabs(id="tabs", value="summary", children=[], className="domain-tabs"),
                     html.Div([
                         html.Div([select("d-date", "목표일", meta["dates"], meta["dates"][-1]), select("d-part", "부품", [{"label": "전체 부품", "value": "ALL"}]+[{"label": p, "value": p} for p in meta["parts"]], "ALL"),
-                                  select("d-model", "예측 모델", [{"label": "이동평균 · 운영 기본", "value": "3-day Moving Average"}, {"label": "XGBoost · 학습형 보조", "value": "XGBoost"}, {"label": "LightGBM · 비교", "value": "LightGBM"}, {"label": "CatBoost · 비교", "value": "CatBoost"}, {"label": "LSTM · 비교", "value": "LSTM"}], "3-day Moving Average"),
+                                  select("d-model", "예측 모델", [{"label": name + (" · 운영 기본" if name == meta["demandPrimary"] else " · 학습형 보조" if name == meta["demandAuxiliary"] else " · 비교"), "value": name} for name in meta["demandModels"]], meta["demandPrimary"]),
                                   dmc.Button("CSV로 재예측", id="open-inference", leftSection=icon("upload", 16), variant="light", className="filter-button")], id="demand-controls", className="filter-toolbar"),
                         html.Div([select("m-run", "시험 파일", meta["runs"], "WeldingTest_04_NG"), select("m-sup", "지도 모델", meta["supervised"], meta["defaultSupervised"]), select("m-unsup", "비지도 모델", meta["unsupervised"], meta["defaultUnsupervised"]), badge("과거 시험 재생", "info")], id="maintenance-controls", className="filter-toolbar"),
                         html.Div([select("q-test", "시험 ID", meta["tests"], "Test07_NG_dchg"), select("q-cell", "선택 셀", [f"M{m:02d}CV{c:02d}" for m in range(1, 17) for c in range(1, 12)], "M02CV01"),
@@ -86,9 +86,9 @@ def create_dashboard(meta):
         copilot_ui.drawer(),
         dmc.Drawer(id='records-drawer', title='업무 기록', position='right', size=600, closeButtonProps={'aria-label': '닫기'}, children=[html.P('직원 공용 · 최신 100건 · 수정 전 판정도 이력으로 보존됩니다.', className='section-note'), dcc.Loading(html.Div(id='records-content'))]),
         dmc.Modal(closeButtonProps={"aria-label": "닫기"}, id="inference-modal", title="CSV로 D+3 재예측", centered=True, size="lg", children=[
-            html.P("동일 부품의 연속 3일 자료를 업로드하세요. 기존 모델로 추론하며 재학습하지 않습니다."),
+            html.P("동일 부품의 3~60일 자료를 업로드하세요. 최근 3일은 연속이어야 합니다. 8일 이력을 권장하며 저장된 모델로 예측합니다."),
             html.A("입력 템플릿 다운로드", href="/api/demand/template", className="template-link"),
-            dcc.Upload(id="csv-upload", children=html.Div([icon("upload", 24), html.Strong("CSV 파일 선택 또는 여기에 끌어놓기"), html.Small("UTF-8 · 최대 1MB · 3행")]), accept=".csv", max_size=1000000, className="upload-zone"),
+            dcc.Upload(id="csv-upload", children=html.Div([icon("upload", 24), html.Strong("CSV 파일 선택 또는 여기에 끌어놓기"), html.Small("UTF-8 · 최대 1MB · 3~60행")]), accept=".csv", max_size=1000000, className="upload-zone"),
             dcc.Loading(html.Div(id="inference-result"), type="circle")])
     ])
 
@@ -152,10 +152,10 @@ def create_dashboard(meta):
                 if tab == "project":
                     content, rows = project_view()
                 elif tab == "conclusion":
-                    content, rows = conclusion_view()
+                    content, rows = conclusion_view(meta)
                 elif tab == "data":
                     rows = request(f"/api/data-quality/{track}")["rows"]
-                    content = html.Div([callout("처리 근거를 먼저 확인하세요", "트랙별 분석 단위와 제공 항목이 다릅니다. 없는 품질 검사를 정상값으로 채우지 않습니다."), panel(f"{DOMAIN[track]} · 데이터 품질", grid(rows, "main-grid", height=550), f"{len(rows)}개 품질 항목 · 공식 시드 v2 · 표시된 항목 다운로드 가능")])
+                    content = html.Div([callout("처리 근거를 먼저 확인하세요", "트랙별 분석 단위와 제공 항목이 다릅니다. 없는 품질 검사를 정상값으로 채우지 않습니다."), panel(f"{DOMAIN[track]} · 데이터 품질", grid(rows, "main-grid", height=550), f"{len(rows)}개 품질 항목 · 공식 시드 v3 · 표시된 항목 다운로드 가능")])
                 elif tab == "results":
                     data = request(f"/api/results/{track}", params={"kind": kind})
                     rows = data["rows"]
@@ -283,7 +283,7 @@ def create_dashboard(meta):
         try:
             payload = base64.b64decode(contents.split(",", 1)[1], validate=True)
             result = request("/api/demand/infer", "POST", files={"file": (filename or "input.csv", payload, "text/csv")})
-            return html.Div([badge("추론 완료", "success"), metric_rows([("D+3 목표일", result["target_date"], result["part_number"]), ("운영 예측", num(result["recommended_forecast"])+"개", "3일 이동평균"), ("학습형 보조", num(result["xgboost_prediction"])+"개", "XGBoost · 알려진 부품만 제공"), ("기존 계획", num(result["plan_d3_reference"])+"개", "공식 시드는 변경하지 않습니다.")])])
+            return html.Div([badge("추론 완료", "success"), metric_rows([("D+3 목표일", result["target_date"], result["part_number"]), ("운영 예측", num(result["recommended_forecast"])+"개", result["recommended_model"]), ("학습형 보조", num(result["auxiliary_prediction"])+"개", result["auxiliary_model"] + " · 알려진 부품만 제공"), ("기존 계획", num(result["plan_d3_reference"])+"개", "공식 시드는 변경하지 않습니다.")]), html.P(result.get("fallback_reason") or result.get("input_warning") or result["evaluation_note"], className="section-note")])
         except (ValueError, httpx.HTTPError):
             return callout("CSV 추론 실패", "템플릿의 필수 열, 동일 부품의 연속 3일, 0 이상 수량을 확인하세요.", "warning")
 

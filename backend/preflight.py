@@ -9,7 +9,7 @@ from backend.runtime_assets import ROOT, verify_runtime
 def check(connected=False):
     if sys.version_info[:2] != (3, 12):
         raise SystemExit('Python 3.12로 setup_local.cmd를 실행하세요.')
-    for module in ('dash', 'fastapi', 'xgboost', 'sklearn', 'joblib'):
+    for module in ('dash', 'fastapi', 'xgboost', 'sklearn', 'joblib', 'torch'):
         if importlib.util.find_spec(module) is None:
             raise SystemExit('필수 라이브러리 누락: ' + module + '. setup_local.cmd를 실행하세요.')
     try:

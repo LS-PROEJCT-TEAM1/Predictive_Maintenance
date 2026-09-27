@@ -19,23 +19,23 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from train_evaluate_final_models import (
-    DATA_PATH,
-    MODEL_NAMES,
-    REFERENCE_MODEL,
-    calculate_metrics,
-)
-from train_evaluate_purged_models import load_daily_data
+from demand_contract import SOURCE as DATA_PATH, MODEL_NAMES as ALL_MODELS, metrics as calculate_metrics, build_samples
+REFERENCE_MODEL = 'D+3 Plan Reference'
+MODEL_NAMES = [m for m in ALL_MODELS if m != REFERENCE_MODEL]
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FINAL_DIR = ROOT / "outputs" / "purged_evaluation" / "source_total"
+FINAL_DIR = ROOT / "outputs" / "audited_v2" / "source_total"
 WALK_DIR = FINAL_DIR
 OUTPUT_DIR = ROOT / "outputs" / "dashboard_data"
 CSV_DIR = OUTPUT_DIR / "csv"
 FIRESTORE_DIR = OUTPUT_DIR / "firestore"
 FIGURE_DIR = FINAL_DIR / "figures"
 MODEL_COLUMNS = MODEL_NAMES + [REFERENCE_MODEL]
+
+
+def current_metadata():
+    return json.loads((ROOT / 'outputs/audited_v2/metadata.json').read_text(encoding='utf-8'))
 
 
 def slug(value: object) -> str:
@@ -230,8 +230,8 @@ def make_parts(
         actual_mean=("actual", "mean"),
         actual_zero_count=("actual", lambda values: int((values == 0).sum())),
     )
-    choices = part_metrics[part_metrics["Model"].isin(["XGBoost", "3-day Moving Average"])]
-    choices = choices.sort_values(["part_number", "MAE", "RMSE"]).drop_duplicates("part_number")
+    primary = current_metadata()['selection']['overall_method']
+    choices = part_metrics[part_metrics["Model"].eq(primary)]
     choices = choices.set_index("part_number")[["Model", "MAE"]].rename(
         columns={"Model": "recommended_model", "MAE": "recommended_model_test_mae"}
     )
@@ -324,7 +324,7 @@ def save_figures(
     fig, axes = plt.subplots(1, 2, figsize=(13, 5))
     axes[0].barh(ranked["Model"], ranked["MAE"], color="#2563EB")
     axes[0].invert_yaxis()
-    axes[0].set_title("Final holdout MAE")
+    axes[0].set_title("Retrospective MAE (previously observed period)")
     axes[0].set_xlabel("MAE")
     axes[1].barh(ranked["Model"], ranked["RMSE"], color="#0F766E")
     axes[1].invert_yaxis()
@@ -426,8 +426,19 @@ def main() -> None:
     predictions = pd.read_csv(FINAL_DIR / "final_holdout_predictions.csv", parse_dates=["origin_date", "target_date"])
     metrics = pd.read_csv(FINAL_DIR / "final_holdout_metrics.csv")
     metrics["Eligible_For_Ranking"] = metrics["Eligible_For_Overall_Ranking"]
-    coverage = pd.read_csv(FINAL_DIR / "part_sequence_coverage.csv", parse_dates=["first_date", "last_date"])
-    run_metadata = json.loads((FINAL_DIR / "run_metadata.json").read_text(encoding="utf-8"))
+    metadata = current_metadata()
+    daily = pd.read_csv(ROOT / 'outputs/audited_v2/daily_history.csv', parse_dates=['date','timestamp'])
+    raw = pd.read_excel(DATA_PATH)
+    samples = build_samples(daily)
+    coverage_rows = []
+    for part, group in raw.groupby(raw.columns[0]):
+        dates = pd.to_datetime(group.iloc[:,83].astype(str), format='%Y%m%d%H%M').dt.normalize()
+        excluded = part in metadata['quarantined_parts']
+        coverage_rows.append({'part_number':part,'daily_rows':int(dates.nunique()),'first_date':dates.min(),'last_date':dates.max(),
+            'valid_sequence_count':int(samples.part_number.eq(part).sum()),'excluded':excluded,
+            'exclusion_reason':'unresolved_same_timestamp_conflict' if excluded else ''})
+    coverage = pd.DataFrame(coverage_rows)
+    run_metadata = {'quality':metadata['quality'],'sequence':{'eligible_rows':len(samples),'eligible_parts':samples.part_number.nunique()}}
     quality_rows = []
     for key, value in {**run_metadata["quality"], **run_metadata["sequence"]}.items():
         if isinstance(value, dict):
@@ -435,7 +446,6 @@ def main() -> None:
         else:
             quality_rows.append({"Metric": key, "Value": value})
     quality = pd.DataFrame(quality_rows)
-    daily, _ = load_daily_data("source_total")
 
     part_metrics, macro_metrics = metrics_by_part(predictions)
     spike_events, spike_metrics = spike_analysis(predictions)
@@ -543,22 +553,27 @@ def main() -> None:
         firestore_sets["walk_forward_metrics"] = walk_docs
 
     config = {
-        "primary_method": "3-day Moving Average",
-        "primary_ml_model": "XGBoost",
-        "fallback_model": "3-day Moving Average",
+        "primary_method": metadata['selection']['overall_method'],
+        "primary_ml_model": metadata['selection']['ml_model'],
+        "fallback_model": "Last Value",
         "overall_holdout_winner": metrics.sort_values("MAE").iloc[0]["Model"],
         "forecast_horizon_days": 3,
         "sequence_length_days": 3,
         "test_start": predictions["target_date"].min(),
         "test_end": predictions["target_date"].max(),
-        "model_version": "purged_v1_source_total",
-        "selection_basis": "purged_3_fold_walk_forward_MAE",
+        "model_version": "audited_v2",
+        "selection_basis": metadata['selection']['selection_basis'],
+        "evaluation_label": "retrospective_previously_observed_period",
+        "quarantined_parts": metadata['quarantined_parts'],
+        "uncertainty": metadata['uncertainty'],
         "data_limit": "Approximately 50 days; no annual seasonality conclusion",
     }
     manifest = build_firestore_files(firestore_sets, config)
     manifest.to_csv(OUTPUT_DIR / "firestore_manifest.csv", index=False, encoding="utf-8-sig")
 
-    sample = latest_consecutive_three(daily)
+    last_three = latest_consecutive_three(daily)
+    origin = last_three['date'].max()
+    sample = daily[(daily.part_number == last_three.iloc[0].part_number) & daily.date.between(origin-pd.Timedelta(days=7),origin)][REQUIRED_INFERENCE_COLUMNS()]
     sample.to_csv(OUTPUT_DIR / "inference_input_template.csv", index=False, encoding="utf-8-sig")
     (OUTPUT_DIR / "inference_request_example.json").write_text(
         json.dumps({"records": json_safe(sample.to_dict(orient="records"))}, ensure_ascii=False, indent=2),
@@ -584,7 +599,7 @@ def main() -> None:
     save_figures(metrics, predictions, part_metrics, walk_fold)
 
     holdout_winner = metrics[metrics["Eligible_For_Ranking"]].sort_values("MAE").iloc[0]
-    xgboost = walk_pooled[walk_pooled["Model"] == "XGBoost"].iloc[0]
+    auxiliary = walk_pooled[walk_pooled['Model'] == metadata['selection']['ml_model']].iloc[0]
     walk_text = "Walk-forward result was not available."
     if walk_pooled is not None:
         walk_winner = walk_pooled[walk_pooled["Model"].isin(MODEL_NAMES)].sort_values("MAE").iloc[0]
@@ -593,16 +608,15 @@ def main() -> None:
 
 ## 모델 결론
 
-- 단일 최종 holdout 1위: **{holdout_winner['Model']}**, MAE {holdout_winner['MAE']:.4f}
-- 누수 제거 반복검증 전체 1위: **3-day Moving Average**
-- 누수 제거 반복검증 학습형 모델 1위: **XGBoost**, MAE {xgboost['MAE']:.4f}
-- XGBoost의 독립 holdout D+3 계획값 대비 MAE 개선율: {float(improvement.loc[improvement['Model'] == 'XGBoost', 'MAE_Improvement_vs_D3_Plan_pct'].iloc[0]):.2f}%
+- 회고 평가 1위: **{holdout_winner['Model']}**, MAE {holdout_winner['MAE']:.4f}. 새 독립 시험이 아니다.
+- 시간 분리 반복검증 전체 1위: **{metadata['selection']['overall_method']}**
+- 반복검증 학습형 후보 1위: **{auxiliary['Model']}**, MAE {auxiliary['MAE']:.4f}
 - {walk_text}
-- 운영안: 3일 이동평균을 기본 예측으로 사용하고 XGBoost를 학습형 보조 예측으로 함께 제공한다.
+- 운영안: {metadata['selection']['overall_method']} 기본 예측 + {auxiliary['Model']} 학습형 보조. 부품별 시험 점수로 바꾸지 않는다.
 
 ## 분석 범위
 
-- 최종 공통 테스트: {len(predictions):,}건, {predictions['part_number'].nunique()}개 부품
+- 마지막 기간 회고 평가: {len(predictions):,}건, {predictions['part_number'].nunique()}개 부품
 - 부품별 성능, 과대·과소예측 횟수, 수요 급증 구간 성능을 별도 파일로 저장했다.
 - 실제값·예측값, 모델 비교, 부품별 MAE, walk-forward 결과를 PNG로 저장했다.
 - Firestore에는 아직 업로드하지 않았으며 JSONL 파일과 매니페스트만 생성했다.
@@ -612,6 +626,8 @@ def main() -> None:
 - 원본 수집 기간이 약 50일이므로 월·분기·연간 계절성은 검증할 수 없다.
 - 예측값은 발주 수량 의사결정을 보조하며 재고, 단가, 리드타임 데이터가 없으므로 비용 최적화 결과는 아니다.
 - 테스트 기간에 나타나지 않은 부품은 최종 holdout 지표에 포함되지 않는다.
+- 동일 시각 충돌 부품 {', '.join(metadata['quarantined_parts'])}는 원본을 보존하고 학습·예측에서 격리했다.
+- 일별 최종 로그 확정 이후 예측이다. 추정 상한은 재고량 또는 품절 방지 보장이 아니다.
 """
     (FINAL_DIR / "DASHBOARD_ANALYSIS_REPORT.md").write_text(report, encoding="utf-8")
     print(f"Dashboard assets written to {OUTPUT_DIR}")

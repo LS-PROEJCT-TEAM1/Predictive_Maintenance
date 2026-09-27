@@ -18,7 +18,8 @@ def files():
     for relative in ('README.md', 'DESIGN.md', 'AGENTS.md', '.gitignore', '.gitattributes', 'LOCAL_RUN.md', 'TEAM_SETUP.md',
                      'requirements-local.txt', 'run_local.py', 'setup_local.cmd', 'start_demo.cmd',
                      'start_local.cmd', 'start_local.ps1', 'scripts/team_bundle.py',
-                     'scripts/package_runtime.py', '발주량 예측 모델/src/inference.py'):
+                     'scripts/package_runtime.py', '발주량 예측 모델/src/inference.py',
+                     '발주량 예측 모델/src/demand_contract.py'):
         selected.add(ROOT / relative)
     for _, relative in SOURCES.values():
         selected.add(ROOT / relative)

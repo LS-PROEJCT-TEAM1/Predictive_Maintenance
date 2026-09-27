@@ -1,6 +1,15 @@
 # Keep checksummed data byte-for-byte identical across Windows/Linux checkouts.
+* whitespace=cr-at-eol
 firestore/seed/** -text
 runtime/** -text
+firestore/versions/** -text
+"발주량 예측 모델/outputs/**" -text
+"발주량 예측 모델/models/**" -text
+"발주량 예측 모델/src/retrain_audited.py" -text
+"발주량 예측 모델/src/demand_contract.py" -text
+"배터리 예지보전 모델/firestore/seed/**" -text
+"배터리 품질보증 모델/data/raw_data/test/**" -text
+"배터리 품질보증 모델/output/**" -text
 *.png binary
 *.jpg binary
 *.woff binary

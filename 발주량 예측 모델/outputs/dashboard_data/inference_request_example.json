@@ -2,6 +2,46 @@
   "records": [
     {
       "part_number": "Part 94",
+      "date": "2021-10-23T00:00:00Z",
+      "actual_d": 35,
+      "plan_d3": 37,
+      "plan_d4": 34,
+      "plan_d5": 34
+    },
+    {
+      "part_number": "Part 94",
+      "date": "2021-10-24T00:00:00Z",
+      "actual_d": 35,
+      "plan_d3": 37,
+      "plan_d4": 34,
+      "plan_d5": 34
+    },
+    {
+      "part_number": "Part 94",
+      "date": "2021-10-25T00:00:00Z",
+      "actual_d": 38,
+      "plan_d3": 34,
+      "plan_d4": 34,
+      "plan_d5": 40
+    },
+    {
+      "part_number": "Part 94",
+      "date": "2021-10-26T00:00:00Z",
+      "actual_d": 45,
+      "plan_d3": 34,
+      "plan_d4": 45,
+      "plan_d5": 19
+    },
+    {
+      "part_number": "Part 94",
+      "date": "2021-10-27T00:00:00Z",
+      "actual_d": 45,
+      "plan_d3": 43,
+      "plan_d4": 40,
+      "plan_d5": 34
+    },
+    {
+      "part_number": "Part 94",
       "date": "2021-10-28T00:00:00Z",
       "actual_d": 47,
       "plan_d3": 0,

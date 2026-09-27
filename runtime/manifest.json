@@ -1,5 +1,5 @@
 {
-  "dataVersion": "2026-09-26.v2",
+  "dataVersion": "2026-09-27.v3",
   "files": [
     {
       "file": "quality/Test03_OK_chg.csv.gz",
@@ -38,17 +38,17 @@
     },
     {
       "file": "validation/demand_folds.csv",
-      "bytes": 2624,
-      "sha256": "8449b9c6fd9cd281dce57c79afb5d8a3dd84989816eed0d54c159bf4de5839f4",
-      "source": "발주량 예측 모델/outputs/purged_evaluation/source_total/cv_metrics_by_fold.csv",
-      "sourceSha256": "8449b9c6fd9cd281dce57c79afb5d8a3dd84989816eed0d54c159bf4de5839f4"
+      "bytes": 3926,
+      "sha256": "dfd671f883e8bd344acece7ebd413a9493dcb64a894c0fa3eb986ffadaf2e9d0",
+      "source": "발주량 예측 모델/outputs/audited_v2/source_total/cv_metrics_by_fold.csv",
+      "sourceSha256": "dfd671f883e8bd344acece7ebd413a9493dcb64a894c0fa3eb986ffadaf2e9d0"
     },
     {
       "file": "validation/demand_errors.csv",
-      "bytes": 75102,
-      "sha256": "a3ec3bc95a366cc140f21848a61eb406a117dc9d98b5cb9ffe7e48a5c3845bc4",
-      "source": "발주량 예측 모델/outputs/purged_evaluation/source_total/final_holdout_part_metrics.csv",
-      "sourceSha256": "a3ec3bc95a366cc140f21848a61eb406a117dc9d98b5cb9ffe7e48a5c3845bc4"
+      "bytes": 111733,
+      "sha256": "6efd8e0839f1c9356bedb5118abe4b2d4d9ee391eea3192c03193bc279c00b2d",
+      "source": "발주량 예측 모델/outputs/audited_v2/source_total/final_holdout_part_metrics.csv",
+      "sourceSha256": "6efd8e0839f1c9356bedb5118abe4b2d4d9ee391eea3192c03193bc279c00b2d"
     },
     {
       "file": "validation/maintenance_features.csv",
@@ -66,24 +66,31 @@
     },
     {
       "file": "demand/metadata.json",
-      "bytes": 4918,
-      "sha256": "3537d765645e2db147bba2cb1cf8ae759c1b5b37980fd61430eefdf4bd4cccac",
-      "source": "발주량 예측 모델/models/purged_v1/source_total/metadata.json",
-      "sourceSha256": "3537d765645e2db147bba2cb1cf8ae759c1b5b37980fd61430eefdf4bd4cccac"
+      "bytes": 6972,
+      "sha256": "887a391366be19dc7a2331867bce31617526ba9848c5eded456d088ce426a6a0",
+      "source": "발주량 예측 모델/models/audited_v2/source_total/deployment/metadata.json",
+      "sourceSha256": "887a391366be19dc7a2331867bce31617526ba9848c5eded456d088ce426a6a0"
     },
     {
-      "file": "demand/tree_preprocessor.joblib",
-      "bytes": 4124,
-      "sha256": "5c3c39b2571e36ff8fcb5a3e7d02508e751f63678b747e190cf485f2424b17da",
-      "source": "발주량 예측 모델/models/purged_v1/source_total/tree_preprocessor.joblib",
-      "sourceSha256": "5c3c39b2571e36ff8fcb5a3e7d02508e751f63678b747e190cf485f2424b17da"
+      "file": "demand/xgboost.joblib",
+      "bytes": 433136,
+      "sha256": "2a16100cb13f86ff9dde7cbf993171a6de03ed69219add358edcbf4d3cb7ea71",
+      "source": "발주량 예측 모델/models/audited_v2/source_total/deployment/xgboost.joblib",
+      "sourceSha256": "2a16100cb13f86ff9dde7cbf993171a6de03ed69219add358edcbf4d3cb7ea71"
     },
     {
-      "file": "demand/xgboost.json",
-      "bytes": 1695144,
-      "sha256": "713d4e3240451ecf7c850d17b47a7271a130aa8ac33d207fb316bffb12203f33",
-      "source": "발주량 예측 모델/models/purged_v1/source_total/xgboost.json",
-      "sourceSha256": "713d4e3240451ecf7c850d17b47a7271a130aa8ac33d207fb316bffb12203f33"
+      "file": "demand/lstm.pt",
+      "bytes": 22793,
+      "sha256": "11fb481e38263b7b4eed53e199f6af2d1644d204586761933a8d05e302fc7713",
+      "source": "발주량 예측 모델/models/audited_v2/source_total/deployment/lstm.pt",
+      "sourceSha256": "11fb481e38263b7b4eed53e199f6af2d1644d204586761933a8d05e302fc7713"
+    },
+    {
+      "file": "demand/input_template.csv",
+      "bytes": 303,
+      "sha256": "80a50ef6717999e8418f7bb28b7687a27b056a7a9023ddd41264670f7b9e0b56",
+      "source": "발주량 예측 모델/outputs/dashboard_data/inference_input_template.csv",
+      "sourceSha256": "80a50ef6717999e8418f7bb28b7687a27b056a7a9023ddd41264670f7b9e0b56"
     }
   ]
 }

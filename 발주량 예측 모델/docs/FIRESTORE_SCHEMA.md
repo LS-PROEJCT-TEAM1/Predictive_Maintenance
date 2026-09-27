@@ -1,3 +1,9 @@
+# 현재 공식 업로드 구조
+
+공식 업로드 입력은 루트 `firestore/seed`의 v3 / 269문서입니다. [SEED_V3.md](../../firestore/SEED_V3.md)를 사용하세요. 아래 평면 구조는 연구용 내보내기 파일이며 공식 시드와 중복 업로드하지 않습니다. 현재 발주 정책은 7일 이동평균/LSTM, 마지막 기간 성능은 회고 평가입니다.
+
+---
+
 # Firestore 준비 데이터 구조
 
 `outputs/dashboard_data/firestore`의 JSONL 파일은 한 줄이 Firestore 문서 한 개다. 아직 Firestore에는 업로드하지 않는다. 각 문서의 `document_id`를 Firestore 문서 ID로 사용한다.

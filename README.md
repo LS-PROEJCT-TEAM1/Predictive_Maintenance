@@ -12,7 +12,7 @@ clone 명령은 아래 팀원 설치 안내를 참고하세요.
 
 - [팀원 설치·데이터 구성](TEAM_SETUP.md)
 - [실제 Firebase·Gemini 연결](LOCAL_RUN.md)
-- 공식 DB 원본: `firestore/seed` (v2, 266문서)
+- 공식 DB 원본: `firestore/seed` (v3, 269문서)
 - FastAPI + Dash, 실행에 필요한 압축 데이터·기존 모델은 `runtime/`에 포함
 
 아래는 개별 연구 트랙의 설명입니다. 통합 화면은 위 8070 주소로 실행하세요.
@@ -23,29 +23,27 @@ KAMP 제조 데이터를 활용한 예지보전 및 부품 발주량 예측 프�
 
 | 디렉터리 | 내용 |
 |---|---|
-| `발주량 예측 모델/` | 117개 부품의 D+3 발주량 예측, 5개 모델 비교, Dash 화면, Firestore 준비 데이터 |
+| `발주량 예측 모델/` | 117개 부품의 D+3 발주량 예측, 9개 방법 비교, Dash 화면, Firestore 준비 데이터 |
 | `배터리 예지보전 모델/` | 배터리 모듈 용접 데이터 기반 이상·고장 예지보전 모델 |
 | `data/pdm/` | 공용 예지보전 원본 및 전처리 데이터 |
 | `src/` | 공용 전처리 코드 |
 
 ## 발주량 예측 모델
 
-동일 부품의 연속 3일 실제 발주량과 D+3~D+5 계획량을 이용해 마지막 입력일 기준 D+3 실제 발주량을 예측합니다.
+최근 이력과 D+3~D+5 계획량을 이용해 일별 최종 ERP 발주 계획량을 예측합니다. audited_v2로 재학습했습니다.
 
-- 비교 방법: XGBoost, LightGBM, CatBoost, LSTM, 3일 이동평균
-- 누수 제거 3-fold walk-forward 전체 1위: 3일 이동평균, MAE 36.952
-- 누수 제거 3-fold walk-forward 학습형 모델 1위: XGBoost, MAE 48.390
-- 독립 최종 holdout 1위: CatBoost, MAE 25.315(모델 선정에는 사용하지 않음)
-- 운영안: 3일 이동평균 기본 예측, XGBoost 학습형 보조 예측
-- Dash: 부품별 예측 조회, 모델 성능, 계획 대비 확인 대상, 신규 CSV 추론
-- Firestore: 컬렉션별 JSONL과 업로드 매니페스트 준비 완료. 자동 업로드는 하지 않음
+- 전체 CV 1위: 7일 이동평균, MAE 34.6604
+- 학습형 CV 1위: LSTM, MAE 35.1942
+- 9가지 방법 비교, 충돌 부품 2개 격리, 시간순 내부/외부 검증
+- 마지막 기간은 과거 자료의 회고 평가이며 새로운 독립 검증이 아닙니다.
+- 공식 로컬 시드 v3과 재학습 산출물은 팀원 테스트 브랜치에 포함합니다. 원격 Firebase에는 업로드하지 않았습니다.
 
 자세한 설치 방법과 실행 순서는 [`발주량 예측 모델/README.md`](./발주량%20예측%20모델/README.md)를 확인하세요.
 
 주요 결과:
 
-- [`누수 제거 최종 분석 보고서`](./발주량%20예측%20모델/outputs/purged_evaluation/PURGED_EVALUATION_REPORT.md)
-- [`Walk-forward 결과`](./발주량%20예측%20모델/outputs/purged_evaluation/source_total/cv_metrics_pooled.csv)
+- [`누수 제거 최종 분석 보고서`](./발주량%20예측%20모델/docs/RETRAINING_REPORT_2026-09-27.md)
+- [`Walk-forward 결과`](./발주량%20예측%20모델/outputs/audited_v2/source_total/cv_metrics_pooled.csv)
 - [`Firestore 데이터 구조`](./발주량%20예측%20모델/docs/FIRESTORE_SCHEMA.md)
 - [`대시보드 기능 정의`](./발주량%20예측%20모델/docs/DASHBOARD_REQUIREMENTS.md)
 

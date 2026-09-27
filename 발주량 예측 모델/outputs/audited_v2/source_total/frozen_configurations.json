@@ -1,0 +1,150 @@
+{
+  "fold_1": {
+    "XGBoost": {
+      "config": {
+        "features": "enhanced",
+        "size": "medium"
+      },
+      "iterations": 44
+    },
+    "LightGBM": {
+      "config": {
+        "features": "basic",
+        "size": "medium"
+      },
+      "iterations": 4
+    },
+    "CatBoost": {
+      "config": {
+        "features": "enhanced",
+        "size": "small"
+      },
+      "iterations": 22
+    },
+    "LSTM": {
+      "config": {
+        "features": "basic",
+        "size": "small"
+      },
+      "iterations": 3
+    },
+    "Related LightGBM": {
+      "config": {
+        "features": "enhanced",
+        "size": "medium"
+      },
+      "iterations": 2
+    }
+  },
+  "fold_2": {
+    "XGBoost": {
+      "config": {
+        "features": "basic",
+        "size": "small"
+      },
+      "iterations": 498
+    },
+    "LightGBM": {
+      "config": {
+        "features": "basic",
+        "size": "small"
+      },
+      "iterations": 500
+    },
+    "CatBoost": {
+      "config": {
+        "features": "enhanced",
+        "size": "small"
+      },
+      "iterations": 178
+    },
+    "LSTM": {
+      "config": {
+        "features": "enhanced",
+        "size": "medium"
+      },
+      "iterations": 6
+    },
+    "Related LightGBM": {
+      "config": {
+        "features": "enhanced",
+        "size": "medium"
+      },
+      "iterations": 157
+    }
+  },
+  "fold_3": {
+    "XGBoost": {
+      "config": {
+        "features": "basic",
+        "size": "small"
+      },
+      "iterations": 234
+    },
+    "LightGBM": {
+      "config": {
+        "features": "basic",
+        "size": "small"
+      },
+      "iterations": 104
+    },
+    "CatBoost": {
+      "config": {
+        "features": "enhanced",
+        "size": "small"
+      },
+      "iterations": 187
+    },
+    "LSTM": {
+      "config": {
+        "features": "enhanced",
+        "size": "medium"
+      },
+      "iterations": 3
+    },
+    "Related LightGBM": {
+      "config": {
+        "features": "enhanced",
+        "size": "small"
+      },
+      "iterations": 125
+    }
+  },
+  "retrospective": {
+    "XGBoost": {
+      "config": {
+        "features": "basic",
+        "size": "medium"
+      },
+      "iterations": 265
+    },
+    "LightGBM": {
+      "config": {
+        "features": "enhanced",
+        "size": "medium"
+      },
+      "iterations": 452
+    },
+    "CatBoost": {
+      "config": {
+        "features": "enhanced",
+        "size": "medium"
+      },
+      "iterations": 314
+    },
+    "LSTM": {
+      "config": {
+        "features": "basic",
+        "size": "small"
+      },
+      "iterations": 42
+    },
+    "Related LightGBM": {
+      "config": {
+        "features": "enhanced",
+        "size": "medium"
+      },
+      "iterations": 104
+    }
+  }
+}

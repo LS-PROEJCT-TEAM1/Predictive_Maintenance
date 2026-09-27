@@ -1,4 +1,4 @@
-pandas==3.0.1
+pandas==2.3.3
 numpy==2.3.5
 scikit-learn==1.9.1
 xgboost==3.4.1
@@ -9,4 +9,7 @@ joblib==1.6.0
 matplotlib==3.11.2
 plotly==7.1.0
 dash==4.4.1
+dash-mantine-components==2.8.0
+dash-ag-grid==35.3.0
+dash-iconify==0.1.2
 xlrd==2.0.2

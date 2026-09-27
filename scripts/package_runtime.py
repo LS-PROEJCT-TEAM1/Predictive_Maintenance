@@ -28,8 +28,13 @@ def main():
         put('quality/' + test + '.csv.gz', ROOT / '배터리 품질보증 모델/data/raw_data/test' / (test + '.csv'), True)
     for name, source in ARTIFACTS.items():
         put('validation/' + name + '.csv', ROOT / source)
-    for name in ['metadata.json', 'tree_preprocessor.joblib', 'xgboost.json']:
-        put('demand/' + name, ROOT / '발주량 예측 모델/models/purged_v1/source_total' / name)
+    for name in ['metadata.json', 'xgboost.joblib', 'lstm.pt']:
+        put('demand/' + name, ROOT / '발주량 예측 모델/models/audited_v2/source_total/deployment' / name)
+    put('demand/input_template.csv', ROOT / '발주량 예측 모델/outputs/dashboard_data/inference_input_template.csv')
+    for obsolete in ['tree_preprocessor.joblib', 'xgboost.json']:
+        path = RUNTIME / 'demand' / obsolete
+        if path.is_file():
+            path.unlink()  # Original purged_v1 artifacts remain in the research model archive.
     (RUNTIME / 'manifest.json').write_text(json.dumps({'dataVersion': repo.manifest['dataVersion'], 'files': entries}, ensure_ascii=False, indent=2), encoding='utf-8')
     print(f"Runtime: {len(entries)} files, {sum(x['bytes'] for x in entries)/1048576:.2f} MiB")
 

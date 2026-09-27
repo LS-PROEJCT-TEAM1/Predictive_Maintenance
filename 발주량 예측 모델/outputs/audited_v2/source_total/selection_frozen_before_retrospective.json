@@ -1,0 +1,10 @@
+{
+  "overall_method": "7-day Moving Average",
+  "ml_model": "LSTM",
+  "overall_cv_mae": 34.660423362518,
+  "ml_cv_mae": 35.19420337531343,
+  "selection_basis": "nested_purged_walk_forward_global_policy",
+  "final_holdout_is_selection_independent": false,
+  "evaluation_label": "retrospective_previously_observed_period",
+  "new_unseen_validation_available": false
+}

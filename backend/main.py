@@ -55,7 +55,7 @@ class ScreenContext(BaseModel):
     track: Literal['overview', 'demand', 'maintenance', 'quality'] = 'overview'
     date: str | None = Field(None, max_length=20)
     part: str = Field('ALL', max_length=60)
-    model: str = Field('3-day Moving Average', max_length=80)
+    model: str | None = Field(None, max_length=80)
     run: str = Field('WeldingTest_04_NG', max_length=80)
     supervised: str | None = Field(None, max_length=80)
     unsupervised: str | None = Field(None, max_length=80)
@@ -91,7 +91,7 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
     export_lock = Lock()
     state_cache = {'until': 0, 'value': None, 'unavailable': False}
     state_lock = Lock()
-    app = FastAPI(title="BatteryFlow AI · Local API", version="0.2.0", description="공식 로컬 v2 시드 · Firebase 직원 인증/기록 · Gemini RAG Copilot")
+    app = FastAPI(title="BatteryFlow AI · Local API", version="0.3.0", description="공식 로컬 v3 시드 · Firebase 직원 인증/기록 · Gemini RAG Copilot")
     install_security(app, service)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "testserver"])
 
@@ -121,7 +121,7 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
         return {**repo.get("overview"), "actions": repo.collection("actions"), "trend": repo.demand()["trend"]}
 
     @app.get("/api/demand", tags=["공급망"])
-    def demand(date: str | None = None, part: str = "ALL", model: str = "3-day Moving Average"):
+    def demand(date: str | None = None, part: str = "ALL", model: str | None = None):
         return repo.demand(date, part, model)
 
     @app.get("/api/maintenance", tags=["예지보전"])
@@ -280,8 +280,8 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
 
     @app.get("/api/demand/template", tags=["추론"])
     def template():
-        data = "part_number,date,actual_d,plan_d3,plan_d4,plan_d5\nPart 1,2026-09-24,100,120,130,140\nPart 1,2026-09-25,110,125,135,145\nPart 1,2026-09-26,120,130,140,150\n"
-        return Response(data.encode("utf-8-sig"), media_type="text/csv", headers={"Content-Disposition": 'attachment; filename="demand_input.csv"'})
+        data = (RUNTIME / 'demand/input_template.csv').read_bytes()
+        return Response(data, media_type="text/csv", headers={"Content-Disposition": 'attachment; filename="demand_input.csv"'})
 
     @app.post("/api/exports", tags=["체험"])
     def prepare_export(body: ExportRequest, request: Request):
@@ -319,14 +319,17 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
         except Exception:
             raise ValueError("UTF-8 CSV 파일을 확인하세요.") from None
         required = ["part_number", "date", "actual_d", "plan_d3", "plan_d4", "plan_d5"]
-        if not set(required).issubset(frame.columns) or len(frame) != 3:
-            raise ValueError("템플릿의 필수 6개 열과 동일 부품의 연속 3일 자료가 필요합니다.")
+        if not set(required).issubset(frame.columns) or not 3 <= len(frame) <= 60:
+            raise ValueError("필수 6개 열과 동일 부품의 3~60일 자료가 필요합니다. 최근 8일을 권장합니다.")
         numbers = frame[required[2:]].apply(pd.to_numeric, errors="coerce")
-        dates = pd.to_datetime(frame["date"], errors="coerce").sort_values()
+        dates = pd.to_datetime(frame["date"], errors="coerce").dt.normalize().sort_values()
         if (not np.isfinite(numbers.to_numpy()).all() or (numbers < 0).any().any() or dates.isna().any()
                 or frame["part_number"].nunique() != 1 or frame["part_number"].isna().any()
-                or not dates.diff().dropna().eq(pd.Timedelta(days=1)).all()):
-            raise ValueError("부품·날짜·수량을 확인하세요. 연속 3일, 유한한 0 이상 수량이 필요합니다.")
+                or frame['part_number'].astype(str).str.strip().eq('').any() or dates.duplicated().any()
+                or not dates.tail(3).diff().dropna().eq(pd.Timedelta(days=1)).all()):
+            raise ValueError("최근 3일은 연속이어야 하며 중복 날짜 없이 유한한 0 이상 수량이 필요합니다.")
+        if str(frame.iloc[0]['part_number']).strip() in repo.get('demandConfig')['quarantinedParts']:
+            raise ValueError("원본 기록 충돌로 격리된 부품입니다. 데이터 정정 후 예측할 수 있습니다.")
         # One environment for the API and existing model inference; no training.
         interpreter = sys.executable
         script = ROOT / "발주량 예측 모델/src/inference.py"

@@ -1,0 +1,34 @@
+{
+  "format": "firestore-document-jsonl-v1",
+  "schemaVersion": 1,
+  "workspaceId": "manufacturing-ai",
+  "rootDocument": "manufacturingAi/manufacturing-ai",
+  "generatedAt": "2026-09-25T12:08:51.197079+00:00",
+  "files": [
+    {
+      "file": "core.jsonl",
+      "documents": 7,
+      "bytes": 3049,
+      "sha256": "65c91d4267e7e27267dbec88ca4f58f56a8521ca6c504bdd224e9bb0d843f183"
+    },
+    {
+      "file": "demand.jsonl",
+      "documents": 125,
+      "bytes": 1082708,
+      "sha256": "26cb7b7599b4d228852d1b49e903d9aa13939aebaf8275613d5c8d3ee0ff6911"
+    },
+    {
+      "file": "maintenance.jsonl",
+      "documents": 99,
+      "bytes": 5230207,
+      "sha256": "86623b8317d3107b737700178d045a1f59d1d1b1f633b044041bbd6e75cfea04"
+    },
+    {
+      "file": "quality.jsonl",
+      "documents": 28,
+      "bytes": 420054,
+      "sha256": "3946932f76938351052f6adc2b6863532c792a909bf28a68c7e8baa03a0d1c8f"
+    }
+  ],
+  "totalDocuments": 259
+}

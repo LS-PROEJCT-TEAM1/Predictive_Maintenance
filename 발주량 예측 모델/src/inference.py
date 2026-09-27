@@ -1,138 +1,99 @@
+"""Use the frozen audited model policy, without request targets or test selection."""
 from __future__ import annotations
-
-import argparse
-import json
-import os
-import shutil
-import tempfile
+import argparse,json,os
 from functools import lru_cache
 from pathlib import Path
-
+import joblib
 import numpy as np
 import pandas as pd
-import joblib
-from xgboost import XGBRegressor
+from demand_contract import ROOT, SEQUENCE, BASELINES, feature_record
 
-
-ROOT = Path(__file__).resolve().parents[1]
-MODEL_DIR = Path(os.environ.get('MANUFACTURING_DEMAND_MODEL_DIR', ROOT / "models" / "purged_v1" / "source_total"))
-REQUIRED_COLUMNS = ["part_number", "date", "actual_d", "plan_d3", "plan_d4", "plan_d5"]
-SEQUENCE_FEATURES = ["actual_d", "plan_d3", "plan_d4", "plan_d5"]
-
+MODEL_DIR=Path(os.environ.get('MANUFACTURING_DEMAND_MODEL_DIR',ROOT/'models/audited_v2/source_total/deployment'))
+REQUIRED_COLUMNS=['part_number','date',*SEQUENCE]
 
 @lru_cache(maxsize=1)
-def load_metadata() -> dict[str, object]:
-    return json.loads((MODEL_DIR / "metadata.json").read_text(encoding="utf-8"))
+def load_metadata():
+    return json.loads((MODEL_DIR/'metadata.json').read_text(encoding='utf-8'))
 
-
-@lru_cache(maxsize=1)
-def load_xgboost() -> XGBRegressor:
-    model = XGBRegressor()
-    model_path = MODEL_DIR / "xgboost.json"
-    with tempfile.TemporaryDirectory() as directory:
-        temporary_path = Path(directory) / "xgboost.json"
-        shutil.copy2(model_path, temporary_path)
-        model.load_model(temporary_path)
-    return model
-
-
-@lru_cache(maxsize=1)
-def load_preprocessor():
-    return joblib.load(MODEL_DIR / "tree_preprocessor.joblib")
-
-
-def validate_records(records: pd.DataFrame) -> pd.DataFrame:
-    missing = [column for column in REQUIRED_COLUMNS if column not in records.columns]
-    if missing:
-        raise ValueError(f"Missing columns: {', '.join(missing)}")
-    clean = records[REQUIRED_COLUMNS].copy()
-    if len(clean) != 3:
-        raise ValueError("Inference input must contain exactly three daily rows.")
-    if clean["part_number"].astype(str).nunique() != 1:
-        raise ValueError("All three rows must use the same part_number.")
-    clean["part_number"] = clean["part_number"].astype(str)
-    clean["date"] = pd.to_datetime(clean["date"], errors="coerce").dt.normalize()
-    for column in SEQUENCE_FEATURES:
-        clean[column] = pd.to_numeric(clean[column], errors="coerce")
-    if clean[REQUIRED_COLUMNS].isna().any().any():
-        raise ValueError("Input contains a missing or invalid value.")
-    if (clean[SEQUENCE_FEATURES] < 0).any().any():
-        raise ValueError("Demand and plan quantities must be zero or positive.")
-    clean = clean.sort_values("date").reset_index(drop=True)
-    if not np.all(clean["date"].diff().dropna().dt.days.to_numpy() == 1):
-        raise ValueError("The three input dates must be consecutive calendar days.")
+def validate_records(records):
+    missing=set(REQUIRED_COLUMNS)-set(records.columns)
+    if missing:raise ValueError('Missing columns: '+', '.join(sorted(missing)))
+    clean=records[REQUIRED_COLUMNS].copy()
+    if not 3<=len(clean)<=60:raise ValueError('Provide 3 to 60 daily rows; 8 days are recommended.')
+    if clean.part_number.isna().any() or clean.part_number.astype(str).nunique()!=1:
+        raise ValueError('All rows must use the same valid part_number.')
+    clean['part_number']=clean.part_number.astype(str).str.strip()
+    if clean.part_number.eq('').any():raise ValueError('part_number is empty.')
+    clean['date']=pd.to_datetime(clean.date,errors='coerce').dt.normalize()
+    for col in SEQUENCE:clean[col]=pd.to_numeric(clean[col],errors='coerce')
+    if clean.isna().any().any() or not np.isfinite(clean[SEQUENCE]).all().all():raise ValueError('Input contains missing or non-finite values.')
+    if (clean[SEQUENCE]<0).any().any():raise ValueError('Quantities must be zero or positive.')
+    if clean.date.duplicated().any():raise ValueError('Duplicate daily records require review.')
+    clean=clean.sort_values('date').reset_index(drop=True)
+    if not clean.date.tail(3).diff().dropna().dt.days.eq(1).all():raise ValueError('The latest three dates must be consecutive calendar days.')
+    if clean.iloc[-1].part_number in load_metadata()['quarantined_parts']:
+        raise ValueError('This part is quarantined because conflicting source snapshots have not been resolved.')
     return clean
 
+def build_feature_row(records):
+    clean=validate_records(records);origin=clean.iloc[-1].date
+    row=feature_record(clean,origin)
+    return pd.DataFrame([row]),row
 
-def build_feature_row(records: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, object]]:
-    clean = validate_records(records)
-    metadata = load_metadata()
-    model_metadata = metadata["model"]
-    feature_columns = list(model_metadata["feature_columns"])
-    origin_date = pd.Timestamp(clean.iloc[-1]["date"])
-    source_start = pd.Timestamp("2021-09-13")
-    day_of_week = origin_date.dayofweek
-    values: dict[str, object] = {
-        "part_number": str(clean.iloc[-1]["part_number"]),
-        "dow_sin": float(np.sin(2 * np.pi * day_of_week / 7)),
-        "dow_cos": float(np.cos(2 * np.pi * day_of_week / 7)),
-        "is_weekend": int(day_of_week >= 5),
-        "month": int(origin_date.month),
-        "days_since_start": int((origin_date - source_start).days),
-    }
-    for row_index, suffix in enumerate(["lag2", "lag1", "origin"]):
-        for feature in SEQUENCE_FEATURES:
-            values[f"{feature}_{suffix}"] = float(clean.iloc[row_index][feature])
-    return pd.DataFrame([values], columns=feature_columns), {
-        "part_number": values["part_number"],
-        "origin_date": origin_date,
-        "target_date": origin_date + pd.Timedelta(days=3),
-        "moving_average_3d": float(clean["actual_d"].mean()),
-        "plan_d3_reference": float(clean.iloc[-1]["plan_d3"]),
-    }
+@lru_cache(maxsize=8)
+def load_artifact(model):
+    if model=='LSTM':
+        import torch
+        return torch.load(MODEL_DIR/'lstm.pt',map_location='cpu',weights_only=False)
+    return joblib.load(MODEL_DIR/(model.lower().replace(' ','_')+'.joblib'))
 
+def predict_model(name,frame):
+    if name in BASELINES:return float(frame.iloc[0][name])
+    artifact=load_artifact(name)
+    if name=='LSTM':
+        import torch
+        from torch import nn
+        state=artifact['state'];hidden=artifact['hidden']
+        class Net(nn.Module):
+            def __init__(self):
+                super().__init__();self.rnn=nn.LSTM(4,hidden,batch_first=True)
+                self.embedding=nn.Embedding(len(state['parts'])+1,8)
+                self.head=nn.Sequential(nn.Linear(hidden+8+len(state['cols']),32),nn.ReLU(),nn.Linear(32,1))
+            def forward(self,x,p,c):
+                _,(h,_)=self.rnn(x);return self.head(torch.cat([h[-1],self.embedding(p),c],dim=1)).squeeze(-1)
+        seq=frame[[f'{c}_{s}' for s in ['lag2','lag1','origin'] for c in SEQUENCE]].to_numpy(float).reshape(-1,3,4)
+        x=torch.tensor(state['seq_scaler'].transform(seq.reshape(-1,4)).reshape(-1,3,4),dtype=torch.float32)
+        p=torch.tensor([state['parts'].get(frame.iloc[0].part_number,len(state['parts']))],dtype=torch.int64)
+        context=torch.tensor(state['context'].transform(frame[state['cols']]),dtype=torch.float32)
+        model=Net();model.load_state_dict(artifact['weights']);model.eval()
+        with torch.no_grad():value=float(model(x,p,context)[0])*state['target_scale']
+    else:
+        if name=='Related LightGBM':raise ValueError('Related-part inference requires related snapshots.')
+        value=float(artifact['model'].predict(artifact['preprocessor'].transform(frame))[0])
+    return max(0.,value)
 
-def predict_records(records: pd.DataFrame) -> dict[str, object]:
-    feature_row, context = build_feature_row(records)
-    metadata = load_metadata()
-    known_parts = set(metadata["model"]["part_to_id"])
-    is_known_part = context["part_number"] in known_parts
-    moving_average = max(0.0, float(context["moving_average_3d"]))
+def predict_records(records):
+    frame,context=build_feature_row(records);meta=load_metadata();part=context['part_number']
+    known=part in meta['model']['part_to_id'];method=meta['selection']['overall_method'];aux=meta['selection']['ml_model']
+    fallback=None
+    if not known:fallback='학습 이력이 없는 부품: 최근값 기준 예측';method='Last Value'
+    if method=='Related LightGBM':fallback='연관 부품의 현재 입력 미제공: 최근값 기준 예측';method='Last Value'
+    forecast=predict_model(method,frame)
+    auxiliary=predict_model(aux,frame) if known and aux!='Related LightGBM' else None
+    return {'part_number':part,'origin_date':context['origin_date'].date().isoformat(),
+        'target_date':context['target_date'].date().isoformat(),'known_part':known,
+        'xgboost_prediction':predict_model('XGBoost',frame) if known else None,
+        'auxiliary_model':aux,'auxiliary_prediction':auxiliary,
+        'moving_average_3d':context['3-day Moving Average'],'plan_d3_reference':context['D+3 Plan Reference'],
+        'recommended_model':method,'recommended_forecast':forecast,'model_version':meta['version'],
+        'fallback_reason':fallback,'history_days_7':context['history_count7'],
+        'input_warning':'최근 7일 중 일부 이력이 없어 관측된 날짜만 평균에 사용합니다.' if context['history_count7']<7 else None,
+        'as_of':'일별 최종 로그 확정 이후','evaluation_note':'과거 자료의 회고 검증 결과이며 새 현장 성능 보장은 아닙니다.'}
 
-    xgboost_prediction: float | None = None
-    if is_known_part:
-        transformed = load_preprocessor().transform(feature_row)
-        xgboost_prediction = max(0.0, float(load_xgboost().predict(transformed)[0]))
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('input_csv',type=Path);parser.add_argument('--output',type=Path);args=parser.parse_args()
+    result=json.dumps(predict_records(pd.read_csv(args.input_csv)),ensure_ascii=False,indent=2)
+    if args.output:args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(result,encoding='utf-8')
+    print(result)
 
-    recommended_model = "3-day Moving Average"
-    recommended_forecast = moving_average
-    return {
-        "part_number": context["part_number"],
-        "origin_date": context["origin_date"].date().isoformat(),
-        "target_date": context["target_date"].date().isoformat(),
-        "known_part": is_known_part,
-        "xgboost_prediction": xgboost_prediction,
-        "moving_average_3d": moving_average,
-        "plan_d3_reference": context["plan_d3_reference"],
-        "recommended_model": recommended_model,
-        "recommended_forecast": recommended_forecast,
-        "model_version": "purged_v1_source_total",
-        "fallback_reason": None,
-    }
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Predict D+3 demand from three daily rows.")
-    parser.add_argument("input_csv", type=Path)
-    parser.add_argument("--output", type=Path)
-    args = parser.parse_args()
-    result = predict_records(pd.read_csv(args.input_csv))
-    text = json.dumps(result, ensure_ascii=False, indent=2)
-    if args.output:
-        args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(text, encoding="utf-8")
-    print(text)
-
-
-if __name__ == "__main__":
-    main()
+if __name__=='__main__':main()

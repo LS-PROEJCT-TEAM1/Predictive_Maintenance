@@ -1,0 +1,13 @@
+{
+  "method": "pooled_one_sided_CV_residual_quantile",
+  "nominal_coverage": 0.9,
+  "buffer": 66.14285714285714,
+  "retrospective_coverage": 0.9506666666666667,
+  "calibration_rows": 1289,
+  "calibration_target_days": 12,
+  "mae_delta_vs_ma3_day_bootstrap_interval95": [
+    -6.953156205104219,
+    5.206051318453476
+  ],
+  "warning": "empirical demand bound, not safety stock or guaranteed service level; CV selected the policy, so calibration coverage may be optimistic"
+}

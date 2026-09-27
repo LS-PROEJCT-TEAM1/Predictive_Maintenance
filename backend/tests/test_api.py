@@ -1,4 +1,6 @@
 import hashlib
+import io
+import pandas as pd
 import unittest
 
 from fastapi.testclient import TestClient
@@ -17,14 +19,16 @@ class LocalApiTests(unittest.TestCase):
 
     def test_official_seed_and_connection_status(self):
         data = self.client.get('/api/health').json()
-        self.assertEqual(data['documents'], 266)
-        self.assertEqual(data['dataVersion'], '2026-09-26.v2')
+        self.assertEqual(data['documents'], 269)
+        self.assertEqual(data['dataVersion'], '2026-09-27.v3')
         self.assertEqual(data['firebase'], 'configured')
 
     def test_demand_aggregate_matches_parts_and_filters(self):
         data = self.client.get('/api/demand').json()
-        self.assertEqual(data['count'], 109)
-        self.assertEqual(data['reviewCount'], 56)
+        self.assertEqual(data['count'], len(data['rows']))
+        self.assertNotIn('Part 21', [r['part'] for r in data['rows']])
+        self.assertEqual(data['model'], data['config']['primaryModel'])
+        self.assertEqual(data['reviewCount'], sum(r['review'] for r in data['rows']))
         self.assertAlmostEqual(data['forecast'], sum(row['forecast'] for row in data['rows']), places=2)
         row = next(row for row in data['rows'] if row['part'] == 'Part 92')
         part = self.client.get('/api/demand', params={'part': 'Part 92'}).json()
@@ -87,14 +91,22 @@ class LocalApiTests(unittest.TestCase):
         template = self.client.get('/api/demand/template').content
         result = self.client.post('/api/demand/infer', files={'file': ('input.csv', template, 'text/csv')})
         self.assertEqual(result.status_code, 200, result.text)
-        self.assertEqual(result.json()['recommended_forecast'], 110)
-        self.assertEqual(result.json()['target_date'], '2026-09-29')
+        frame = pd.read_csv(io.BytesIO(template))
+        origin = pd.to_datetime(frame.date).max()
+        recent = frame[pd.to_datetime(frame.date).ge(origin-pd.Timedelta(days=6))]
+        self.assertAlmostEqual(result.json()['recommended_forecast'], recent.actual_d.mean())
+        self.assertEqual(result.json()['target_date'], (origin+pd.Timedelta(days=3)).date().isoformat())
+        self.assertEqual(result.json()['auxiliary_model'], 'LSTM')
         self.assertTrue(result.json()['known_part'])
         self.assertIsInstance(result.json()['xgboost_prediction'], float)
 
     def test_csv_rejects_bad_shape_negative_values_and_oversize(self):
         template = self.client.get('/api/demand/template').content
-        for payload in [b'wrong\n1\n', template.replace(b',100,', b',-100,'), template.replace(b'2026-09-25', b'2026-09-24')]:
+        frame = pd.read_csv(io.BytesIO(template))
+        negative = frame.copy(); negative.loc[0, 'actual_d'] = -1
+        duplicate = frame.copy(); duplicate.loc[1, 'date'] = duplicate.loc[0, 'date']
+        quarantined = frame.copy(); quarantined['part_number'] = 'Part 21'
+        for payload in [b'wrong\n1\n'] + [f.to_csv(index=False).encode() for f in [negative, duplicate, quarantined]]:
             result = self.client.post('/api/demand/infer', files={'file': ('bad.csv', payload, 'text/csv')})
             self.assertEqual(result.status_code, 422)
         result = self.client.post('/api/demand/infer', files={'file': ('big.csv', b'x' * 1_000_001, 'text/csv')})

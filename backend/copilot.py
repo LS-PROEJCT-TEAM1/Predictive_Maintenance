@@ -15,8 +15,9 @@ from fastembed import TextEmbedding
 from backend.settings import ROOT, settings
 
 SOURCES = {
-    'seed-v2': ('공식 시드 v2 · 데이터 계약', 'firestore/SEED_V2.md'),
-    'demand-validation': ('발주량 · 누출 방지 평가', '발주량 예측 모델/outputs/purged_evaluation/PURGED_EVALUATION_REPORT.md'),
+    'seed-v3': ('공식 시드 v3 · 재학습 데이터 계약', 'firestore/SEED_V3.md'),
+    'demand-validation': ('발주량 · 재학습 검증 및 한계', '발주량 예측 모델/docs/RETRAINING_REPORT_2026-09-27.md'),
+    'demand-contract': ('발주량 · 학습 및 입력 계약', '발주량 예측 모델/docs/TRAINING_PLAN_V2.md'),
     'maintenance-model': ('예지보전 · 모델 카드', '배터리 예지보전 모델/MODEL_CARD.md'),
     'maintenance-dictionary': ('예지보전 · 데이터 사전', '배터리 예지보전 모델/DATA_DICTIONARY.md'),
     'maintenance-validation': ('예지보전 · 최종 검증', '배터리 예지보전 모델/outputs/track_b_final_v2/final_validation_report.md'),
@@ -93,7 +94,7 @@ class Copilot:
     def context(self, context):
         track = context.get('track', 'overview')
         if track == 'demand':
-            data = self.repo.demand(context.get('date'), context.get('part', 'ALL'), context.get('model', '3-day Moving Average'))
+            data = self.repo.demand(context.get('date'), context.get('part', 'ALL'), context.get('model'))
             keep = ('date', 'part', 'model', 'forecast', 'plan', 'gap', 'reviewCount', 'count')
         elif track == 'maintenance':
             data = self.repo.maintenance(context.get('run', 'WeldingTest_04_NG'), context.get('supervised'), context.get('unsupervised'))

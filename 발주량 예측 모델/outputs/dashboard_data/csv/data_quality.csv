@@ -1,24 +1,22 @@
 ﻿Metric,Value
-quantity_source,source_total
 source_rows,17364
 source_columns,84
 source_parts,117
 source_missing_cells,0
-selected_rows_with_missing_required_values,0
-duplicate_part_timestamp_rows,612
-daily_rows,5478
-daily_parts,117
-negative_quantity_rows,0
-stored_total_mismatch_rows.D,31
-stored_total_mismatch_rows.D+1,0
-stored_total_mismatch_rows.D+2,0
-stored_total_mismatch_rows.D+3,149
-stored_total_mismatch_rows.D+4,136
-sequence_length,3
-horizon_days,3
-minimum_sequence_count,10
-excluded_parts,['Part 115']
-eligible_rows,4837
-eligible_parts,116
-plan_zero_rows,2778
-target_zero_rows,1020
+quantity_source,source_total
+conflict_policy,quarantine
+quarantined_parts,"['Part 21', 'Part 26']"
+conflicting_timestamp_groups,306
+conflict_rows,612
+daily_rows,5380
+daily_parts,115
+observed_dates,49
+total_slot_mismatch_rows.actual_d,31
+total_slot_mismatch_rows.plan_d1,0
+total_slot_mismatch_rows.plan_d2,0
+total_slot_mismatch_rows.plan_d3,149
+total_slot_mismatch_rows.plan_d4,136
+forecast_as_of,after the final daily source snapshot; not an intraday forecast
+target_definition,"final daily ERP order-plan quantity, not independently measured consumption"
+eligible_rows,4754
+eligible_parts,115

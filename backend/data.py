@@ -49,6 +49,7 @@ class Repository:
 
     def meta(self):
         config = self.get("maintenanceConfig")
+        demand = self.get('demandConfig')
         return {"dataVersion": self.manifest["dataVersion"], "generatedAt": self.manifest["generatedAt"],
                 "documents": len(self.docs), "mode": "local-preview", "dates": self.dates,
                 "parts": sorted(self.parts, key=lambda p: int(p.split()[-1])),
@@ -56,13 +57,17 @@ class Repository:
                 "tests": [t["testId"] for t in self.collection("qualityTests")],
                 "supervised": sorted({m["model"] for m in self.collection("maintenanceModels") if m["family"] == "supervised"}),
                 "unsupervised": sorted({m["model"] for m in self.collection("maintenanceModels") if m["family"] == "unsupervised"}),
-                "defaultSupervised": config["defaultSupervisedModel"], "defaultUnsupervised": config["defaultUnsupervisedModel"]}
+                "defaultSupervised": config["defaultSupervisedModel"], "defaultUnsupervised": config["defaultUnsupervisedModel"],
+                "demandPrimary": demand['primaryModel'], "demandAuxiliary": demand['auxiliaryModel'],
+                "demandModels": [r['Model'] for r in demand['walkForwardMetrics']]}
 
-    def demand(self, date=None, part="ALL", model="3-day Moving Average"):
+    def demand(self, date=None, part="ALL", model=None):
+        config = self.get('demandConfig')
+        model = model or config['primaryModel']
         date = date or self.dates[-1]
         if date not in self.dates or (part != "ALL" and part not in self.parts):
             raise ValueError("기준일 또는 부품을 확인하세요.")
-        if model not in ["3-day Moving Average", "XGBoost", "LightGBM", "CatBoost", "LSTM"]:
+        if model not in {r['Model'] for r in config['walkForwardMetrics']}:
             raise ValueError("지원하지 않는 모델입니다.")
         selected = list(self.parts.values()) if part == "ALL" else [self.parts[part]]
         trend, rows = {}, []
@@ -87,7 +92,7 @@ class Repository:
                 "gap": round(total-plan, 2), "gapPct": round((total-plan)/plan*100, 2) if plan else None,
                 "reviewCount": sum(r["review"] for r in rows), "count": len(rows), "rows": rows,
                 "trend": sorted(trend.values(), key=lambda r: r["date"]),
-                "partInfo": self.parts.get(part), "version": self.manifest["dataVersion"]}
+                "partInfo": self.parts.get(part), "version": self.manifest["dataVersion"], "config": config}
 
     def maintenance(self, run="WeldingTest_04_NG", supervised=None, unsupervised=None):
         meta = self.meta()
@@ -156,7 +161,7 @@ class Repository:
     def validation(self, track):
         if track == "demand":
             config = self.get("demandConfig")
-            return {"rows": config["walkForwardMetrics"], "holdout": config["modelMetrics"],
+            return {"rows": config["walkForwardMetrics"], "holdout": config["modelMetrics"], "config": config,
                     "extra": self.artifact("demand_folds"), "partErrors": self.artifact("demand_errors")}
         if track == "maintenance":
             return {"rows": self.collection("maintenanceModels"), "extra": self.artifact("maintenance_features")}

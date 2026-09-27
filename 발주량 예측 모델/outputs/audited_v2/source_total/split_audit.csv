@@ -1,0 +1,5 @@
+Scenario,Split,Train_Rows,Validation_Rows,Refit_Rows,Test_Rows,Train_Target_End,Validation_Origin_Start,Validation_Target_End,Refit_Target_End,Test_Origin_Start,Test_Target_Start,Test_Target_End,Train_Target_Days,Validation_Target_Days,Cold_Start_Test_Rows
+source_total,fold_1,1192,554,2070,442,2021-09-28,2021-09-29,2021-10-06,2021-10-06,2021-10-07,2021-10-10,2021-10-13,11,5,1
+source_total,fold_2,1625,555,2513,431,2021-10-02,2021-10-03,2021-10-10,2021-10-10,2021-10-11,2021-10-14,2021-10-17,15,5,4
+source_total,fold_3,2070,552,2955,416,2021-10-06,2021-10-07,2021-10-14,2021-10-14,2021-10-15,2021-10-18,2021-10-21,19,5,0
+source_total,retrospective,2845,520,3692,750,2021-10-13,2021-10-14,2021-10-21,2021-10-21,2021-10-22,2021-10-25,2021-11-01,26,5,0

@@ -1,86 +1,32 @@
-# D+3 발주량 예측
+# D+3 발주량 예측 — audited_v2
 
-117개 부품의 일별 발주 로그를 이용해 기준일로부터 3일 뒤 실제 발주량을 예측하는 프로젝트다. D+3 예측 시점에 맞춰 학습·검증·시험 사이에 엄격한 시간 간격을 둔 재평가 결과, 현재 운영 예측기는 3일 이동평균이고 학습형 모델 후보는 XGBoost다.
+가이드북의 일별 최종 ERP 발주 계획량을 달력 3일 앞서 예측합니다. 일별 마지막 로그 이후 사용하며 실측 소비량·재고 최적화 모델은 아닙니다.
 
-## 현재 모델 결론
+현재 정책은 **7일 이동평균 기본 / LSTM 학습형 보조**입니다. CV MAE는 각각 **34.6604 / 35.1942개**입니다. 마지막 7개 목표일은 이전 실험에서 본 자료의 회고 평가입니다. 미관측 독립 시험이라고 표현하지 않습니다. 원본 117부품 중 충돌한 Part 21·26을 격리하고 115부품의 일별 자료를 사용합니다. 최근값·3일 평균·7일 평균·원본 계획·트리 3종·LSTM·연관 LightGBM을 비교했습니다.
 
-- 누수 제거 3-fold 반복검증 전체 1위: 3일 이동평균
-- 누수 제거 3-fold 반복검증 학습형 모델 1위: XGBoost
-- 독립 최종 holdout 1위: CatBoost(모델 선정에는 사용하지 않음)
-- 공통 비교 모델: XGBoost, LightGBM, CatBoost, LSTM, 3일 이동평균
-- 보조 기준: 원본 D+3 계획량
-- 예측 입력: 동일 부품의 연속 3일 actual_d, plan_d3, plan_d4, plan_d5
-- 예측 출력: 마지막 입력일 기준 D+3 실제 발주 수량
-- 수량 정의: 원본 Total과 시간대별 합계를 별도 평가했으며 두 경우 모두 같은 모델 순위
+- [학습·검증 설계](docs/TRAINING_PLAN_V2.md)
+- [재학습 결과와 한계](docs/RETRAINING_REPORT_2026-09-27.md)
+- [보완 전 감사](docs/ML_AUDIT_2026-09-27.md)
 
-## 발표용 최종 결론
+## 재현 순서
 
-본 프로젝트는 117개 부품의 과거 발주량과 계획 발주량을 이용해 부품별 D+3 실제 발주량을 예측하는 것을 목표로 했다. 최근 3일 이동평균을 기준모델로 설정하고 XGBoost, LightGBM, CatBoost, LSTM을 동일한 시간 기준에서 비교했다. D+3 예측 시점 이후의 정보가 학습이나 모델 선택에 사용되지 않도록 학습·검증·시험 구간 사이에 엄격한 3일 간격을 적용했으며, 마지막 7개 목표일은 모델 선정과 분리된 독립 holdout으로 보존했다.
-
-누수를 제거한 3-fold walk-forward 반복검증 결과, 원본 Total 기준으로 3일 이동평균이 MAE 36.9523으로 전체 1위를 기록했다. 학습형 모델 중에서는 XGBoost가 MAE 48.3896으로 가장 우수했다. 시간대별 합계를 사용한 추가 평가에서도 3일 이동평균과 XGBoost가 각각 전체 1위와 학습형 모델 1위를 기록해 모델 순위가 동일하게 재현됐다.
-
-3일 이동평균은 머신러닝 모델은 아니지만, 설계서에서 요구하는 기준 시계열 예측 방법이다. 프로젝트에서는 네 가지 학습형 후보모델을 별도로 구현하고 공정하게 비교했으므로 시계열 예측과 지도학습 회귀 요구사항을 모두 충족한다. 성능이 낮은 ML 모델을 형식적으로 선택하지 않고 검증 결과에 따라 3일 이동평균을 운영 기본 예측으로 선정했으며, XGBoost는 센싱·재고·리드타임 등 추가 변수가 확보될 때 성능 향상을 검토할 학습형 보조 모델로 사용한다.
-
-따라서 최종 운영안은 **3일 이동평균 기본 예측 + XGBoost 학습형 보조 예측**이다. 이 결과는 약 50일의 짧은 관측 자료에 대한 결론이므로 장기 계절성이나 연간 수요 패턴까지 일반화할 수 없으며, 향후 실제 운영 데이터가 누적되면 같은 누수 방지 평가 절차로 주기적인 재학습과 재선정이 필요하다.
-
-## 설치
-
-Windows PowerShell 기준이다.
+연구 폴더의 requirements.txt를 Python 3.12 환경에 설치합니다. 저장된 완료 버전은 보존해야 하므로 학습 스크립트는 같은 완료 버전의 덮어쓰기를 거부합니다. 새 실험은 버전을 분리합니다. 아래 순서는 최초 새 버전 생성 시 사용합니다.
 
 ```powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+python src/retrain_audited.py
+python src/build_dashboard_assets.py
+python src/train_related_part_model.py
+python -m unittest discover -s tests -v
 ```
 
-## 실행 순서
+`train_related_part_model.py`는 통합 학습 결과의 연관 비교 자료를 내보내는 호환 명령입니다. 별도로 holdout 기반 모델을 재학습하지 않습니다. `train_final.py`, `evaluate_purged.py` 등 이전 학습 스크립트와 purged_v1/final_v3 모델은 과거 실험 자료이며 현재 시드 생성 입력이 아닙니다.
 
-현재의 공식 비교 결과를 다시 만들려면 1번을 실행한다. Dashboard와 CSV 추론은 원본 Total 시나리오의 3일 이동평균 기본 예측과 XGBoost 보조 예측에 연결되어 있다.
+루트에서 `firestore/build_unified_seed.py`, `scripts/package_runtime.py` 순으로 실행하면 공식 로컬 시드와 실행 자료를 갱신합니다. Firebase 업로드는 별도 동작이며 이번에는 하지 않았습니다.
 
-```powershell
-# 1. 누수 제거 반복검증 + 독립 holdout + 두 수량 정의 재평가
-.\.venv\Scripts\python.exe .\src\train_evaluate_purged_models.py
+## 실행
 
-# 2. 재평가 결과 자동 검사
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+통합 앱은 루트 `setup_local.cmd` 후 `start_demo.cmd`로 실행합니다. 8070 포트에서 계정·외부 API 없이 테스트합니다. 연구용 단독 화면은 이 폴더에서 `python app.py`로 실행합니다.
 
-# 3. 부품별 분석, 그림, Dashboard/Firestore 파일 생성
-.\.venv\Scripts\python.exe .\src\build_dashboard_assets.py
+CSV는 동일 부품 3~60일 자료, 최근 3일은 연속이어야 하며 8일 이력을 권장합니다. 미학습 부품은 최근값으로 대체하고, 격리된 두 부품은 정정 전까지 예측하지 않습니다.
 
-# 4. Dash 실행
-.\.venv\Scripts\python.exe .\app.py
-
-# 5. 추론·Firestore 파일 검사
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-```
-
-Dash 주소는 `http://127.0.0.1:8050`이다.
-
-## CSV 추론
-
-입력 파일은 동일 부품의 연속 3일 자료이며 다음 열을 가져야 한다.
-
-`part_number,date,actual_d,plan_d3,plan_d4,plan_d5`
-
-```powershell
-.\.venv\Scripts\python.exe .\src\inference.py .\outputs\dashboard_data\inference_input_template.csv
-```
-
-권장 예측은 반복검증 1위인 3일 이동평균이다. 학습에 포함된 부품은 XGBoost 보조 예측도 함께 반환한다. 계획량과 실제량의 0은 정상값으로 유지한다.
-
-## 주요 산출물
-
-- `outputs/purged_evaluation`: 누수 제거 반복검증, 독립 holdout, 수량 정의별 결과
-- `outputs/final_model_evaluation`: 이전 단일 holdout 평가(참고용)
-- `outputs/final_walk_forward`: 이전 비-purged 반복검증(참고용, 모델 선정에 사용하지 않음)
-- `outputs/dashboard_data/csv`: Dash가 읽는 평면 파일
-- `outputs/dashboard_data/firestore`: Firestore 컬렉션별 JSONL
-- `models/purged_v1`: 누수 제거 최종 학습 모델
-- `models/final_v3`: 이전 모델(기존 dashboard 호환용)
-
-Firestore에는 자동 업로드하지 않는다. 업로드 전에 `outputs/dashboard_data/firestore/manifest.json`과 `docs/FIRESTORE_SCHEMA.md`를 확인한다.
-
-## 데이터 제한
-
-원본 수집 기간은 약 50일이다. 따라서 연간 계절성이나 장기 수요 변화는 검증할 수 없다. 재고량, 단가, 조달 리드타임 자료도 없으므로 현재 예측은 발주 판단을 보조하지만 재고비용 최적화 결과는 아니다.
-
-자세한 오류 해결 방법은 `docs/EXECUTION_AND_ERROR_GUIDE.md`를 참고한다.
+시간대 합계 민감도에서는 LSTM이 근소하게 1위여서 순위가 완전히 안정적이지 않습니다. 7일 평균 대 3일 평균 차이의 bootstrap 구간도 0을 포함합니다. 새 기간 평가와 원본 정정 없이 현장 성능을 확정할 수 없습니다.

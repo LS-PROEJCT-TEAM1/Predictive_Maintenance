@@ -1,0 +1,40 @@
+{
+  "quantity": {
+    "source_rows": 17364,
+    "source_columns": 84,
+    "source_parts": 117,
+    "source_missing_cells": 0,
+    "quantity_source": "slot_sum",
+    "conflict_policy": "quarantine",
+    "quarantined_parts": [
+      "Part 21",
+      "Part 26"
+    ],
+    "conflicting_timestamp_groups": 306,
+    "conflict_rows": 612,
+    "daily_rows": 5380,
+    "daily_parts": 115,
+    "observed_dates": 49,
+    "total_slot_mismatch_rows": {
+      "actual_d": 31,
+      "plan_d1": 0,
+      "plan_d2": 0,
+      "plan_d3": 149,
+      "plan_d4": 136
+    },
+    "forecast_as_of": "after the final daily source snapshot; not an intraday forecast",
+    "target_definition": "final daily ERP order-plan quantity, not independently measured consumption"
+  },
+  "selection": {
+    "overall_method": "LSTM",
+    "ml_model": "LSTM",
+    "overall_cv_mae": 34.67616174908324,
+    "ml_cv_mae": 34.67616174908324,
+    "selection_basis": "nested_purged_walk_forward_global_policy",
+    "final_holdout_is_selection_independent": false,
+    "evaluation_label": "retrospective_previously_observed_period",
+    "new_unseen_validation_available": false
+  },
+  "configurations": "source_total choices frozen; no second tuning",
+  "purpose": "target-definition sensitivity only; never choose target definition by smaller error"
+}

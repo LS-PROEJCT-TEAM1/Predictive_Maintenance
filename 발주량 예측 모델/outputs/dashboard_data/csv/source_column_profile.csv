@@ -1,5 +1,5 @@
 ﻿column_position,column_name,pandas_dtype,row_count,non_null_count,missing_count,unique_count,constant_column,numeric_parse_count,numeric_min,numeric_max
-0,Part Number,str,17364,17364,0,117,False,0,,
+0,Part Number,object,17364,17364,0,117,False,0,,
 1,D일06~08(08)H 투입계획(발주) 수량,int64,17364,17364,0,192,False,17364,0.0,404.0
 2,D일08~10(10)H 투입계획(발주) 수량,int64,17364,17364,0,90,False,17364,0.0,110.0
 3,D일10~12(13)H 투입계획(발주) 수량,int64,17364,17364,0,106,False,17364,0.0,137.0

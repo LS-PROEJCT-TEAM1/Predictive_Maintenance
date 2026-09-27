@@ -1,0 +1,29 @@
+{
+  "version": "audited_v2",
+  "generated_at": "2026-09-26T18:16:53.737082+00:00",
+  "elapsed_seconds": 93.62396883964539,
+  "raw_sha256": "47ccb085cf062ad10df6b6b652e80f1cbe1423e4b1f2ac902771a727c0713229",
+  "code_sha256": {
+    "retrain_audited.py": "297043d1d1b2955622dac431bc966bc83d18f9f2de445a7d553a2e7dc74ca252",
+    "demand_contract.py": "513fa091b24f1c532aeea4739ffd38a0ecbfdb73db6a1f95c9f30a7680c59e47"
+  },
+  "python": "3.12.14",
+  "libraries": {
+    "numpy": "2.3.5",
+    "pandas": "2.3.3",
+    "torch": "2.14.0+cpu",
+    "lightgbm": "4.7.0"
+  },
+  "selection": {
+    "overall_method": "7-day Moving Average",
+    "ml_model": "LSTM",
+    "overall_cv_mae": 34.660423362518,
+    "ml_cv_mae": 35.19420337531343,
+    "selection_basis": "nested_purged_walk_forward_global_policy",
+    "final_holdout_is_selection_independent": false,
+    "evaluation_label": "retrospective_previously_observed_period",
+    "new_unseen_validation_available": false
+  },
+  "training_complete": true,
+  "firestore_uploaded": false
+}

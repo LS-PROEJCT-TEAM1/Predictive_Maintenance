@@ -1,7 +1,7 @@
 {
   "format": "firestore-document-jsonl-v1",
   "projectDocument": "projects/track-b-final-v2",
-  "generatedAt": "2026-09-25T03:37:01.370161+00:00",
+  "generatedAt": "2026-09-25T05:59:46.119525+00:00",
   "defaultModels": {
     "supervised": "LogisticCurrent",
     "unsupervised": "RobustPhaseZ"
@@ -11,13 +11,13 @@
       "file": "projects.jsonl",
       "documents": 1,
       "bytes": 376,
-      "sha256": "10b3befeb31b162936034254484f6671f4ecdb71ff61b0fd630a80a811a0fc8d"
+      "sha256": "2455140bdcd96ecf223eeed09ee315106f409ab8ae08c75ae16242469cb44b9a"
     },
     {
       "file": "model_evaluations.jsonl",
-      "documents": 10,
-      "bytes": 6345,
-      "sha256": "f3762838ebd5cf6351c5e747ecdb29c12bacc5081e6fae68be7c09f27c8627e0"
+      "documents": 12,
+      "bytes": 7599,
+      "sha256": "1f16b4f8e0358b759edfa308066e450cf175328fea766688bfebf84aa33827fc"
     },
     {
       "file": "data_quality.jsonl",
@@ -34,15 +34,15 @@
     {
       "file": "measurements.jsonl",
       "documents": 5226,
-      "bytes": 5150347,
-      "sha256": "1af7c6ae2dd59895513b3081ca98a11106673ed38b7647f04a5d3ef3f880b277"
+      "bytes": 5688838,
+      "sha256": "15ed173bea6a94669b00b5ab5a086f5df4be0a4b503f6fcd39cb8ccc08795e92"
     },
     {
       "file": "anomaly_events.jsonl",
-      "documents": 27,
-      "bytes": 20510,
-      "sha256": "071884394b0491821ab902fb17ed6c426598b5a10376dc4845bf6fde376e5ab2"
+      "documents": 22,
+      "bytes": 16529,
+      "sha256": "69c0cfd615d465d427fbef7f84d2ec763def1f1706ee3d1cf6371d7932d23314"
     }
   ],
-  "totalDocuments": 5273
+  "totalDocuments": 5270
 }
