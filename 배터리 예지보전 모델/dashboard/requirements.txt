@@ -1,0 +1,6 @@
+dash
+pandas
+plotly
+scikit-learn
+# DATA_BACKEND=firestore 로 쓸 때만 필요
+# firebase-admin>=6,<8

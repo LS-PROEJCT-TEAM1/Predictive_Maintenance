@@ -1,0 +1,268 @@
+/* BatteryFlow 예지 보전 대시보드 — Dash 가 assets 폴더의 CSS 를 자동으로 읽는다.
+   inline style 로 줄 수 없는 것(글꼴, 칩, 표 안 HTML, dcc 컴포넌트 색)만 여기에 둔다. */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap");
+
+:root {
+  /* Dash 4 컴포넌트 강조색 */
+  --Dash-Fill-Interactive-Strong: #16C7B7;
+  --Dash-Fill-Interactive-Weak: #DDF8F5;
+  --Dash-Fill-Primary-Hover: #DDF8F5;
+  --Dash-Fill-Primary-Active: #DDF8F5;
+}
+
+body {
+  margin: 0;
+  font-family: Pretendard, "Malgun Gothic", sans-serif;
+  background: #F5F5F5;
+}
+
+/* ---------- 필터 바: 칩형 컨트롤 배경 #F5F5F5 ---------- */
+.filter-bar .dash-dropdown,
+.filter-bar .dash-datepicker,
+.filter-bar .dash-datepicker-input-wrapper,
+.filter-bar button.dash-dropdown-trigger,
+.filter-bar .dash-dropdown-trigger {
+  background: #F5F5F5;
+  border-color: #F5F5F5;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.chip-input-text {
+  width: 140px;
+  height: 34px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  background: #F5F5F5;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.chip-input-text:focus {
+  box-shadow: 0 0 0 1.5px #16C7B7;
+}
+
+/* ---------- 판정 칩 (dcc.Checklist, Dash 4 구조: label.dash-options-list-option) ---------- */
+.chip-group {
+  display: flex;
+  gap: 6px;
+}
+
+.chip-group .dash-options-list-option {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 16px;
+  background: #F5F5F5;
+  color: #0A1119;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+}
+
+.chip-group .dash-options-list-option.selected {
+  background: #0A1119;
+  color: #FFFFFF;
+}
+
+.chip-group .dash-options-list-option-wrapper {
+  display: none;
+}
+
+/* ---------- 모듈 목록 표 안의 HTML (판정 뱃지, 39포인트 지도) ---------- */
+#anom-module-table .dash-cell p {
+  margin: 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badge-suspect { background: #16C7B7; color: #0A1119; }
+.badge-recheck { background: #7DE3D9; color: #0A1119; }
+.badge-good    { background: #F5F5F5; color: #76767E; }
+
+.pmap {
+  display: grid;
+  grid-template-columns: repeat(39, 1fr);
+  gap: 1px;
+  min-width: 330px;
+}
+
+.pmap i {
+  display: block;
+  height: 16px;
+  border-radius: 1px;
+}
+
+.pmap i.a { background: #16C7B7; }
+.pmap i.z { background: #0A1119; }
+.pmap i.n { background: #F5F5F5; }
+
+/* 숫자 가운데 정렬 안 된 슬라이더 눈금 글자 정리 */
+.dash-slider-mark {
+  white-space: nowrap;
+}
+
+/* ======================================================================
+   이상 탐지 탭 — 화면 크기에 따라 바뀌는 배치
+   화면 1(.anom-screen-1): 필터 · 지표 · 모듈 판정  → 브라우저 한 화면 높이
+   화면 2(.anom-screen-2): 선택 모듈 · 혼동행렬 · 그래프 2개 → 스크롤 후 한 화면 높이
+   (main 위아래 패딩 22px, 탭바 44px + 아래 여백 14px 기준)
+   ====================================================================== */
+
+.metric-card {
+  padding: 14px 18px !important;
+  min-width: 0;
+}
+
+.metric-value {
+  font-size: clamp(18px, 1.5vw, 26px);
+}
+
+.anom-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.anom-screen-1 {
+  height: calc(100vh - 22px - 58px - 8px);
+  min-height: 660px;
+}
+
+.anom-screen-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);   /* minmax(0,…) = 내용이 넓어도 칸 밖으로 튀어나오지 않음 */
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+  height: calc(100vh - 22px - 22px);
+  min-height: 640px;
+  margin-top: 22px;
+}
+
+/* 필터 바: 5칸 → 좁아지면 줄바꿈 */
+.anom-filter-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 2.3fr);
+  gap: 16px;
+  align-items: end;
+  flex: 0 0 auto;
+}
+
+.anom-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.anom-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  flex: 0 0 auto;
+}
+
+.anom-section-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 2px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid #DADADF;
+}
+
+/* 모듈 목록 카드: 화면 1의 남은 높이를 모두 쓰고, 표는 카드 안에서 스크롤 */
+.anom-table-card {
+  flex: 1 1 auto;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.anom-table-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+#anom-module-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #FFFFFF;
+}
+
+/* 그래프 카드: 카드 높이에 맞춰 그래프가 늘어남 */
+.anom-chart-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.anom-graph {
+  flex: 1 1 auto;
+  min-height: 220px;
+}
+
+/* ---------- 폭이 좁은 화면 (노트북 · 작은 창) ---------- */
+@media (max-width: 1400px) {
+  .anom-filter-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .anom-filter-grid > :last-child {
+    grid-column: 1 / -1;
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .anom-screen-1,
+  .anom-screen-2 {
+    height: auto;
+  }
+  .anom-screen-2 {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+  }
+  .anom-filter-grid,
+  .anom-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .anom-metric-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .anom-table-wrap {
+    max-height: 480px;
+  }
+  .anom-graph {
+    height: 340px;
+  }
+}
+
+/* ---------- 높이가 낮은 화면: 한 화면에 억지로 넣지 않고 자연스럽게 스크롤 ---------- */
+@media (max-height: 700px) {
+  .anom-screen-1,
+  .anom-screen-2 {
+    height: auto;
+  }
+  .anom-table-wrap {
+    max-height: 360px;
+  }
+  .anom-graph {
+    height: 300px;
+  }
+}
