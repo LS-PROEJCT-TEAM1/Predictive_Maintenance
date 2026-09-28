@@ -1,0 +1,2 @@
+accuracy,precision,recall,f_score,tp,tn,fp,fn,n,test_file
+0.1077127659574468,0.0,0.0,0.0,0,162,1342,0,1504,Test04_OK_dchg

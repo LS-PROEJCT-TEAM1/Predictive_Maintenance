@@ -31,6 +31,12 @@ def main():
     for name in ['metadata.json', 'xgboost.joblib', 'lstm.pt']:
         put('demand/' + name, ROOT / '발주량 예측 모델/models/audited_v2/source_total/deployment' / name)
     put('demand/input_template.csv', ROOT / '발주량 예측 모델/outputs/dashboard_data/inference_input_template.csv')
+    put('demand/evidence.json', RUNTIME/'demand/evidence.json')
+    # Generated and parity-verified by package_quality.py; preserve during refresh.
+    for name in ['pca_frozen.json', 'exploration.json']:
+        put('quality/'+name, RUNTIME/'quality'/name)
+    for name in ['frozen.json', 'sample.csv']:
+        put('maintenance/'+name, RUNTIME/'maintenance'/name)
     for obsolete in ['tree_preprocessor.joblib', 'xgboost.json']:
         path = RUNTIME / 'demand' / obsolete
         if path.is_file():

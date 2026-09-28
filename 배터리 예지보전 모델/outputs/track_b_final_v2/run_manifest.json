@@ -1,7 +1,27 @@
 {
-  "pipeline_version": "track-b-final-v2",
+  "pipeline_version": "track-b-audited-v3",
   "seed": 42,
-  "evaluation_protocol": "independent_file_holdout",
+  "evaluation_protocol": "retrospective_reused_file_holdout",
+  "external_validation_completed": false,
+  "selection": {
+    "winner": "RobustPhaseZ",
+    "supervised": "LogisticCurrent",
+    "unsupervised": "RobustPhaseZ",
+    "selected_at": "2026-09-27T05:20:13.814443+00:00",
+    "rule": "validation missed_events, fn, false_alarm_events, -f1, fp, fixed complexity order",
+    "complexity_order": [
+      "RobustPhaseZ",
+      "LogisticCurrent",
+      "LightGBMResidual",
+      "RandomForestCurrent",
+      "IsolationForestNormal",
+      "LogisticHistoryOnly"
+    ],
+    "test_evaluated": false
+  },
+  "test_evaluation_started_at": "2026-09-27T05:20:13.816042+00:00",
+  "default_supervised": "LogisticCurrent",
+  "default_unsupervised": "RobustPhaseZ",
   "development_files": [
     "WeldingTest_01_OK",
     "WeldingTest_03_NG"
@@ -17,10 +37,24 @@
   "event_definition": "contiguous anomaly labels in original file order",
   "historical_split": {
     "complete_cycles": 3481,
-    "train_cycles": 2436,
-    "calibration_cycles": 1045,
-    "train_rows": 95004,
-    "calibration_rows": 40755
+    "clean_cycles": 3479,
+    "excluded_zero_power_cycles": 1,
+    "excluded_zero_power_rows": 39,
+    "excluded_time_cycles": 1,
+    "excluded_time_rows": 39,
+    "excluded_time_group_ids": [
+      "Training_Data::cycle_2332"
+    ],
+    "order": "cycle_start_time; original source_row and within-cycle order preserved",
+    "fit_end": "2022-06-10 09:42:08.980000",
+    "calibration_start": "2022-06-10 09:42:55.853000",
+    "excluded_group_ids": [
+      "Training_Data::cycle_694"
+    ],
+    "train_cycles": 2435,
+    "calibration_cycles": 1044,
+    "train_rows": 94965,
+    "calibration_rows": 40716
   },
   "threshold_audit": {
     "LogisticCurrent": {
@@ -72,24 +106,24 @@
       }
     },
     "LogisticHistoryOnly": {
-      "feasibility_rule_met": true,
+      "feasibility_rule_met": false,
       "rule": "event_recall=1 and normal FPR<=1%; then recall, F1, precision, false alarms",
       "selected_validation_metrics": {
         "rows": 936,
-        "accuracy": 1.0,
-        "precision": 1.0,
+        "accuracy": 0.9818376068376068,
+        "precision": 0.15,
         "recall": 1.0,
-        "f1": 1.0,
-        "tn": 933,
-        "fp": 0,
+        "f1": 0.2608695652173913,
+        "tn": 916,
+        "fp": 17,
         "fn": 0,
         "tp": 3,
-        "false_positive_rate": 0.0,
+        "false_positive_rate": 0.01822079314040729,
         "event_total": 3,
         "event_detected": 3,
         "event_recall": 1.0,
         "missed_events": 0,
-        "false_alarm_events": 0,
+        "false_alarm_events": 17,
         "mean_detection_delay_rows": 0.0,
         "max_detection_delay_rows": 0,
         "mean_detection_delay_seconds": 0.0
@@ -105,5 +139,57 @@
     "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\preprocessed\\test\\WeldingTest_03_NG_Label.csv": "6f3ea39ee95614f3cc5fb88cb48d4edaa31878e9051c518c27f25e0079f1d541",
     "Dataset_전자부품(배터리팩) 예지보전 AI 데이터셋\\data\\preprocessed\\test\\WeldingTest_04_NG_Label.csv": "a630b5c0a6203a0890de6e459b49abfb1904a1bd1e3677a4ddc92144a3c11583"
   },
-  "pipeline_sha256": "af9bd85b7a0585b8285201e35691fdc98d496194b0bf06eff3fb652555082299"
+  "pipeline_sha256": "27abfd0988cf8a969f65ddcd9a4f05d9b209099ad1857f42f036b12a4a1876ec",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "joblib": "1.6.0"
+  },
+  "source_sha256": {
+    "배터리 예지보전 모델\\src\\track_b_final_v2.py": "27abfd0988cf8a969f65ddcd9a4f05d9b209099ad1857f42f036b12a4a1876ec",
+    "배터리 예지보전 모델\\src\\pdm_contract.py": "29204ece21ada087d679f45668064ed98af70dba64a5083aaaa149f66e399980",
+    "배터리 예지보전 모델\\src\\pdm_evaluation.py": "601716900e6720b5d51ce50e6f0767c5f1239d36983af47e6c14e9127d3d25e3",
+    "backend\\maintenance_policy.py": "3d8d16bd7ffd98d81b34545c8d42c387ed91feb1ff33e5a355bb8e4a61557eff",
+    "배터리 예지보전 모델\\docs\\TRAINING_PLAN_V3.md": "b28314b50a1826552c2f9f8e4aaa08cb88df304323d84103499f460935b332a7"
+  },
+  "model_sha256": {
+    "IsolationForestNormal.joblib": "96e76f802494833db43183844f55a2b22a9b6c27f2159aa43303424c3a03b540",
+    "LightGBMResidual.joblib": "3a6d48c792e6a2673bb5d3602f1a42db53ecc5bb0769fd46714c8f21f43b43fe",
+    "LogisticCurrent.joblib": "4c46900ea81dbcdac0ec1386fe701adc5271ab1971d824014580b6c7b97e0cdc",
+    "LogisticHistoryOnly.joblib": "52e6ff4fc07e5a657851be28967872cef369b7a7c77be0529f1263f787ed9025",
+    "RandomForestCurrent.joblib": "0d62ed421d1cfd8a17ff341e2452b96f52f5e48b44c93c0db51785fdb0a3bacc",
+    "RobustPhaseZ.joblib": "ce9f5151d0aec4aa4ee496d2bf44ae072cdd8a75ce18dd7ad1ee2c1d83eb92fa"
+  },
+  "alarm_policy": {
+    "version": "maintenance-alarm-v3",
+    "combination": "selected_supervised_OR_selected_unsupervised",
+    "cycle": "any_alarm_in_39_rows",
+    "file": "any_alarm_cycle",
+    "start": "first_positive_row",
+    "clear": "first_normal_row",
+    "gapSeconds": 120,
+    "minimumRows": 1,
+    "cooldownRows": 0,
+    "approval": "research_only; cycle/field false-alarm cost limit not approved"
+  },
+  "forward_time_split": {
+    "complete_cycles": 131,
+    "clean_cycles": 131,
+    "excluded_zero_power_cycles": 0,
+    "excluded_zero_power_rows": 0,
+    "excluded_time_cycles": 0,
+    "excluded_time_rows": 0,
+    "excluded_time_group_ids": [],
+    "order": "cycle_start_time; original source_row and within-cycle order preserved",
+    "fit_end": "2022-01-19 11:34:11.214000",
+    "calibration_start": "2022-01-19 11:37:24.748000",
+    "excluded_group_ids": [],
+    "train_cycles": 91,
+    "calibration_cycles": 40,
+    "train_rows": 3549,
+    "calibration_rows": 1560
+  }
 }

@@ -1,0 +1,52 @@
+{
+  "model_version": "related_parts_v1",
+  "algorithm": "LightGBM global regression",
+  "target": "D+3 actual order quantity",
+  "lookback_days": 3,
+  "horizon_days": 3,
+  "related_part_count": 3,
+  "relation_method": "positive Pearson correlation on pre-holdout daily actuals",
+  "relation_end": "2021-10-22",
+  "business_relation_verified": false,
+  "activation_rule": "N >= 5 and held-out MAE improves at least 2% over the better of moving-average and standalone LightGBM",
+  "safety_buffer": 36.9523,
+  "safety_buffer_basis": "purged 3-fold operating-model MAE; not an inventory optimization result",
+  "split": {
+    "train_target_start": "2021-09-18",
+    "train_target_end": "2021-10-14",
+    "validation_target_start": "2021-10-18",
+    "validation_target_end": "2021-10-21",
+    "test_target_start": "2021-10-25",
+    "test_target_end": "2021-11-01"
+  },
+  "row_counts": {
+    "train": 3009,
+    "validation": 424,
+    "test": 764
+  },
+  "enabled_parts": 30,
+  "total_parts_evaluated": 111,
+  "overall_metrics": [
+    {
+      "Model": "Related-parts LightGBM",
+      "N": 764,
+      "MAE": 27.26935101371386,
+      "RMSE": 61.53089023258161,
+      "Bias": 7.443111007330389
+    },
+    {
+      "Model": "Standalone LightGBM",
+      "N": 764,
+      "MAE": 27.289578815602443,
+      "RMSE": 60.13875556605058,
+      "Bias": 9.969966125308563
+    },
+    {
+      "Model": "3-day Moving Average",
+      "N": 764,
+      "MAE": 31.864746945898784,
+      "RMSE": 66.81441524800692,
+      "Bias": 4.959860383944155
+    }
+  ]
+}

@@ -26,7 +26,12 @@ def digest(value):
 
 
 class FirebaseService:
-    def __init__(self):
+    def __init__(self, verification_scope=None):
+        if verification_scope is not None:
+            import re
+            if not re.fullmatch(r'verification-[a-z0-9-]{1,60}', verification_scope):
+                raise ValueError('Invalid verification scope')
+        self.verification_scope = verification_scope
         self.config = settings()
         self._app = None
         self._lock = threading.RLock()
@@ -101,11 +106,18 @@ class FirebaseService:
             self._cache.pop(digest(cookie or ''), None)
 
     def states(self):
-        return {d['key']: d for snap in self.db.collection('manufacturingReviewState').stream()
+        return {d['key']: d for snap in self.record_collection('manufacturingReviewState').stream()
                 if (d := snap.to_dict())}
 
+    def record_collection(self, name):
+        # Server-side test injection only. No request parameter can change the namespace.
+        scope = getattr(self, 'verification_scope', None)
+        if scope:
+            return self.db.collection('manufacturingVerification').document(scope).collection(name)
+        return self.db.collection(name)
+
     def history(self, key=None, limit=100):
-        query = self.db.collection('manufacturingRecords')
+        query = self.record_collection('manufacturingRecords')
         if key:
             query = query.where(filter=FieldFilter('key', '==', key))
             rows = [s.to_dict() for s in query.limit(500).stream()]
@@ -114,8 +126,8 @@ class FirebaseService:
 
     def save_record(self, body, key, user, version):
         record_id = digest(user['uid']+':'+body['requestId'])
-        record_ref = self.db.collection('manufacturingRecords').document(record_id)
-        state_ref = self.db.collection('manufacturingReviewState').document(digest(key))
+        record_ref = self.record_collection('manufacturingRecords').document(record_id)
+        state_ref = self.record_collection('manufacturingReviewState').document(digest(key))
         fingerprint = digest(json.dumps(body, sort_keys=True, ensure_ascii=False))
         @firestore.transactional
         def save(transaction):
@@ -138,7 +150,7 @@ class FirebaseService:
 
     def conversations(self, uid):
         # UID is taken from verified identity, never request parameters.
-        return self.db.collection('manufacturingConversations').document(uid).collection('threads')
+        return self.record_collection('manufacturingConversations').document(uid).collection('threads')
 
     def list_conversations(self, uid):
         return [{k: d.get(k) for k in ('id', 'title', 'updatedAt', 'revision')}
@@ -164,6 +176,8 @@ class FirebaseService:
                 raise HTTPException(422, '대화당 20회까지 질문할 수 있습니다. 새 대화를 시작하세요.')
             doc = {'id': thread_id, 'ownerUid': uid, 'title': old.get('title', question[:60]),
                 'updatedAt': now(), 'revision': revision+1, 'messages': messages}
+            if len(json.dumps(doc,ensure_ascii=False,default=str).encode('utf-8'))>850_000:
+                raise HTTPException(422,'대화의 근거 자료가 많습니다. 새 대화를 시작하세요.')
             transaction.set(ref, doc)
             return doc
         return save(self.db.transaction())

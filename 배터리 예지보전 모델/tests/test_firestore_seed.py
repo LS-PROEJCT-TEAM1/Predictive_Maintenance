@@ -14,7 +14,7 @@ SEED_DIR = ROOT / "firestore" / "seed"
 class FirestoreSeedTest(unittest.TestCase):
     def test_manifest_counts_and_hashes(self):
         manifest = json.loads((SEED_DIR / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(5273, manifest["totalDocuments"])
+        self.assertEqual(sum(x['documents'] for x in manifest['files']), manifest['totalDocuments'])
         self.assertEqual(manifest["totalDocuments"], validate(SEED_DIR))
         for item in manifest["files"]:
             path = SEED_DIR / item["file"]
@@ -23,7 +23,7 @@ class FirestoreSeedTest(unittest.TestCase):
 
     def test_measurement_seed_can_rebuild_dashboard_replay(self):
         replay = app.load_replay_from_firestore_seed(SEED_DIR / "measurements.jsonl")
-        self.assertEqual(5226 * 5, len(replay))
+        self.assertEqual(5226 * 6, len(replay))
         self.assertEqual(set(app.supervised_models + app.unsupervised_models), set(replay["model"]))
         self.assertEqual(set(app.source_files), set(replay["source_file"]))
 

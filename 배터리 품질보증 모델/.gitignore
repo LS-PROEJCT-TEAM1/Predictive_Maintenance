@@ -1,7 +1,9 @@
 # 원본 데이터 (KAMP 데이터셋 - 용량이 커서 제외)
 data/
+.venv/
 # 캐시 / 중간 산출물
 output/_cache_*.pkl
+output/fontlist-*.json
 __pycache__/
 *.pyc
 # 학습된 모델 가중치

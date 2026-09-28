@@ -15,7 +15,7 @@ from starlette.concurrency import run_in_threadpool
 COOKIE = 'manufacturing_session'
 CSRF = 'manufacturing_csrf'
 ASSETS = Path(__file__).resolve().parents[1] / 'frontend' / 'assets'
-BRAND_FONTS = {'notokr-demilight.woff', 'notokr-medium.woff', 'notokr-bold.woff'}
+BRAND_FONTS = {'notokr-demilight.woff', 'notokr-medium.woff', 'notokr-bold.woff', 'SUIT-Variable.woff2'}
 PUBLIC_BRAND = {'/auth/ci_img02.png', *('/auth/fonts/'+name for name in BRAND_FONTS)}
 
 
@@ -77,7 +77,7 @@ def install_security(app, service):
     def brand_font(filename: str):
         if filename not in BRAND_FONTS:
             raise HTTPException(404, '글꼴을 찾을 수 없습니다.')
-        return FileResponse(ASSETS / 'fonts' / filename, media_type='font/woff')
+        return FileResponse(ASSETS / 'fonts' / filename, media_type='font/woff2' if filename.endswith('.woff2') else 'font/woff')
 
     @app.post('/auth/login', include_in_schema=False)
     def login(body: Login, request: Request):

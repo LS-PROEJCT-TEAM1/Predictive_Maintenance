@@ -10,7 +10,7 @@ BatteryFlow AI Control Tower — 배터리 품질 모듈
 
 ## 결론
 
-**PCA (Hotelling T² · SPE) 채택.** 테스트 5개 시험(10,770시점) 기준 F1 0.9866, 파일 단위 교차검증 F1 0.8615로 두 지표 모두 1위이며, 세 가지 불량 유형을 모두 잡는 유일한 모델이다.
+**PCA (Hotelling T² · SPE) 채택.** 테스트 5개 시험(10,770시점) 기준 F1 0.9866, 파일 단위 교차검증 F1 0.8615로 두 지표 모두 1위다. 가이드북의 MTadGAN도 동일한 정상 학습 범위와 잠금 시험 파일로 실제 학습·평가했지만 F1 0.4275로 PCA보다 낮았다.
 
 | 순위 | 모델 | 테스트 F1 | 교차검증 F1 | 불량 3유형 커버 | 라벨 필요 |
 |---|---|---|---|---|---|
@@ -19,6 +19,7 @@ BatteryFlow AI Control Tower — 배터리 품질 모듈
 | 3 | Random Forest | 0.8599 | 0.6443 | 2 / 3 | 필요 |
 | 4 | Isolation Forest | 0.6698 | 0.6062 | 1 / 3 | 불필요 |
 | 5 | LSTM Autoencoder | 0.4370 | 0.3762 | 1 / 3 | 불필요 |
+| 6 | MTadGAN | 0.4275 | 미실시 | 3 / 3 | 불필요 |
 
 ### 불량 유형별 탐지율 (TP / 실제 이상)
 
@@ -52,9 +53,16 @@ python src/models/compare_all.py --skip-lstm
 
 # 개별 실행
 python src/models/model_C_pca_t2_spe.py
+
+# MTadGAN: 전처리 → 30 epoch 학습 → 정상점수 보정 → 개발 운영점 선택 → 잠금시험
+python src/battery_quality_mtadgan.py --mode preprocess --train-file all --train-limit 5
+python src/battery_quality_mtadgan.py --mode train --train-file all --train-limit 5 --epochs 30 --seed 42
+python src/battery_quality_mtadgan.py --mode calibrate --train-file all --train-limit 5 --seed 42
+python src/select_mtadgan_operating_point.py
+python src/battery_quality_mtadgan.py --mode eval-all --eval-split final --train-file all --train-limit 5 --operating-config output/mtadgan_operating_point.json --seed 42
 ```
 
-필요 패키지: `numpy pandas scikit-learn scipy plotly kaleido tensorflow`
+MTadGAN용 패키지는 `requirements.txt`로 설치한다.
 
 ### 데이터 준비
 
@@ -88,6 +96,7 @@ python src/models/model_C_pca_t2_spe.py
 │   │   └── compare_all.py               # 일괄 실행·비교
 │   ├── battery_quality_ml.py        # 초기 통합 파이프라인
 │   ├── battery_quality_mtadgan.py   # MTadGAN (가이드북 재현)
+│   ├── select_mtadgan_operating_point.py # 개발 파일 전용 운영점 선택
 │   ├── battery_quality_PCA.py       # PCA 단독 실험
 │   └── model_*.py                   # 초기 모델별 실험
 ├── output/
@@ -132,6 +141,18 @@ python src/models/model_C_pca_t2_spe.py
 - 임계값을 **연속 10시점 이상** 초과할 때만 이상 구간으로 확정(단발 잡음 억제)
 - 관리한계와 연속 길이는 학습 데이터에서만 탐색
 
+### MTadGAN 검증 결과
+
+- 정상 학습: PCA와 같은 10개 파일(1000~1004, 충전 5 + 방전 5)
+- 모델별 전처리: 208변수 → PCA 3성분 → 길이 10 윈도우
+- 학습: 충전·방전 모델 각각 30 epoch, seed 42
+- 운영점 선택: Test05·Test09에서만 정상 학습 점수 분위수와 padding 후보를 선택
+- 잠금 평가: Test03·04·06·07·08, 선택 후 임계값 변경 없음
+- 잠금 결과: Accuracy 0.5768 / Precision 0.3793 / Recall 0.4896 / F1 0.4275
+- 정상 시험 오탐: 2,783건(Test03 505, Test04 1,342, Test07의 정상 구간 936)
+
+가이드북 방식처럼 각 시험 파일의 평균·표준편차로 임계값을 다시 계산한 결과(F1 0.4503)는 최종 시험 분포를 사용하는 적응형 결과이므로 모델 선정값으로 쓰지 않았다. 상세 결과는 `output/MTADGAN_EVALUATION_REPORT.md`에 있다.
+
 ---
 
 ## 대시보드 연동
@@ -154,6 +175,7 @@ python src/models/model_C_pca_t2_spe.py
 - Test07은 NG 팩인데 라벨이 마지막 227시점(4.9%)에만 붙어 있다. 모델이 그 앞부터 감지한 이상(M02CV01 셀 z-score 5.85)이 오탐으로 계산될 수 있다.
 - LSTM Autoencoder는 CPU 멀티스레드에서 학습이 완전히 재현되지 않아 실행마다 Recall이 달라진다(0.28~0.38).
 - 정상 기준 데이터를 더 늘릴 여지가 있다(현재 10개 / 전체 102개).
+- MTadGAN은 정상 팩 사이의 점수 분포가 안정적이지 않아 개발 운영점이 후보 범위의 최저 임계값(50% 분위수)을 선택했고, 잠금 시험에서 정상 구간 오탐이 크게 증가했다.
 
 ---
 

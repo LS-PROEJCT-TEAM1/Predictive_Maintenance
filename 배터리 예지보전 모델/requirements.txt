@@ -1,4 +1,7 @@
 dash==4.4.1
+dash-ag-grid==35.3.0
+dash-iconify==0.1.2
+dash-mantine-components==2.8.0
 joblib==1.6.0
 lightgbm==4.7.0
 matplotlib==3.11.2

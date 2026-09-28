@@ -37,6 +37,14 @@ class CopilotTests(unittest.TestCase):
         self.assertEqual(error.exception.status_code, 429)
         self.assertEqual(generate.call_count, 1)
 
+    def test_rank_order_is_not_rewritten_by_llm(self):
+        response=self.response({'candidates':[{'content':{'parts':[{'text':'{"answer":"Part 92, Part 95, Part 63","citations":["SCREEN"]}'}]}}]})
+        with patch.object(self.copilot,'retrieve',return_value=[]),patch('backend.copilot.httpx.post',return_value=response):
+            answer=self.copilot.answer('계획과 차이가 큰 부품 3개',{'track':'overview'},[])
+        self.assertIn('2. Part 60',answer['text'])
+        self.assertIn('3. Part 66',answer['text'])
+        self.assertNotIn('Part 95',answer['text'])
+
     def test_firestore_outage_prevents_gemini_spend(self):
         service, copilot = FakeService(), FakeCopilot()
         service.list_conversations = MagicMock(side_effect=ResourceExhausted('quota'))
@@ -50,7 +58,7 @@ class CopilotTests(unittest.TestCase):
     def test_draft_requires_owner_and_does_not_save(self):
         service = FakeService()
         thread = 'a'*32
-        service.chats[('a', thread)] = {'messages': [{'role': 'assistant', 'status': 'answered', 'text': '검토 근거', 'context': {'track': 'quality', 'testId': 'Test07_NG_dchg'}}]}
+        service.chats[('a', thread)] = {'messages': [{'role': 'assistant', 'status': 'answered', 'text': '검토 근거', 'context': {'track': 'quality', 'testId': 'Test07_NG_dchg', 'dataVersion': Repository().manifest['dataVersion']}}]}
         client = TestClient(create_api(False, service, FakeCopilot()))
         client.cookies.update({'manufacturing_session': 'a', 'manufacturing_csrf': 'x'})
         client.headers.update({'Origin': 'http://testserver', 'X-CSRF-Token': 'x'})

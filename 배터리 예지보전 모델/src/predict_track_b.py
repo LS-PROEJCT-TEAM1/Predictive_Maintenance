@@ -8,6 +8,7 @@ import joblib
 import pandas as pd
 
 from track_b_final_v2 import Detector, add_identity, read_signal
+from pdm_contract import validate_sequence
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -38,7 +39,7 @@ def main() -> None:
         threshold_source=payload["threshold_source"],
         training_seconds=0.0,
     )
-    frame = add_identity(read_signal(args.input_csv), args.input_csv.stem)
+    frame = add_identity(validate_sequence(read_signal(args.input_csv)), args.input_csv.stem)
     frame["score"] = scored_model.score(frame)
     frame["threshold"] = scored_model.threshold
     frame["prediction"] = (frame["score"] >= scored_model.threshold).astype(int)

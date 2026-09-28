@@ -35,6 +35,15 @@ class TrackBFinalV2Tests(unittest.TestCase):
         )
         self.assertFalse(self.manifest["locked_test_used_for_selection"])
 
+    def test_zero_power_historical_cycle_is_excluded(self) -> None:
+        split = self.manifest["historical_split"]
+        self.assertEqual(split["excluded_zero_power_cycles"], 1)
+        self.assertEqual(split["excluded_zero_power_rows"], 39)
+        self.assertEqual(
+            split["clean_cycles"],
+            split["train_cycles"] + split["calibration_cycles"],
+        )
+
     def test_cycle_groups_do_not_overlap_development_splits(self) -> None:
         counts = self.splits.groupby("group_id")["split"].nunique()
         self.assertTrue((counts == 1).all())
@@ -52,6 +61,7 @@ class TrackBFinalV2Tests(unittest.TestCase):
         unique = self.metrics.drop_duplicates("model")
         self.assertGreaterEqual((unique["family"] == "supervised").sum(), 2)
         self.assertGreaterEqual((unique["family"] == "unsupervised").sum(), 1)
+        self.assertIn("LightGBMResidual", set(unique["model"]))
 
     def test_confusion_counts_match_rows(self) -> None:
         for row in self.metrics.itertuples():
@@ -72,7 +82,7 @@ class TrackBFinalV2Tests(unittest.TestCase):
         for model_name in self.metrics["model"].unique():
             payload = joblib.load(OUTPUT / "models" / f"{model_name}.joblib")
             self.assertEqual(payload["name"], model_name)
-            self.assertEqual(payload["pipeline_version"], "track-b-final-v2")
+            self.assertEqual(payload["pipeline_version"], self.manifest['pipeline_version'])
 
     def test_required_outputs_exist(self) -> None:
         for name in [

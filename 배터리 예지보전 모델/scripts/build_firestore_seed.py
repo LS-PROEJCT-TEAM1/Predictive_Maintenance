@@ -65,6 +65,11 @@ def project_document(generated_at: str) -> dict[str, Any]:
             "defaultUnsupervisedModel": dashboard.DEFAULT_UNSUPERVISED,
             "generatedAt": generated_at,
             "mode": "evaluation-replay",
+            "evaluationLabel": "재사용 파일 회고 평가",
+            "externalValidationCompleted": False,
+            "alarmPolicy": manifest['alarm_policy'],
+            "selection": manifest['selection'],
+            "historicalSplit": manifest['historical_split'],
         },
     }
 
@@ -169,9 +174,9 @@ def event_documents() -> list[dict[str, Any]]:
             dashboard.DEFAULT_SUPERVISED,
             dashboard.DEFAULT_UNSUPERVISED,
         )
-        events = dashboard.events_for(frame)
+        events = dashboard.events_for(frame, source, dashboard.DEFAULT_SUPERVISED, dashboard.DEFAULT_UNSUPERVISED)
         for row in events.to_dict("records"):
-            _, actions = dashboard.recommendations(pd.Series(row))
+            actions = ['출력 신호와 정상 기준 비교', '공정 설정과 센서 상태 확인', '전후 신호 검토 후 담당자 기록']
             event_id = int(row["event_id"])
             data = clean_record(row)
             data.update(
@@ -195,6 +200,26 @@ def event_documents() -> list[dict[str, Any]]:
 
 
 def main() -> None:
+    # Recompute from raw + current models. Reading the old replay here would
+    # silently export stale predictions after retraining.
+    import joblib
+    import numpy as np
+    sys.path.insert(0, str(ROOT/'src'))
+    import track_b_final_v2 as pipeline
+    blocks = []
+    for source in dashboard.source_files:
+        frame = pipeline.load_test_file(source)
+        for name in dashboard.supervised_models + dashboard.unsupervised_models:
+            saved = joblib.load(pipeline.MODEL_DIR/f'{name}.joblib')
+            model = pipeline.Detector(**{k:saved[k] for k in ['name','family','model','threshold','feature_names','reference','threshold_source']}, training_seconds=0.)
+            block = frame.copy()
+            block['model'], block['family'] = model.name, model.family
+            block['score'], block['threshold'] = model.score(frame), model.threshold
+            block['prediction'] = (block.score >= model.threshold).astype(int)
+            block['expected_power'] = block.PageNo.map(model.reference['median'])
+            block['normal_scale'] = block.PageNo.map(model.reference['scale'])
+            blocks.append(block)
+    dashboard.replay = pd.concat(blocks, ignore_index=True)
     SEED_DIR.mkdir(parents=True, exist_ok=True)
     generated_at = datetime.now(timezone.utc).isoformat()
     runs, measurements = run_and_measurement_documents()

@@ -1,0 +1,255 @@
+{
+  "createdAt": "2026-09-28T04:44:47.092554+09:00",
+  "scope": "UI + backend source/assets before workflow/3D revision; excludes credentials, runtime records and model/raw data (unchanged by this revision)",
+  "gitHead": "e20e041fc7f011e1d00d5b6230136144c9454136",
+  "files": [
+    {
+      "path": "frontend/app.py",
+      "sha256": "c86bc35c814dbd5d054caefdb79974804f883bf54613406781a267e4ba6f4868"
+    },
+    {
+      "path": "frontend/charts.py",
+      "sha256": "0b9f32c62776af4188f9a7fda431a09fb3ed0e671e4108f1462000c69c9f334c"
+    },
+    {
+      "path": "frontend/components.py",
+      "sha256": "0756f9441bbb8ebb19f080931af21d1bcf9ba3d4da955b26c8b153c679ab7502"
+    },
+    {
+      "path": "frontend/copilot_ui.py",
+      "sha256": "69c6395d61dc746094a1c234dd67ce0068ca0606b74069a3ee221a85a34ab920"
+    },
+    {
+      "path": "frontend/demand_workspace.py",
+      "sha256": "1b046255547798102957317f599ba09c6e567494b2f063c0e8f6b5b30a20a429"
+    },
+    {
+      "path": "frontend/demo.html",
+      "sha256": "29f8327e96409692a4d5a4797334c6ba53174c9a00922b4beeb42c26e0f236b1"
+    },
+    {
+      "path": "frontend/login.html",
+      "sha256": "f11169c98b35e9b9f08dc9c79e912ab6c1505016276a9c58ca67c7b7d30ee5d6"
+    },
+    {
+      "path": "frontend/maintenance_workspace.py",
+      "sha256": "f0df4bc08ddc1be34130068b0e36d15ebefafb2a8351f97129170c0ff30a81f6"
+    },
+    {
+      "path": "frontend/navigation.py",
+      "sha256": "0ad2a328b29d0efaca77a3a160cd4258300154496029894bff55d317b7696444"
+    },
+    {
+      "path": "frontend/overview_workspace.py",
+      "sha256": "f350db721d7d1f37eda333f5af805b3871cbf2e67c638fcd2bd8f035aabf5e84"
+    },
+    {
+      "path": "frontend/quality_analysis.py",
+      "sha256": "857ba10873d6249eac31d21234da58d85fb341860afcb57528f38719832bf8db"
+    },
+    {
+      "path": "frontend/quality_workspace.py",
+      "sha256": "608c0215f24998f20f921f35a9a01a98a55f1915e4ebba2e346122222279188f"
+    },
+    {
+      "path": "frontend/views.py",
+      "sha256": "6a2d0663168e7b4a610df8e7fa427d3782d3b77b3b5e617169d77a8785af94ac"
+    },
+    {
+      "path": "frontend/__init__.py",
+      "sha256": "56ad1b5e96060f5907e9fe8faf58a022653fc917eb4388c4a8409ada580fa4e3"
+    },
+    {
+      "path": "frontend/assets/ci_img02.png",
+      "sha256": "aa9d0823174d14c6f66aa5ac4924cf2f006cfc1b3a146e1260e0b7deba3b411c"
+    },
+    {
+      "path": "frontend/assets/ci_img20.png",
+      "sha256": "e97ab729147f06eaf3fa351d6d96857624cfbba17960913604dc676556fcb8a2"
+    },
+    {
+      "path": "frontend/assets/icons.json",
+      "sha256": "b25fa5090f95c13a305b2683afb5496586b1ef8fce2d0732436c6a23d5984465"
+    },
+    {
+      "path": "frontend/assets/LUCIDE-LICENSE.txt",
+      "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57"
+    },
+    {
+      "path": "frontend/assets/session.js",
+      "sha256": "d378eae3950ec3aac1af988612df3e2699133c8928967a1e8d380b8bd2602df6"
+    },
+    {
+      "path": "frontend/assets/theme.css",
+      "sha256": "ae18a08c4f5fa23669b40820a635d4f3bc41876e577c4f74a2b4dbd458dfed32"
+    },
+    {
+      "path": "frontend/assets/fonts/notokr-bold.woff",
+      "sha256": "a0f2026261c2d51a2cf4ea4eb723e5978f82b02b01903e127f60654398765ad6"
+    },
+    {
+      "path": "frontend/assets/fonts/notokr-demilight.woff",
+      "sha256": "e7220705d44fed195bbda9251b7c1f9e63dc98c4ca0b73451859449bf0a5d77e"
+    },
+    {
+      "path": "frontend/assets/fonts/notokr-medium.woff",
+      "sha256": "8ca162ae6c8f744a0b65821b9d22743fac3a9848e649935b3e3dce6663565397"
+    },
+    {
+      "path": "frontend/assets/fonts/OFL.txt",
+      "sha256": "88f117575237307bdd86a17ef15e21790fc9a662fe4dfb103ca1ca077f0d9982"
+    },
+    {
+      "path": "frontend/assets/fonts/README.md",
+      "sha256": "ca0b7a7afcbb5bf2fff6c591a58e94ccee5906411e8efcd06f7957e5d8b77109"
+    },
+    {
+      "path": "frontend/assets/fonts/SUIT-LICENSE.txt",
+      "sha256": "30d101ee3c35ef629d622d933d261a27b2f60223e0a3b0f36791e569c2b9daa9"
+    },
+    {
+      "path": "frontend/assets/fonts/SUIT-Variable.woff2",
+      "sha256": "aa894a204d5a6fbae259dac6868d350cbd373a390caee0313f92946af741df23"
+    },
+    {
+      "path": "backend/bootstrap.py",
+      "sha256": "df295dfdee6619f9e0ebdf1b9c362615f84b9178e019412eaf2b0694fa6036d2"
+    },
+    {
+      "path": "backend/copilot.py",
+      "sha256": "6cc0253cc7ee2cde0689e9d7a52928928220a42b8bd4cefcf58122cf0bdddf00"
+    },
+    {
+      "path": "backend/copilot_search.py",
+      "sha256": "2483d152c227136ad3306d4793090ee53c06bad017447d8e322b25a707e7184d"
+    },
+    {
+      "path": "backend/data.py",
+      "sha256": "ed52db2897f0f4b14aea16d4ad298dae8ea0f8a3b9a4af4dcd137c1088c59284"
+    },
+    {
+      "path": "backend/demand_workspace.py",
+      "sha256": "7edf0fbf7ebd56f8126df508ee276f42ec8209e8b1d9e2f07297fc4550119016"
+    },
+    {
+      "path": "backend/demo_service.py",
+      "sha256": "673eb1d9f27b81018280d6c5308380be0b7fcf211ca9c72e2447d672980ffcb1"
+    },
+    {
+      "path": "backend/firebase_service.py",
+      "sha256": "dacc742bb9cc55b739daf1e0cf9dcc0eb7062e8a04fc85f80206308111060778"
+    },
+    {
+      "path": "backend/main.py",
+      "sha256": "8c2bdc16f3ab44ecf7881eb954218f5efde14975d03504ff28ffbbead7232376"
+    },
+    {
+      "path": "backend/maintenance_engine.py",
+      "sha256": "4130e6fe06cbf63797a03c28cd9c7057d8c4de13a8f011400a9a49ee6bedf1f9"
+    },
+    {
+      "path": "backend/maintenance_policy.py",
+      "sha256": "3d8d16bd7ffd98d81b34545c8d42c387ed91feb1ff33e5a355bb8e4a61557eff"
+    },
+    {
+      "path": "backend/maintenance_routes.py",
+      "sha256": "0e84849fa45078e9673f668fe2ce5496487797c15dc7ff89c49f62575708ab06"
+    },
+    {
+      "path": "backend/overview.py",
+      "sha256": "cc714c968407ea85880ed774546588fee11faac97bf9357e50cf16aa611c4adb"
+    },
+    {
+      "path": "backend/preflight.py",
+      "sha256": "75308b74ed17f187ab5b12ca9f9eb362821829c17b38ad0ebab2782a6e9c2439"
+    },
+    {
+      "path": "backend/quality_engine.py",
+      "sha256": "8a4a9330351d1f72c5440aa3292223f3863352ce6dd25f892331385ba2fa11a0"
+    },
+    {
+      "path": "backend/quality_evidence.py",
+      "sha256": "f2e23a87893b62f8a52f7111bfece38fe21e8b3c740a797e091a2011929744de"
+    },
+    {
+      "path": "backend/quality_routes.py",
+      "sha256": "1620eea290683e616ab97c62fe361315096c9746ed853d9da9c5436d86800546"
+    },
+    {
+      "path": "backend/runtime_assets.py",
+      "sha256": "ec47e9a700e4bfc1efce702cbca76e7155b186d106ea14e268ef382d1a36b366"
+    },
+    {
+      "path": "backend/security.py",
+      "sha256": "9ca34fb38e256c45ee38812bc0c9d67fcb23e71ebc074d3e9606302e94b28277"
+    },
+    {
+      "path": "backend/settings.py",
+      "sha256": "da52be7c046db2c95fc3a5966e8ff22621974f598a243d606fbe5b35a4d16eff"
+    },
+    {
+      "path": "backend/__init__.py",
+      "sha256": "8e276db13f1d095da3e6383fd9eb431130aa98d40dee695a2e57a5a6214a3795"
+    },
+    {
+      "path": "backend/tests/fakes.py",
+      "sha256": "f4a831a3d6e827533c5225770c77eb99c64f082c53ad06ea687f13ecb8571da0"
+    },
+    {
+      "path": "backend/tests/test_api.py",
+      "sha256": "9b044f062dbece5fadd719b11beee0bc0b734cbc900c2354a0a8a97e90d76d31"
+    },
+    {
+      "path": "backend/tests/test_copilot.py",
+      "sha256": "759ce548b5cb22d9db6528997e5f92e7e2826b8c330345f25e09ac804f70bf98"
+    },
+    {
+      "path": "backend/tests/test_copilot_search.py",
+      "sha256": "dc088a918c9904ae4918808284e71b2f000deb5b5cb8acb13e05fe5d8621c9f0"
+    },
+    {
+      "path": "backend/tests/test_demand_workspace.py",
+      "sha256": "cae67e4d09011235d8d5b154d24aafe32d02536ea516cb0f64ecb7f5368884ed"
+    },
+    {
+      "path": "backend/tests/test_maintenance_policy.py",
+      "sha256": "3b7bf5511a435b59f42e9309a5a5aa6a83842eb028de7a507606b7b8f1f6d3ce"
+    },
+    {
+      "path": "backend/tests/test_maintenance_workspace.py",
+      "sha256": "edd0d9e542de0acdeedb78fd57ec6f920856e380e85f2ef042c3a94fd77f1b12"
+    },
+    {
+      "path": "backend/tests/test_overview_workspace.py",
+      "sha256": "3396c71db7f1ee6c7c48d7e96cb749a6e8e43dc06141e159c6b302a1815c6cba"
+    },
+    {
+      "path": "backend/tests/test_persistence.py",
+      "sha256": "2a49146c028bfd877abc6cbdd90a231f6b08312b47ece20defc4ed132b6563e7"
+    },
+    {
+      "path": "backend/tests/test_portable.py",
+      "sha256": "5e656db7a1f65a0e60fe79b8f181e44e8591453ec0d9ffe91eb463e8c05fd68a"
+    },
+    {
+      "path": "backend/tests/test_quality_evidence.py",
+      "sha256": "51057754b8cf2a93651df2036c037143205ae049c4437e40a1645842528f075a"
+    },
+    {
+      "path": "backend/tests/test_quality_workspace.py",
+      "sha256": "dfb57e89767b016fba0c0f7e34b199dd7c956ae360251f8ccf1e0f6a93da30ce"
+    },
+    {
+      "path": "backend/tests/test_security.py",
+      "sha256": "cdb05cf47d2a6b9a628a7620d96e10429866818bda1f98d743f9cf159ad4d5e3"
+    },
+    {
+      "path": "DESIGN.md",
+      "sha256": "779a54db0218d8e1ac81ceff9c33bc5bfec43e222091f220032d9c51ab559ae4"
+    },
+    {
+      "path": "run_local.py",
+      "sha256": "2c84c9af1ca8f946537e41e7be446fa2f6bfecdade9201f48518a60352ba580c"
+    }
+  ]
+}

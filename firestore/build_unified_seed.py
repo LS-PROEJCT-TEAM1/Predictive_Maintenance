@@ -20,7 +20,7 @@ DEFAULT_WORKSPACE_ID = "manufacturing-ai"
 MAX_DISPLAY_POINTS = 300
 MEASUREMENT_CHUNK_SIZE = 100
 SCHEMA_VERSION = 3
-DATA_VERSION = "2026-09-27.v3"
+DATA_VERSION = "2026-09-27.v4"
 SOURCE_ARTIFACTS: dict[str, str] = {}
 
 
@@ -260,6 +260,11 @@ def build_maintenance(base: str) -> tuple[list[dict[str, Any]], dict[str, Any], 
             risks.append(max(row_risks))
     summary = {
         "sourceFile": selected_source,
+        "operatingModel": project['selectedModel'],
+        "evaluationLabel": project['evaluationLabel'],
+        "pipelineVersion": project['pipelineVersion'],
+        "rowF1": next(item['data']['f1'] for item in read_jsonl(seed_dir/'model_evaluations.jsonl')
+                      if item['data']['model'] == project['selectedModel'] and item['data']['split'] == 'locked_test'),
         "status": "danger" if selected_events else "normal",
         "maxRiskRatio": round(max(risks, default=0.0), 2),
         "eventCount": len(selected_events),
@@ -530,7 +535,7 @@ def write_seed(seed_dir: Path, groups: dict[str, list[dict[str, Any]]], workspac
         "format": "firestore-document-jsonl-v1",
         "schemaVersion": SCHEMA_VERSION,
         "dataVersion": DATA_VERSION,
-        "supersedes": "2026-09-26.v2",
+        "supersedes": "2026-09-27.v3",
         "deploymentStatus": "local_only_pending_upload",
         "sourceArtifacts": [{"path": path, "sha256": digest} for path, digest in sorted(SOURCE_ARTIFACTS.items())],
         "workspaceId": workspace_id,

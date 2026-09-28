@@ -39,6 +39,7 @@ class PreviewDecision(BaseModel):
     model: str | None = None
     source: Literal['screen', 'copilot'] = 'screen'
     conversationId: str | None = Field(None, pattern=r'^[a-f0-9]{32}$')
+    dataVersion: str | None = Field(None, max_length=80)
 
 
 class ExportRequest(BaseModel):
@@ -62,6 +63,7 @@ class ScreenContext(BaseModel):
     test: str = Field('Test07_NG_dchg', max_length=80)
     cell: str = Field('M02CV01', max_length=20)
     progress: int = Field(100, ge=1, le=100)
+    basis: Literal['raw','clean'] = 'clean'
 
 
 class ChatRequest(BaseModel):
@@ -76,14 +78,19 @@ class DraftRequest(BaseModel):
     target: str | None = Field(None, max_length=250)
 
 
-def create_api(mount_ui=True, service=None, copilot_service=None):
-    repo = Repository()
+def create_api(mount_ui=True, service=None, copilot_service=None, analysis_store=None):
+    bootstrap = Repository()
+    injected_service = service is not None
     demo = os.environ.get('MANUFACTURING_MODE') == 'demo' and service is None
     if demo:
         from backend.demo_service import DemoService, DemoCopilot
         service, copilot_service = DemoService(), DemoCopilot()
     service = service if service is not None else FirebaseService()
-    copilot = copilot_service if copilot_service is not None else Copilot(repo)
+    if analysis_store is None and not demo and not injected_service:
+        from backend.analysis_store import FirestoreAnalysis
+        analysis_store = FirestoreAnalysis(service, bootstrap)
+    repo = analysis_store or bootstrap
+    copilot = copilot_service if copilot_service is not None else Copilot(repo, records_provider=service.states)
     chat_inflight = set()
     chat_last = {}
     chat_lock = Lock()
@@ -91,8 +98,39 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
     export_lock = Lock()
     state_cache = {'until': 0, 'value': None, 'unavailable': False}
     state_lock = Lock()
-    app = FastAPI(title="BatteryFlow AI · Local API", version="0.3.0", description="공식 로컬 v3 시드 · Firebase 직원 인증/기록 · Gemini RAG Copilot")
+    app = FastAPI(title="BatteryFlow AI · Local API", version="0.4.0", description="Firestore 공식 분석 · Firebase 직원 인증/기록 · Gemini RAG Copilot")
+    app.state.analysis_store = analysis_store
+
+    @app.middleware('http')
+    async def analysis_snapshot(request: Request, call_next):
+        # Registered before identity, so authentication runs before any database read.
+        path = request.url.path
+        needs_analysis = path.startswith(('/api/demand', '/api/maintenance', '/api/quality', '/api/overview', '/api/meta', '/api/results', '/api/preview', '/api/validation', '/api/data-quality')) or path in ('/api/copilot/ask', '/api/copilot/draft', '/api/analysis/refresh') or (path == '/api/records' and request.method == 'POST')
+        if not analysis_store or not needs_analysis:
+            return await call_next(request)
+        from starlette.concurrency import run_in_threadpool
+        force = path == '/api/analysis/refresh' or (path == '/api/records' and request.method == 'POST')
+        try:
+            snapshot = await run_in_threadpool(analysis_store.acquire, force=force)
+            if request.method == 'POST' and path != '/api/analysis/refresh' and snapshot[1]['state'] != 'ready':
+                raise HTTPException(503, '최신 공식 자료를 확인하지 못했습니다. 연결 복구 후 다시 시도하세요. 기록은 저장하지 않았습니다.')
+        except HTTPException as exc:
+            return JSONResponse({'detail': exc.detail}, status_code=exc.status_code)
+        token = analysis_store.bind(snapshot)
+        try:
+            response = await call_next(request)
+            response.headers['X-Analysis-Source'] = 'firestore'
+            response.headers['X-Analysis-State'] = snapshot[1]['state']
+            response.headers['X-Analysis-Version'] = snapshot[0].manifest['dataVersion']
+            return response
+        finally:
+            analysis_store.unbind(token)
+
     install_security(app, service)
+    from backend.quality_routes import install_quality_routes
+    install_quality_routes(app, repo, service)
+    from backend.maintenance_routes import install_maintenance_routes
+    install_maintenance_routes(app, repo)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "testserver"])
 
     @app.exception_handler(ValueError)
@@ -110,27 +148,54 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
 
     @app.get("/api/health", tags=["상태"])
     def health():
-        return {"status": "ok", "mode": "demo" if demo else "local-seed-with-cloud-records", "dataVersion": repo.manifest["dataVersion"], "documents": len(repo.docs), "firebase": "disabled" if demo else "configured", "copilot": "disabled" if demo else "gemini-local-faiss"}
+        source = analysis_store.status() if analysis_store else None
+        return {"status": "ok", "mode": "demo" if demo else "firestore-analysis" if analysis_store else "local-seed-with-cloud-records", "dataVersion": source['dataVersion'] if source else bootstrap.manifest["dataVersion"], "documents": source['documents'] if source else len(bootstrap.docs), "analysisSource": source, "firebase": "disabled" if demo else "configured", "copilot": "disabled" if demo else "gemini-local-faiss"}
 
     @app.get("/api/meta", tags=["상태"])
     def meta():
-        return {**repo.meta(), 'mode': 'demo' if demo else 'local-seed-with-cloud-records'}
+        return {**repo.meta(), 'mode': 'demo' if demo else 'firestore-analysis' if analysis_store else 'local-seed-with-cloud-records'}
+
+    @app.post('/api/analysis/refresh', tags=['상태'])
+    def refresh_analysis():
+        with state_lock:
+            state_cache['until'] = 0
+        return repo.meta()
 
     @app.get("/api/overview", tags=["통합"])
     def overview():
-        return {**repo.get("overview"), "actions": repo.collection("actions"), "trend": repo.demand()["trend"]}
+        from backend.overview import overview_data
+        return overview_data(repo)
 
     @app.get("/api/demand", tags=["공급망"])
     def demand(date: str | None = None, part: str = "ALL", model: str | None = None):
-        return repo.demand(date, part, model)
+        from backend.demand_workspace import plan_history
+        data = repo.demand(date, part, model)
+        auxiliary = repo.demand(data['date'],part,data['config']['auxiliaryModel'])
+        by_date = {r['date']:r['forecast'] for r in auxiliary['trend']}
+        data['trend'] = [{**r,'auxiliary':by_date.get(r['date'])} for r in data['trend']]
+        data['originDate'] = (pd.Timestamp(data['date'])-pd.Timedelta(days=3)).date().isoformat()
+        data['planHistory'] = plan_history(repo,data)
+        return data
+
+    @app.get('/api/demand/diagnostics', tags=['공급망'])
+    def demand_diagnostics(part: str = 'ALL'):
+        from backend.demand_workspace import diagnostics
+        if part!='ALL' and part not in repo.parts:
+            raise ValueError('부품을 확인하세요.')
+        return diagnostics(part)
+
+    @app.post('/api/demand/check', tags=['추론'])
+    async def demand_check(file: UploadFile = File(...)):
+        from backend.demand_workspace import inspect_csv
+        return inspect_csv(await file.read(1_000_001),repo.get('demandConfig')['quarantinedParts'])
 
     @app.get("/api/maintenance", tags=["예지보전"])
     def maintenance(run: str = "WeldingTest_04_NG", supervised: str | None = None, unsupervised: str | None = None):
         return repo.maintenance(run, supervised, unsupervised)
 
     @app.get("/api/quality", tags=["품질"])
-    def quality(test: str = "Test07_NG_dchg", cell: str = "M02CV01", progress: int = Query(100, ge=1, le=100)):
-        return repo.quality(test, cell, progress)
+    def quality(test: str = "Test07_NG_dchg", cell: str = "M02CV01", progress: int = Query(100, ge=1, le=100), basis: Literal["raw", "clean"] = "clean"):
+        return repo.quality(test, cell, progress, basis)
 
     @app.get("/api/validation/{track}", tags=["검증"])
     def validation(track: Literal["demand", "maintenance", "quality"]):
@@ -170,6 +235,8 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
 
     @app.post("/api/preview/decision", tags=["체험"])
     def preview_decision(body: PreviewDecision):
+        if body.dataVersion and body.dataVersion != repo.manifest['dataVersion']:
+            raise HTTPException(409, '화면의 자료 버전이 변경되었습니다. 새로고침 후 다시 검토하세요.')
         if body.track == "demand" and body.target not in repo.parts:
             raise ValueError("부품을 확인하세요.")
         if body.track == "demand":
@@ -186,7 +253,7 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
         key = f"{body.track}:{body.target}"
         if body.track == "demand":
             key += f":{body.date}:{body.model}"
-        return {**body.model_dump(), "key": key, "persistence": "preview-only"}
+        return {**body.model_dump(), "key": key, "persistence": "preview-only", "dataVersion": repo.manifest['dataVersion']}
 
     @app.get('/api/records/state', tags=['기록'])
     def record_state():
@@ -208,6 +275,8 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
 
     @app.post('/api/records', tags=['기록'])
     def save_record(body: SaveDecision, request: Request):
+        if analysis_store and not body.dataVersion:
+            raise HTTPException(409, '자료 버전이 없는 저장 요청입니다. 화면을 새로고침 후 다시 검토하세요.')
         validated = preview_decision(body)
         if body.source == 'copilot':
             if not body.conversationId:
@@ -240,6 +309,8 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
         if not assistant or assistant.get('status') != 'answered':
             raise ValueError('저장된 AI 답변이 필요합니다.')
         facts = assistant['context']
+        if facts.get('dataVersion') != repo.manifest['dataVersion']:
+            raise HTTPException(409, '이 대화는 이전 자료 기준입니다. 현재 자료로 다시 질문한 뒤 기록하세요.')
         track = facts['track']
         if track == 'quality':
             record = PreviewDecision(track=track, target=facts['testId'], decision='retest')
@@ -312,24 +383,12 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
     @app.post("/api/demand/infer", tags=["추론"])
     async def inference(file: UploadFile = File(...)):
         contents = await file.read(1_000_001)
-        if len(contents) > 1_000_000:
-            raise HTTPException(413, "CSV는 1MB 이하로 업로드하세요.")
-        try:
-            frame = pd.read_csv(io.BytesIO(contents))
-        except Exception:
-            raise ValueError("UTF-8 CSV 파일을 확인하세요.") from None
-        required = ["part_number", "date", "actual_d", "plan_d3", "plan_d4", "plan_d5"]
-        if not set(required).issubset(frame.columns) or not 3 <= len(frame) <= 60:
-            raise ValueError("필수 6개 열과 동일 부품의 3~60일 자료가 필요합니다. 최근 8일을 권장합니다.")
-        numbers = frame[required[2:]].apply(pd.to_numeric, errors="coerce")
-        dates = pd.to_datetime(frame["date"], errors="coerce").dt.normalize().sort_values()
-        if (not np.isfinite(numbers.to_numpy()).all() or (numbers < 0).any().any() or dates.isna().any()
-                or frame["part_number"].nunique() != 1 or frame["part_number"].isna().any()
-                or frame['part_number'].astype(str).str.strip().eq('').any() or dates.duplicated().any()
-                or not dates.tail(3).diff().dropna().eq(pd.Timedelta(days=1)).all()):
-            raise ValueError("최근 3일은 연속이어야 하며 중복 날짜 없이 유한한 0 이상 수량이 필요합니다.")
-        if str(frame.iloc[0]['part_number']).strip() in repo.get('demandConfig')['quarantinedParts']:
-            raise ValueError("원본 기록 충돌로 격리된 부품입니다. 데이터 정정 후 예측할 수 있습니다.")
+        from backend.demand_workspace import inspect_csv
+        inspected = inspect_csv(contents, repo.get('demandConfig')['quarantinedParts'])
+        if not inspected['valid']:
+            if len(contents)>1_000_000:
+                raise HTTPException(413, 'CSV는 1MB 이하로 업로드하세요.')
+            raise ValueError(' / '.join(x['검사 항목']+': '+x['설명'] for x in inspected['checks'] if x['결과']=='오류'))
         # One environment for the API and existing model inference; no training.
         interpreter = sys.executable
         script = ROOT / "발주량 예측 모델/src/inference.py"
@@ -351,7 +410,8 @@ def create_api(mount_ui=True, service=None, copilot_service=None):
 
     if mount_ui:
         from frontend.app import create_dashboard
-        dash_app = create_dashboard({**repo.meta(), 'demo': demo})
+        # Local metadata builds the UI shell only; connected analysis API never falls back to it.
+        dash_app = create_dashboard({**bootstrap.meta(), 'demo': demo, 'verification': bool(getattr(service, 'verification_scope', None))})
         app.mount("/", WSGIMiddleware(dash_app.server))
     return app
 

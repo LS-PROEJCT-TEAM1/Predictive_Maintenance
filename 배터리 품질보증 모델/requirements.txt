@@ -1,0 +1,13 @@
+tensorflow==2.18.0
+numpy==2.0.2
+pandas==2.2.3
+scipy==1.14.1
+scikit-learn==1.5.2
+matplotlib==3.9.2
+joblib==1.4.2
+pyts==0.13.0
+dash==3.2.0
+dash-mantine-components==2.2.1
+dash-ag-grid==32.3.2
+dash-iconify==0.1.2
+plotly==6.3.0

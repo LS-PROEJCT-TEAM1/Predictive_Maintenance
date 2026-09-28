@@ -1,0 +1,65 @@
+split,model,features,size,validation_mae,iterations
+fold_1,XGBoost,basic,small,69.6507400003151,40
+fold_1,XGBoost,basic,medium,65.0400216157686,47
+fold_1,XGBoost,enhanced,small,67.91525999991903,44
+fold_1,XGBoost,enhanced,medium,64.04885482960229,46
+fold_1,LightGBM,basic,small,62.57602888086642,1
+fold_1,LightGBM,basic,medium,62.2297122564621,4
+fold_1,LightGBM,enhanced,small,62.5142238267148,1
+fold_1,LightGBM,enhanced,medium,62.35337184115523,2
+fold_1,CatBoost,basic,small,60.218974955085194,40
+fold_1,CatBoost,basic,medium,62.00687667360765,9
+fold_1,CatBoost,enhanced,small,59.19894631965698,30
+fold_1,CatBoost,enhanced,medium,61.65140857939144,39
+fold_1,LSTM,basic,small,53.10059192630089,3
+fold_1,LSTM,enhanced,medium,58.352842951509494,1
+fold_1,Related LightGBM,enhanced,small,62.2278642599278,2
+fold_1,Related LightGBM,enhanced,medium,62.199393501805055,2
+fold_2,XGBoost,basic,small,34.88827368949985,498
+fold_2,XGBoost,basic,medium,35.72297070447926,497
+fold_2,XGBoost,enhanced,small,37.94808761423773,216
+fold_2,XGBoost,enhanced,medium,40.79941301702916,304
+fold_2,LightGBM,basic,small,31.06383718527106,500
+fold_2,LightGBM,basic,medium,31.283492831226457,443
+fold_2,LightGBM,enhanced,small,37.41110125640511,169
+fold_2,LightGBM,enhanced,medium,36.8986459578587,123
+fold_2,CatBoost,basic,small,36.47629340025526,265
+fold_2,CatBoost,basic,medium,44.644715041800325,216
+fold_2,CatBoost,enhanced,small,32.06508090056815,178
+fold_2,CatBoost,enhanced,medium,43.12382197185479,115
+fold_2,LSTM,basic,small,36.0872608654738,15
+fold_2,LSTM,enhanced,medium,28.1224623445455,6
+fold_2,Related LightGBM,enhanced,small,37.002630216787765,110
+fold_2,Related LightGBM,enhanced,medium,34.99844431191215,157
+fold_3,XGBoost,basic,small,37.600417847880095,234
+fold_3,XGBoost,basic,medium,41.493140671415716,500
+fold_3,XGBoost,enhanced,small,37.86704745883311,204
+fold_3,XGBoost,enhanced,medium,45.06062975898385,455
+fold_3,LightGBM,basic,small,42.64902176125897,104
+fold_3,LightGBM,basic,medium,50.98266041642942,250
+fold_3,LightGBM,enhanced,small,45.7100466478017,168
+fold_3,LightGBM,enhanced,medium,44.277809559078875,109
+fold_3,CatBoost,basic,small,34.083255401215474,172
+fold_3,CatBoost,basic,medium,54.905742671523306,178
+fold_3,CatBoost,enhanced,small,32.338262744390974,187
+fold_3,CatBoost,enhanced,medium,55.27301702149505,141
+fold_3,LSTM,basic,small,34.43915739955138,5
+fold_3,LSTM,enhanced,medium,26.31508518588068,3
+fold_3,Related LightGBM,enhanced,small,42.29881694716811,125
+fold_3,Related LightGBM,enhanced,medium,46.16585447039524,216
+retrospective,XGBoost,basic,small,31.15366595708407,232
+retrospective,XGBoost,basic,medium,27.198823379094783,265
+retrospective,XGBoost,enhanced,small,29.083192986708422,223
+retrospective,XGBoost,enhanced,medium,28.017643042023366,272
+retrospective,LightGBM,basic,small,29.75463715948627,233
+retrospective,LightGBM,basic,medium,27.317442632214743,188
+retrospective,LightGBM,enhanced,small,31.25878742966683,115
+retrospective,LightGBM,enhanced,medium,27.228727983215176,452
+retrospective,CatBoost,basic,small,32.660171072618986,204
+retrospective,CatBoost,basic,medium,27.691661370368806,208
+retrospective,CatBoost,enhanced,small,31.4474749055348,244
+retrospective,CatBoost,enhanced,medium,26.57878529163438,314
+retrospective,LSTM,basic,small,25.97375971362568,42
+retrospective,LSTM,enhanced,medium,27.000940485871755,18
+retrospective,Related LightGBM,enhanced,small,31.813145722658078,111
+retrospective,Related LightGBM,enhanced,medium,28.67051352497519,104

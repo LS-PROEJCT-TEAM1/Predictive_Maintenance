@@ -1,0 +1,60 @@
+{
+  "project": "ls-proejct-team1",
+  "database": "(default)",
+  "root": "manufacturingAi/manufacturing-ai",
+  "dataVersion": "2026-09-27.v4",
+  "localDocuments": 275,
+  "remoteBefore": 259,
+  "counts": {
+    "create": 30,
+    "update": 245,
+    "delete": 14,
+    "preserved": 0,
+    "unchanged": 0
+  },
+  "commitOperations": 289,
+  "commitBytes": 7670187,
+  "verifiedAt": "2026-09-27T17:07:11.899596+00:00",
+  "remoteAfter": 275,
+  "matchingDocuments": 275,
+  "missing": [],
+  "different": [],
+  "unexpected": [],
+  "seedManifestSha256": "ce15e314109732b558bd8c31748ea341ef81ddf04c012f53c0a842c20d962a65",
+  "status": "verified",
+  "seedFiles": [
+    {
+      "file": "core.jsonl",
+      "documents": 7,
+      "bytes": 3845,
+      "sha256": "770e7820ded147177462153555399152a969af0e6e48a77cf7e1e5ff88a89afc"
+    },
+    {
+      "file": "demand.jsonl",
+      "documents": 128,
+      "bytes": 1322667,
+      "sha256": "c3e5abbea541d1d513f3c8b4f2c70a750dcae4d2108cfa48d94b0194940c2940"
+    },
+    {
+      "file": "maintenance.jsonl",
+      "documents": 105,
+      "bytes": 5244164,
+      "sha256": "9261931ce5ca4261b2f147460b1a08d3a42c1ecfdacedbb55961b3cf504082e8"
+    },
+    {
+      "file": "quality.jsonl",
+      "documents": 35,
+      "bytes": 405276,
+      "sha256": "6a2501847f5a323aaef2a5812bc9f770b3283b242ab1eab0ce6ab1da487148a3"
+    }
+  ],
+  "untouchedScopes": [
+    "Firebase Authentication",
+    "manufacturingRecords",
+    "manufacturingReviewState",
+    "manufacturingConversations",
+    "supply_*",
+    "pdm_*",
+    "battery_*"
+  ]
+}

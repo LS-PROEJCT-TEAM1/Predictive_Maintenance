@@ -12,7 +12,8 @@ clone 명령은 아래 팀원 설치 안내를 참고하세요.
 
 - [팀원 설치·데이터 구성](TEAM_SETUP.md)
 - [실제 Firebase·Gemini 연결](LOCAL_RUN.md)
-- 공식 DB 원본: `firestore/seed` (v3, 269문서)
+- 공식 DB 원본: `firestore/seed` (v4, 275문서). 연결 모드의 공식 분석은 Firestore에서 조회합니다.
+- [연결·저장 검증 결과](CONNECTED_WORKFLOW_VERIFICATION.md)
 - FastAPI + Dash, 실행에 필요한 압축 데이터·기존 모델은 `runtime/`에 포함
 
 아래는 개별 연구 트랙의 설명입니다. 통합 화면은 위 8070 주소로 실행하세요.
@@ -36,7 +37,7 @@ KAMP 제조 데이터를 활용한 예지보전 및 부품 발주량 예측 프�
 - 학습형 CV 1위: LSTM, MAE 35.1942
 - 9가지 방법 비교, 충돌 부품 2개 격리, 시간순 내부/외부 검증
 - 마지막 기간은 과거 자료의 회고 평가이며 새로운 독립 검증이 아닙니다.
-- 공식 로컬 시드 v3과 재학습 산출물은 팀원 테스트 브랜치에 포함합니다. 원격 Firebase에는 업로드하지 않았습니다.
+- 공식 시드는 v4 / 275문서이며, 2026-09-28 원격 Firebase 반영 후 전체 일치를 검증했습니다. 상세는 [배포 상태](firestore/DEPLOYMENT_STATUS.md)를 확인하세요.
 
 자세한 설치 방법과 실행 순서는 [`발주량 예측 모델/README.md`](./발주량%20예측%20모델/README.md)를 확인하세요.
 

@@ -5,6 +5,7 @@ import json
 import os
 import random
 import time
+from datetime import datetime, timezone
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -20,12 +21,14 @@ os.environ.setdefault("MPLCONFIGDIR", str(MPL_DIR))
 os.environ.setdefault("MPLBACKEND", "Agg")
 
 import joblib
+import lightgbm as lgb
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pdm_contract import validate_signals
 from sklearn.ensemble import IsolationForest, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
@@ -39,6 +42,9 @@ from sklearn.preprocessing import RobustScaler
 
 
 SEED = 42
+PIPELINE_VERSION = "track-b-audited-v3"
+COMPLEXITY_ORDER = ['RobustPhaseZ', 'LogisticCurrent', 'LightGBMResidual',
+                    'RandomForestCurrent', 'IsolationForestNormal', 'LogisticHistoryOnly']
 NORMAL_CALIBRATION_QUANTILE = 0.999
 DEVELOPMENT_TRAIN_FRACTION = 0.70
 
@@ -83,6 +89,18 @@ HISTORY_FEATURES = [
     "TimeGapSeconds",
 ]
 
+LIGHTGBM_REGRESSION_FEATURES = [
+    "PageNo",
+    "PageSin",
+    "PageCos",
+    "Speed",
+    "Length",
+    "SetPower",
+    "GateOnTime",
+    "PreviousRealPower",
+    "TimeGapSeconds",
+]
+
 
 def set_seed() -> None:
     random.seed(SEED)
@@ -98,13 +116,7 @@ def sha256(path: Path) -> str:
 
 
 def read_signal(path: Path) -> pd.DataFrame:
-    frame = pd.read_csv(path)
-    frame.columns = frame.columns.str.strip()
-    missing = sorted(set(RAW_COLUMNS) - set(frame.columns))
-    if missing:
-        raise ValueError(f"{path.name}: missing columns {missing}")
-    frame["WorkingTime"] = pd.to_datetime(frame["WorkingTime"], errors="raise")
-    return frame
+    return validate_signals(pd.read_csv(path))
 
 
 def add_identity(frame: pd.DataFrame, source_file: str) -> pd.DataFrame:
@@ -132,7 +144,11 @@ def load_test_file(name: str) -> pd.DataFrame:
     frame = require_complete_cycles(add_identity(read_signal(path), name))
     if name.endswith("NG"):
         label_path = DATA_ROOT / "preprocessed" / "test" / f"{name}_Label.csv"
-        labels = pd.read_csv(label_path)["label"].to_numpy(dtype=int)
+        label_frame = pd.read_csv(label_path)
+        if ('label' not in label_frame or not label_frame['label'].isin([0, 1]).all()
+                or not np.array_equal(label_frame.iloc[:, 0], np.arange(len(frame)))):
+            raise ValueError(f'{name}: invalid labels or row alignment')
+        labels = label_frame['label'].to_numpy(dtype=int)
     else:
         labels = np.zeros(len(frame), dtype=int)
     if len(labels) != len(frame):
@@ -142,12 +158,35 @@ def load_test_file(name: str) -> pd.DataFrame:
 
 
 def split_historical_normal(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
-    groups = [group.copy() for _, group in frame.groupby("group_id", sort=False)]
+    all_groups = [group.copy() for _, group in frame.groupby("group_id", sort=False)]
+    contaminated_groups = [
+        group for group in all_groups if group["RealPower"].eq(0).any()
+    ]
+    time_invalid = [g for g in all_groups if (g.WorkingTime.diff().dt.total_seconds().dropna() <= 0).any()]
+    excluded = {str(g.group_id.iloc[0]) for g in contaminated_groups + time_invalid}
+    groups = sorted([g for g in all_groups if str(g.group_id.iloc[0]) not in excluded],
+                    key=lambda g: g.WorkingTime.iloc[0])
+    if not groups:
+        raise RuntimeError("No clean historical cycles remain after zero-power filtering")
     cut = int(len(groups) * 0.70)
     train = pd.concat(groups[:cut], ignore_index=True)
     calibration = pd.concat(groups[cut:], ignore_index=True)
+    if train.WorkingTime.max() >= calibration.WorkingTime.min():
+        raise ValueError('Historical cycle intervals overlap the fit/calibration boundary')
     return train, calibration, {
-        "complete_cycles": len(groups),
+        "complete_cycles": len(all_groups),
+        "clean_cycles": len(groups),
+        "excluded_zero_power_cycles": len(contaminated_groups),
+        "excluded_zero_power_rows": int(sum(len(group) for group in contaminated_groups)),
+        "excluded_time_cycles": len(time_invalid),
+        "excluded_time_rows": int(sum(len(g) for g in time_invalid)),
+        "excluded_time_group_ids": [str(g.group_id.iloc[0]) for g in time_invalid],
+        "order": "cycle_start_time; original source_row and within-cycle order preserved",
+        "fit_end": str(train.WorkingTime.max()),
+        "calibration_start": str(calibration.WorkingTime.min()),
+        "excluded_group_ids": [
+            str(group["group_id"].iloc[0]) for group in contaminated_groups
+        ],
         "train_cycles": cut,
         "calibration_cycles": len(groups) - cut,
         "train_rows": int(len(train)),
@@ -157,6 +196,7 @@ def split_historical_normal(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataF
 
 def split_development_by_cycle(
     frames: list[pd.DataFrame],
+    fraction: float = DEVELOPMENT_TRAIN_FRACTION,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     train_parts: list[pd.DataFrame] = []
     validation_parts: list[pd.DataFrame] = []
@@ -164,7 +204,7 @@ def split_development_by_cycle(
     for frame in frames:
         source_file = str(frame["source_file"].iloc[0])
         groups = [group.copy() for _, group in frame.groupby("group_id", sort=False)]
-        cut = max(1, min(len(groups) - 1, int(len(groups) * DEVELOPMENT_TRAIN_FRACTION)))
+        cut = max(1, min(len(groups) - 1, int(len(groups) * fraction)))
         for index, group in enumerate(groups):
             split = "development_train" if index < cut else "development_validation"
             (train_parts if index < cut else validation_parts).append(group)
@@ -203,7 +243,7 @@ def phase_reference(frame: pd.DataFrame) -> dict[str, pd.Series]:
 
 
 def make_features(frame: pd.DataFrame, reference: dict[str, pd.Series]) -> pd.DataFrame:
-    work = frame.copy().reset_index(drop=True)
+    work = validate_signals(frame).reset_index(drop=True)
     phase_median = work["PageNo"].map(reference["median"]).astype(float)
     phase_scale = work["PageNo"].map(reference["scale"]).astype(float)
     signed_z = (work["RealPower"].astype(float) - phase_median) / phase_scale
@@ -216,13 +256,10 @@ def make_features(frame: pd.DataFrame, reference: dict[str, pd.Series]) -> pd.Da
     previous_scale = previous_page.map(reference["scale"]).astype(float)
     previous_z = (previous_power - previous_center) / previous_scale
 
-    time_gap = (
-        work.groupby("group_id", sort=False)["WorkingTime"]
-        .diff()
-        .dt.total_seconds()
-        .clip(lower=0.0, upper=120.0)
-        .fillna(0.0)
-    )
+    time_gap = work.groupby('group_id', sort=False).WorkingTime.diff().dt.total_seconds()
+    if (time_gap.dropna() <= 0).any():
+        raise ValueError('입력 오류: 사이클 내부 시간 역전 또는 중복 시각입니다.')
+    time_gap = time_gap.clip(upper=120.0).fillna(0.0)
     angle = 2.0 * np.pi * (work["PageNo"].to_numpy(float) - 1.0) / 39.0
     features = pd.DataFrame(
         {
@@ -247,7 +284,9 @@ def make_features(frame: pd.DataFrame, reference: dict[str, pd.Series]) -> pd.Da
             "TimeGapSeconds": time_gap.astype(float),
         }
     )
-    return features.replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    if not np.isfinite(features.to_numpy(dtype=float)).all():
+        raise ValueError('입력 오류: 모델 기준에 없는 공정 또는 유효하지 않은 특징값입니다.')
+    return features
 
 
 def contiguous_regions(values: np.ndarray) -> list[tuple[int, int]]:
@@ -374,6 +413,12 @@ class Detector:
         features = make_features(frame, self.reference)
         if self.name == "RobustPhaseZ":
             return features["PhaseAbsZ"].to_numpy(dtype=float)
+        if self.name == "LightGBMResidual":
+            prediction = self.model["estimator"].predict(features[self.feature_names])
+            residual = np.abs(frame["RealPower"].to_numpy(dtype=float) - prediction)
+            center = frame["PageNo"].map(self.model["residual_median"]).to_numpy(dtype=float)
+            scale = frame["PageNo"].map(self.model["residual_scale"]).to_numpy(dtype=float)
+            return np.abs(residual - center) / scale
         if self.name == "IsolationForestNormal":
             return -self.model.decision_function(features[self.feature_names])
         return self.model.predict_proba(features[self.feature_names])[:, 1]
@@ -387,8 +432,11 @@ def fit_models(
     historical_calibration: pd.DataFrame,
     development_train: pd.DataFrame,
     development_validation: pd.DataFrame,
+    include_unsupervised: bool = True,
 ) -> tuple[list[Detector], dict]:
+    started_reference = time.perf_counter()
     reference = phase_reference(historical_train)
+    reference_seconds = time.perf_counter() - started_reference
     x_train = make_features(development_train, reference)
     y_train = development_train["label"].to_numpy(dtype=int)
     models: list[Detector] = []
@@ -463,6 +511,9 @@ def fit_models(
         threshold_audit[name] = audit
         models.append(temporary)
 
+    if not include_unsupervised:
+        return models, threshold_audit
+    started_robust = time.perf_counter()
     calibration_features = make_features(historical_calibration, reference)
     robust_threshold = float(
         np.quantile(
@@ -480,9 +531,73 @@ def fit_models(
             feature_names=["PageNo", "RealPower", "PhaseAbsZ"],
             reference=reference,
             threshold_source="historical_normal_calibration_99.9pct",
-            training_seconds=0.0,
+            training_seconds=reference_seconds + time.perf_counter() - started_robust,
         )
     )
+
+    historical_features = make_features(historical_train, reference)
+    historical_groups = historical_train["group_id"].drop_duplicates().tolist()
+    lightgbm_validation_start = int(len(historical_groups) * 0.85)
+    lightgbm_train_groups = set(historical_groups[:lightgbm_validation_start])
+    lightgbm_train_mask = historical_train["group_id"].isin(lightgbm_train_groups)
+    lightgbm_target = historical_train["RealPower"].to_numpy(dtype=float)
+    started = time.perf_counter()
+    lightgbm = lgb.LGBMRegressor(
+        objective="huber",
+        alpha=50.0,
+        n_estimators=500,
+        learning_rate=0.04,
+        num_leaves=31,
+        min_child_samples=40,
+        subsample=0.90,
+        colsample_bytree=0.90,
+        reg_lambda=1.0,
+        random_state=SEED,
+        n_jobs=-1,
+        verbosity=-1,
+    )
+    lightgbm.fit(
+        historical_features.loc[lightgbm_train_mask, LIGHTGBM_REGRESSION_FEATURES],
+        lightgbm_target[lightgbm_train_mask.to_numpy()],
+        eval_X=historical_features.loc[
+            ~lightgbm_train_mask, LIGHTGBM_REGRESSION_FEATURES
+        ],
+        eval_y=lightgbm_target[(~lightgbm_train_mask).to_numpy()],
+        callbacks=[lgb.early_stopping(30, verbose=False)],
+    )
+    historical_prediction = lightgbm.predict(
+        historical_features[LIGHTGBM_REGRESSION_FEATURES]
+    )
+    residual_frame = pd.DataFrame(
+        {
+            "PageNo": historical_train["PageNo"].to_numpy(dtype=int),
+            "RealPower": np.abs(lightgbm_target - historical_prediction),
+        }
+    )
+    residual_reference = phase_reference(residual_frame)
+    lightgbm_payload = {
+        "estimator": lightgbm,
+        "residual_median": residual_reference["median"],
+        "residual_scale": residual_reference["scale"],
+        "early_stopping_train_cycles": len(lightgbm_train_groups),
+        "early_stopping_validation_cycles": len(historical_groups)
+        - len(lightgbm_train_groups),
+    }
+    lightgbm_detector = Detector(
+        name="LightGBMResidual",
+        family="unsupervised",
+        model=lightgbm_payload,
+        threshold=0.0,
+        feature_names=list(LIGHTGBM_REGRESSION_FEATURES),
+        reference=reference,
+        threshold_source="historical_normal_calibration_99.9pct",
+        training_seconds=time.perf_counter() - started,
+    )
+    lightgbm_scores = lightgbm_detector.score(historical_calibration)
+    lightgbm_detector.threshold = float(
+        np.quantile(lightgbm_scores, NORMAL_CALIBRATION_QUANTILE, method="higher")
+    )
+    models.append(lightgbm_detector)
 
     isolation_features = [
         "PageSin",
@@ -497,7 +612,6 @@ def fit_models(
         "PhaseSignedZ",
         "PhaseAbsZ",
     ]
-    historical_features = make_features(historical_train, reference)
     started = time.perf_counter()
     isolation = IsolationForest(
         n_estimators=500,
@@ -527,7 +641,7 @@ def fit_models(
 
 
 def evaluate_models(
-    models: list[Detector], validation: pd.DataFrame, locked_test: pd.DataFrame
+    models: list[Detector], validation: pd.DataFrame, locked_test: pd.DataFrame | None
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict]:
     metric_rows = []
     prediction_rows = []
@@ -535,6 +649,8 @@ def evaluate_models(
     reports: dict = {}
     for detector in models:
         for split_name, frame in [("validation", validation), ("locked_test", locked_test)]:
+            if frame is None:
+                continue
             score = detector.score(frame)
             prediction = (score >= detector.threshold).astype(int)
             metrics, report = calculate_metrics(frame, prediction)
@@ -592,6 +708,7 @@ def evaluate_models(
 
 def choose_winner(metrics: pd.DataFrame) -> str:
     validation = metrics[metrics["split"].eq("validation")].copy()
+    validation['complexity_rank'] = validation.model.map({n: i for i, n in enumerate(COMPLEXITY_ORDER)})
     validation = validation.sort_values(
         [
             "missed_events",
@@ -599,7 +716,7 @@ def choose_winner(metrics: pd.DataFrame) -> str:
             "false_alarm_events",
             "f1",
             "fp",
-            "training_seconds",
+            "complexity_rank",
             "model",
         ],
         ascending=[True, True, True, False, True, True, True],
@@ -678,7 +795,7 @@ def plot_results(metrics: pd.DataFrame, predictions: pd.DataFrame, importance: p
     ax.set_xticks(x, test["model"], rotation=18, ha="right")
     ax.set_ylim(0, 1.08)
     ax.set_ylabel("Score")
-    ax.set_title("Track B - independent file holdout")
+    ax.set_title("Track B - retrospective file holdout")
     ax.grid(axis="y", alpha=0.25)
     ax.legend()
     fig.tight_layout()
@@ -737,263 +854,28 @@ def plot_results(metrics: pd.DataFrame, predictions: pd.DataFrame, importance: p
         plt.close(fig)
 
 
-def write_plan() -> None:
-    text = """# 트랙 B 최종 학습 계획 v2
-
-## 평가 목표
-
-- 지도 분류 모델 2종 이상과 정상 패턴 기반 비지도 모델 1종 이상을 동일한 독립 시험 세트에서 비교한다.
-- 불량 행 Recall과 물리 이벤트 Recall을 우선하고, 정상 오경보율과 오경보 이벤트 수를 함께 제한한다.
-- 높은 정확도가 동일 파일 분할이나 현재 라벨의 직접 누수에서 나오지 않도록 파일 역할을 먼저 잠근다.
-
-## 데이터 역할
-
-- 정상 기준 학습/보정: `Training_Data.csv`의 앞 70%/뒤 30% 완전 용접 사이클.
-- 지도 개발: `WeldingTest_01_OK`와 `WeldingTest_03_NG`; 파일 내부는 39행 완전 사이클을 유지한 시간순 70%/30% train/validation.
-- 잠금 시험: `WeldingTest_02_OK`와 `WeldingTest_04_NG` 전체 파일. 적합, 임계값 선택, 모델 선택에 사용하지 않는다.
-
-## 후보 모델
-
-- 지도: LogisticCurrent, RandomForestCurrent.
-- 현재값 의존성 진단: LogisticHistoryOnly. 현재 RealPower/Speed/Length를 제외하여 사전 징후 성능을 확인한다.
-- 비지도: RobustPhaseZ, IsolationForestNormal. 정상 이력만 학습하며 임계값은 정상 보정 구간 99.9 분위수로 고정한다.
-
-## 선택과 검증
-
-- 지도 임계값은 validation에서 이벤트 Recall 100%, 정상 FPR 1% 이하를 우선한다.
-- 최종 모델은 validation에서 이벤트 누락, FN, 오경보 이벤트, F1, FP 순으로 선택한다.
-- 모델 선택 뒤 잠금 시험을 한 번 평가한다. 모든 모델은 동일 행과 동일 라벨을 사용한다.
-- 이벤트는 cycle별로 잘게 세지 않고 원본 파일에서 연속된 라벨 구간으로 정의한다.
-
-## 해석 경계
-
-- Current 모델은 현재 시점 이상 탐지기이며 미래 고장 예측기로 과장하지 않는다.
-- HistoryOnly는 현재 측정값 없이 선행 탐지가 가능한지 확인하는 진단 모델이다.
-- NG04는 하나의 장기 이벤트뿐이므로 이벤트 Recall 100%만으로 일반화를 단정하지 않는다.
-"""
-    (OUTPUT_DIR / "training_plan.md").write_text(text, encoding="utf-8")
-
-
-def write_data_quality_report(
-    audit: pd.DataFrame, historical_split: dict, split_manifest: pd.DataFrame
-) -> None:
-    split_summary = (
-        split_manifest.groupby("split", as_index=False)
-        .agg(
-            cycles=("group_id", "size"),
-            rows=("rows", "sum"),
-            positive_rows=("positive_rows", "sum"),
-        )
-        .copy()
-    )
-    split_summary["positive_rate"] = (
-        split_summary["positive_rows"] / split_summary["rows"]
-    )
-    lines = [
-        "# 트랙 B 데이터 품질 및 분할 보고서 v2",
-        "",
-        "## 원본 파일 검사",
-        "",
-        markdown_table(
-            audit,
-            [
-                "file",
-                "rows",
-                "missing_cells",
-                "duplicate_rows",
-                "nonpositive_time_diffs",
-                "complete_cycles",
-                "positive_rows",
-                "realpower_zero_rows",
-            ],
-        ),
-        "",
-        "## 처리 규칙",
-        "",
-        "- 필수 9개 열과 WorkingTime 날짜시간 변환을 검사했다.",
-        "- PageNo 1~39가 순서대로 존재하는 완전한 39행 용접 사이클만 허용했다.",
-        "- 결측·중복·음수값을 임의 보간하거나 삭제하지 않고 발견 수를 기록했다.",
-        "- NG04의 RealPower=0인 39행은 라벨이 있는 실제 이상 구간이므로 제거하지 않았다.",
-        "- 개발·검증은 행을 섞기 전에 cycle을 시간순으로 배정했다.",
-        "- 잠금 시험은 개발과 다른 파일 전체를 사용했다.",
-        "",
-        "## 정상 이력 분할",
-        "",
-        f"- 완전 사이클: {historical_split['complete_cycles']}",
-        f"- 정상 기준 학습: {historical_split['train_cycles']} cycles / {historical_split['train_rows']} rows",
-        f"- 정상 임계값 보정: {historical_split['calibration_cycles']} cycles / {historical_split['calibration_rows']} rows",
-        "",
-        "## 지도 개발 클래스 비율",
-        "",
-        markdown_table(
-            split_summary,
-            ["split", "cycles", "rows", "positive_rows", "positive_rate"],
-        ),
-        "",
-        "지도 모델은 희소한 이상 행을 보완하기 위해 class_weight='balanced' 또는 "
-        "class_weight='balanced_subsample'을 사용했다.",
-    ]
-    (OUTPUT_DIR / "data_quality_report.md").write_text("\n".join(lines), encoding="utf-8")
-
-
-def write_report(
-    metrics: pd.DataFrame,
-    per_file: pd.DataFrame,
-    reverse_stress: pd.DataFrame,
-    winner: str,
-    historical_split: dict,
-    manifest: pd.DataFrame,
-    importance: pd.DataFrame,
-) -> None:
-    validation = metrics[metrics["split"].eq("validation")]
-    test = metrics[metrics["split"].eq("locked_test")]
-    winner_test = test[test["model"].eq(winner)].iloc[0]
-    locked_by_file = per_file[
-        (per_file["split"].eq("locked_test")) & (per_file["model"].eq(winner))
-    ]
-    top_lines = []
-    for model, group in importance.groupby("model"):
-        features = ", ".join(
-            f"{row.feature} ({row.normalized_importance:.3f})"
-            for row in group.nlargest(5, "normalized_importance").itertuples()
-        )
-        top_lines.append(f"- {model}: {features}")
-    lines = [
-        "# 트랙 B 지도·비지도 최종 검증 보고서 v2",
-        "",
-        f"검증 세트에서 선택한 최종 모델: **{winner}**",
-        "",
-        "## 평가 설계",
-        "",
-        "- 개발 파일: WeldingTest_01_OK, WeldingTest_03_NG.",
-        "- 독립 잠금 시험 파일: WeldingTest_02_OK, WeldingTest_04_NG.",
-        "- 잠금 시험 파일은 학습, 임계값 결정, 모델 선택에 사용하지 않았다.",
-        "- 개발 파일 내부도 39행 용접 사이클을 유지하고 시간순으로 분할했다.",
-        "- 비지도 모델은 Training_Data 정상 구간만 학습하고 정상 보정 구간으로 임계값을 고정했다.",
-        "- 지도 모델은 희소한 이상 행에 balanced class weight를 적용했다.",
-        "- 이벤트는 원본 파일의 연속 이상 구간으로 계산하여 NG04의 한 이벤트를 여러 cycle 이벤트로 부풀리지 않았다.",
-        "",
-        "## 개발 validation 결과",
-        "",
-        markdown_table(
-            validation,
-            [
-                "model",
-                "family",
-                "precision",
-                "recall",
-                "f1",
-                "false_positive_rate",
-                "event_recall",
-                "false_alarm_events",
-            ],
-        ),
-        "",
-        "## 독립 파일 잠금 시험 결과",
-        "",
-        markdown_table(
-            test,
-            [
-                "model",
-                "family",
-                "accuracy",
-                "precision",
-                "recall",
-                "f1",
-                "tn",
-                "fp",
-                "fn",
-                "tp",
-                "event_recall",
-                "false_alarm_events",
-                "mean_detection_delay_rows",
-            ],
-        ),
-        "",
-        "## 최종 모델의 파일별 성능",
-        "",
-        markdown_table(
-            locked_by_file,
-            [
-                "source_file",
-                "rows",
-                "precision",
-                "recall",
-                "f1",
-                "tn",
-                "fp",
-                "fn",
-                "tp",
-            ],
-        ),
-        "",
-        "## 반대 방향 파일 스트레스 테스트",
-        "",
-        "이 표는 02_OK+04_NG로 개발하고 01_OK+03_NG 전체를 시험한 민감도 분석이다. "
-        "NG04에 독립된 두 번째 이상 이벤트가 없어 내부 validation이 같은 장기 이벤트를 나누므로 "
-        "최종 모델 선택에는 사용하지 않았다.",
-        "",
-        markdown_table(
-            reverse_stress,
-            [
-                "model",
-                "family",
-                "precision",
-                "recall",
-                "f1",
-                "fn",
-                "fp",
-                "event_recall",
-                "false_alarm_events",
-            ],
-        ),
-        "",
-        "## 성공 기준 판정",
-        "",
-        f"- 불량 행 Recall >= 0.90: {'PASS' if winner_test['recall'] >= 0.90 else 'FAIL'} ({winner_test['recall']:.4f})",
-        f"- 물리 이벤트 Recall = 1.00: {'PASS' if winner_test['event_recall'] >= 1.0 else 'FAIL'} ({winner_test['event_recall']:.4f})",
-        f"- 정상 행 FPR <= 0.01: {'PASS' if winner_test['false_positive_rate'] <= 0.01 else 'FAIL'} ({winner_test['false_positive_rate']:.4f})",
-        f"- 독립 시험 FN: {int(winner_test['fn'])}, FP: {int(winner_test['fp'])}",
-        "",
-        "## 높은 성능에 대한 점검",
-        "",
-        "- 잠금 시험은 학습과 다른 파일 및 다른 NG 유형 전체를 사용하므로 이전 cycle 혼합 평가보다 강하다.",
-        "- Current 모델은 현재 RealPower를 사용하므로 현재 이상 감지 성능이다. 미래 고장 예측 성능으로 해석하지 않는다.",
-        "- HistoryOnly 결과를 함께 제시하여 현재 측정값을 제거했을 때의 성능 저하를 확인한다.",
-        "- 비지도 RobustPhaseZ가 높은 성능을 보이면 정상 PageNo별 RealPower 범위와 NG04의 분리가 매우 크다는 데이터 특성 때문이다.",
-        "",
-        "## 주요 특징",
-        "",
-        *top_lines,
-        "",
-        "## 데이터 규모",
-        "",
-        f"- 정상 기준 학습: {historical_split['train_cycles']} cycles / {historical_split['train_rows']} rows",
-        f"- 정상 임계값 보정: {historical_split['calibration_cycles']} cycles / {historical_split['calibration_rows']} rows",
-        f"- 지도 개발 train: {int((manifest['split'] == 'development_train').sum())} cycles",
-        f"- 지도 개발 validation: {int((manifest['split'] == 'development_validation').sum())} cycles",
-        "- 잠금 시험: WeldingTest_02_OK 48 cycles + WeldingTest_04_NG 9 cycles.",
-        "",
-        "## 한계",
-        "",
-        "- 독립 시험 NG 파일이 하나이며 NG04에는 장기 이상 이벤트가 한 건뿐이다.",
-        "- NG03과 NG04 외의 새로운 고장 모드에 대한 외부 타당성은 확인되지 않았다.",
-        "- 현 데이터에는 고장 이전을 명시하는 horizon 라벨이 없어 사전 예측 시간을 직접 평가할 수 없다.",
-        "- 신규 시점·신규 설비 파일을 추가 확보해 파일 단위 반복 검증을 해야 한다.",
-    ]
-    (OUTPUT_DIR / "final_validation_report.md").write_text("\n".join(lines), encoding="utf-8")
-
-
 def main() -> None:
     set_seed()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
     PLOT_DIR.mkdir(parents=True, exist_ok=True)
-    write_plan()
 
     historical_path = DATA_ROOT / "raw_data" / "train" / "Training_Data.csv"
     historical = require_complete_cycles(add_identity(read_signal(historical_path), "Training_Data"))
     historical_train, historical_calibration, historical_split = split_historical_normal(historical)
+    fit_ids, cal_ids = set(historical_train.group_id), set(historical_calibration.group_id)
+    history_groups = []
+    for group_id, group in historical.groupby('group_id', sort=False):
+        reasons = []
+        if group.RealPower.eq(0).any():
+            reasons.append('zero_power')
+        if (group.WorkingTime.diff().dt.total_seconds().dropna() <= 0).any():
+            reasons.append('within_cycle_time_error')
+        history_groups.append(dict(group_id=group_id, original_start_row=int(group.source_row.min()),
+            start=str(group.WorkingTime.iloc[0]), end=str(group.WorkingTime.iloc[-1]),
+            split='fit' if group_id in fit_ids else 'calibration' if group_id in cal_ids else 'quarantine',
+            reason=';'.join(reasons)))
+    pd.DataFrame(history_groups).to_csv(OUTPUT_DIR/'historical_split_manifest.csv', index=False, encoding='utf-8-sig')
 
     names = [
         "WeldingTest_01_OK",
@@ -1020,10 +902,19 @@ def main() -> None:
         development_train,
         development_validation,
     )
+    validation_metrics, _, _, _ = evaluate_models(models, development_validation, None)
+    winner = choose_winner(validation_metrics)
+    selected_supervised = choose_winner(validation_metrics[validation_metrics.family.eq('supervised')])
+    selected_unsupervised = choose_winner(validation_metrics[validation_metrics.family.eq('unsupervised')])
+    selection = {'winner': winner, 'supervised': selected_supervised, 'unsupervised': selected_unsupervised,
+                 'selected_at': datetime.now(timezone.utc).isoformat(),
+                 'rule': 'validation missed_events, fn, false_alarm_events, -f1, fp, fixed complexity order',
+                 'complexity_order': COMPLEXITY_ORDER, 'test_evaluated': False}
+    (OUTPUT_DIR/'selection.json').write_text(json.dumps(selection, indent=2), encoding='utf-8')
+    test_evaluation_started_at = datetime.now(timezone.utc).isoformat()
     metrics, predictions, per_file, reports = evaluate_models(
         models, development_validation, locked_test
     )
-    winner = choose_winner(metrics)
     importance = feature_importance(models)
 
     reverse_train, reverse_validation, _ = split_development_by_cycle(
@@ -1057,7 +948,6 @@ def main() -> None:
     split_manifest.to_csv(OUTPUT_DIR / "split_manifest.csv", index=False, encoding="utf-8-sig")
     importance.to_csv(OUTPUT_DIR / "feature_importance.csv", index=False, encoding="utf-8-sig")
     audit.to_csv(OUTPUT_DIR / "data_quality.csv", index=False, encoding="utf-8-sig")
-    write_data_quality_report(audit, historical_split, split_manifest)
     (OUTPUT_DIR / "classification_reports.json").write_text(
         json.dumps(reports, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -1065,7 +955,7 @@ def main() -> None:
     for detector in models:
         joblib.dump(
             {
-                "pipeline_version": "track-b-final-v2",
+                "pipeline_version": PIPELINE_VERSION,
                 "name": detector.name,
                 "family": detector.family,
                 "model": detector.model,
@@ -1084,9 +974,14 @@ def main() -> None:
         DATA_ROOT / "preprocessed" / "test" / "WeldingTest_04_NG_Label.csv",
     ]
     manifest = {
-        "pipeline_version": "track-b-final-v2",
+        "pipeline_version": PIPELINE_VERSION,
         "seed": SEED,
-        "evaluation_protocol": "independent_file_holdout",
+        "evaluation_protocol": "retrospective_reused_file_holdout",
+        "external_validation_completed": False,
+        "selection": selection,
+        "test_evaluation_started_at": test_evaluation_started_at,
+        "default_supervised": selected_supervised,
+        "default_unsupervised": selected_unsupervised,
         "development_files": ["WeldingTest_01_OK", "WeldingTest_03_NG"],
         "locked_test_files": ["WeldingTest_02_OK", "WeldingTest_04_NG"],
         "winner_selected_on_validation": winner,
@@ -1099,19 +994,29 @@ def main() -> None:
         "data_sha256": {str(path.relative_to(PROJECT_ROOT)): sha256(path) for path in data_paths},
         "pipeline_sha256": sha256(Path(__file__)),
     }
+    import importlib.metadata
+    import platform
+    import pdm_evaluation as evidence
+    manifest['environment'] = {'python': platform.python_version(), **{
+        name: importlib.metadata.version(name) for name in ['numpy', 'pandas', 'scikit-learn', 'lightgbm', 'joblib']}}
+    manifest['source_sha256'] = {str(p.relative_to(PROJECT_ROOT.parent)):sha256(p) for p in [
+        Path(__file__), PROJECT_ROOT/'src/pdm_contract.py', PROJECT_ROOT/'src/pdm_evaluation.py',
+        PROJECT_ROOT.parent/'backend/maintenance_policy.py', PROJECT_ROOT/'docs/TRAINING_PLAN_V3.md']}
+    manifest['model_sha256'] = {p.name:sha256(p) for p in MODEL_DIR.glob('*.joblib')}
+    manifest['alarm_policy'] = evidence.POLICY
+    operating = evidence.all_operational(models, development_validation, locked_test)
+    operating.to_csv(OUTPUT_DIR/'operational_metrics.csv', index=False, encoding='utf-8-sig')
+    sensitivity, forward, forward_split = evidence.supplementary(
+        __import__(__name__), models, historical, historical_train, historical_calibration, tests, locked_test)
+    # When executed as a script, __import__('__main__') is this fitted pipeline.
+    sensitivity.to_csv(OUTPUT_DIR/'sensitivity_metrics.csv', index=False, encoding='utf-8-sig')
+    forward.to_csv(OUTPUT_DIR/'forward_time_metrics.csv', index=False, encoding='utf-8-sig')
+    manifest['forward_time_split'] = forward_split
     (OUTPUT_DIR / "run_manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2, default=str), encoding="utf-8"
     )
     plot_results(metrics, predictions, importance)
-    write_report(
-        metrics,
-        per_file,
-        reverse_stress,
-        winner,
-        historical_split,
-        split_manifest,
-        importance,
-    )
+    evidence.write_report(__import__(__name__), manifest, metrics, operating, sensitivity, forward)
 
     print(metrics.to_string(index=False))
     print(f"Winner selected on validation: {winner}")

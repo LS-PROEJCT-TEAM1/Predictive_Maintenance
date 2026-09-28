@@ -1,8 +1,8 @@
 {
   "format": "firestore-document-jsonl-v1",
   "schemaVersion": 3,
-  "dataVersion": "2026-09-27.v3",
-  "supersedes": "2026-09-26.v2",
+  "dataVersion": "2026-09-27.v4",
+  "supersedes": "2026-09-27.v3",
   "deploymentStatus": "local_only_pending_upload",
   "sourceArtifacts": [
     {
@@ -39,7 +39,7 @@
     },
     {
       "path": "배터리 예지보전 모델/firestore/seed/anomaly_events.jsonl",
-      "sha256": "69c0cfd615d465d427fbef7f84d2ec763def1f1706ee3d1cf6371d7932d23314"
+      "sha256": "1600c6dd6d4d5122a214d6c56a622eb8b7a3f8cda0f1920b80acc9fe0857c0ae"
     },
     {
       "path": "배터리 예지보전 모델/firestore/seed/data_quality.jsonl",
@@ -47,15 +47,15 @@
     },
     {
       "path": "배터리 예지보전 모델/firestore/seed/measurements.jsonl",
-      "sha256": "15ed173bea6a94669b00b5ab5a086f5df4be0a4b503f6fcd39cb8ccc08795e92"
+      "sha256": "042190805be3876f25da52a3bd1cc08a8a9f6f6574d443500c1f9c5d0ff9c42b"
     },
     {
       "path": "배터리 예지보전 모델/firestore/seed/model_evaluations.jsonl",
-      "sha256": "1f16b4f8e0358b759edfa308066e450cf175328fea766688bfebf84aa33827fc"
+      "sha256": "dba411929252c2823cc25765ef6325ff69ca0af8af9ae6eb263a95d85cd98a80"
     },
     {
       "path": "배터리 예지보전 모델/firestore/seed/projects.jsonl",
-      "sha256": "2455140bdcd96ecf223eeed09ee315106f409ab8ae08c75ae16242469cb44b9a"
+      "sha256": "31dfe0ecd8539b97106e28b5d9c97eb7d5f522daf3c0419421f563c81d53c17a"
     },
     {
       "path": "배터리 예지보전 모델/firestore/seed/welding_runs.jsonl",
@@ -112,32 +112,32 @@
   ],
   "workspaceId": "manufacturing-ai",
   "rootDocument": "manufacturingAi/manufacturing-ai",
-  "generatedAt": "2026-09-26T18:17:26.972078+00:00",
+  "generatedAt": "2026-09-27T05:23:41.435439+00:00",
   "files": [
     {
       "file": "core.jsonl",
       "documents": 7,
-      "bytes": 3703,
-      "sha256": "d061f6a02f56cdf303254f7d382fa1469b09c423d596acac5024d81be4e42775"
+      "bytes": 3845,
+      "sha256": "770e7820ded147177462153555399152a969af0e6e48a77cf7e1e5ff88a89afc"
     },
     {
       "file": "demand.jsonl",
       "documents": 128,
       "bytes": 1322667,
-      "sha256": "0d4ce464ced9d5c6ef5e92078fac66b81d66b2523f38ad7c3977dfdfb816485c"
+      "sha256": "c3e5abbea541d1d513f3c8b4f2c70a750dcae4d2108cfa48d94b0194940c2940"
     },
     {
       "file": "maintenance.jsonl",
-      "documents": 99,
-      "bytes": 5234959,
-      "sha256": "021aa329b8626df9000fb88451b50de848f5aa7ae05648c728d482e17a7beca6"
+      "documents": 105,
+      "bytes": 5244164,
+      "sha256": "9261931ce5ca4261b2f147460b1a08d3a42c1ecfdacedbb55961b3cf504082e8"
     },
     {
       "file": "quality.jsonl",
       "documents": 35,
       "bytes": 405276,
-      "sha256": "418cb32afcb6de7f81415d600d189df1e89b9d3101258534fe3746c586199a23"
+      "sha256": "6a2501847f5a323aaef2a5812bc9f770b3283b242ab1eab0ce6ab1da487148a3"
     }
   ],
-  "totalDocuments": 269
+  "totalDocuments": 275
 }

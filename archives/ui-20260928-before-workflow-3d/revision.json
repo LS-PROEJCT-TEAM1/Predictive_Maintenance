@@ -1,0 +1,58 @@
+{
+  "completedAt": "2026-09-28T05:09:54.661969",
+  "files": [
+    {
+      "path": "frontend/app.py",
+      "afterSha256": "00cbe80756f15fcb015488e6d335a7a891e84792c22c9b2cc17c7cf44ddb5d8d"
+    },
+    {
+      "path": "frontend/charts.py",
+      "afterSha256": "a2a112bf2288acccf8b47bbd4117319ca0066e5e4ae39601d83b01566682bc0a"
+    },
+    {
+      "path": "frontend/demand_workspace.py",
+      "afterSha256": "ec22ceff6635edf8c40d56aad0ba7d803d81e5865029d5026a845bc0cffe0b65"
+    },
+    {
+      "path": "frontend/maintenance_workspace.py",
+      "afterSha256": "ec4063fb1ff7a3266a407c65355a7ce57269a16f9da1cf824fe8343607468a5a"
+    },
+    {
+      "path": "frontend/overview_workspace.py",
+      "afterSha256": "4e5ce63b48670f0c0096e7543637b7c7ea33440fafda63026a883204731beb90"
+    },
+    {
+      "path": "frontend/quality_analysis.py",
+      "afterSha256": "683464be9beda56315e147651503e2dc48b23b3cbe11ba69a0535a37af2cdf48"
+    },
+    {
+      "path": "frontend/quality_workspace.py",
+      "afterSha256": "c90523eb61421274c6913fa9d3b508e0bcbea1f21fccb5a94f267cdf3456e72e"
+    },
+    {
+      "path": "frontend/views.py",
+      "afterSha256": "f690dff6c415fe3f1d478896bcb41984734b46913af5b08d725ccda1c7f8cc8d"
+    },
+    {
+      "path": "frontend/assets/theme.css",
+      "afterSha256": "c1d6037e4844b5818bfc5f835aa8fc479c74cf14add75caae9d07d86a09ed7ab"
+    },
+    {
+      "path": "DESIGN.md",
+      "afterSha256": "61d3513024ef7ad011b4f2e042779b7dd54ed570fef15dd1126cb421476d8cd1"
+    },
+    {
+      "path": "frontend/spatial.py",
+      "afterSha256": "fc823073eed2fae24863385d6dd4bbfb0a0498ac822b377bdfbc94687cca98bb"
+    },
+    {
+      "path": "frontend/assets/workflow.js",
+      "afterSha256": "573af047efcfed365598c41dd7e9616b54cf2dcf799293a8bed5d1865c43ab44"
+    },
+    {
+      "path": "backend/tests/test_spatial_ui.py",
+      "afterSha256": "4b64f20b1a08a73785153913547c4d4ef041265dbf3de157772ebc49ffd2dcc7"
+    }
+  ],
+  "followUp": "Fixed front perspective, removed view controls, aligned materials chevron; original pre-redesign rollback remains supported."
+}

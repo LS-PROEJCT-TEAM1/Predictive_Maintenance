@@ -524,9 +524,9 @@ Avoid rainbow dashboards.
 Project identity (user-approved): **BatteryFlow AI 운영센터**.
 Use the provided `ci_img02.png` on the login page and `ci_img20.png` in the sidebar,
 without recoloring or distortion. Do not add a white background behind the sidebar logo.
-Use `font-family: 'noto_d', sans-serif` across the login page, Dash/Mantine UI,
-AG Grid tables, and Plotly charts. The local font family uses Noto Sans KR
-DemiLight for body text, with Medium/Bold files for the existing weight hierarchy.
+Use `font-family: 'SUIT Variable', sans-serif` across login, Dash/Mantine, AG Grid,
+and Plotly. Serve the bundled variable WOFF2 locally. Body weight 400–500,
+headings 600–700; captions must remain readable at 12px or larger.
 
 Typography should be compact and professional.
 
@@ -1189,7 +1189,7 @@ Sidebar behavior:
 - 1920px and larger: 240px sidebar
 - 1600px - 1919px: 224px - 240px sidebar
 - 1366px - 1599px: 216px sidebar
-- Keep the text labels visible at all supported desktop resolutions
+- Keep text labels visible when expanded; users may explicitly collapse to a 72px icon rail
 - Do not replace the sidebar with a mobile hamburger navigation in the primary scope
 - Allow the main page padding to reduce from 24px to 20px or 16px as needed
 
@@ -1385,3 +1385,58 @@ Before completing UI work verify:
  No unnecessary decorative cards
  Reusable CSS exists in assets/theme.css
  Reusable UI components are implemented
+
+
+# 36. User-approved redesign — 2026-09-28
+
+These decisions supersede conflicting earlier sizing and component examples.
+- SUIT Variable is the sole UI font, including charts, tables, login and reports.
+- Expanded sidebar uses the existing desktop widths; an explicit button toggles a
+  72px icon rail. Remember the preference locally. No hover-driven expansion.
+- Menu labels remain accessible with names and focus/hover tooltips in the rail.
+- Align the visible left edge of the original LS logo with BatteryFlow AI.
+  Compensate for transparent image padding using layout, not a modified logo.
+- Use a contiguous KPI band with thin dividers, compact underline tabs and open
+  horizontal filters. Panels use 8px corners, no decorative shadows.
+- Preserve all analytical controls, metrics, data and existing workflows.
+- Copilot remains a right drawer. A simple conversation-title list replaces the
+  history dropdown; do not group by today/yesterday/date. No deletion or renaming
+  functionality in this redesign. The list and conversation alternate within the drawer.
+- Keep the composer anchored at the bottom. Preserve typed input when toggling
+  the list. Sources are expandable; drafts remain an explicit contextual action.
+- Motion 180–220ms only for navigation/feedback; respect reduced motion.
+- No 3D implementation in this revision. No invented model claims or live status.
+
+
+# 37. User-approved operational UX revision — 2026-09-28
+
+This section supersedes the presentation/demo requirements in sections 2, 3.4,
+14.1, 14.2, 34.1, 35 and the no-3D restriction in section 36.
+- Separate presentation materials now exist. Remove project overview, conclusions,
+  shared data/result browser and model validation tabs from the operational UI.
+  Removed content is frozen in archives/ui-20260928-before-workflow-3d.
+- Overview has one summary. Each domain has analysis and review/record steps.
+- Preserve measurement context, raw/corrected values, uncertainty relevant to action,
+  staff confirmations, record history and data-source distinctions.
+- Group upload, report and export into one action menu. Place optional model choices
+  behind an explicit settings disclosure. Do not hide critical anomaly warnings.
+- SUIT Variable body 500, input/table 550, labels 650, headings 750. Keep secondary
+  text at #475569 or equivalent readable contrast; do not render the whole UI thin.
+- Quality uses an interactive 16-module logical 3D pack with 176 cell IDs (or 32
+  temperature channels). Measurements control color, never fabricated geometry.
+- Maintenance uses a 39-position logical PageNo board for one selected cycle.
+  Coordinates are NOT actual equipment/CAD locations. Preserve source row mapping.
+- 3D rotation, selection and camera reset must work. Keep 2D and keyboard/select
+  alternatives. No automatic spinning. Empty/invalid readings must stay distinguishable.
+- Keep LS color semantics and original logo. Retain reduced-motion support.
+
+# 38. Fixed inspection perspective — 2026-09-28
+
+User correction supersedes rotation and 2D controls in section 37.
+- Quality and maintenance use one fixed, centered, elevated front view. All modules
+  and inspection points must be visible at once, with clear depth and neutral frames.
+- No orbit, pan, zoom, camera reset or 3D/2D switch. Keep point selection, hover
+  readings and keyboard-accessible dropdown selection linked to the inspector.
+- Quality has 16 framed modules in four rows; maintenance shows 39 logical points.
+  Geometry is illustrative and is never a claim about physical equipment placement.
+- Align the materials-menu chevron to the label center; avoid font-glyph baselines.

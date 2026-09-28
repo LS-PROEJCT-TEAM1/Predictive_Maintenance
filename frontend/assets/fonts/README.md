@@ -1,3 +1,11 @@
+# SUIT Variable (active UI font)
+
+Bundled from https://github.com/sun-typeface/SUIT/tree/main/fonts/variable/woff2
+SUIT-Variable.woff2, SIL OFL 1.1; license: SUIT-LICENSE.txt.
+Served locally to login, dashboard, tables and charts.
+
+## Retained legacy fonts
+
 # noto_d web fonts
 
 The `noto_d` alias follows the LS website's Noto Sans KR DemiLight definition.

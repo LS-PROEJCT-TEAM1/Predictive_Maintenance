@@ -1,4 +1,4 @@
-# 트랙 B 모델 카드
+# 트랙 B 모델 카드 — track-b-audited-v3
 
 ## 목적
 
@@ -7,13 +7,13 @@
 ## 최종 평가 프로토콜
 
 - 개발 파일: WeldingTest_01_OK, WeldingTest_03_NG
-- 독립 잠금 시험 파일: WeldingTest_02_OK, WeldingTest_04_NG
+- 재사용 파일 회고 시험: WeldingTest_02_OK, WeldingTest_04_NG. 신규 외부 시험이 아니다.
 - 개발 내부 분할 단위: 39행 용접 사이클, 시간순 train/validation
 - 지도학습: Logistic Regression, Random Forest, 현재 RealPower 제외 진단 Logistic
 - 비지도학습: PageNo별 Robust Z-score, LightGBM 정상 출력 회귀·잔차 탐지, Isolation Forest
-- 정상 기준 정제: `Training_Data.csv`의 RealPower 전체 0인 39행 사이클 1개 제외
+- 정상 기준 정제: 0 출력이 있는 사이클 1개와 사이클 내부 시간 역전 1개 격리. 원본 ID 유지 후 사이클 시작 시각으로 정렬.
 - 지도모델 불균형 처리: `class_weight="balanced"` 또는 `balanced_subsample`
-- 모델 선택: validation의 이벤트 누락, FN, 오경보 이벤트, F1, FP, 학습시간 순
+- 모델 선택: validation의 이벤트 누락, FN, 오경보 이벤트, F1, FP 순. 동률은 학습 전 계획의 단순성 순서로 결정한다. 학습시간은 선택에 쓰지 않는다.
 - 최종 보고: 모델 선택에 사용하지 않은 전체 잠금 시험 파일
 - 모든 모델은 동일 test 행·라벨로 평가
 
@@ -22,14 +22,22 @@
 ## 검증 결과 요약
 
 - 최종 선택: RobustPhaseZ
-- 독립 파일 시험: Precision 0.9891, Recall 1.0000, F1 0.9945, FN 0, FP 3
+- 회고 파일 시험: Precision 0.9891, Recall 1.0000, F1 0.9945, FN 0, FP 3
 - 지도 LogisticCurrent: Precision 0.9927, Recall 1.0000, F1 0.9964
 - 비지도 LightGBMResidual: Precision 0.9579, Recall 1.0000, F1 0.9785, FN 0, FP 12
-- 반대 파일 방향 스트레스 테스트에서 지도 모델은 NG03 19개 이벤트를 놓쳤고 RobustPhaseZ는 19개를 모두 탐지했다. 이 고장 유형 강건성 때문에 validation 동률에서 단순하고 계산비용이 낮은 RobustPhaseZ를 선택했다.
+- RobustPhaseZ는 validation 동률에서 사전 정의 단순성 순서로 선택했다. 반대 파일 방향 스트레스와 추가 민감도 결과는 선택에 사용하지 않았다.
+- 기본 운영 조합 LogisticCurrent OR RobustPhaseZ의 사이클 Precision 87.5%, Recall 100%, F1 0.9333, 정상 사이클 FPR 2%. 사이클은 한 행 이상 경보로 정의한다.
+- 모든 시험보다 과거인 정상 자료로 적합·보정한 별도 RobustPhaseZ는 01_OK·02_OK 정상 행 전부를 오경보 처리했다. 시간 변화에 대한 일반화 실패이며 현장 적용 검증은 미완료다.
+
+## 입력과 경보 계약
+
+필수 열·유한한 숫자·공정 번호·날짜·완전한 39행 사이클·시간 증가를 검사한다. 오류 입력은 ValueError로 거부하고 정상 예측 파일을 만들지 않는다. 센서 단위와 물리 범위의 현장 승인은 별도다.
+
+경보는 첫 양성 행에서 시작하고 정상 행 또는 120초 초과 수집 공백에서 끝난다. 사이클 경계만으로 분리하지 않으며 미래 행을 이용한 평활화를 하지 않는다. 모델/정책 버전이 바뀌면 업무 확인 기록의 대상 ID도 달라진다.
 
 ## 배포 모델
 
-모델 파일은 `outputs/track_b_final_v2/models`에 저장된다. 현재 선택 모델은 `run_manifest.json`의 `winner_selected_on_validation`에서 확인한다. 입력 데이터와 파이프라인의 SHA-256도 같은 파일에 기록된다.
+모델 파일은 기존 연동 경로인 `outputs/track_b_final_v2/models`에 저장된다. 실제 버전은 track-b-audited-v3다. 현재 선택 모델, 정책, 입력·코드·계획·모델 SHA-256, 라이브러리 버전은 run_manifest.json에 기록된다. selection.json은 회고 시험 추론 전에 저장된다.
 
 ## 제한사항
 

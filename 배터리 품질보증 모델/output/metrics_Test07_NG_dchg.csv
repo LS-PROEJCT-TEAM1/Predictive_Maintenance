@@ -1,0 +1,2 @@
+accuracy,precision,recall,f_score,tp,tn,fp,fn,n,test_file
+0.7962116263879817,0.1944922547332186,1.0,0.3256484149855908,226,3431,936,0,4593,Test07_NG_dchg

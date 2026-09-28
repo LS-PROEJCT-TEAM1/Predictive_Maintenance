@@ -25,18 +25,19 @@ KAMP 분석실습 가이드북 [단계 ①] ~ [단계 ⑧] 전체 재현 (단일
     python battery_quality_mtadgan.py --mode predict \
         --test-file Test05_NG_chg.csv --test-label Test05_NG_chg_Label.csv
 
-필요 패키지 (가이드북 부록 3)
-    tensorflow==2.5.0, scikit-learn, pandas, numpy, scipy, matplotlib,
-    plotly, pyts, pydot, pydotplus, graphviz
+필요 패키지
+    python -m pip install -r requirements.txt
 """
 
 import argparse
 import collections
 import glob
+import json
 import math
 import os
 import warnings
 
+import joblib
 import numpy as np
 import pandas as pd
 
@@ -82,6 +83,7 @@ PARAMS = {
     "n_critic": 5,
     "learning_rate": 0.0005,        # [코드 67]
     "latent_dim": 20,
+    "seed": 42,
     "shape": [WIN_SIZE, FEATURES_DIM],
     "encoder_input_shape": [WIN_SIZE, FEATURES_DIM],
     "encoder_reshape_shape": [20, 1],
@@ -323,18 +325,52 @@ def rolling_window_sequences(X, index, window_size, target_size, step_size,
             np.asarray(X_index), np.asarray(y_index))
 
 
-def build_model_input(df_signal, aggregate_interval=1, tag=""):
-    """PCA -> 시간집합화 -> [-1,1] 정규화 -> 윈도우 묶음. [코드 54]~[코드 58]"""
-    df = pca_reduce(df_signal, FEATURES_DIM, tag)
+def transform_model_input(df_signal, preprocessor, aggregate_interval=1, tag=""):
+    """학습 데이터에서 고정한 PCA/결측치 대체/스케일러로 입력을 변환한다.
 
-    X, index = time_segments_aggregate(df, interval=aggregate_interval, time_column="date")
-    X = SimpleImputer().fit_transform(X)
-    X = MinMaxScaler(feature_range=(-1, 1)).fit_transform(X)      # [코드 56]
+    테스트 파일마다 PCA와 스케일러를 다시 fit하면 테스트 분포를 미리 사용하는
+    데이터 누수가 된다. 따라서 예측 시에는 학습 단계에서 저장한 변환기만 사용한다.
+    """
+    expected_interval = preprocessor["aggregate_interval"]
+    if aggregate_interval != expected_interval:
+        raise ValueError(
+            "학습 시 aggregate_interval=%d, 예측 요청=%d로 서로 다릅니다."
+            % (expected_interval, aggregate_interval))
 
+    common_cols = preprocessor["common_cols"]
+    missing = [c for c in common_cols if c not in df_signal.columns]
+    if missing:
+        raise ValueError("학습 때 사용한 센서 컬럼 %d개가 없습니다: %s"
+                         % (len(missing), missing[:8]))
+
+    smoothed = diff_smooth_df(
+        df_signal[common_cols].copy(), LAGS_N, DIFFS_N, SMOOTH_N)
+    clean = preprocessor["input_imputer"].transform(smoothed)
+    reduced = preprocessor["pca"].transform(clean)
+    pca_df = pd.DataFrame(
+        np.column_stack([np.arange(1, len(reduced) + 1), reduced]),
+        columns=["date"] + ["pca_%d" % (i + 1) for i in range(FEATURES_DIM)])
+
+    X_agg, index = time_segments_aggregate(
+        pca_df, interval=aggregate_interval, time_column="date")
+    X_agg = preprocessor["aggregate_imputer"].transform(X_agg)
+    X_scaled = preprocessor["scaler"].transform(X_agg)
     X, y, X_index, y_index = rolling_window_sequences(
-        X, index, window_size=WIN_SIZE, target_size=1, step_size=1, target_column=0)
+        X_scaled, index, window_size=WIN_SIZE, target_size=1,
+        step_size=1, target_column=0)
     print("[윈도우] %s X shape = %s, y shape = %s" % (tag, X.shape, y.shape))
     return X, y, X_index, y_index
+
+
+def build_model_input(df_signal, aggregate_interval=1, tag=""):
+    """단일 팩 레거시 모드용: 변환기를 학습하고 입력 및 변환기를 반환한다."""
+    X, y, preprocessor = build_model_input_multi_from_dfs(
+        [df_signal], aggregate_interval=aggregate_interval, tag=tag)
+    X2, y2, X_index, y_index = transform_model_input(
+        df_signal, preprocessor, aggregate_interval=aggregate_interval, tag=tag)
+    # 위의 X/y는 동일한 변환기로 만든 값이다. 인덱스까지 제공하기 위해 변환 결과를 쓴다.
+    assert X.shape == X2.shape and y.shape == y2.shape
+    return X2, y2, X_index, y_index, preprocessor
 
 
 def discover_train_pack_files():
@@ -396,6 +432,70 @@ def _align_pack_columns(dfs, min_coverage=0.9):
     return aligned, dropped, common
 
 
+def build_model_input_multi_from_dfs(raw_dfs, aggregate_interval=1, tag="학습"):
+    """여러 정상 팩에 공통 전처리기를 fit하고 팩별 윈도우를 만든다."""
+    aligned, dropped, common_cols = _align_pack_columns(raw_dfs)
+    if not aligned:
+        raise RuntimeError("학습 팩들의 컬럼을 통일할 수 없습니다.")
+    if dropped:
+        print("컬럼 구성이 달라 제외된 학습 팩: %d개" % dropped)
+    print("학습 팩 %d개 사용 (공통 컬럼수 = %d)" % (len(aligned), len(common_cols)))
+
+    smoothed_packs = [diff_smooth_df(df, LAGS_N, DIFFS_N, SMOOTH_N)
+                      for df in aligned]
+    pooled_smoothed = pd.concat(smoothed_packs, axis=0, ignore_index=True)
+    input_imputer = SimpleImputer().fit(pooled_smoothed)
+    pooled_clean = input_imputer.transform(pooled_smoothed)
+    pca = PCA(n_components=FEATURES_DIM).fit(pooled_clean)
+    print("[PCA] %s 팩 %d개 공통 학습 / 설명분산비 = %s"
+          % (tag, len(aligned), np.round(pca.explained_variance_ratio_, 4)))
+
+    aggregated = []
+    for smoothed in smoothed_packs:
+        clean = input_imputer.transform(smoothed)
+        reduced = pca.transform(clean)
+        pca_df = pd.DataFrame(
+            np.column_stack([np.arange(1, len(reduced) + 1), reduced]),
+            columns=["date"] + ["pca_%d" % (i + 1) for i in range(FEATURES_DIM)])
+        X_agg, index_agg = time_segments_aggregate(
+            pca_df, interval=aggregate_interval, time_column="date")
+        aggregated.append((X_agg, index_agg))
+
+    all_agg = np.concatenate([a for a, _ in aggregated], axis=0)
+    aggregate_imputer = SimpleImputer().fit(all_agg)
+    all_agg_clean = aggregate_imputer.transform(all_agg)
+    scaler = MinMaxScaler(feature_range=(-1, 1)).fit(all_agg_clean)
+
+    X_list, y_list = [], []
+    for X_agg, index_agg in aggregated:
+        X_clean = aggregate_imputer.transform(X_agg)
+        X_scaled = scaler.transform(X_clean)
+        X_win, y_win, _, _ = rolling_window_sequences(
+            X_scaled, index_agg, window_size=WIN_SIZE, target_size=1,
+            step_size=1, target_column=0)
+        if len(X_win):
+            X_list.append(X_win)
+            y_list.append(y_win)
+    if not X_list:
+        raise RuntimeError("윈도우를 만들 수 있는 길이의 학습 팩이 없습니다.")
+
+    preprocessor = {
+        "common_cols": common_cols,
+        "input_imputer": input_imputer,
+        "pca": pca,
+        "aggregate_imputer": aggregate_imputer,
+        "scaler": scaler,
+        "aggregate_interval": aggregate_interval,
+        "window_size": WIN_SIZE,
+        "features_dim": FEATURES_DIM,
+    }
+    X_train = np.concatenate(X_list, axis=0)
+    y_train = np.concatenate(y_list, axis=0)
+    print("[윈도우] %s(전체 팩) X shape = %s, y shape = %s"
+          % (tag, X_train.shape, y_train.shape))
+    return X_train, y_train, preprocessor
+
+
 def build_model_input_multi(train_files, aggregate_interval=1):
     """여러 학습 팩(raw_data/train 전체)을 모아 PCA/[-1,1] 정규화를 공통으로 학습한
     뒤, 팩별로 윈도우를 만들어 이어붙인다.
@@ -424,49 +524,8 @@ def build_model_input_multi(train_files, aggregate_interval=1):
     if not raw_dfs:
         raise RuntimeError("사용 가능한 학습 팩이 하나도 없습니다.")
 
-    aligned, dropped, common_cols = _align_pack_columns(raw_dfs)
-    if not aligned:
-        raise RuntimeError("학습 팩들의 컬럼을 통일할 수 없습니다.")
-    if dropped:
-        print("컬럼 구성이 달라 제외된 학습 팩: %d개" % dropped)
-    print("학습 팩 %d개 사용 (공통 컬럼수 = %d)" % (len(aligned), len(common_cols)))
-
-    # 여러 팩을 모아 PCA를 공통으로 학습 (팩 하나로만 학습하던 것에서 확장)
-    pooled_smoothed = diff_smooth_df(pd.concat(aligned, axis=0, ignore_index=True),
-                                      LAGS_N, DIFFS_N, SMOOTH_N)
-    pca = PCA(n_components=FEATURES_DIM)
-    pca.fit(pooled_smoothed)
-    print("[PCA] 학습 팩 %d개 공통 학습 / 설명분산비 = %s"
-          % (len(aligned), np.round(pca.explained_variance_ratio_, 4)))
-
-    # 팩별로 (공통 PCA로) 축소 -> 시간집합화. 윈도우는 아직 만들지 않는다 (팩 경계 보호).
-    aggregated = []
-    for df in aligned:
-        smoothed = diff_smooth_df(df, LAGS_N, DIFFS_N, SMOOTH_N)
-        reduced = pca.transform(smoothed)
-        rows = [[i + 1] + list(reduced[i]) for i in range(len(reduced))]
-        pca_df = pd.DataFrame(rows, columns=["date"] + ["pca_%d" % (i + 1) for i in range(FEATURES_DIM)])
-        X_agg, index_agg = time_segments_aggregate(pca_df, interval=aggregate_interval, time_column="date")
-        X_agg = SimpleImputer().fit_transform(X_agg)
-        aggregated.append((X_agg, index_agg))
-
-    # MinMaxScaler도 전체 팩을 모아 공통으로 학습 (팩마다 다른 스케일이 아니라 통일된 [-1,1])
-    all_agg = np.concatenate([a for a, _ in aggregated], axis=0)
-    scaler = MinMaxScaler(feature_range=(-1, 1)).fit(all_agg)
-
-    X_list, y_list = [], []
-    for X_agg, index_agg in aggregated:
-        X_scaled = scaler.transform(X_agg)
-        X_win, y_win, _, _ = rolling_window_sequences(
-            X_scaled, index_agg, window_size=WIN_SIZE, target_size=1, step_size=1, target_column=0)
-        if len(X_win):
-            X_list.append(X_win)
-            y_list.append(y_win)
-
-    X_train = np.concatenate(X_list, axis=0)
-    y_train = np.concatenate(y_list, axis=0)
-    print("[윈도우] 학습(전체 팩) X shape = %s, y shape = %s" % (X_train.shape, y_train.shape))
-    return X_train, y_train
+    return build_model_input_multi_from_dfs(
+        raw_dfs, aggregate_interval=aggregate_interval, tag="학습")
 
 
 def run_preprocess_multi(train_files, test_file, test_label, force=False):
@@ -530,6 +589,15 @@ ALL_LABELED_FILES = [
     ("Test04_OK_dchg", "Test04_OK_dchg.csv", "Test04_OK_dchg_Label.csv"),
 ]
 NG_TAGS = [t[0] for t in ALL_LABELED_FILES if "_NG_" in t[0]]
+DEVELOPMENT_FILES = [
+    row for row in ALL_LABELED_FILES
+    if row[0] in ("Test05_NG_chg", "Test09_NG_dchg")
+]
+FINAL_EVAL_FILES = [
+    row for row in ALL_LABELED_FILES
+    if row[0] in ("Test03_OK_chg", "Test04_OK_dchg", "Test06_NG_chg",
+                  "Test07_NG_dchg", "Test08_NG_chg")
+]
 
 
 # =============================================================================
@@ -546,6 +614,7 @@ def _import_tf():
 def build_networks():
     """encoder / generator / critic_x / critic_z 및 조합 모델 생성."""
     tf = _import_tf()
+    tf.keras.utils.set_random_seed(PARAMS["seed"])
     from tensorflow.keras import backend as K
     from tensorflow.keras.layers import (Activation, Bidirectional, Conv1D, Dense,
                                          Dropout, Flatten, Input, Layer, LeakyReLU,
@@ -696,6 +765,26 @@ def save_weights(net, suffix=""):
     print("체크포인트 저장 완료(%s):" % (suffix or "기본"), PATHS["ckpt"])
 
 
+def _preprocessor_path(suffix=""):
+    return os.path.join(PATHS["ckpt"], "preprocessor%s.joblib" % suffix)
+
+
+def save_preprocessor(preprocessor, suffix=""):
+    path = _preprocessor_path(suffix)
+    joblib.dump(preprocessor, path)
+    print("전처리기 저장 완료(%s): %s" % (suffix or "기본", path))
+
+
+def load_preprocessor(suffix=""):
+    path = _preprocessor_path(suffix)
+    if not os.path.isfile(path):
+        raise FileNotFoundError(
+            "학습 전처리기가 없습니다: %s (--mode train 또는 all을 먼저 실행하세요)" % path)
+    preprocessor = joblib.load(path)
+    print("전처리기 불러오기(%s): %s" % (suffix or "기본", path))
+    return preprocessor
+
+
 def plot_networks(net):
     """네트워크 구조도 저장 ([코드 69]). pydot/graphviz 없으면 건너뛴다."""
     if not PARAMS["plot_network"]:
@@ -820,6 +909,11 @@ def train_mtadgan(X, net, epochs=None, ckpt_suffix=""):
               .format(epoch, epochs, cx, cz, g))
 
     save_weights(net, suffix=ckpt_suffix)
+    history_path = os.path.join(
+        PATHS["output"], "training_history_mtadgan%s.csv" % ckpt_suffix)
+    pd.DataFrame(history, columns=["epoch", "critic_x_loss", "critic_z_loss",
+                                   "generator_loss"]).to_csv(history_path, index=False)
+    print("학습 이력 저장:", history_path)
     return history
 
 
@@ -947,8 +1041,11 @@ class Anomaly(object):
         return np.array(new_sequences)
 
     def _find_window_sequences(self, window, z_range, anomaly_padding, min_percent,
-                               window_start, fixed_threshold, threshold_k=3.0):
-        if fixed_threshold:
+                               window_start, fixed_threshold, threshold_k=3.0,
+                               threshold_value=None):
+        if threshold_value is not None:
+            threshold = float(threshold_value)
+        elif fixed_threshold:
             threshold = self._fixed_threshold(window, threshold_k)
         else:
             threshold = self._find_threshold(window, z_range)
@@ -961,7 +1058,8 @@ class Anomaly(object):
                        window_size_portion=None, window_step_size=None,
                        window_step_size_portion=None, min_percent=0.1,
                        anomaly_padding=50, lower_threshold=False,
-                       fixed_threshold=True, threshold_k=3.0, verbose=False):
+                       fixed_threshold=True, threshold_k=3.0,
+                       threshold_value=None, verbose=False):
         """이상 구간(start, end, score) 리스트를 찾는다. [코드 81 (10)]"""
         window_size = window_size or len(errors)
         if window_size_portion:
@@ -977,13 +1075,13 @@ class Anomaly(object):
             window = errors[window_start:window_end]
             sequences.extend(self._find_window_sequences(
                 window, z_range, anomaly_padding, min_percent, window_start,
-                fixed_threshold, threshold_k))
+                fixed_threshold, threshold_k, threshold_value))
             if lower_threshold:
                 mean = window.mean()
                 inverted = mean - (window - mean)
                 sequences.extend(self._find_window_sequences(
                     inverted, z_range, anomaly_padding, min_percent,
-                    window_start, fixed_threshold, threshold_k))
+                    window_start, fixed_threshold, threshold_k, threshold_value))
             window_start += window_step_size
 
         sequences = self._merge_sequences(sequences)
@@ -1239,9 +1337,10 @@ def plot_result(X_windows, z_score, anomaly_sets, length_anom, tag):
     print("결과 그래프 저장:", out)
 
 
-def run_predict_for_file(nets, test_file, test_label, aggregate_interval,
+def run_predict_for_file(nets, preprocessors, test_file, test_label, aggregate_interval,
                           rec_error_type, comb, anomaly_padding, min_percent,
-                          dynamic_threshold, threshold_k, plot=True):
+                          dynamic_threshold, threshold_k, threshold_value=None,
+                          plot=True):
     """학습된 net으로 테스트 파일 1개를 평가한다. --mode predict/all의 단일 파일
     평가와 --mode eval-all(9개 전체)이 같은 로직을 쓰도록 뽑아낸 함수.
 
@@ -1250,7 +1349,13 @@ def run_predict_for_file(nets, test_file, test_label, aggregate_interval,
     비교 모델들이 모드별로 다른 모델을 쓰는 것과 같은 조건으로 맞추기 위함).
     단일 팩 모드(레거시)에서는 nets["chg"]와 nets["dchg"]에 같은 net이 들어있어
     항상 그 net 하나만 쓰인다."""
-    net = nets[get_mode(test_file)]
+    mode = get_mode(test_file)
+    net = nets[mode]
+    preprocessor = preprocessors[mode]
+    selected_threshold = (threshold_value.get(mode) if isinstance(threshold_value, dict)
+                          else threshold_value)
+    selected_padding = (anomaly_padding.get(mode) if isinstance(anomaly_padding, dict)
+                        else anomaly_padding)
     _preprocess_test_file(test_file)
 
     signal_file = os.path.join(PATHS["pre_test"], test_file)
@@ -1259,7 +1364,8 @@ def run_predict_for_file(nets, test_file, test_label, aggregate_interval,
     print("[라벨 데이터]   %s" % anomaly_file)
 
     df_test = pd.read_csv(signal_file)
-    X_test, _, X_index, _ = build_model_input(df_test, aggregate_interval, tag="test")
+    X_test, _, X_index, _ = transform_model_input(
+        df_test, preprocessor, aggregate_interval, tag="test")
 
     y_hat, critic = predict(X_test, net)             # [코드 82]
     print("y_hat.shape =", y_hat.shape, " critic.shape =", critic.shape)
@@ -1273,9 +1379,9 @@ def run_predict_for_file(nets, test_file, test_label, aggregate_interval,
     labels = pd.read_csv(anomaly_file)["label"].values
 
     anomalies = anomaly.find_anomalies(
-        final_scores, true_index, anomaly_padding=anomaly_padding,
+        final_scores, true_index, anomaly_padding=selected_padding,
         min_percent=min_percent, fixed_threshold=not dynamic_threshold,
-        threshold_k=threshold_k)
+        threshold_k=threshold_k, threshold_value=selected_threshold)
     print("탐지된 이상 구간 수:", len(anomalies))
 
     tag = test_file.replace(".csv", "")
@@ -1292,9 +1398,10 @@ def run_predict_for_file(nets, test_file, test_label, aggregate_interval,
     return result
 
 
-def evaluate_all_test_files(nets, aggregate_interval, rec_error_type, comb,
+def evaluate_all_test_files(nets, preprocessors, aggregate_interval, rec_error_type, comb,
                              anomaly_padding, min_percent, dynamic_threshold,
-                             threshold_k):
+                             threshold_k, threshold_value=None, labeled_files=None,
+                             output_name="metrics_mtadgan.csv"):
     """라벨 있는 9개 테스트 파일 전체를 평가하고, common.py의 print_and_save()와
     같은 형식으로 파일별 표 + NG 파일 평균을 출력/저장한다 (다른 비교 모델들과
     같은 방식으로 MTadGAN 성능을 한눈에 비교할 수 있도록).
@@ -1302,11 +1409,14 @@ def evaluate_all_test_files(nets, aggregate_interval, rec_error_type, comb,
     nets: {"chg": <충전용 net>, "dchg": <방전용 net>} - 파일별로 run_predict_for_file
     안에서 알맞은 net을 골라 쓴다."""
     rows = []
-    for tag, raw_name, label_name in ALL_LABELED_FILES:
+    labeled_files = labeled_files or FINAL_EVAL_FILES
+    selected_ng_tags = [t[0] for t in labeled_files if "_NG_" in t[0]]
+    for tag, raw_name, label_name in labeled_files:
         try:
             result = run_predict_for_file(
-                nets, raw_name, label_name, aggregate_interval, rec_error_type,
-                comb, anomaly_padding, min_percent, dynamic_threshold, threshold_k)
+                nets, preprocessors, raw_name, label_name, aggregate_interval, rec_error_type,
+                comb, anomaly_padding, min_percent, dynamic_threshold, threshold_k,
+                threshold_value)
         except Exception as e:
             print("  [%s] 평가 실패, 건너뜀: %s" % (tag, e))
             continue
@@ -1324,15 +1434,78 @@ def evaluate_all_test_files(nets, aggregate_interval, rec_error_type, comb,
     cols = ["test_file", "n", "tp", "fp", "fn", "accuracy", "precision", "recall", "f_score"]
     print(df[[c for c in cols if c in df.columns]].to_string(index=False))
 
-    ng_avg = df[df["test_file"].isin(NG_TAGS)]
+    ng_avg = df[df["test_file"].isin(selected_ng_tags)]
     if len(ng_avg):
         print("\n평균 (NG 파일 기준):")
         print(ng_avg[["precision", "recall", "f_score"]].mean().round(4).to_string())
 
-    out_path = os.path.join(PATHS["output"], "metrics_mtadgan.csv")
+    out_path = os.path.join(PATHS["output"], output_name)
     df.to_csv(out_path, index=False)
     print("\n저장:", out_path)
     return df
+
+
+def calibrate_normal_threshold(nets, preprocessors, train_files_by_mode,
+                               aggregate_interval, rec_error_type, comb,
+                               quantile=0.99):
+    """정상 학습 팩의 MTadGAN 점수만으로 절대 임계값을 고정한다."""
+    score_parts = []
+    score_parts_by_mode = {"chg": [], "dchg": []}
+    rows = []
+    anomaly = Anomaly()
+    for mode, train_files in train_files_by_mode.items():
+        for fname in train_files:
+            path = os.path.join(PATHS["pre_train"], fname)
+            df = pd.read_csv(path)
+            X, _, X_index, _ = transform_model_input(
+                df, preprocessors[mode], aggregate_interval, tag="calibration %s" % fname)
+            y_hat, critic = predict(X, nets[mode])
+            scores, _, _, _ = anomaly.score_anomalies(
+                X, y_hat, critic, X_index,
+                rec_error_type=rec_error_type, comb=comb)
+            scores = np.asarray(scores, dtype=float)
+            score_parts.append(scores)
+            score_parts_by_mode[mode].append(scores)
+            rows.append({
+                "mode": mode,
+                "file": fname,
+                "n": len(scores),
+                "score_mean": float(np.mean(scores)),
+                "score_std": float(np.std(scores)),
+                "score_q99": float(np.quantile(scores, 0.99)),
+            })
+
+    pooled = np.concatenate(score_parts)
+    threshold_value = float(np.quantile(pooled, quantile))
+    threshold_grid_by_mode = {}
+    for mode, parts in score_parts_by_mode.items():
+        mode_scores = np.concatenate(parts)
+        threshold_grid_by_mode[mode] = {
+            str(q): float(np.quantile(mode_scores, q))
+            for q in (0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
+        }
+    summary = {
+        "method": "normal_training_score_quantile",
+        "quantile": float(quantile),
+        "threshold_value": threshold_value,
+        "threshold_grid_by_mode": threshold_grid_by_mode,
+        "normal_score_count": int(len(pooled)),
+        "train_files": {k: list(v) for k, v in train_files_by_mode.items()},
+        "rec_error_type": rec_error_type,
+        "comb": comb,
+        "aggregate_interval": int(aggregate_interval),
+        "window_size": int(WIN_SIZE),
+        "seed": int(PARAMS["seed"]),
+    }
+    csv_path = os.path.join(PATHS["output"], "mtadgan_normal_calibration.csv")
+    json_path = os.path.join(PATHS["output"], "mtadgan_detection_config.json")
+    pd.DataFrame(rows).to_csv(csv_path, index=False)
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, ensure_ascii=False, indent=2)
+    print("정상 학습 점수 %d개의 %.3f 분위수 임계값 = %.8f"
+          % (len(pooled), quantile, threshold_value))
+    print("보정 결과 저장:", csv_path, json_path)
+    return summary
 
 
 # =============================================================================
@@ -1343,7 +1516,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="배터리팩 품질보증 - MTadGAN 분석실습 (KAMP 가이드북)")
     parser.add_argument("--mode", default="all",
-                        choices=["preprocess", "train", "predict", "all", "eval-all"],
+                        choices=["preprocess", "train", "predict", "all", "calibrate",
+                                 "eval-all"],
                         help="'eval-all'은 학습된 모델로 라벨 있는 9개 테스트 파일 전체를 "
                              "평가하고, 다른 비교 모델들과 같은 형식(파일별 표 + NG 파일 평균)"
                              "으로 결과를 낸다 (학습은 미리 --mode train으로 해둬야 함).")
@@ -1352,16 +1526,20 @@ def main():
                              "모아 학습한다 (Hotelling/Isolation Forest/LSTM Autoencoder/"
                              "RandomForest 비교 모델들과 학습 데이터 조건을 통일하기 위함). "
                              "'1000_chg.csv'처럼 특정 파일명을 주면 그 팩 하나만으로 학습한다.")
-    parser.add_argument("--train-limit", type=int, default=10,
+    parser.add_argument("--train-limit", type=int, default=5,
                         help="'--train-file all'일 때 충전/방전 각각 사용할 팩 개수를 "
-                             "제한한다 (기본 10개씩, 합쳐서 최대 20개 파일 - common.py 기반 "
-                             "비교 모델들의 load_all_normalized(train_limit=10)과 동일한 조건). "
+                             "제한한다 (기본 5개씩, 합쳐서 10개 파일 - 현재 PCA 최종 모델과 "
+                             "동일한 정상 학습 범위). "
                              "0 또는 음수를 주면 제한 없이 전체 팩을 다 쓴다.")
     parser.add_argument("--force-preprocess", action="store_true",
                         help="이미 전처리된 학습 팩이 있어도 다시 전처리한다 (원본 파일을 바꿨을 때만 필요).")
     parser.add_argument("--test-file", default="Test07_NG_dchg.csv")
     parser.add_argument("--test-label", default="Test07_NG_dchg_Label.csv")
     parser.add_argument("--epochs", type=int, default=PARAMS["epochs"])
+    parser.add_argument("--seed", type=int, default=PARAMS["seed"],
+                        help="재현 가능한 초기화/학습 셔플용 난수 시드")
+    parser.add_argument("--resume", action="store_true",
+                        help="train/all 모드에서 기존 가중치를 불러와 이어 학습")
     parser.add_argument("--aggregate-interval", type=int, default=1)
     parser.add_argument("--rec-error-type", default="point",
                         choices=["point", "area", "dtw"])
@@ -1370,16 +1548,37 @@ def main():
                         help="이상 구간 앞뒤로 덧붙이는 폭 (클수록 재현율↑)")
     parser.add_argument("--threshold-k", type=float, default=3.0,
                         help="고정 임계값 = mean + k*std (작을수록 민감, 재현율↑)")
+    parser.add_argument("--threshold-value", type=float, default=None,
+                        help="테스트 분포로 다시 계산하지 않고 사용할 절대 이상점수 임계값")
+    parser.add_argument("--operating-config", default=None,
+                        help="calibration 결과에서 선택한 충전/방전별 임계값 JSON")
+    parser.add_argument("--threshold-quantile", type=float, default=0.99,
+                        help="calibrate 모드에서 정상 학습 점수 임계값으로 쓸 분위수")
     parser.add_argument("--min-percent", type=float, default=0.1,
                         help="이상 후보 가지치기 기준 (작을수록 덜 버림)")
     parser.add_argument("--dynamic-threshold", action="store_true",
                         help="고정 임계값 대신 z_cost 최소화 동적 임계값 사용")
     parser.add_argument("--sweep", action="store_true",
                         help="학습 없이 탐지 파라미터(k, padding) 격자 탐색 후 표 출력")
+    parser.add_argument("--eval-split", default="final",
+                        choices=["final", "development", "all"],
+                        help="eval-all 평가 범위. final은 잠금 최종시험(Test03/04/06/07/08), "
+                             "development는 임계값 개발용(Test05/09), all은 9개 전체")
     args_cli = parser.parse_args()
 
     ensure_dirs()
     PARAMS["epochs"] = args_cli.epochs
+    PARAMS["seed"] = args_cli.seed
+    np.random.seed(args_cli.seed)
+
+    resolved_threshold_value = args_cli.threshold_value
+    resolved_anomaly_padding = args_cli.anomaly_padding
+    if args_cli.operating_config:
+        with open(args_cli.operating_config, "r", encoding="utf-8") as f:
+            operating_config = json.load(f)
+        resolved_threshold_value = operating_config["threshold_by_mode"]
+        resolved_anomaly_padding = operating_config["anomaly_padding"]
+        print("운영점 설정 불러오기:", args_cli.operating_config)
 
     print("=" * 62)
     print("배터리팩 품질보증 AI - MTadGAN")
@@ -1412,31 +1611,55 @@ def main():
     # 단일 팩(--train-file 1000_chg.csv 등) 레거시 모드는 예전처럼 net 1개만 쓴다.
     if use_all_packs:
         net_chg = build_networks()
-        load_weights_if_any(net_chg, suffix="_chg")
+        if args_cli.mode in ("predict", "calibrate", "eval-all") or args_cli.resume:
+            load_weights_if_any(net_chg, suffix="_chg")
+        else:
+            print("충전 모델: 새 가중치로 학습 시작")
         plot_networks(net_chg)
         net_dchg = build_networks()
-        load_weights_if_any(net_dchg, suffix="_dchg")
+        if args_cli.mode in ("predict", "calibrate", "eval-all") or args_cli.resume:
+            load_weights_if_any(net_dchg, suffix="_dchg")
+        else:
+            print("방전 모델: 새 가중치로 학습 시작")
         plot_networks(net_dchg)
         nets = {"chg": net_chg, "dchg": net_dchg}
     else:
         net = build_networks()
-        load_weights_if_any(net)
+        if args_cli.mode in ("predict", "calibrate", "eval-all") or args_cli.resume:
+            load_weights_if_any(net)
+        else:
+            print("단일 팩 모델: 새 가중치로 학습 시작")
         plot_networks(net)
         nets = {"chg": net, "dchg": net}
+
+    preprocessors = {}
+    if args_cli.mode in ("predict", "calibrate", "eval-all"):
+        if use_all_packs:
+            preprocessors = {
+                "chg": load_preprocessor("_chg"),
+                "dchg": load_preprocessor("_dchg"),
+            }
+        else:
+            preprocessor = load_preprocessor()
+            preprocessors = {"chg": preprocessor, "dchg": preprocessor}
 
     # ---------- [단계 ②③⑤] 학습 ----------
     if args_cli.mode in ("train", "all"):
         if use_all_packs:
             train_files_chg = _discover_train_files_by_mode("chg")
             print("\n[학습 데이터-충전] raw_data/train 팩 %d개 사용" % len(train_files_chg))
-            X_train_chg, _ = build_model_input_multi(
+            X_train_chg, _, preprocessor_chg = build_model_input_multi(
                 train_files_chg, aggregate_interval=args_cli.aggregate_interval)
+            preprocessors["chg"] = preprocessor_chg
+            save_preprocessor(preprocessor_chg, "_chg")
             train_mtadgan(X_train_chg, nets["chg"], epochs=PARAMS["epochs"], ckpt_suffix="_chg")
 
             train_files_dchg = _discover_train_files_by_mode("dchg")
             print("\n[학습 데이터-방전] raw_data/train 팩 %d개 사용" % len(train_files_dchg))
-            X_train_dchg, _ = build_model_input_multi(
+            X_train_dchg, _, preprocessor_dchg = build_model_input_multi(
                 train_files_dchg, aggregate_interval=args_cli.aggregate_interval)
+            preprocessors["dchg"] = preprocessor_dchg
+            save_preprocessor(preprocessor_dchg, "_dchg")
             train_mtadgan(X_train_dchg, nets["dchg"], epochs=PARAMS["epochs"], ckpt_suffix="_dchg")
         else:
             train_args = Args(
@@ -1446,9 +1669,23 @@ def main():
             print("\n[학습 데이터] %s" % train_args.signal_file)
 
             df_train = pd.read_csv(train_args.signal_file)
-            X_train, _, _, _ = build_model_input(
+            X_train, _, _, _, preprocessor = build_model_input(
                 df_train, train_args.aggregate_interval, tag="train")
+            preprocessors = {"chg": preprocessor, "dchg": preprocessor}
+            save_preprocessor(preprocessor)
             train_mtadgan(X_train, net, epochs=PARAMS["epochs"])
+
+    # ---------- 정상 학습 점수로 절대 임계값 보정 ----------
+    if args_cli.mode == "calibrate":
+        if not use_all_packs:
+            raise ValueError("calibrate 모드는 --train-file all에서만 지원합니다.")
+        calibrate_normal_threshold(
+            nets, preprocessors,
+            {"chg": _discover_train_files_by_mode("chg"),
+             "dchg": _discover_train_files_by_mode("dchg")},
+            args_cli.aggregate_interval, args_cli.rec_error_type, args_cli.comb,
+            quantile=args_cli.threshold_quantile)
+        return
 
     # ---------- [단계 ⑥⑦⑧] 테스트 ----------
     if args_cli.mode in ("predict", "all"):
@@ -1464,8 +1701,9 @@ def main():
         print("[라벨 데이터]   %s" % test_args.anomaly_file)
 
         df_test = pd.read_csv(test_args.signal_file)
-        X_test, _, X_index, _ = build_model_input(
-            df_test, test_args.aggregate_interval, tag="test")
+        X_test, _, X_index, _ = transform_model_input(
+            df_test, preprocessors[get_mode(args_cli.test_file)],
+            test_args.aggregate_interval, tag="test")
 
         y_hat, critic = predict(X_test, net_for_predict)  # [코드 82]
         print("y_hat.shape =", y_hat.shape, " critic.shape =", critic.shape)
@@ -1506,10 +1744,13 @@ def main():
             return
 
         anomalies = anomaly.find_anomalies(
-            final_scores, true_index, anomaly_padding=args_cli.anomaly_padding,
+            final_scores, true_index, anomaly_padding=resolved_anomaly_padding,
             min_percent=args_cli.min_percent,
             fixed_threshold=not args_cli.dynamic_threshold,
-            threshold_k=args_cli.threshold_k)
+            threshold_k=args_cli.threshold_k,
+            threshold_value=(resolved_threshold_value.get(get_mode(args_cli.test_file))
+                             if isinstance(resolved_threshold_value, dict)
+                             else resolved_threshold_value))
         print("탐지된 이상 구간 수:", len(anomalies))
 
         tag = args_cli.test_file.replace(".csv", "")
@@ -1525,10 +1766,19 @@ def main():
 
     # ---------- [단계 ⑥⑦⑧] 라벨 있는 9개 파일 전체 평가 ----------
     if args_cli.mode == "eval-all":
+        labeled_files = {
+            "final": FINAL_EVAL_FILES,
+            "development": DEVELOPMENT_FILES,
+            "all": ALL_LABELED_FILES,
+        }[args_cli.eval_split]
+        threshold_mode = "normal_locked" if resolved_threshold_value is not None else "test_adaptive"
+        output_name = "metrics_mtadgan_%s_%s.csv" % (threshold_mode, args_cli.eval_split)
         evaluate_all_test_files(
-            nets, args_cli.aggregate_interval, args_cli.rec_error_type, args_cli.comb,
-            args_cli.anomaly_padding, args_cli.min_percent, args_cli.dynamic_threshold,
-            args_cli.threshold_k)
+            nets, preprocessors, args_cli.aggregate_interval,
+            args_cli.rec_error_type, args_cli.comb,
+            resolved_anomaly_padding, args_cli.min_percent, args_cli.dynamic_threshold,
+            args_cli.threshold_k, resolved_threshold_value,
+            labeled_files=labeled_files, output_name=output_name)
 
 
 if __name__ == "__main__":

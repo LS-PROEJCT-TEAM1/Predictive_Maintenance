@@ -11,14 +11,21 @@ from backend.copilot import SOURCES
 
 def files():
     selected = set()
-    for directory in ('backend', 'frontend', 'runtime', 'firestore/seed'):
+    for directory in ('backend', 'frontend', 'runtime', 'firestore/seed', 'archives/ui-20260928-before-workflow-3d'):
         for path in (ROOT / directory).rglob('*'):
             if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc', '.log'):
                 selected.add(path)
     for relative in ('README.md', 'DESIGN.md', 'AGENTS.md', '.gitignore', '.gitattributes', 'LOCAL_RUN.md', 'TEAM_SETUP.md',
                      'requirements-local.txt', 'run_local.py', 'setup_local.cmd', 'start_demo.cmd',
                      'start_local.cmd', 'start_local.ps1', 'scripts/team_bundle.py',
-                     'scripts/package_runtime.py', '발주량 예측 모델/src/inference.py',
+                     'CONNECTED_WORKFLOW_VERIFICATION.md', 'COPILOT_TEST_SCENARIOS.md',
+                     'scripts/verify_connected_workflow.py', 'scripts/evaluate_copilot.py',
+                     'scripts/package_runtime.py', 'scripts/package_quality.py',
+                     'scripts/package_maintenance.py', 'scripts/package_demand_evidence.py',
+                     'firestore/DEPLOYMENT_STATUS.md', 'firestore/README.md',
+                     'firestore/sync_official_seed.py', 'firestore/build_unified_seed.py',
+                     'firestore/requirements.txt', 'firestore/releases/2026-09-28.v4-verified.json',
+                     '발주량 예측 모델/src/inference.py',
                      '발주량 예측 모델/src/demand_contract.py'):
         selected.add(ROOT / relative)
     for _, relative in SOURCES.values():

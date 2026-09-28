@@ -1,0 +1,572 @@
+{
+  "cutoff": "2021-10-21",
+  "mapping": {
+    "Part 0": [
+      "Part 48",
+      "Part 1",
+      "Part 112"
+    ],
+    "Part 1": [
+      "Part 57",
+      "Part 48",
+      "Part 110"
+    ],
+    "Part 10": [
+      "Part 45",
+      "Part 28",
+      "Part 85"
+    ],
+    "Part 100": [
+      "Part 116",
+      "Part 59",
+      "Part 107"
+    ],
+    "Part 101": [
+      "Part 75",
+      "Part 85",
+      "Part 94"
+    ],
+    "Part 102": [
+      "Part 86",
+      "Part 97",
+      "Part 103"
+    ],
+    "Part 103": [
+      "Part 57",
+      "Part 97",
+      "Part 55"
+    ],
+    "Part 104": [
+      "Part 50",
+      "Part 51",
+      "Part 2"
+    ],
+    "Part 105": [
+      "Part 89",
+      "Part 52",
+      "Part 55"
+    ],
+    "Part 106": [
+      "Part 92",
+      "Part 91",
+      "Part 28"
+    ],
+    "Part 107": [
+      "Part 59",
+      "Part 37",
+      "Part 60"
+    ],
+    "Part 108": [
+      "Part 109",
+      "Part 107",
+      "Part 30"
+    ],
+    "Part 109": [
+      "Part 108",
+      "Part 52",
+      "Part 95"
+    ],
+    "Part 11": [
+      "Part 43",
+      "Part 73",
+      "Part 78"
+    ],
+    "Part 110": [
+      "Part 96",
+      "Part 93",
+      "Part 88"
+    ],
+    "Part 111": [
+      "Part 96",
+      "Part 93",
+      "Part 7"
+    ],
+    "Part 112": [
+      "Part 0",
+      "Part 86",
+      "Part 48"
+    ],
+    "Part 113": [
+      "Part 42",
+      "Part 76",
+      "Part 61"
+    ],
+    "Part 114": [],
+    "Part 115": [],
+    "Part 116": [
+      "Part 100",
+      "Part 17",
+      "Part 36"
+    ],
+    "Part 12": [
+      "Part 43",
+      "Part 58",
+      "Part 77"
+    ],
+    "Part 13": [
+      "Part 111",
+      "Part 22",
+      "Part 1"
+    ],
+    "Part 14": [
+      "Part 17",
+      "Part 97",
+      "Part 27"
+    ],
+    "Part 15": [
+      "Part 45",
+      "Part 55",
+      "Part 27"
+    ],
+    "Part 16": [
+      "Part 29",
+      "Part 27",
+      "Part 73"
+    ],
+    "Part 17": [
+      "Part 116",
+      "Part 97",
+      "Part 14"
+    ],
+    "Part 18": [
+      "Part 29",
+      "Part 27",
+      "Part 6"
+    ],
+    "Part 19": [
+      "Part 6",
+      "Part 30",
+      "Part 107"
+    ],
+    "Part 2": [
+      "Part 6",
+      "Part 116",
+      "Part 45"
+    ],
+    "Part 20": [
+      "Part 97",
+      "Part 25",
+      "Part 17"
+    ],
+    "Part 22": [
+      "Part 94",
+      "Part 29",
+      "Part 75"
+    ],
+    "Part 23": [
+      "Part 96",
+      "Part 93",
+      "Part 110"
+    ],
+    "Part 24": [
+      "Part 45",
+      "Part 28",
+      "Part 92"
+    ],
+    "Part 25": [
+      "Part 82",
+      "Part 81",
+      "Part 83"
+    ],
+    "Part 27": [
+      "Part 29",
+      "Part 16",
+      "Part 92"
+    ],
+    "Part 28": [
+      "Part 45",
+      "Part 24",
+      "Part 10"
+    ],
+    "Part 29": [
+      "Part 27",
+      "Part 16",
+      "Part 18"
+    ],
+    "Part 3": [
+      "Part 90",
+      "Part 87",
+      "Part 89"
+    ],
+    "Part 30": [
+      "Part 60",
+      "Part 66",
+      "Part 56"
+    ],
+    "Part 31": [
+      "Part 47",
+      "Part 35",
+      "Part 62"
+    ],
+    "Part 32": [
+      "Part 37",
+      "Part 45",
+      "Part 107"
+    ],
+    "Part 33": [
+      "Part 25",
+      "Part 54",
+      "Part 69"
+    ],
+    "Part 34": [
+      "Part 73",
+      "Part 78",
+      "Part 77"
+    ],
+    "Part 35": [
+      "Part 31",
+      "Part 116",
+      "Part 53"
+    ],
+    "Part 36": [
+      "Part 116",
+      "Part 17",
+      "Part 35"
+    ],
+    "Part 37": [
+      "Part 32",
+      "Part 107",
+      "Part 45"
+    ],
+    "Part 38": [
+      "Part 60",
+      "Part 66",
+      "Part 45"
+    ],
+    "Part 39": [
+      "Part 41",
+      "Part 61",
+      "Part 67"
+    ],
+    "Part 4": [
+      "Part 2",
+      "Part 67",
+      "Part 61"
+    ],
+    "Part 40": [
+      "Part 49",
+      "Part 47",
+      "Part 31"
+    ],
+    "Part 41": [
+      "Part 61",
+      "Part 67",
+      "Part 39"
+    ],
+    "Part 42": [
+      "Part 45",
+      "Part 49",
+      "Part 61"
+    ],
+    "Part 43": [
+      "Part 44",
+      "Part 11",
+      "Part 46"
+    ],
+    "Part 44": [
+      "Part 45",
+      "Part 43",
+      "Part 116"
+    ],
+    "Part 45": [
+      "Part 24",
+      "Part 28",
+      "Part 10"
+    ],
+    "Part 46": [
+      "Part 45",
+      "Part 43",
+      "Part 44"
+    ],
+    "Part 47": [
+      "Part 62",
+      "Part 68",
+      "Part 31"
+    ],
+    "Part 48": [
+      "Part 3",
+      "Part 1",
+      "Part 57"
+    ],
+    "Part 49": [
+      "Part 62",
+      "Part 68",
+      "Part 42"
+    ],
+    "Part 5": [
+      "Part 81",
+      "Part 82",
+      "Part 80"
+    ],
+    "Part 50": [
+      "Part 39",
+      "Part 68",
+      "Part 62"
+    ],
+    "Part 51": [
+      "Part 70",
+      "Part 64",
+      "Part 39"
+    ],
+    "Part 52": [
+      "Part 109",
+      "Part 5",
+      "Part 42"
+    ],
+    "Part 53": [
+      "Part 69",
+      "Part 63",
+      "Part 35"
+    ],
+    "Part 54": [
+      "Part 84",
+      "Part 83",
+      "Part 74"
+    ],
+    "Part 55": [
+      "Part 103",
+      "Part 57",
+      "Part 15"
+    ],
+    "Part 56": [
+      "Part 60",
+      "Part 66",
+      "Part 71"
+    ],
+    "Part 57": [
+      "Part 1",
+      "Part 103",
+      "Part 25"
+    ],
+    "Part 58": [
+      "Part 56",
+      "Part 60",
+      "Part 66"
+    ],
+    "Part 59": [
+      "Part 107",
+      "Part 56",
+      "Part 60"
+    ],
+    "Part 6": [
+      "Part 2",
+      "Part 29",
+      "Part 18"
+    ],
+    "Part 60": [
+      "Part 66",
+      "Part 56",
+      "Part 30"
+    ],
+    "Part 61": [
+      "Part 67",
+      "Part 41",
+      "Part 39"
+    ],
+    "Part 62": [
+      "Part 68",
+      "Part 47",
+      "Part 31"
+    ],
+    "Part 63": [
+      "Part 69",
+      "Part 53",
+      "Part 67"
+    ],
+    "Part 64": [
+      "Part 70",
+      "Part 51",
+      "Part 67"
+    ],
+    "Part 65": [
+      "Part 71",
+      "Part 56",
+      "Part 66"
+    ],
+    "Part 66": [
+      "Part 60",
+      "Part 56",
+      "Part 30"
+    ],
+    "Part 67": [
+      "Part 61",
+      "Part 41",
+      "Part 39"
+    ],
+    "Part 68": [
+      "Part 62",
+      "Part 47",
+      "Part 31"
+    ],
+    "Part 69": [
+      "Part 63",
+      "Part 53",
+      "Part 67"
+    ],
+    "Part 7": [
+      "Part 8",
+      "Part 9",
+      "Part 34"
+    ],
+    "Part 70": [
+      "Part 64",
+      "Part 51",
+      "Part 67"
+    ],
+    "Part 71": [
+      "Part 65",
+      "Part 56",
+      "Part 66"
+    ],
+    "Part 72": [
+      "Part 60",
+      "Part 66",
+      "Part 32"
+    ],
+    "Part 73": [
+      "Part 78",
+      "Part 77",
+      "Part 82"
+    ],
+    "Part 74": [
+      "Part 54",
+      "Part 84",
+      "Part 83"
+    ],
+    "Part 75": [
+      "Part 101",
+      "Part 94",
+      "Part 38"
+    ],
+    "Part 76": [
+      "Part 110",
+      "Part 45",
+      "Part 93"
+    ],
+    "Part 77": [
+      "Part 78",
+      "Part 73",
+      "Part 82"
+    ],
+    "Part 78": [
+      "Part 73",
+      "Part 77",
+      "Part 82"
+    ],
+    "Part 79": [
+      "Part 78",
+      "Part 73",
+      "Part 77"
+    ],
+    "Part 8": [
+      "Part 7",
+      "Part 9",
+      "Part 34"
+    ],
+    "Part 80": [
+      "Part 81",
+      "Part 83",
+      "Part 84"
+    ],
+    "Part 81": [
+      "Part 80",
+      "Part 83",
+      "Part 84"
+    ],
+    "Part 82": [
+      "Part 81",
+      "Part 83",
+      "Part 84"
+    ],
+    "Part 83": [
+      "Part 84",
+      "Part 81",
+      "Part 80"
+    ],
+    "Part 84": [
+      "Part 83",
+      "Part 81",
+      "Part 80"
+    ],
+    "Part 85": [
+      "Part 45",
+      "Part 10",
+      "Part 91"
+    ],
+    "Part 86": [
+      "Part 97",
+      "Part 102",
+      "Part 14"
+    ],
+    "Part 87": [
+      "Part 90",
+      "Part 91",
+      "Part 3"
+    ],
+    "Part 88": [
+      "Part 110",
+      "Part 76",
+      "Part 62"
+    ],
+    "Part 89": [
+      "Part 3",
+      "Part 105",
+      "Part 55"
+    ],
+    "Part 9": [
+      "Part 7",
+      "Part 8",
+      "Part 34"
+    ],
+    "Part 90": [
+      "Part 87",
+      "Part 91",
+      "Part 3"
+    ],
+    "Part 91": [
+      "Part 90",
+      "Part 87",
+      "Part 106"
+    ],
+    "Part 92": [
+      "Part 95",
+      "Part 27",
+      "Part 28"
+    ],
+    "Part 93": [
+      "Part 96",
+      "Part 110",
+      "Part 111"
+    ],
+    "Part 94": [
+      "Part 60",
+      "Part 66",
+      "Part 75"
+    ],
+    "Part 95": [
+      "Part 92",
+      "Part 28",
+      "Part 45"
+    ],
+    "Part 96": [
+      "Part 93",
+      "Part 110",
+      "Part 111"
+    ],
+    "Part 97": [
+      "Part 17",
+      "Part 14",
+      "Part 86"
+    ],
+    "Part 98": [
+      "Part 2",
+      "Part 51",
+      "Part 94"
+    ],
+    "Part 99": [
+      "Part 100",
+      "Part 107",
+      "Part 59"
+    ]
+  }
+}

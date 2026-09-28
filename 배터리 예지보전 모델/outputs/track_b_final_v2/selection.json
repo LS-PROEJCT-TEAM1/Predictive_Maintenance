@@ -1,0 +1,16 @@
+{
+  "winner": "RobustPhaseZ",
+  "supervised": "LogisticCurrent",
+  "unsupervised": "RobustPhaseZ",
+  "selected_at": "2026-09-27T05:20:13.814443+00:00",
+  "rule": "validation missed_events, fn, false_alarm_events, -f1, fp, fixed complexity order",
+  "complexity_order": [
+    "RobustPhaseZ",
+    "LogisticCurrent",
+    "LightGBMResidual",
+    "RandomForestCurrent",
+    "IsolationForestNormal",
+    "LogisticHistoryOnly"
+  ],
+  "test_evaluated": false
+}

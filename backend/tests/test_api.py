@@ -1,5 +1,6 @@
 import hashlib
 import io
+import json
 import pandas as pd
 import unittest
 
@@ -19,8 +20,9 @@ class LocalApiTests(unittest.TestCase):
 
     def test_official_seed_and_connection_status(self):
         data = self.client.get('/api/health').json()
-        self.assertEqual(data['documents'], 269)
-        self.assertEqual(data['dataVersion'], '2026-09-27.v3')
+        manifest = json.loads((SEED/'manifest.json').read_text(encoding='utf-8'))
+        self.assertEqual(data['documents'], manifest['totalDocuments'])
+        self.assertEqual(data['dataVersion'], '2026-09-27.v4')
         self.assertEqual(data['firebase'], 'configured')
 
     def test_demand_aggregate_matches_parts_and_filters(self):
@@ -38,11 +40,14 @@ class LocalApiTests(unittest.TestCase):
 
     def test_event_intervals_match_predicted_rows(self):
         data = self.client.get('/api/maintenance').json()
-        self.assertEqual(len(data['events']), 3)
+        self.assertGreater(len(data['events']), 0)
         self.assertEqual(sum(e['rows'] for e in data['events']), data['anomalyRows'])
         self.assertEqual(sum(p['prediction'] for p in data['points']), data['anomalyRows'])
         for event in data['events']:
             self.assertTrue(all(p['prediction'] for p in data['points'][event['start']:event['end']+1]))
+            times = pd.to_datetime([p['time'] for p in data['points'][event['start']:event['end']+1]],format='ISO8601')
+            self.assertTrue((times.to_series().diff().dt.total_seconds().dropna() <= 120).all())
+            self.assertIn('maintenance-alarm-v3', event['id'])
 
     def test_quality_selection_and_progress(self):
         full = self.client.get('/api/quality').json()

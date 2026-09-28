@@ -1,0 +1,4 @@
+firebase-admin>=6,<8
+google-cloud-firestore>=2,<3
+pandas>=2,<3
+numpy>=1.26,<3

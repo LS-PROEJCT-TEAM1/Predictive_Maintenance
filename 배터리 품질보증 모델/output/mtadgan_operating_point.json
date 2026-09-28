@@ -1,0 +1,27 @@
+{
+  "selection_data": [
+    "Test05_NG_chg",
+    "Test09_NG_dchg"
+  ],
+  "selection_metric": "pooled_f1",
+  "threshold_source": "normal_training_score_quantile_grid",
+  "threshold_quantile_by_mode": {
+    "chg": 0.5,
+    "dchg": 0.5
+  },
+  "threshold_by_mode": {
+    "chg": 2.0167793173457085,
+    "dchg": 1.7001577561760888
+  },
+  "anomaly_padding": 100,
+  "development_metrics": {
+    "accuracy": 0.5319902814334886,
+    "precision": 0.8740851630073186,
+    "recall": 0.5761429667799584,
+    "f1": 0.694508689618714,
+    "tp": 5255,
+    "tn": 0,
+    "fp": 757,
+    "fn": 3866
+  }
+}

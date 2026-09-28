@@ -8,6 +8,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from backend.runtime_assets import ARTIFACTS, quality_path, artifact_path
+from backend.maintenance_policy import POLICY, alarm_regions
+from backend.quality_evidence import snapshot, defect_evidence, number
 
 ROOT = Path(__file__).resolve().parents[1]
 SEED = ROOT / "firestore/seed"
@@ -23,6 +25,19 @@ def records(frame):
 
 
 class Repository:
+    source_description = '공식 로컬 시드 · 실시간 현장 데이터 아님'
+
+    @classmethod
+    def from_documents(cls, manifest, documents):
+        repo = cls.__new__(cls)
+        repo.manifest = dict(manifest)
+        repo.docs = documents
+        repo.base = manifest['rootDocument']
+        repo.parts = {p['part_number']: p for p in repo.collection('demandParts')}
+        repo.dates = sorted({f['target_date'] for p in repo.parts.values() for f in p['forecasts']})
+        repo.source_description = 'Firestore 공식 분석 자료 · 실시간 현장 데이터 아님'
+        return repo
+
     def __init__(self, seed_dir=SEED):
         self.manifest = json.loads((seed_dir / "manifest.json").read_text(encoding="utf-8"))
         self.docs = {}
@@ -110,29 +125,47 @@ class Repository:
             rows.append({"row": p["sourceRow"], "cycle": p["cycle"], "page": p["pageNo"],
                          "time": p["workingTime"], "power": p["signals"]["realPower"],
                          "expected": p["normalReference"]["expectedPower"], "supRatio": ratio_a, "unsupRatio": ratio_b,
+                         "setPower": p['signals']['setPower'], "speed": p['signals']['speed'],
+                         "length": p['signals']['length'], "gateOnTime": p['signals']['gateOnTime'],
                          "risk": max(ratio_a, ratio_b), "prediction": int(a["prediction"] or b["prediction"]), "label": p["actualLabel"]})
         mask = np.array([r["prediction"] for r in rows], bool)
-        starts = np.flatnonzero(mask & ~np.r_[False, mask[:-1]])
-        ends = np.flatnonzero(mask & ~np.r_[mask[1:], False])
         events = []
-        for i, (a, b) in enumerate(zip(starts, ends), 1):
+        config = self.get('maintenanceConfig')
+        policy = config['alarmPolicy']
+        for i, (a, b) in enumerate(alarm_regions(rows, policy['gapSeconds']), 1):
             segment = rows[a:b+1]
-            events.append({"id": f"{run}:{supervised}:{unsupervised}:{a}-{b}", "event": f"EVT-{i:03d}",
+            events.append({"id": f"{run}:{supervised}:{unsupervised}:{policy['version']}:{config['pipelineVersion']}:{a}-{b}", "event": f"EVT-{i:03d}",
                            "type": "연속 이상" if b-a+1 >= 39 else "고립 이상", "start": int(a), "end": int(b),
                            "rows": int(b-a+1), "maxRisk": round(max(r["risk"] for r in segment), 2),
                            "severity": "위험" if b-a+1 >= 39 else "주의", "run": run})
-        return {"run": run, "supervised": supervised, "unsupervised": unsupervised, "points": rows,
+        cycle_rows = []
+        for cycle in sorted({r['cycle'] for r in rows}):
+            group = [r for r in rows if r['cycle'] == cycle]
+            cycle_rows.append({'cycle':cycle, 'alarmRows':sum(r['prediction'] for r in group),
+                               'prediction':int(any(r['prediction'] for r in group)),
+                               'label':int(any(r['label'] for r in group))})
+        operating = [x for x in self.artifact('maintenance_operational') if x.get('supervised') == supervised
+                     and x.get('unsupervised') == unsupervised and x['split'] == 'locked_test']
+        from backend.maintenance_engine import enrich
+        return enrich({"run": run, "supervised": supervised, "unsupervised": unsupervised, "points": rows,
+                "cycleRows":cycle_rows, "alertCycles":sum(x['prediction'] for x in cycle_rows),
+                "operatingEvaluation":operating[0] if operating else None, "config":config,
                 "events": events, "anomalyRows": int(mask.sum()), "cycles": len({r["cycle"] for r in rows}),
-                "maxRisk": round(max(r["risk"] for r in rows), 2), "version": self.manifest["dataVersion"]}
+                "maxRisk": round(max(r["risk"] for r in rows), 2), "version": self.manifest["dataVersion"]})
 
     @lru_cache(maxsize=5)
-    def quality_raw(self, test):
+    def quality_original(self, test):
         if test not in self.meta()["tests"]:
             raise ValueError("시험 ID를 확인하세요.")
         path = quality_path(test)
         raw = pd.read_csv(path)
         cols = [c for c in raw if __import__('re').fullmatch(r"M\d+(?:CV|T)\d+", c)]
-        clean = raw[cols].apply(pd.to_numeric, errors="coerce")
+        return raw[cols].apply(pd.to_numeric, errors="coerce")
+
+    @lru_cache(maxsize=5)
+    def quality_raw(self, test):
+        clean = self.quality_original(test).copy()
+        cols = list(clean.columns)
         for kind, lo, hi in [("CV", 2, 5), ("T", -20, 100)]:
             cs = [c for c in cols if ("CV" in c) == (kind == "CV")]
             clean[cs] = clean[cs].where(clean[cs].ge(lo) & clean[cs].le(hi))
@@ -143,18 +176,26 @@ class Repository:
                 clean[c] = clean[good].median(axis=1)
         return clean
 
-    def quality(self, test="Test07_NG_dchg", cell="M02CV01", progress=100):
+    def quality(self, test="Test07_NG_dchg", cell="M02CV01", progress=100, basis="clean"):
         doc = dict(self.get("qualityTests", test))
-        raw = self.quality_raw(test)
+        if basis not in ("raw", "clean") or not 1 <= progress <= 100:
+            raise ValueError("표시 기준 또는 진행률을 확인하세요.")
+        original, clean = self.quality_original(test), self.quality_raw(test)
+        raw = original if basis == "raw" else clean
         if cell not in raw or "CV" not in cell:
             raise ValueError("셀 ID를 확인하세요.")
-        limit = max(1, int(len(raw)*progress/100))
+        limit = int((len(raw)-1)*progress/100)+1
         indexes = np.unique(np.linspace(0, limit-1, min(300, limit), dtype=int))
         module = [c for c in raw if c.startswith(cell[:3]) and "CV" in c]
         doc["selectedCell"] = cell
         doc["progress"] = progress
+        doc["basis"] = basis
+        doc["snapshot"] = snapshot(original, clean, limit-1, basis)
+        doc["snapshot"]["progressPct"] = round((limit-1)/max(len(raw)-1, 1)*100, 2)
+        doc["defectEvidence"] = defect_evidence(test, doc["snapshot"])
         doc["cellSeries"] = [{"index": int(i), "progressPct": round(i/max(len(raw)-1, 1)*100, 2),
-                              "cell": float(raw.iloc[i][cell]), "module": float(raw.iloc[i][module].mean())} for i in indexes]
+                              "cell": number(raw.iloc[i][cell]), "module": number(raw.iloc[i][module].replace([np.inf, -np.inf], np.nan).mean()),
+                              "raw": number(original.iloc[i][cell]), "clean": number(clean.iloc[i][cell])} for i in indexes]
         doc["series"] = [r for r in doc["series"] if r["index"] < limit]
         return doc
 
@@ -164,7 +205,10 @@ class Repository:
             return {"rows": config["walkForwardMetrics"], "holdout": config["modelMetrics"], "config": config,
                     "extra": self.artifact("demand_folds"), "partErrors": self.artifact("demand_errors")}
         if track == "maintenance":
-            return {"rows": self.collection("maintenanceModels"), "extra": self.artifact("maintenance_features")}
+            return {"rows": self.collection("maintenanceModels"), "extra": self.artifact("maintenance_features"),
+                    'config':self.get('maintenanceConfig'), 'operational':self.artifact('maintenance_operational'),
+                    'sensitivity':self.artifact('maintenance_sensitivity'), 'forward':self.artifact('maintenance_forward'),
+                    'reverse':self.artifact('maintenance_reverse')}
         if track == "quality":
             config = self.get("qualityConfig")
             return {"rows": self.collection("qualityModels"), "extra": config["crossValidation"],
