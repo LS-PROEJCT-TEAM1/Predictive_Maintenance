@@ -174,7 +174,8 @@ class AuthLogger:
             raise ValueError('unknown auth log event')
         log_id = secrets.token_hex(16)
         at = datetime.now(timezone.utc)
-        pii_values = {'email': (email or '').strip().lower() or None, 'name': (user or {}).get('name'),
+        # Logout carries no typed email, so fall back to the verified account email.
+        pii_values = {'email': (email or (user or {}).get('email') or '').strip().lower() or None, 'name': (user or {}).get('name'),
                       'ip': ip, 'userAgent': (user_agent or '')[:300] or None}
         doc = {
             'schemaVersion': SCHEMA_VERSION,

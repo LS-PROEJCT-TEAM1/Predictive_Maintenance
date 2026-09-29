@@ -21,6 +21,10 @@ def cipher(key_id='k1'):
 
 
 class PasswordService(FakeService):
+    def __init__(self):
+        super().__init__()
+        self.users['a'] = {**self.users['a'], 'email': 'a@example.com'}
+
     def login(self, email, password):
         if email.lower() != 'a@example.com':
             raise HTTPException(403, '직원 접근 권한이 없습니다.')
@@ -108,6 +112,8 @@ class LoginAuditTests(unittest.TestCase):
         self.assertEqual((success['uid'], success['role'], logout['uid']), ('a', 'employee', 'a'))
         self.assertEqual(success['sessionId'], logout['sessionId'])
         self.assertEqual(self.plain(success)['email'], 'a@example.com')
+        self.assertEqual(self.plain(logout)['email'], 'a@example.com')
+        self.assertEqual(logout['emailHmac'], success['emailHmac'])
         self.assertEqual(self.plain(success)['name'], 'Alice')
         self.assertEqual(success['emailHmac'], self.cipher.index('a@example.com'))
         self.assertGreater(success['expireAt'], success['at'])

@@ -58,7 +58,8 @@ class FirebaseService:
         claims = account.custom_claims or {}
         if account.disabled or claims.get('manufacturingRole') not in ('admin', 'employee'):
             raise HTTPException(403, '직원 접근 권한이 없습니다. 관리자에게 문의하세요.')
-        return {'uid': uid, 'name': account.display_name or '직원', 'role': claims['manufacturingRole']}
+        # email lets audit logs identify who signed out; it is encrypted before storage.
+        return {'uid': uid, 'name': account.display_name or '직원', 'role': claims['manufacturingRole'], 'email': account.email or ''}
 
     def login(self, email, password):
         try:

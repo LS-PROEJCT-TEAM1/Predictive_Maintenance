@@ -102,7 +102,7 @@ Firebase 프로젝트/서비스 계정 관리자는 콘솔을 통해 DB 자체�
 | `uid`, `role` | 평문 | Firebase UID(무작위 ID)와 앱 역할. 실패 시 `null` |
 | `sessionId` | SHA-256 앞 16자리 | 로그인과 로그아웃을 연결하는 값. 쿠키 원문은 저장하지 않음 |
 | `emailHmac`, `ipHmac` | HMAC-SHA256 | 복호화 없이 같은 이메일·IP를 찾기 위한 인덱스 |
-| `pii.email`, `pii.name`, `pii.ip`, `pii.userAgent` | **AES-256-GCM** | 필드마다 새 nonce, 문서 ID·필드명을 AAD로 묶어 다른 문서로 옮기면 복호화 실패 |
+| `pii.email`, `pii.name`, `pii.ip`, `pii.userAgent` | **AES-256-GCM** | 필드마다 새 nonce, 문서 ID·필드명을 AAD로 묶어 다른 문서로 옮기면 복호화 실패. 이메일은 로그인·실패 시 입력값, 로그아웃 시 Firebase 계정 이메일(세션 만료는 사용자를 확인할 수 없어 없음) |
 | `keyId`, `schemaVersion` | 평문 | 사용한 키 버전, 문서 형식 버전 |
 
 **비밀번호는 평문·해시 어느 형태로도 저장하지 않습니다.** 비밀번호는 Firebase Authentication이 자체 해시로 관리하며, 서버는 로그인 요청을 Firebase에 전달만 하고 로거에는 넘기지 않습니다.
