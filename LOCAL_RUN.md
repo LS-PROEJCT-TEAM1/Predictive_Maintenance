@@ -2,15 +2,15 @@
 
 ## 실행
 
-Windows에서 `start_local.cmd`를 더블클릭하고 http://127.0.0.1:8070 을 여세요.
+Windows에서 `start_local.cmd`를 더블클릭하면 http://127.0.0.1:8078/login 로그인 화면이 열립니다. 이미 실행 중인 로그인 서버가 있으면 해당 화면을 다시 엽니다.
 터미널에서 실행하려면 프로젝트 루트에서:
 
 ```powershell
-.\.venv\Scripts\python.exe run_local.py
+.\.venv\Scripts\python.exe run_local.py --connected --port 8078 --open-browser
 ```
 
-종료는 실행 창에서 Ctrl+C. 기본 포트는 8070입니다. 충돌 시 `run_local.py --port 8071`로 변경하세요.
-FastAPI API 문서: http://127.0.0.1:8070/docs
+종료는 실행 창에서 Ctrl+C. `start_local.cmd`의 로그인 포트는 8078입니다. 별도 포트가 필요하면 `start_local.cmd --port 8079`로 실행하세요. 체험 전용 `start_demo.cmd`는 8070을 사용합니다.
+FastAPI API 문서: http://127.0.0.1:8078/docs
 
 ## 처음 설치하는 환경
 
@@ -21,7 +21,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-local.txt
 ```
 
-팀원은 **setup_local.cmd → 루트에 .env와 SDK 배치 → start_local.cmd**로 실행합니다. 설정이 없으면 자동 데모입니다. 연결 설정은 [TEAM_SETUP.md](TEAM_SETUP.md)를 기준으로 합니다.
+팀원은 **setup_local.cmd → 루트에 .env와 SDK 배치 → start_local.cmd**로 실행합니다. 설정이 없으면 누락 항목을 알리고 중단합니다. 연결 설정은 [TEAM_SETUP.md](TEAM_SETUP.md)를 기준으로 합니다.
 자세한 절차는 [TEAM_SETUP.md](TEAM_SETUP.md)를 참고하세요.
 CSV 재예측은 앱과 같은 Python 환경 및 `runtime/demand`의 기존 모델을 이용합니다.
 품질 셀 신호는 `runtime/quality`에 포함한 무손실 압축 CSV를 읽습니다.
@@ -43,7 +43,7 @@ CSV 재예측은 앱과 같은 Python 환경 및 `runtime/demand`의 기존 모�
 
 - 연결 모드의 공식 분석 조회: Firestore `manufacturingAi/manufacturing-ai`, 버전 `2026-09-27.v4`, 275문서. 메모리 캐시와 60초 루트 버전 확인을 사용합니다.
 - `firestore/seed`는 배포 호환성 계약과 로컬 체험 자료입니다. 연결 모드는 원격 조회 실패를 로컬 시드로 대체하지 않습니다. [상세 연결·검증 결과](CONNECTED_WORKFLOW_VERIFICATION.md).
-- FastAPI가 데이터를 제공하고 Dash 콜백이 HTTP로 API를 호출합니다. 같은 8070 포트에서 실행합니다.
+- FastAPI가 데이터를 제공하고 Dash 콜백이 HTTP로 API를 호출합니다. 같은 8078 포트에서 실행합니다.
 - 품질 선택 셀의 신호와 모델 검증 보조표는 `runtime`의 원본 압축본/평가 파일을 읽습니다.
 - 각 영역의 자료 작업에서 CSV 검사·분석을 제공합니다. 공식 결과와 신규 업로드 결과는 구분되며 업로드로 공식 시드가 바뀌지 않습니다.
 - 업무 기록은 Firestore에 저장하며 최근 이력을 상단 **업무 기록**에서 조회합니다. 동시 수정 충돌은 거절하고, 같은 요청 재전송은 중복 저장하지 않습니다.
@@ -60,8 +60,8 @@ CSV 재예측은 앱과 같은 Python 환경 및 `runtime/demand`의 기존 모�
 SDK는 루트의 `*firebase-adminsdk*.json`을 자동 인식합니다. 여러 개면 `.env`의 `FIREBASE_SERVICE_ACCOUNT_FILE`에 파일명을 지정하세요.
 프로젝트 ID·Firebase Web API 키·Gemini 키와 모델도 `.env`에 모읍니다. 비밀번호는 설정 파일에 저장하지 않습니다.
 
-기본 `auto`에서는 설정 누락 시 데모를 표시하고 시작합니다. 잘못된 SDK·프로젝트 불일치·연결 후 인증/할당량 장애는 오류로 표시하며 데모로 숨기지 않습니다.
-실제 연결만 허용하려면 `start_local.cmd --connected`, 체험을 강제하려면 `start_demo.cmd`를 사용합니다.
+`start_local.cmd`는 `connected` 모드를 사용하므로 설정 누락 시 실행을 중단합니다. 직접 `run_local.py`를 옵션 없이 실행할 때만 `.env`의 모드 설정을 따릅니다. 잘못된 SDK·프로젝트 불일치·연결 후 인증/할당량 장애는 오류로 표시하며 데모로 숨기지 않습니다.
+직원 로그인은 `start_local.cmd`, 로컬 체험은 `start_demo.cmd`를 사용합니다.
 기존 `.local/settings.json`은 루트 `.env`와 SDK가 모두 없을 때만 호환용으로 읽습니다. 상세 우선순위와 실행 절차는 [TEAM_SETUP.md](TEAM_SETUP.md)를 참고하세요.
 
 1. Firebase Console Authentication에서 이메일/비밀번호 제공자를 켜고 직원 계정을 추가합니다.

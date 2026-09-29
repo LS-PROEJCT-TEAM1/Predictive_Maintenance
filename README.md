@@ -2,7 +2,7 @@
 
 ## 팀원용 빠른 시작
 
-Python 3.12 설치 → Git clone → **setup_local.cmd** → 루트에 `.env` + SDK JSON 배치 → **start_local.cmd** → http://127.0.0.1:8070
+Python 3.12 설치 → Git clone → **setup_local.cmd** → 루트에 `.env` + SDK JSON 배치 → **start_local.cmd** → http://127.0.0.1:8078
 
 현재 팀원 테스트 배포 브랜치는 **codex/team-local-preview**입니다.
 clone 명령은 아래 팀원 설치 안내를 참고하세요.
@@ -17,7 +17,7 @@ clone 명령은 아래 팀원 설치 안내를 참고하세요.
 - [연결·저장 검증 결과](CONNECTED_WORKFLOW_VERIFICATION.md)
 - FastAPI + Dash, 실행에 필요한 압축 데이터·기존 모델은 `runtime/`에 포함
 
-아래는 개별 연구 트랙의 설명입니다. 통합 화면은 위 8070 주소로 실행하세요.
+아래는 개별 연구 트랙의 설명입니다. 통합 화면은 위 8078 주소로 실행하세요.
 
 KAMP 제조 데이터를 활용한 예지보전 및 부품 발주량 예측 프로젝트 저장소입니다.
 

@@ -12,6 +12,7 @@ if __name__ == '__main__':
     db = FirebaseService().db
     docs = list(db.collection('battery_packs').stream(timeout=30, retry=None))
     payload = {'packs': {doc.id: doc.to_dict() for doc in docs}, 'details': {},
+               'dashboard': db.document('battery_meta/dashboard').get(timeout=30, retry=None).to_dict(),
                'config': db.document('battery_meta/config').get(timeout=30, retry=None).to_dict()}
     refs = [doc.reference.collection(group).document(name) for doc in docs
             for group, name in [('heatmap', 'cells'), ('series', 'score')]]

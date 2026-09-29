@@ -52,10 +52,12 @@ class BatteryPacks:
         def read():
             if self.demo:
                 packs, config = self._demo()['packs'], self._demo()['config']
+                dashboard = self._demo().get('dashboard') or {}
             else:
                 db = self.service.db
                 packs = {s.id: s.to_dict() for s in db.collection('battery_packs').stream(timeout=20, retry=None)}
                 config = db.document('battery_meta/config').get(timeout=20, retry=None).to_dict() or {}
+                dashboard = db.document('battery_meta/dashboard').get(timeout=20, retry=None).to_dict() or {}
             rows = []
             for ident, doc in packs.items():
                 if not re.fullmatch(r'\d+_(chg|dchg)', ident) or not doc:
@@ -66,10 +68,11 @@ class BatteryPacks:
                              'ai_verdict': doc.get('ai_verdict') if doc.get('ai_verdict') in ('OK', 'NG') else '미확인',
                              'anomalyPercent': ratio*100 if ratio is not None else None})
             rows.sort(key=lambda r: (int(r['pack_no']), r['process']))
-            version = hashlib.sha256(json.dumps({'rows': rows, 'config': config}, sort_keys=True, default=str).encode()).hexdigest()[:20]
+            version = hashlib.sha256(json.dumps({'rows': rows, 'config': config, 'dashboard': dashboard}, sort_keys=True, default=str).encode()).hexdigest()[:20]
             return {'rows': rows, 'packNumbers': sorted({r['pack_no'] for r in rows}, key=int),
                     'count': len(rows), 'ngCount': sum(r['ai_verdict'] == 'NG' for r in rows),
-                    'dataVersion': 'battery-packs-'+version, 'config': config}
+                    'dataVersion': 'battery-packs-'+version, 'config': config,
+                    'defectThresholds': dashboard.get('thresholds') or {}}
         return self._read('index', read, force)
 
     def detail(self, ident, snapshot='last', force=False):
@@ -98,7 +101,8 @@ class BatteryPacks:
         series = detail.get('series') or {}
         return {'summary': row, 'snapshot': {'cells': cells, 't': snap.get('t'), 'kind': snapshot},
                 'counts': counts, 'series': series, 'dataVersion': index['dataVersion'],
-                'testId': 'pack:'+row['pack_id'], 'thresholds': index['config'].get('thresholds') or {}}
+                'testId': 'pack:'+row['pack_id'], 'thresholds': index['config'].get('thresholds') or {},
+                'defectThresholds': index['defectThresholds']}
 
     def validate_decision(self, body):
         index = self.index(force=True)

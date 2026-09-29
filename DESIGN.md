@@ -1473,3 +1473,13 @@ User requested a comprehensive visual refactor for business stakeholders.
   component and desktop composition refinements, loaded after legacy styles.
 - Image concepts inform composition; generated example data, altered branding,
   unsolicited descriptions and duplicate navigation are not product requirements.
+
+# 41. Pack defect indicators — 2026-09-29
+
+- On pack inspection, place `4대 불량 의심 유형` below the KPI strip.
+- Use four compact, non-interactive cards: 용량불량, 용접불량, 센서와이어불량, 센서불량.
+- Highlight only saved true flags with LS Red border/text and the soft red surface.
+  Include an `의심` label so color is not the only indicator. False flags stay neutral;
+  absent flags read `자료 없음`. Do not require exactly one highlighted card.
+- Show pack-level measurements and their saved thresholds with units. Keep the
+  existing battery visualization and distinguish these indicators from cell states.

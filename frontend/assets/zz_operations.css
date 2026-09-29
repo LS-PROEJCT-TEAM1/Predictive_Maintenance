@@ -165,6 +165,23 @@
 .pack-dot { width:8px; height:8px; }
 .pack-controls #pack-view { margin-left:auto; }
 .pack-list-tools { margin-bottom:16px; }
+.pack-defect-section { margin-bottom:16px; }
+.pack-defect-title { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:10px; }
+.pack-defect-title h2 { margin:0; font-size:18px; font-weight:750; color:var(--ls-blue); }
+.pack-defect-title>span { font-size:12px; color:var(--text-secondary); }
+.pack-defect-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; list-style:none; padding:0; margin:0; }
+.pack-defect-card { padding:12px 16px; border:1px solid var(--border-light); border-radius:8px; background:var(--surface); min-width:0; }
+.pack-defect-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.pack-defect-heading h3 { margin:0; color:var(--ls-blue); font-size:15px; font-weight:700; }
+.pack-defect-heading .status-badge { flex-shrink:0; font-size:12px; }
+.pack-defect-description { margin:6px 0; color:var(--text-secondary); font-size:12px; line-height:1.5; }
+.pack-defect-measure { font-size:13px; color:var(--text-secondary); font-variant-numeric:tabular-nums; }
+.pack-defect-measure strong { font-size:18px; color:var(--ls-blue); font-weight:700; }
+.pack-defect-card.suspected { border-color:var(--ls-red); background:var(--ls-red-soft); }
+.pack-defect-card.suspected h3,.pack-defect-card.suspected .pack-defect-description,
+.pack-defect-card.suspected .pack-defect-measure,.pack-defect-card.suspected .pack-defect-measure strong { color:var(--ls-red); }
+.pack-defect-card.suspected .status-badge { background:var(--surface); color:var(--ls-red); }
+@media (max-width:1199px) { .pack-defect-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 .mantine-Drawer-header,.mantine-Modal-header { padding:18px 22px; }
 .mantine-Drawer-title,.mantine-Modal-title { color:var(--ls-blue); font-size:19px; font-weight:750; }
 .mantine-Drawer-body { padding:20px 22px; }

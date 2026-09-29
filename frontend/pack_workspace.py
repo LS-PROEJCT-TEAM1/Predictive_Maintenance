@@ -11,6 +11,35 @@ from frontend.components import BLUE, RED, badge, callout, graph, grid, kpi, met
 
 STATUS = {'normal': '정상', 'warning': '경고', 'danger': '위험', 'missing': '자료 없음'}
 DECISIONS = {'clear': '이상 없음', 'retest': '재시험 요청', 'hold': '출하 보류'}
+DEFECT_TYPES = (
+    ('capacity', '용량불량', '시점 간 최대 전압 변화', 'mV'),
+    ('weld', '용접불량', '팩 평균 대비 최대 낙폭', 'mV'),
+    ('wire', '센서와이어불량', '모듈 내 이웃 셀 최대 차이', 'mV'),
+    ('sensor', '센서불량', '온도 중앙값 대비 최대 이탈', '°C'),
+)
+
+
+def defect_cards(data):
+    """Display stored pack flags; never infer a defect from the selected cell."""
+    row = data['summary']
+    flags, metrics = row.get('flags') or {}, row.get('metrics') or {}
+    thresholds = data.get('defectThresholds') or {}
+    cards = []
+    for key, name, description, unit in DEFECT_TYPES:
+        flagged = flags.get(key)
+        state = 'suspected' if flagged is True else 'clear' if flagged is False else 'unavailable'
+        label = '의심' if flagged is True else '해당 없음' if flagged is False else '자료 없음'
+        cards.append(html.Li([
+            html.Div([html.H3(name), badge(label, 'danger' if flagged is True else 'neutral')], className='pack-defect-heading'),
+            html.P(description, className='pack-defect-description'),
+            html.Div([html.Strong(num(metrics.get(key), 2)), html.Span(' / '+num(thresholds.get(key), 2)+' '+unit)],
+                     className='pack-defect-measure'),
+        ], className='pack-defect-card '+state))
+    return html.Section([
+        html.Div([html.H2('4대 불량 의심 유형', id='pack-defect-title'),
+                  html.Span('팩 전체 · 측정값 / 임계값')], className='pack-defect-title'),
+        html.Ul(cards, className='pack-defect-grid'),
+    ], className='pack-defect-section', **{'aria-labelledby': 'pack-defect-title'})
 
 
 def controls():
@@ -107,6 +136,7 @@ def inspection(data, selected, actions):
                   kpi('이상 시점 비율', num(row['anomalyPercent'],1), '팩 전체 · 기준 5%', unit='%'),
                   kpi('전압 편차', num(row.get('dv_mv'),1), '측정 종료 기준', unit='mV'),
                   kpi('온도 편차', num(row.get('temp_dev'),2), '측정 종료 기준', unit='°C')], className='kpi-strip'),
+        defect_cards(data),
         panel(f"팩 {row['pack_no']} · {row['mode']} 셀 검사", [counts, html.Div([
             spatial.graph3d(figure,'pack-3d') if figure else callout('셀 자료 없음','이 팩의 선택 시점에 조회할 셀 자료가 없습니다.','warning'), detail], className='pack-inspection-grid')],
             subtitle=('측정 종료' if data['snapshot']['kind']=='last' else '최대 이상 점수')+f" · 측정 행 {num(data['snapshot']['t'])} · 16모듈 / 176셀",

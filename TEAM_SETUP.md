@@ -6,8 +6,8 @@
 2. 아래 명령으로 **팀원 테스트 브랜치**를 clone하고 해당 폴더를 엽니다.
 3. **setup_local.cmd**를 실행합니다. 최초 설치에는 인터넷이 필요합니다.
 4. 전달받은 **.env**와 **Firebase 관리자 SDK JSON 한 개**를 `run_local.py`와 같은 루트 폴더에 넣습니다.
-5. **start_local.cmd**를 실행하고 http://127.0.0.1:8070 을 엽니다. 등록된 직원 계정으로 로그인합니다.
-6. 파일이 없거나 설정이 부족하면 누락 항목을 실행 창에 알리고 **로컬 체험**으로 시작합니다. 체험에서는 실제 저장과 Gemini가 비활성화됩니다.
+5. **start_local.cmd**를 실행하면 http://127.0.0.1:8078/login 이 열립니다. 등록된 직원 계정으로 로그인합니다.
+6. 파일이 없거나 설정이 부족하면 누락 항목을 실행 창에 알리고 중단합니다. 로컬 체험은 **start_demo.cmd**로 별도 실행합니다. 체험에서는 실제 저장과 Gemini가 비활성화됩니다.
 
 ```powershell
 git clone --depth 1 --branch codex/team-local-preview https://github.com/LS-PROEJCT-TEAM1/Predictive_Maintenance.git BatteryFlow-team
@@ -21,7 +21,7 @@ cd BatteryFlow-team
 브랜치에는 이 실행 묶음과 별도로 기존 연구 자료 및 발주량 재학습 코드·결과도 포함합니다.
 `--depth 1`은 과거 커밋 이력 다운로드를 줄이며 현재 브랜치의 연구 자료는 포함합니다.
 
-이미 8070 포트가 사용 중이면 `start_local.cmd --port 8071`로 실행하세요.
+8078에서 로그인 서버가 이미 실행 중이면 해당 화면을 엽니다. 다른 서비스가 사용 중이면 중단합니다. 별도 포트는 `start_local.cmd --port 8079`로 지정하세요.
 종료는 실행 창에서 Ctrl+C입니다. `.venv`는 팀원 PC에서 생성하며 Git에 넣지 않습니다.
 GitHub 용량과 별개로 Python 패키지 설치에는 추가 디스크 공간과 시간이 필요합니다.
 
@@ -47,12 +47,12 @@ CSV 내보내기, 재학습한 LSTM과 7일 이동평균을 이용한 발주 CSV
 
 ## 실제 Firebase·Gemini 연결
 
-`start_local.cmd`는 기본 `auto` 모드입니다. 팀원이 별도로 전달받을 파일은 루트 `.env`와 `*firebase-adminsdk*.json` 한 개입니다. SDK 파일명은 그대로 두세요. SDK가 여러 개면 `.env`의 `FIREBASE_SERVICE_ACCOUNT_FILE`에 사용할 파일명을 지정합니다. 경로는 프로젝트 루트 기준입니다.
+`start_local.cmd`는 `connected` 모드와 8078 포트를 사용합니다. 팀원이 별도로 전달받을 파일은 루트 `.env`와 `*firebase-adminsdk*.json` 한 개입니다. SDK 파일명은 그대로 두세요. SDK가 여러 개면 `.env`의 `FIREBASE_SERVICE_ACCOUNT_FILE`에 사용할 파일명을 지정합니다. 경로는 프로젝트 루트 기준입니다.
 
 - `.env`: Firebase 프로젝트 ID, Web API 키, Gemini 키·모델, 실행 모드를 담습니다. `.env.example`은 빈 예시이며 실제 키가 없습니다.
 - 설정과 SDK가 갖춰지면 실제 Firebase 로그인·Firestore·Gemini를 사용합니다. 등록 계정에는 `manufacturingRole=employee` 또는 `admin`이 필요합니다. 파일 배포나 실행은 계정을 만들거나 권한을 자동 부여하지 않습니다.
 - SDK 형식 오류, 프로젝트 불일치, 중복 SDK는 오류로 중단합니다. 연결 후 잘못된 키·권한·할당량·통신 장애도 오류로 표시하며 데모로 바꾸지 않습니다.
-- `start_local.cmd --connected`는 누락 시에도 중단합니다. `start_demo.cmd`는 설정과 무관하게 체험을 강제합니다. 모드는 시작할 때만 선택하므로 파일을 넣거나 수정한 뒤 재시작하세요.
+- `start_local.cmd`는 연결 설정 누락 시 중단합니다. `start_demo.cmd`는 설정과 무관하게 체험을 강제합니다. 모드는 시작할 때만 선택하므로 파일을 넣거나 수정한 뒤 재시작하세요.
 - 루트 `.env`가 없는 기존 PC는 `.local/settings.json` 방식도 지원합니다. 루트 `.env` 또는 SDK가 있으면 기존 외부 설정을 섞지 않습니다. 운영체제 환경변수는 `.env`보다 우선합니다.
 - 최초 1회 `setup_local.cmd`로 의존성을 설치해야 합니다. 첫 Copilot 사용 때 임베딩 모델 다운로드와 로컬 검색 인덱스 생성에 시간이 걸릴 수 있습니다.
 - 모든 팀원은 같은 Firebase 프로젝트와 Gemini 무료 할당량을 공유합니다. 업무 기록은 공유되고, 앱의 대화 조회는 로그인한 작성자 기준입니다. 관리자 SDK 보유자는 앱 밖에서 서비스 계정 권한으로 접근할 수 있으므로 신뢰하는 개발 팀원에게만 비공개로 전달하세요.

@@ -5,5 +5,5 @@ if not exist ".venv\Scripts\python.exe" (
  pause
  exit /b 1
 )
-".venv\Scripts\python.exe" run_local.py %*
+".venv\Scripts\python.exe" run_local.py --connected --port 8078 --open-browser %*
 pause
