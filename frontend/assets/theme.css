@@ -478,3 +478,6 @@ h1 {font-weight:750;} .panel-head h2{font-weight:750;} .kpi-number{font-weight:7
 .login-password-toggle svg{width:20px;height:20px;pointer-events:none;}
 .password-eye-slash{display:none;}
 .login-password-toggle[data-visible="true"] .password-eye-slash{display:block;}
+.auth-log-summary { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 12px; }
+#open-auth-logs { display:inline-flex; align-items:center; gap:4px; }
+.auth-logs-content { margin-top:4px; }

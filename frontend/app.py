@@ -59,7 +59,7 @@ def create_dashboard(meta):
                 html.Div([html.Span("L", className="user-avatar"), html.Div(id="signed-user"), html.Button([icon('log-out',16),html.Span('로그아웃')], id='logout-button', type='button', title='로그아웃', **{'aria-label': '로그아웃', 'data-tooltip':'로그아웃'})], className="sidebar-user")], className="app-sidebar"),
             html.Main([
                 html.Div([html.Div([html.Span("BatteryFlow AI"), icon("chevron-right", 14), html.Strong(id="breadcrumb")], className="breadcrumb"),
-                          html.Div([badge("저장 검증" if meta.get('verification') else "로컬 체험" if meta.get('demo') else "직원 전용", "success"), html.Button('업무 기록', id='open-records', className='utility-button'), html.Span("공식 분석 자료", title="자료 버전: "+meta["dataVersion"])], className="utility-right")], className="utility-bar"),
+                          html.Div([badge("저장 검증" if meta.get('verification') else "로컬 체험" if meta.get('demo') else "직원 전용", "success"), html.Button('업무 기록', id='open-records', className='utility-button'), html.Button([icon('shield-check', 15), '시스템 로그'], id='open-auth-logs', className='utility-button', title='관리자 전용 로그인 기록', style={'display': 'none'}), html.Span("공식 분석 자료", title="자료 버전: "+meta["dataVersion"])], className="utility-right")], className="utility-bar"),
                 html.Div([
                     html.Div([html.Div([html.H1(id="page-title"), html.P(id="page-description")]), html.Div([html.Details([html.Summary("자료 작업"),dmc.Button("CSV로 재예측", id="open-inference", leftSection=icon("upload", 16), variant="light", className="filter-button"),dmc.Button('CSV 검사·분석',id='open-maintenance-upload',variant='outline',className='filter-button'),dmc.Button('보고서',id='open-maintenance-report',variant='default',className='filter-button'),dmc.Button("CSV 검사·분석", id="open-quality-upload", variant="outline"),dmc.Button("CSV 내보내기", id="export", variant="outline", leftSection=icon("download", 15), size="sm")],id='file-actions',className='file-actions'), dmc.Button("검토·기록", id="go-review", leftSection=icon("check-check", 15)), dmc.Button("새로고침", id="refresh", variant="default", leftSection=icon("refresh-cw", 15), size="sm")], className="page-actions")], className="page-heading"),
                     dmc.Tabs(id="tabs", value="summary", children=[], className="domain-tabs"),
@@ -88,6 +88,10 @@ def create_dashboard(meta):
         dmc.Modal(closeButtonProps={"aria-label": "닫기"}, id="confirm-modal", title="업무 기록 저장 확인", centered=True, children=[html.Div(id="confirm-content"),
             callout("직원 공용 업무 기록", "작성자와 시각을 포함해 Firebase에 저장합니다. 이전 기록도 이력에 남습니다."), dmc.Group([dmc.Button("취소", id="cancel-save", variant="default"), dmc.Button("확인 후 저장", id="confirm-save")], justify="flex-end")]),
         copilot_ui.drawer(), quality_workspace.upload_modal(), maintenance_workspace.modals(),
+        dmc.Drawer(id='auth-logs-drawer', title='시스템 로그 · 로그인 기록', position='right', size=960, closeButtonProps={'aria-label': '닫기'}, children=[
+            html.P('관리자 전용 · 최신 200건 · 개인정보는 DB에 암호문으로만 저장되며 이 화면에서만 서버가 복호화해 보여줍니다.', className='section-note'),
+            dmc.SegmentedControl(id='auth-log-event', value='all', data=[{'label': '전체', 'value': 'all'}, {'label': '로그인', 'value': 'login_success'}, {'label': '로그인 실패', 'value': 'login_failed'}, {'label': '로그아웃', 'value': 'logout'}, {'label': '세션 만료', 'value': 'session_expired'}]),
+            dcc.Loading(html.Div(id='auth-logs-content', className='auth-logs-content'))]),
         dmc.Drawer(id='records-drawer', title='업무 기록', position='right', size=600, closeButtonProps={'aria-label': '닫기'}, children=[html.P('직원 공용 · 최신 100건 · 수정 전 판정도 이력으로 보존됩니다.', className='section-note'), dcc.Loading(html.Div(id='records-content'))]),
         dmc.Modal(closeButtonProps={"aria-label": "닫기"}, id="inference-modal", title="CSV로 D+3 재예측", centered=True, size="xl", children=[
             html.P("동일 부품의 3~60일 자료를 업로드하세요. 최근 3일은 연속이어야 합니다. 8일 이력을 권장하며 저장된 모델로 예측합니다."),
@@ -112,13 +116,40 @@ def create_dashboard(meta):
     from frontend import demand_workspace
     demand_workspace.register(app)
 
-    @app.callback(Output('signed-user', 'children'), Input('url', 'pathname'))
+    @app.callback(Output('signed-user', 'children'), Output('open-auth-logs', 'style'), Input('url', 'pathname'))
     def signed_user(_):
+        hidden = {'display': 'none'}
         try:
             user = request('/api/me')
-            return [html.Strong(user['name']), html.Small('분석 체험' if meta.get('demo') else '관리자' if user['role'] == 'admin' else '직원')]
+            is_admin = user['role'] == 'admin' and not meta.get('demo')
+            # UI hint only; the API enforces admin access on every request.
+            return [html.Strong(user['name']), html.Small('분석 체험' if meta.get('demo') else '관리자' if is_admin else '직원')], ({} if is_admin else hidden)
         except (ValueError, httpx.HTTPError):
-            return html.A('다시 로그인', href='/login')
+            return html.A('다시 로그인', href='/login'), hidden
+
+    @app.callback(Output('auth-logs-drawer', 'opened'), Input('open-auth-logs', 'n_clicks'), prevent_initial_call=True)
+    def open_auth_logs(n):
+        return bool(n)
+
+    @app.callback(Output('auth-logs-content', 'children'), Input('auth-logs-drawer', 'opened'), Input('auth-log-event', 'value'), prevent_initial_call=True)
+    def auth_logs(opened, event):
+        if not opened:
+            return no_update
+        params = {'limit': 200, **({'event': event} if event and event != 'all' else {})}
+        try:
+            rows = request('/api/admin/auth-logs', params=params)['logs']
+        except (ValueError, httpx.HTTPError) as exc:
+            return callout('시스템 로그를 불러오지 못했습니다', str(exc) if isinstance(exc, ValueError) else '연결을 확인하세요.', 'warning')
+        if not rows:
+            return callout('기록이 없습니다', '조건에 맞는 로그인 기록이 없습니다.')
+        counts = {label: sum(r['eventLabel'] == label for r in rows) for label in ('로그인', '로그인 실패', '로그아웃', '세션 만료')}
+        columns = [{'field': 'at', 'headerName': '시각(KST)', 'minWidth': 190}, {'field': 'eventLabel', 'headerName': '이벤트', 'minWidth': 110},
+                   {'field': 'reason', 'headerName': '사유', 'minWidth': 150}, {'field': 'email', 'headerName': '이메일', 'minWidth': 190},
+                   {'field': 'name', 'headerName': '이름'}, {'field': 'role', 'headerName': '권한', 'minWidth': 90},
+                   {'field': 'ip', 'headerName': 'IP'}, {'field': 'userAgent', 'headerName': '브라우저', 'minWidth': 220, 'tooltipField': 'userAgent'},
+                   {'field': 'sessionId', 'headerName': '세션', 'minWidth': 150}, {'field': 'uid', 'headerName': 'UID', 'minWidth': 220}]
+        return [html.Div([badge(f'{label} {count}건', 'danger' if label == '로그인 실패' and count else 'neutral') for label, count in counts.items()], className='auth-log-summary'),
+                grid(rows, 'auth-logs-grid', columns, height=520)]
 
     @app.callback(Output('records-drawer', 'opened'), Output('records-content', 'children'), Input('open-records', 'n_clicks'), prevent_initial_call=True)
     def history(_):

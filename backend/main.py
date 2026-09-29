@@ -78,7 +78,7 @@ class DraftRequest(BaseModel):
     target: str | None = Field(None, max_length=250)
 
 
-def create_api(mount_ui=True, service=None, copilot_service=None, analysis_store=None):
+def create_api(mount_ui=True, service=None, copilot_service=None, analysis_store=None, auth_log=None):
     bootstrap = Repository()
     injected_service = service is not None
     demo = os.environ.get('MANUFACTURING_MODE') == 'demo' and service is None
@@ -126,7 +126,11 @@ def create_api(mount_ui=True, service=None, copilot_service=None, analysis_store
         finally:
             analysis_store.unbind(token)
 
-    install_security(app, service)
+    if auth_log is None:
+        from backend.auth_log import build_auth_logger
+        auth_log = build_auth_logger(service)
+    app.state.auth_log = auth_log
+    install_security(app, service, auth_log)
     from backend.quality_routes import install_quality_routes
     install_quality_routes(app, repo, service)
     from backend.maintenance_routes import install_maintenance_routes
