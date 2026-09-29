@@ -1,6 +1,7 @@
 """Portable root .env configuration; never print credential values."""
 import json
 import os
+import re
 from pathlib import Path
 from dotenv import dotenv_values
 
@@ -54,7 +55,21 @@ def settings():
         'log_hmac_key': value('LOG_HMAC_KEY'),
         'log_key_id': value('LOG_KEY_ID', default='k1'),
         'log_retention_days': _days(value('LOG_RETENTION_DAYS', default='180')),
+        'allowed_hosts': _hosts(value('ALLOWED_HOSTS')),
     }
+
+
+LOCAL_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+_HOST = re.compile(r'^(?:\d{1,3}(?:\.\d{1,3}){3}|[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*)$')
+
+
+def _hosts(raw):
+    """Extra Host names allowed besides this PC (e.g. the LAN IP). Wildcards are refused on purpose."""
+    hosts = [h.strip() for h in raw.replace(';', ',').split(',') if h.strip()]
+    for host in hosts:
+        if not _HOST.match(host):
+            raise ValueError(f'ALLOWED_HOSTS 값이 올바르지 않습니다: {host!r}. 예: 10.101.134.171 (포트·http:// 없이, * 사용 불가)')
+    return hosts
 
 
 def _days(raw):

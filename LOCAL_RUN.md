@@ -89,6 +89,22 @@ Firebase 프로젝트/서비스 계정 관리자는 콘솔을 통해 DB 자체�
 로컬 FAISS 인덱스는 `.local/rag`에 저장합니다. 처음 질문할 때 공개 다국어 임베딩 모델을 다운로드하며, 이번 PC는 이미 준비했습니다. 모델 재학습은 없습니다.
 문서 목록은 `backend/copilot.py`의 SOURCES로 제한합니다. 문서 변경 시 내용 해시를 비교해 인덱스를 다시 만듭니다. 대화·환경 파일·개인정보를 검색 인덱스에 넣지 않습니다.
 
+## 같은 Wi-Fi에서 다른 사람이 접속하기
+
+기본 실행은 이 PC(127.0.0.1)에서만 접속됩니다. 같은 네트워크의 다른 기기에 열려면 다음을 모두 해야 합니다.
+
+1. `ipconfig`에서 **무선 LAN 어댑터 Wi-Fi**의 IPv4 주소를 확인하고 루트 `.env`에 적습니다. 포트와 `http://` 없이, 여러 개는 쉼표로 구분합니다. `*`는 허용하지 않습니다.
+   ```
+   ALLOWED_HOSTS=10.101.134.171
+   ```
+2. 관리자 PowerShell에서 방화벽을 엽니다(네트워크 프로필이 "개인"이어야 적용됩니다).
+   ```powershell
+   New-NetFirewallRule -DisplayName "BatteryFlow 8070" -Direction Inbound -Protocol TCP -LocalPort 8070 -Action Allow -Profile Private
+   ```
+3. `.\start_local.cmd --host 0.0.0.0`으로 실행하면 실행 창에 다른 기기용 주소가 표시됩니다. 접속자는 `http://<IP>:8070`에서 등록된 직원 계정으로 로그인합니다.
+
+주의: http라 비밀번호가 암호화되지 않고 전송됩니다. 신뢰할 수 있는 네트워크와 테스트 계정으로만 사용하세요. 학교·회사 Wi-Fi의 기기 간 통신 차단(AP 격리)이 있으면 설정과 무관하게 접속되지 않습니다. Wi-Fi를 다시 연결해 IP가 바뀌면 `ALLOWED_HOSTS`도 바꿉니다. 로그인 기록의 IP는 접속한 기기의 내부 IP로 남습니다.
+
 ## 로그인 기록 (manufacturingAuthLogs)
 
 연결 모드에서 로그인 성공·실패, 로그아웃, 세션 만료를 `manufacturingAuthLogs/{logId}`에 1건씩 저장합니다. 코드는 `backend/auth_log.py`입니다.

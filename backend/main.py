@@ -142,7 +142,9 @@ def create_api(mount_ui=True, service=None, copilot_service=None, analysis_store
     install_quality_routes(app, repo, service)
     from backend.maintenance_routes import install_maintenance_routes
     install_maintenance_routes(app, repo)
-    app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "testserver"])
+    from backend.settings import LOCAL_HOSTS, settings
+    # This PC always; extra LAN addresses only when listed in .env ALLOWED_HOSTS.
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=[*LOCAL_HOSTS, *settings().get('allowed_hosts', [])])
 
     @app.exception_handler(ValueError)
     async def value_error(_, exc):

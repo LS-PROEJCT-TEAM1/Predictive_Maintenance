@@ -98,7 +98,7 @@
 .ag-row-selected { box-shadow:inset 3px 0 var(--ls-blue); }
 .ag-cell.review-direction-up,.ag-cell.pack-ng { color:var(--ls-red); font-weight:700; }
 .ag-cell.review-direction-down { color:var(--ls-light-blue); font-weight:700; }
-.ag-cell.pack-ok { color:#007C90; font-weight:650; }
+.ag-cell.pack-ok { color:#15803D; font-weight:700; }
 .ag-paging-panel { font-size:12px; min-height:38px; }
 .overview-scope { font-size:13px; margin-bottom:12px; color:var(--text-secondary); }
 .track-cards { gap:16px; margin-bottom:16px; }
