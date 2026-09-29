@@ -181,12 +181,13 @@ def inspection(data, selected, actions):
                   kpi('이상 시점 비율', num(row['anomalyPercent'],1), '팩 전체 · 기준 5%', unit='%'),
                   kpi('전압 편차', num(row.get('dv_mv'),1), '측정 종료 기준', unit='mV'),
                   kpi('온도 편차', num(row.get('temp_dev'),2), '측정 종료 기준', unit='°C')], className='kpi-strip'),
-        defect_cards(data),
         technician_notice(row, action=True),
         panel(f"팩 {row['pack_no']} · {row['mode']} 셀 검사", [counts, html.Div([
             spatial.graph3d(figure,'pack-3d') if figure else callout('셀 자료 없음','이 팩의 선택 시점에 조회할 셀 자료가 없습니다.','warning'), detail], className='pack-inspection-grid')],
             subtitle=('측정 종료' if data['snapshot']['kind']=='last' else '최대 이상 점수')+f" · 측정 행 {num(data['snapshot']['t'])} · 16모듈 / 176셀",
-            action=badge('판정 차이 있음','warning') if mismatch else None), evidence
+            action=badge('판정 차이 있음','warning') if mismatch else None),
+        defect_cards(data),
+        evidence
     ], className='pack-workspace')
 
 
