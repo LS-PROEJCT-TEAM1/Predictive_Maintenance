@@ -103,6 +103,8 @@ def register(app, request):
 
     @app.callback(Output('chat-draft','style'),Input('chat-state','data'))
     def draft_visibility(state):
+        if any(m.get('context',{}).get('scope')=='battery-packs' for m in (state or {}).get('messages',[])):
+            return {'display':'none'}
         return {} if any(m.get('role')=='assistant' for m in (state or {}).get('messages',[])) else {'display':'none'}
 
     @app.callback(*[Output('chat-suggestion-'+str(i),'children') for i in range(3)],Input('url','pathname'))
@@ -118,9 +120,12 @@ def register(app, request):
         return values[3+int(ctx.triggered_id.rsplit('-',1)[-1])] if any(values[:3]) else no_update
 
     @app.callback(Output('copilot-context', 'children'), Input('url', 'pathname'), Input('d-part', 'value'), Input('d-date', 'value'), Input('d-model', 'value'),
-        Input('m-run', 'value'), Input('m-sup', 'value'), Input('m-unsup', 'value'), Input('q-test', 'value'), Input('q-cell', 'value'))
-    def context_label(path, part, date, model, run, sup, unsup, test, cell):
+        Input('m-run', 'value'), Input('m-sup', 'value'), Input('m-unsup', 'value'), Input('q-test', 'value'), Input('q-cell', 'value'),Input('view-data','data'))
+    def context_label(path, part, date, model, run, sup, unsup, test, cell, view):
         key = (path or '/').strip('/')
+        if key=='quality' and (view or {}).get('tab')=='packs':
+            row = view.get('payload',{}).get('summary',{})
+            return f"품질 · 팩 {row['pack_no']} · {row['mode']}" if row else '품질 · 자동 분석 결과 목록'
         return {'demand': f'공급망 · {date} · {part} · {model}', 'maintenance': f'예지보전 · {run} · {sup} / {unsup}',
                 'quality': f'품질 · {test} · {cell}'}.get(key, '통합 현황 · 세 트랙의 현재 요약')
 
@@ -130,9 +135,9 @@ def register(app, request):
         State('chat-question', 'value'), State('chat-state', 'data'), State('url', 'pathname'),
         State('d-date', 'value'), State('d-part', 'value'), State('d-model', 'value'),
         State('m-run', 'value'), State('m-sup', 'value'), State('m-unsup', 'value'),
-        State('q-test', 'value'), State('q-cell', 'value'), State('q-progress', 'value'),State('q-basis','value'),
+        State('q-test', 'value'), State('q-cell', 'value'), State('q-progress', 'value'),State('q-basis','value'),State('view-data','data'),
         prevent_initial_call=True, running=[(Output('chat-send', 'disabled'), True, False), (Output('chat-new', 'disabled'), True, False), (Output('chat-list-toggle', 'disabled'), True, False), (Output('chat-question','disabled'),True,False), (Output('chat-busy','data'),True,False), (Output('chat-progress','style'),{}, {'display':'none'})])
-    def chat(send, new, selected, opened, question, current, path, date, part, model, run, sup, unsup, test, cell, progress,basis):
+    def chat(send, new, selected, opened, question, current, path, date, part, model, run, sup, unsup, test, cell, progress,basis, view):
         current = current or {}
         try:
             trigger = ctx.triggered_id
@@ -141,6 +146,11 @@ def register(app, request):
                     return no_update, no_update, no_update, no_update, callout('질문을 입력하세요', '', 'warning')
                 context = {'track': (path or '/').strip('/') or 'overview', 'date': date, 'part': part, 'model': model,
                     'run': run, 'supervised': sup, 'unsupervised': unsup, 'test': test, 'cell': cell, 'progress': progress,'basis':basis}
+                if path=='/quality' and (view or {}).get('tab')=='packs':
+                    data=view.get('payload',{})
+                    if not data.get('summary'):
+                        raise ValueError('목록에서 팩을 선택한 뒤 질문하세요.')
+                    context.update(pack=data['summary']['pack_id'],packSnapshot=data['snapshot']['kind'],cell=data.get('selectedCell') or 'M01CV01')
                 current = request('/api/copilot/ask', 'POST', json={'question': question, 'threadId': current.get('id'), 'revision': current.get('revision', 0), 'context': context})
                 selected = current['id']
             elif trigger == 'chat-new':

@@ -3,6 +3,7 @@ from dash import html, Input, Output, State, ctx, no_update
 import dash_mantine_components as dmc
 import plotly.graph_objects as go
 from frontend.components import panel, graph, grid, kpi, metric_rows, callout, num, BLUE, CYAN, RED
+from frontend.palette import LIGHT, BORDER
 from frontend.charts import demand_chart, layout
 
 
@@ -23,9 +24,8 @@ def analysis(data, tab, actions, query, direction, columns):
         rows = [r for r in candidates if direction=='all' or direction=='open' and r['status'] in ['미확인','재확인 필요'] or direction=='up' and r['gap']>0 or direction=='down' and r['gap']<0]
     table = panel('발주 검토 목록' if tab=='review' else '부품별 계획 차이',grid(rows,'main-grid',columns,425 if tab=='review' else 310),
                   '행 선택 → 부품 상세·확인 처리 · 현재 목록 CSV 내보내기')
-    context = (callout('선택 조건의 예측 없음','해당 부품·목표일의 예측 자료가 없습니다. 날짜 또는 부품을 변경하세요.','warning') if not rows else
-               callout(f"{data.get('originDate','')} 최종 기록 기준 → {data['date']} 예측",
-                      '달력 기준 D+3 · 예측 대상은 일별 최종 ERP 발주 계획량이며 실측 소비량은 아닙니다.'))
+    context = (callout('선택 조건의 예측 없음','날짜 또는 부품을 변경하세요.','warning') if not rows else
+               html.Div([html.Strong(f"{data.get('originDate','')} → {data['date']}"),html.Span('D+3 일별 최종 ERP 발주 계획량 예측 · 실측 소비량 아님')],className='context-line'))
     if tab=='review':
         buttons = dmc.Group([dmc.Button(f'{label} {num(counts[key])}',id='d-count-'+key,variant='filled' if direction==key else 'outline',
                     className='review-direction-'+key, **{'aria-pressed':str(direction==key).lower()},
@@ -35,16 +35,29 @@ def analysis(data, tab, actions, query, direction, columns):
     if data['model']!=data['config']['auxiliaryModel']:
         chart.add_trace(go.Scatter(x=[r['date'] for r in data['trend']],y=[r['auxiliary'] for r in data['trend']],
                        name=data['config']['auxiliaryModel']+' 보조 · 클릭하여 보기',visible='legendonly',mode='lines',line={'color':CYAN,'dash':'dash'}))
+    ranked = sorted(rows,key=lambda r:abs(r['gap']),reverse=True)[:8]
+    gaps = go.Figure(go.Bar(y=[r['part'] for r in ranked],x=[r['gap'] for r in ranked],orientation='h',
+        marker_color=[RED if r['gap']>0 else LIGHT for r in ranked],width=.52,
+        text=[f"{r['gap']:+,.0f}" for r in ranked],textposition='outside',cliponaxis=False,
+        hovertemplate='%{y}<br>예측 − 계획 %{x:+,.0f}개<extra></extra>'))
+    layout(gaps,310,'부품')
+    gaps.update_layout(showlegend=False,margin={'l':75,'r':48,'t':12,'b':40})
+    gap_values = [0, *[r['gap'] for r in ranked]]
+    gap_span = max(max(gap_values)-min(gap_values), 1)
+    gaps.update_xaxes(title='예측 − 계획 (개)',showgrid=True,gridcolor=BORDER,zeroline=True,zerolinecolor=BLUE,
+                     range=[min(gap_values)-gap_span*.18,max(gap_values)+gap_span*.18],nticks=5)
+    gaps.update_yaxes(autorange='reversed',title=None,showgrid=False)
     return html.Div([context,html.Div([
         kpi('선택 모델 예상량',num(data['forecast']),data['model'],unit='개'),
         kpi('기존 D+3 계획',num(data['plan']),data['date'],unit='개'),
-        kpi('계획 대비 차이',f"{data['gap']:+,.0f}",num(data['gapPct'],2)+'%',unit='개'),
+        kpi('계획 대비 차이',f"{data['gap']:+,.0f}",num(data['gapPct'],2)+'%','danger' if data['gap']>0 else 'accent',unit='개'),
         kpi('검토 필요 부품',data['reviewCount'],f"상향 {counts['up']} · 하향 {counts['down']}",unit='개')],className='kpi-strip'),
         html.Div([panel('D+3 계획·예측 비교',graph(chart),'범례를 눌러 보조 예측 표시 · 최종 기록량은 사후 비교값'),
-                  panel('발주 판단 근거',[metric_rows([('운영 기본',data['config']['primaryModel'],'시간순 검증으로 선정'),('학습형 보조',data['config']['auxiliaryModel'],'자동 모델 혼합 없이 비교용으로 표시')]),
-                       html.P('재고·리드타임이 포함되지 않은 예측입니다. 차이가 큰 부품부터 검토하세요.',className='section-note'),])],className='grid-main'),
-        table,html.Details([html.Summary('계획 변경 이력'),panel('같은 목표일의 계획 변경 이력',grid(data['planHistory'],'d-plan-history',height=275),
-              '5·4·3일 전은 예측 당시 확인 가능 · 2·1일 전은 사후 정보')],className='demand-details')]),rows
+                  panel('검토 방향',[metric_rows([('상향 검토',f"{counts['up']}개",'예측이 계획보다 큰 부품'),('하향 검토',f"{counts['down']}개",'예측이 계획보다 작은 부품'),('확인 대기',num(counts['open'])+'개' if counts['open'] is not None else '조회 불가','작업자 확인 기준')]),
+                       html.Details([html.Summary('예측 해석 기준'),html.P(f"운영 기본 {data['config']['primaryModel']} · 보조 {data['config']['auxiliaryModel']}. 재고·리드타임은 포함되지 않습니다.")],className='source-details')])],className='grid-main'),
+        html.Div([panel('계획 차이가 큰 부품',graph(gaps),'절대 차이 상위 8개 · 빨강 상향 / 파랑 하향'),table],className='demand-comparison-grid'),
+        html.Details([html.Summary('계획 변경 이력'),panel('같은 목표일의 계획 변경 이력',grid(data['planHistory'],'d-plan-history',height=275),
+              '5·4·3일 전은 예측 당시 확인 가능 · 2·1일 전은 사후 정보')],className='demand-details')],className='demand-workspace'),rows
 
 
 def validation_panels(data):

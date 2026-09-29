@@ -83,7 +83,7 @@ def install_quality_routes(app, repo, service):
         result = []
         names = {'clear': '이상 없음', 'retest': '재시험 요청', 'hold': '출하 보류'}
         for row in saved:
-            if row.get('track') != 'quality' or (test != 'all' and row.get('target') != test):
+            if row.get('track') != 'quality' or row.get('target') not in repo.meta()['tests'] or (test != 'all' and row.get('target') != test):
                 continue
             doc = repo.get('qualityTests', row['target'])
             result.append({'시각': row.get('at'), '시험': row['target'], '공정': doc['modeLabel'],

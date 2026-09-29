@@ -34,7 +34,7 @@ def power_chart(data, points, score=False):
     else:
         alarms = [p for p in points if p['prediction']]
         fig.add_trace(go.Scatter(x=[p['row'] for p in alarms],y=[p['power'] for p in alarms],name='경보 지점',mode='markers',marker={'color':RED,'size':5}))
-    layout(fig,260 if score else 310,'점수 / 모델 임계값' if score else '출력 (W)')
+    layout(fig,230 if score else 270,'점수 / 모델 임계값' if score else '출력 (W)')
     fig.update_xaxes(title='원본 행 ID (0부터)', rangeslider={'visible':not score,'thickness':.09})
     return fig
 
@@ -53,16 +53,16 @@ def analysis(data):
             kpi('경보 이벤트',len(data['events']),'정상 복귀·수집 공백 기준',unit='건'),
             kpi('경보 지점',data['anomalyRows'],f"전체 {len(data['points']):,}행",unit='행'),
             kpi('학습 밖 레시피',data['unseenRows'],'정상 기준 학습 조건과 비교','accent',unit='행')],className='kpi-strip'),
-        html.P(f"공정 조건 확인 · {data['unseenRows']}행은 정상 기준 학습 밖 레시피입니다. 경보와 별개로 설정값을 확인하세요.",className='maintenance-condition-warning') if data['unseenRows'] else None,
         html.Div([dmc.Select(id='m-cycle',label='상세 조회 사이클',data=[{'label':'전체 사이클','value':'all'}]+[{'label':f"사이클 {c['cycle']} · {c['상태']}",'value':str(c['cycle'])} for c in sorted(data['cycleDetails'],key=lambda c:c['cycle'])],value=str(next((c['cycle'] for c in data['cycleDetails'] if c['경보 지점']), data['cycleDetails'][0]['cycle'])),allowDeselect=False,searchable=True,className='context-select',persistence=data['run'],persistence_type='session'),
-                  html.Span('사이클 선택 → 지점 확인 → 이벤트 기록',className='workflow-hint')],className='filter-toolbar compact'),
+                  html.Span('사이클 선택 → 지점 확인 → 이벤트 기록',className='workflow-hint'),
+                  html.P(f"공정 조건 확인 · 학습 밖 레시피 {data['unseenRows']}행 · 설정값 확인 필요",className='maintenance-condition-warning') if data['unseenRows'] else None],className='filter-toolbar compact'),
         html.Div(id='m-cycle-chart'),
-        html.Div(id='m-cycle-detail'),
-        panel('사이클별 점검 목록',grid(data['cycleDetails'],'m-cycle-grid',cycle_columns(),300),
-              '점검 대상 → 출력 0 → 최대 위험비 순 · 제품 양품/불량 판정이 아닙니다. 행을 선택하면 차트와 지점 상세가 연결됩니다.',
-              dmc.Button('목록 CSV',id='m-cycle-export',variant='outline',size='xs')),
+        html.Details([html.Summary('출력 신호·이벤트 근거'),html.Div(id='m-cycle-detail')],className='evidence-disclosure'),
+        html.Details([html.Summary('사이클별 점검 목록'),panel('사이클별 점검 목록',grid(data['cycleDetails'],'m-cycle-grid',cycle_columns(),300),
+              '점검 대상·출력 0·위험비 순 · 행 선택 시 상세 조회',
+              dmc.Button('목록 CSV',id='m-cycle-export',variant='outline',size='xs'))],className='evidence-disclosure'),
         html.Details([html.Summary('전체 사이클 위험 분포'),plot(maintenance_heat(data),'m-risk-map')],className='maintenance-explore'),
-        html.P(f"{data['config']['pipelineVersion']} · 현재 이상 탐지 / 과거 시험 재생 · 현장 SOP와 미래 고장 예측은 미검증",className='section-note')])
+        html.P(f"{data['config']['pipelineVersion']} · 현재 이상 탐지 / 과거 시험 재생 · 현장 SOP와 미래 고장 예측은 미검증",className='section-note')],className='maintenance-analysis')
 
 
 def cycle_detail(data, selected, selected_point=None):
@@ -81,7 +81,7 @@ def cycle_detail(data, selected, selected_point=None):
         initial=next((p for p in points if str(p['row'])==selected_point),next((p for p in points if p['prediction']),points[0]))
         content += [panel('용접 지점 검사 · 사이클 '+chosen,html.Div([html.Div([
             graph3d(maintenance_figure(data,points,initial['row']),'maintenance-3d'),
-            html.P('PageNo 순서로 정렬한 논리 지점판 · 실제 용접 위치가 아닙니다. 빨강: 경보 / 검정: 출력 0 / 청록 테두리: 선택',className='spatial-disclaimer')]),html.Div([
+            html.P('논리 지점판 · 빨강: 경보 / 검정: 출력 0 / 진한 테두리: 선택',className='spatial-disclaimer')]),html.Div([
             dmc.Select(id='m-point-select',label='지점 직접 선택',data=[{'label':f"지점 {p['page']:02d} · {p['power']:,.1f} W",'value':str(p['row'])} for p in points],value=str(initial['row']),allowDeselect=False,searchable=True,className='context-select'),
             html.Div(id='m-point-detail')],className='spatial-inspector')],className='spatial-inspection-grid'), '지점을 눌러 출력·설정·경보 근거를 확인하세요.')]
     else:
@@ -90,7 +90,7 @@ def cycle_detail(data, selected, selected_point=None):
         panel('관련 이벤트 · 선택해서 검토 기록',grid(events,'main-grid',[
             {'field':'event','headerName':'이벤트'},{'field':'type','headerName':'유형'},{'field':'start','headerName':'시작 행'},
             {'field':'end','headerName':'종료 행'},{'field':'rows','headerName':'지속 행'},{'field':'maxRisk','headerName':'최대 위험비'}],235),
-            '이벤트는 사이클 경계를 넘어 이어질 수 있습니다. 선택하면 전후 신호와 기존 확인 처리 창이 열립니다.' if events else '선택한 사이클에 연결된 경보 이벤트가 없습니다.')]
+            '이벤트 선택 시 전후 신호·확인 기록 조회' if events else '선택한 사이클에 연결된 경보 이벤트가 없습니다.')]
     return content[:1], [overview,*content[1:]]
 
 

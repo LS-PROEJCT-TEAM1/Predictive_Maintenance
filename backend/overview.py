@@ -16,17 +16,20 @@ def overview_data(repo):
     for r in review:
         queue.append({'track':'demand','trackLabel':'공급망','target':r['part'],
             'title':f"계획 대비 {r['gap']:+,.0f}개 · {r['direction']}",
+            'gap':r['gap'],'direction':r['direction'],
             'key':f"demand:{r['part']}:{demand['date']}:{demand['model']}",
             'route':link('demand',date=demand['date'],part=r['part'],model=demand['model']),
             'scope':demand['date'],'kind':'review'})
     for e in sorted(maintenance['events'],key=lambda e:-e['maxRisk']):
         queue.append({'track':'maintenance','trackLabel':'예지보전','target':e['event'],
             'title':f"{e['type']} · {e['start']}–{e['end']}행 · 위험비 {e['maxRisk']:.2f}배",
+            'gap':None,'direction':'이벤트 확인',
             'key':'maintenance:'+e['id'],'eventId':e['id'],
             'route':link('maintenance',run=maintenance['run'],supervised=maintenance['supervised'],unsupervised=maintenance['unsupervised'],event=e['id']),
             'scope':maintenance['run'],'kind':'review'})
     queue.append({'track':'quality','trackLabel':'품질 보증','target':quality['testId'],
         'title':f"이상 {quality['abnormalSegmentCount']}구간 · {quality['suspectedCell']} 근거 확인",
+        'gap':None,'direction':'품질 판정',
         'key':'quality:'+quality['testId'],'route':link('quality',test=quality['testId'],cell=quality['suspectedCell']),
         'scope':quality['testId'],'kind':'decision'})
     return {**original,'demand':{**original['demand'],'recommendedForecast':demand['forecast'],

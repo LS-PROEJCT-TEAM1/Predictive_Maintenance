@@ -1,23 +1,25 @@
 import numpy as np
 import plotly.graph_objects as go
 from frontend.components import BLUE, RED, CYAN, LIGHT, GRAY, TEXT
+from frontend.palette import BORDER, MUTED, SURFACE, BLUE_SOFT, TEAL_SOFT
 
 
 def layout(fig, height=300, ytitle=None):
-    fig.update_layout(height=height, margin={"l": 46, "r": 18, "t": 30, "b": 40},
-                      paper_bgcolor="white", plot_bgcolor="white", font={"family": "SUIT Variable, sans-serif", "size": 13, "weight": 550, "color": TEXT},
-                      hovermode="x unified", legend={"orientation": "h", "y": 1.15, "x": 0, "font": {"size": 12}},
-                      xaxis={"showgrid": False, "zeroline": False}, yaxis={"gridcolor": "#EDF0F5", "zeroline": False, "title": ytitle},
+    fig.update_layout(height=height, margin={"l": 58, "r": 24, "t": 44, "b": 42},
+                      paper_bgcolor=SURFACE, plot_bgcolor=SURFACE, font={"family": "SUIT Variable, sans-serif", "size": 13, "weight": 550, "color": MUTED},
+                      hovermode="x unified", hoverlabel={'bgcolor':SURFACE,'bordercolor':BORDER,'font':{'color':TEXT,'size':14}},
+                      legend={"orientation": "h", "y": 1.2, "x": 0, "font": {"size": 13},'itemclick':'toggle','itemdoubleclick':'toggleothers'},
+                      xaxis={"showgrid": False, "zeroline": False, 'automargin':True}, yaxis={"gridcolor": BORDER, "zeroline": False, "title": ytitle,'automargin':True},
                       uirevision="keep")
     return fig
 
 
 def demand_chart(data):
     fig = go.Figure()
-    for field, label, color, dash in [("plan", "기존 D+3 계획", LIGHT, "dot"), ("actual", "최종 ERP 기록량 (사후)", GRAY, "solid"), ("forecast", "선택 모델 예측", BLUE, "solid")]:
+    for field, label, color, dash in [("plan", "기존 D+3 계획", GRAY, "dash"), ("actual", "최종 ERP 기록량 (사후)", CYAN, "solid"), ("forecast", "선택 모델 예측", BLUE, "solid")]:
         fig.add_trace(go.Scatter(x=[r["date"] for r in data], y=[r[field] for r in data], name=label, mode="lines+markers", line={"color": color, "width": 2.5, "dash": dash}, marker={"size": 5}))
     fig.update_xaxes(tickformat="%m/%d")
-    fig.update_yaxes(tickformat=",")
+    fig.update_yaxes(tickformat=",",rangemode='tozero')
     return layout(fig, 290, "수량 (개)")
 
 

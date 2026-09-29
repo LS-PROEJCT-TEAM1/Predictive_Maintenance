@@ -9,8 +9,9 @@ import httpx
 from dash import ALL, Dash, Input, Output, State, ctx, dcc, html, no_update
 import dash_mantine_components as dmc
 from flask import request as flask_request
-from frontend import copilot_ui, quality_workspace, maintenance_workspace, overview_workspace, spatial
+from frontend import copilot_ui, quality_workspace, maintenance_workspace, overview_workspace, spatial, pack_workspace
 from frontend.navigation import navigation_context
+from frontend.palette import BLUE, BLUE_SHADES
 
 from frontend.components import badge, callout, graph, grid, icon, metric_rows, num, panel, select, settings_disclosure
 from frontend.charts import demand_chart, maintenance_chart
@@ -43,7 +44,7 @@ def domain(path):
 def create_dashboard(meta):
     app = Dash(__name__, assets_folder=str(Path(__file__).parent / "assets"), suppress_callback_exceptions=True,
                title="BatteryFlow AI 운영센터", update_title="분석 중…")
-    shades = ["#F0F3FA", "#DCE4F3", "#B8C8E5", "#8EA6D3", "#607FBF", "#3358AA", "#0A1E5A", "#08184A", "#061239", "#040C29"]
+    shades = BLUE_SHADES
     app.layout = dmc.MantineProvider(theme={"primaryColor": "lsblue", "colors": {"lsblue": shades}, "fontFamily": "'SUIT Variable', sans-serif", "defaultRadius": "sm"}, children=[
         dcc.Store(id='sidebar-collapsed', storage_type='local', data=False),
         dcc.Location(id="url", refresh='callback-nav'), dcc.Store(id="view-data"), dcc.Store(id='linked-event'), dcc.Store(id="q-defect", data="capacity"), dcc.Download(id="quality-history-download"), dcc.Store(id="export-data"),
@@ -55,15 +56,16 @@ def create_dashboard(meta):
                 dcc.Link([html.Div(html.Img(src='/assets/ci_img20.png', alt='LS', className='brand-logo'), className='brand-mark'), html.Strong(["BatteryFlow AI", html.Span("운영센터", className='brand-center')])], href="/", className="brand", title='BatteryFlow AI 운영센터 홈'),
                 html.Nav([dcc.Link([icon(glyph,20), html.Span(label)], href="/" if key == "overview" else f"/{key}", id=f"nav-{key}", className="nav-link", title=label) for key, label, glyph in [("overview", "통합 현황", "layout-dashboard"), ("demand", "공급망 예측", "chart-no-axes-combined"), ("maintenance", "예지보전", "activity"), ("quality", "품질 보증", "shield-check")]], **{'aria-label':'주요 업무'}),
                 html.Div(className="sidebar-spacer"),
-                html.Button([icon("message-square", 20), html.Div([html.Strong("AI Copilot"), html.Small("근거와 함께 질문하기")]), icon("chevron-right", 16)], id="open-copilot", className="copilot-entry", title='AI Copilot 열기', **{'aria-label':'AI Copilot 열기', 'data-tooltip':'AI Copilot'}),
+                html.Button([icon("message-square", 20), html.Div(html.Strong("AI Copilot")), icon("chevron-right", 16)], id="open-copilot", className="copilot-entry", title='AI Copilot 열기', **{'aria-label':'AI Copilot 열기', 'data-tooltip':'AI Copilot'}),
                 html.Div([html.Span("L", className="user-avatar"), html.Div(id="signed-user"), html.Button([icon('log-out',16),html.Span('로그아웃')], id='logout-button', type='button', title='로그아웃', **{'aria-label': '로그아웃', 'data-tooltip':'로그아웃'})], className="sidebar-user")], className="app-sidebar"),
             html.Main([
                 html.Div([html.Div([html.Span("BatteryFlow AI"), icon("chevron-right", 14), html.Strong(id="breadcrumb")], className="breadcrumb"),
                           html.Div([badge("저장 검증" if meta.get('verification') else "로컬 체험" if meta.get('demo') else "직원 전용", "success"), html.Button('업무 기록', id='open-records', className='utility-button'), html.Span("공식 분석 자료", title="자료 버전: "+meta["dataVersion"])], className="utility-right")], className="utility-bar"),
                 html.Div([
-                    html.Div([html.Div([html.H1(id="page-title"), html.P(id="page-description")]), html.Div([html.Details([html.Summary("자료 작업"),dmc.Button("CSV로 재예측", id="open-inference", leftSection=icon("upload", 16), variant="light", className="filter-button"),dmc.Button('CSV 검사·분석',id='open-maintenance-upload',variant='outline',className='filter-button'),dmc.Button('보고서',id='open-maintenance-report',variant='default',className='filter-button'),dmc.Button("CSV 검사·분석", id="open-quality-upload", variant="outline"),dmc.Button("CSV 내보내기", id="export", variant="outline", leftSection=icon("download", 15), size="sm")],id='file-actions',className='file-actions'), dmc.Button("검토·기록", id="go-review", leftSection=icon("check-check", 15)), dmc.Button("새로고침", id="refresh", variant="default", leftSection=icon("refresh-cw", 15), size="sm")], className="page-actions")], className="page-heading"),
+                    html.Div([html.Div([html.H1(id="page-title")]), html.Div([html.Details([html.Summary("자료 작업"),dmc.Button("CSV로 재예측", id="open-inference", leftSection=icon("upload", 16), variant="light", className="filter-button"),dmc.Button('CSV 검사·분석',id='open-maintenance-upload',variant='outline',className='filter-button'),dmc.Button('보고서',id='open-maintenance-report',variant='default',className='filter-button'),dmc.Button("CSV 검사·분석", id="open-quality-upload", variant="outline"),dmc.Button("CSV 내보내기", id="export", variant="outline", leftSection=icon("download", 15), size="sm")],id='file-actions',className='file-actions'), dmc.Button("검토·기록", id="go-review", leftSection=icon("check-check", 15)), dmc.Button("새로고침", id="refresh", variant="default", leftSection=icon("refresh-cw", 15), size="sm")], className="page-actions")], className="page-heading"),
                     dmc.Tabs(id="tabs", value="summary", children=[], className="domain-tabs"),
                     html.Div([
+                        pack_workspace.controls(),
                         html.Div([select("d-date", "목표일", meta["dates"], meta["dates"][-1]), select("d-part", "부품", [{"label": "전체 부품", "value": "ALL"}]+[{"label": p, "value": p} for p in meta["parts"]], "ALL"),
                                   settings_disclosure('분석 설정',[select("d-model", "예측 모델", [{"label": name + (" · 운영 기본" if name == meta["demandPrimary"] else " · 학습형 보조" if name == meta["demandAuxiliary"] else " · 비교"), "value": name} for name in meta["demandModels"]], meta["demandPrimary"])]),
                                   ], id="demand-controls", className="filter-toolbar"),
@@ -80,14 +82,14 @@ def create_dashboard(meta):
                         html.Div([select("event-status", "이벤트 상태", [{"label": "전체", "value": "all"}, {"label": "미확인", "value": "open"}, {"label": "확인 완료", "value": "done"}], "all")], id="maintenance-local", className="filter-toolbar compact"),
                     ]),
                     html.Div(id="save-feedback", role="status"),
-                    dcc.Loading(html.Div(id="page-content"), type="circle", color="#0A1E5A", delay_show=300),
+                    dcc.Loading(html.Div(id="page-content"), type="circle", color=BLUE, delay_show=300),
                     html.Footer([html.Span("KAMP 제조 데이터 기반 · 서로 다른 트랙의 원본은 병합하지 않습니다."), html.Span("로컬 체험 · 외부 서비스 미연결" if meta.get('demo') else "공식 분석 연결 확인 중", id='analysis-source')], className="footer")
                 ], className="dashboard-container")], className="app-main")], className="app-shell", id='app-shell'),
         dmc.Drawer(closeButtonProps={"aria-label": "닫기"}, id="detail-drawer", title="분석 상세", position="right", size=560, children=[html.Div(id="detail-content"),
             html.Div([dmc.Textarea(id="review-note", label="검토 메모", placeholder="확인한 내용을 입력하세요.", minRows=3, inputProps={"maxLength": 2000}), dmc.Button("확인 처리", id="prepare-review", leftSection=icon("check"), className="spaced-button")], id="review-form")]),
         dmc.Modal(closeButtonProps={"aria-label": "닫기"}, id="confirm-modal", title="업무 기록 저장 확인", centered=True, children=[html.Div(id="confirm-content"),
             callout("직원 공용 업무 기록", "작성자와 시각을 포함해 Firebase에 저장합니다. 이전 기록도 이력에 남습니다."), dmc.Group([dmc.Button("취소", id="cancel-save", variant="default"), dmc.Button("확인 후 저장", id="confirm-save")], justify="flex-end")]),
-        copilot_ui.drawer(), quality_workspace.upload_modal(), maintenance_workspace.modals(),
+        copilot_ui.drawer(), quality_workspace.upload_modal(), maintenance_workspace.modals(), pack_workspace.drawer(),
         dmc.Drawer(id='records-drawer', title='업무 기록', position='right', size=600, closeButtonProps={'aria-label': '닫기'}, children=[html.P('직원 공용 · 최신 100건 · 수정 전 판정도 이력으로 보존됩니다.', className='section-note'), dcc.Loading(html.Div(id='records-content'))]),
         dmc.Modal(closeButtonProps={"aria-label": "닫기"}, id="inference-modal", title="CSV로 D+3 재예측", centered=True, size="xl", children=[
             html.P("동일 부품의 3~60일 자료를 업로드하세요. 최근 3일은 연속이어야 합니다. 8일 이력을 권장하며 저장된 모델로 예측합니다."),
@@ -107,6 +109,7 @@ def create_dashboard(meta):
     }""", Output('app-shell','className'), Output('sidebar-toggle','title'), Output('sidebar-toggle','aria-expanded'), Output('sidebar-toggle','aria-label'), Input('sidebar-collapsed','data'))
     copilot_ui.register(app, request)
     quality_workspace.register(app, request)
+    pack_workspace.register(app, request)
     maintenance_workspace.register(app, request)
     overview_workspace.register(app)
     from frontend import demand_workspace
@@ -131,7 +134,7 @@ def create_dashboard(meta):
         except (ValueError, httpx.HTTPError):
             return True, callout('이력을 불러오지 못했습니다', '연결을 확인하고 다시 열어 주세요.', 'warning')
 
-    @app.callback(Output("tabs", "children"), Output("tabs", "value"), Output("page-title", "children"), Output("page-description", "children"), Output("breadcrumb", "children"),
+    @app.callback(Output("tabs", "children"), Output("tabs", "value"), Output("page-title", "children"), Output("breadcrumb", "children"),
                   *[Output(f"nav-{key}", "className") for key in DOMAIN],
                   *[Output(id,'value',allow_duplicate=id in ['q-test','q-cell']) for id in ['d-date','d-part','d-model','m-run','m-sup','m-unsup','q-test','q-cell']],
                   Output('linked-event','data'),Output('part-search','value'),Output('direction-filter','value'),Output('event-status','value'),
@@ -141,9 +144,10 @@ def create_dashboard(meta):
         key = domain(path)
         context = navigation_context(key,search,meta)
         tab = context['tab'] if context['tab'] in dict(TABS[key]) else TABS[key][0][0]
-        descriptions = {"overview": "세 가지 분석을 하나의 의사결정으로.", "demand": "계획과 예측의 차이에서, 먼저 검토할 부품을 찾습니다.", "maintenance": "용접 신호의 변화에서, 확인이 필요한 구간을 찾습니다.", "quality": "시험의 이상 근거와 기여 위치를 확인합니다."}
+        if key == 'quality' and context.get('q-test') and not context['tab']:
+            tab = 'analysis'
         title = "D+3 발주량 예측" if key == "demand" else DOMAIN[key]
-        return ([dmc.TabsList([dmc.TabsTab(label, value=value) for value, label in TABS[key]])], tab, title, descriptions[key], DOMAIN[key],
+        return ([dmc.TabsList([dmc.TabsTab(label, value=value) for value, label in TABS[key]])], tab, title, DOMAIN[key],
                 *["nav-link active" if k == key else "nav-link" for k in DOMAIN],
                 *[context.get(id,no_update) for id in ['d-date','d-part','d-model','m-run','m-sup','m-unsup','q-test','q-cell']],
                 context['event'],'' if context['resetLocalFilters'] else no_update,
@@ -153,23 +157,43 @@ def create_dashboard(meta):
     @app.callback(*[Output(id, "style") for id in ["demand-controls", "maintenance-controls", "quality-controls", "overview-controls", "demand-local", "maintenance-local", "result-kind", "quality-analysis-local", "quality-eval-local", "quality-history-local"]], Input("url", "pathname"), Input("tabs", "value"), Input("q-section", "value"))
     def control_visibility(path, tab, quality_section):
         key = domain(path)
-        flags = [key == "demand", key == "maintenance", key == "quality", key == "overview" and tab in ["data", "results"], key == "demand" and tab == "review", key == "maintenance" and tab == "review", key == "overview" and tab == "results", key == "quality" and tab == "analysis", False, key == "quality" and tab == "review"]
+        flags = [key == "demand", key == "maintenance", key == "quality" and tab != 'packs', key == "overview" and tab in ["data", "results"], key == "demand" and tab == "review", key == "maintenance" and tab == "review", key == "overview" and tab == "results", key == "quality" and tab == "analysis", False, key == "quality" and tab == "review"]
         return [{} if show else {"display": "none"} for show in flags]
 
     @app.callback(Output("page-content", "children"), Output("view-data", "data"), Output("export-data", "data"), Output('analysis-source', 'children'),
         Input("url", "pathname"), Input("tabs", "value"), Input("d-date", "value"), Input("d-part", "value"), Input("d-model", "value"),
         Input("m-run", "value"), Input("m-sup", "value"), Input("m-unsup", "value"), Input("q-test", "value"), Input("q-cell", "value"), Input("q-progress", "value"), Input("q-map", "value"), Input("q-basis", "value"), Input("q-defect", "data"), Input("q-section", "value"), Input("q-eval-scope", "value"), Input("q-history-scope", "value"),
-        Input("overview-track", "value"), Input("result-kind", "value"), Input("session-actions", "data"), Input("part-search", "value"), Input("direction-filter", "value"), Input("event-status", "value"), Input("refresh", "n_clicks"),Input('linked-event','data'))
-    def render(path, tab, date, part, model, run, sup, unsup, test, cell, progress, mapmode, basis, defect, quality_section, eval_scope, history_scope, track, kind, actions, search, direction, status, _, linked_event):
+        Input("overview-track", "value"), Input("result-kind", "value"), Input("session-actions", "data"), Input("part-search", "value"), Input("direction-filter", "value"), Input("event-status", "value"), Input("refresh", "n_clicks"),Input('linked-event','data'),
+        Input('pack-index','data'),Input('pack-number','value'),Input('pack-mode','value'),Input('pack-snapshot','value'),Input('pack-view','value'),Input('pack-selected-cell','data'))
+    def render(path, tab, date, part, model, run, sup, unsup, test, cell, progress, mapmode, basis, defect, quality_section, eval_scope, history_scope, track, kind, actions, search, direction, status, _, linked_event, pack_index, pack_number, pack_mode, pack_snapshot, pack_view, pack_cell):
         key = domain(path)
         tab = tab if tab in dict(TABS[key]) else TABS[key][0][0]
         actions = actions or {}
         try:
+            if key == 'quality' and tab == 'packs':
+                if not pack_index:
+                    return html.P('팩 분석 결과를 불러오는 중…'), {'domain':key,'tab':tab,'payload':{}}, [], ''
+                if pack_index.get('error'):
+                    raise ValueError(pack_index['error'])
+                if not pack_index['rows']:
+                    return callout('팩 결과 없음','조회할 자동 분석 결과가 없습니다.'), {'domain':key,'tab':tab,'payload':{}}, [], ''
+                rows = pack_workspace.result_rows(pack_index)
+                if pack_view == 'list':
+                    content, rows = pack_workspace.results(pack_index)
+                    data = {'scope':'pack-list'}
+                else:
+                    choices = [r for r in pack_index['rows'] if r['pack_no']==pack_number]
+                    chosen = next((r for r in choices if r['process']==pack_mode),choices[0] if choices else pack_index['rows'][0])
+                    data = request('/api/battery-packs/'+chosen['pack_id'],params={'snapshot':pack_snapshot,'refresh':ctx.triggered_id=='refresh'})
+                    try:
+                        actions = request('/api/records/state')['records']
+                    except (ValueError,httpx.HTTPError):
+                        actions = {'__unavailable__':True}
+                    content = pack_workspace.inspection(data,pack_cell,actions)
+                return content, {'domain':key,'tab':tab,'payload':data,'dataVersion':data.get('dataVersion',pack_index['dataVersion'])}, rows, ''
             current_meta = request('/api/analysis/refresh', 'POST') if ctx.triggered_id == 'refresh' else request('/api/meta')
             source = current_meta.get('analysisSource') or {}
-            source_label = ('분석: Firestore · 인증·기록: Firebase' if source.get('source') == 'firestore' else '분석: 로컬 시드')
-            source_hint = html.Span(source_label + (' · 마지막 확인 자료' if source.get('state') == 'stale' else ''),
-                title=f"자료 버전: {current_meta['dataVersion']} / 최근 확인: {source.get('checkedAt') or '로컬'} / 품질 원본·추론 모델: 동일 버전 로컬 자료")
+            source_hint = html.Span()
             record_warning = None
             try:
                 actions = request('/api/records/state')['records']
@@ -204,6 +228,8 @@ def create_dashboard(meta):
                 else:
                     content, rows = quality_view(data, tab, actions, mapmode, defect)
             if record_warning:
+                if meta.get('demo'):
+                    record_warning.className += ' demo-notice'
                 content = html.Div([record_warning, content])
             if source.get('state') == 'stale':
                 content = html.Div([callout('마지막 확인 자료로 조회 중', (source.get('message') or '') + ' 최신 자료 확인 전까지 기록 저장·새 분석은 중단됩니다.', 'warning'), content])
@@ -263,12 +289,6 @@ def create_dashboard(meta):
     @app.callback(Output("q-test", "value"), Input("quality-file-grid", "selectedRows", allow_optional=True), prevent_initial_call=True)
     def choose_quality_test(rows):
         return rows[0]['시험'] if rows else no_update
-
-    @app.callback(Output("q-defect", "data"), Input({"type": "quality-defect", "index": ALL}, "n_clicks"), prevent_initial_call=True)
-    def choose_defect(clicks):
-        if not any(clicks or []) or not isinstance(ctx.triggered_id, dict):
-            return no_update
-        return ctx.triggered_id["index"]
 
     @app.callback(Output("q-cell", "value"), Input("quality-heatmap", "clickData", allow_optional=True), Input("quality-3d", "clickData", allow_optional=True), Input("main-grid", "selectedRows", allow_optional=True), State("view-data", "data"), State("q-map", "value"), prevent_initial_call=True)
     def choose_cell(click, spatial_click, selected, view, mapmode):
@@ -364,9 +384,9 @@ def create_dashboard(meta):
         except (ValueError, httpx.HTTPError):
             return callout("CSV 추론 실패", "템플릿의 필수 열, 동일 부품의 연속 3일, 0 이상 수량을 확인하세요.", "warning")
 
-    @app.callback(Output("export-modal", "opened"), Output("export-ready", "children"), Input("export", "n_clicks"), State("main-grid", "virtualRowData", allow_optional=True), State("export-data", "data"), State("view-data", "data"), prevent_initial_call=True)
-    def export(_, visible, rows, view):
-        selected = visible if visible is not None else rows or []
+    @app.callback(Output("export-modal", "opened"), Output("export-ready", "children"), Input("export", "n_clicks"), State("main-grid", "virtualRowData", allow_optional=True), State("export-data", "data"), State("view-data", "data"), State('pack-results-grid','virtualRowData',allow_optional=True), prevent_initial_call=True)
+    def export(_, visible, rows, view, pack_rows):
+        selected = (pack_rows if pack_rows is not None else rows or []) if (view or {}).get('tab')=='packs' else visible if visible is not None else rows or []
         try:
             result = request("/api/exports", "POST", json={"rows": selected, "name": f"{view['domain']}_{view['tab']}"})
             return True, html.Div([html.P(f"현재 필터를 적용한 {result['count']:,}행이 준비되었습니다."), html.A("CSV 파일 다운로드", href=result["url"], className="template-link"), html.P("다운로드 링크는 15분 동안 유효합니다.", className="section-note")])

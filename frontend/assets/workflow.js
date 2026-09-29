@@ -32,7 +32,7 @@ document.addEventListener('keydown', event => {
   let scheduled = false;
   function wire() {
     scheduled = false;
-    for (const id of ['quality-3d', 'maintenance-3d']) {
+    for (const id of ['quality-3d', 'maintenance-3d', 'pack-3d']) {
       const host = document.getElementById(id);
       const plot = host?.querySelector('.js-plotly-plot');
       if (!plot?.on || wired.has(plot)) continue;

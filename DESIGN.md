@@ -1449,3 +1449,27 @@ User correction supersedes rotation and 2D controls in section 37.
 - A static transparent battery-module illustration sits diagonally at the bottom left, behind content.
 - Keep decoration non-interactive and hidden from assistive technology. Shrink or hide it on small screens.
 - No WebGL, moving battery, mouse-following effect or transparent login fields.
+
+# 40. Operational design refactor — 2026-09-29
+
+User requested a comprehensive visual refactor for business stakeholders.
+- Retain Dash, the 240px desktop sidebar / 72px collapsed rail, LS colors,
+  SUIT, real data, fixed inspection perspective and existing record workflows.
+- Use 15px body, 13px context, 18px panel titles and 28px KPI values. Keep
+  all controls aligned along their input baseline. Red remains the sidebar accent.
+- Summary first, visual evidence second, selected entity and record actions in
+  the adjacent inspector. Longer measurements and history may use disclosures.
+- Use neutral dashed plan, navy forecast, teal observed comparison; label units
+  explicitly. Diverging plan-gap bars use red for upward and light blue for downward
+  review with signed values. These colors do not imply profitability.
+- Normal/warning/danger cell states use teal/amber/red plus text and counts.
+  Selection uses a strong navy outline, distinct from alarm state.
+- Size each Plotly viewport to its container. Do not squash the battery pack or
+  clip the last module row to make the first viewport fit.
+- Shared numeric formatting, right alignment, pagination and visible selection
+  belong in the grid component. Never derive new diagnoses from visual styling.
+- `frontend/palette.py` centralizes Plotly/Dash colors. CSS token counterparts
+  remain in `assets/theme.css`; `assets/zz_operations.css` owns the operational
+  component and desktop composition refinements, loaded after legacy styles.
+- Image concepts inform composition; generated example data, altered branding,
+  unsolicited descriptions and duplicate navigation are not product requirements.

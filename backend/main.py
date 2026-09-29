@@ -53,6 +53,8 @@ class SaveDecision(PreviewDecision):
 
 
 class ScreenContext(BaseModel):
+    pack: str | None = Field(None, pattern=r'^\d+_(chg|dchg)$')
+    packSnapshot: Literal['last', 'peak'] = 'last'
     track: Literal['overview', 'demand', 'maintenance', 'quality'] = 'overview'
     date: str | None = Field(None, max_length=20)
     part: str = Field('ALL', max_length=60)
@@ -127,6 +129,11 @@ def create_api(mount_ui=True, service=None, copilot_service=None, analysis_store
             analysis_store.unbind(token)
 
     install_security(app, service)
+    from backend.battery_packs import BatteryPacks, install_pack_routes
+    pack_store = BatteryPacks(service, demo=demo)
+    if isinstance(copilot, Copilot):
+        copilot.pack_store = pack_store
+    install_pack_routes(app, pack_store, service)
     from backend.quality_routes import install_quality_routes
     install_quality_routes(app, repo, service)
     from backend.maintenance_routes import install_maintenance_routes
@@ -235,6 +242,8 @@ def create_api(mount_ui=True, service=None, copilot_service=None, analysis_store
 
     @app.post("/api/preview/decision", tags=["체험"])
     def preview_decision(body: PreviewDecision):
+        if body.track == 'quality' and body.target.startswith('pack:'):
+            return pack_store.validate_decision(body)
         if body.dataVersion and body.dataVersion != repo.manifest['dataVersion']:
             raise HTTPException(409, '화면의 자료 버전이 변경되었습니다. 새로고침 후 다시 검토하세요.')
         if body.track == "demand" and body.target not in repo.parts:
@@ -282,7 +291,7 @@ def create_api(mount_ui=True, service=None, copilot_service=None, analysis_store
             if not body.conversationId:
                 raise ValueError('초안 대화를 확인하세요.')
             service.conversation(request.state.user['uid'], body.conversationId)
-        result = service.save_record(body.model_dump(), validated['key'], request.state.user, repo.manifest['dataVersion'])
+        result = service.save_record(body.model_dump(), validated['key'], request.state.user, validated['dataVersion'])
         with state_lock:
             state_cache['until'] = 0
         return result
