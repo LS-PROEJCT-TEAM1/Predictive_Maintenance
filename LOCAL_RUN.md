@@ -71,7 +71,7 @@ SDK는 루트의 `*firebase-adminsdk*.json`을 자동 인식합니다. 여러 �
 .\.venv\Scripts\python.exe -m backend.bootstrap --email employee@example.com --name "직원 이름" --role employee
 ```
 
-관리자는 `--role admin`, 앱 권한 회수는 `--inactive`를 사용합니다. 이 도구는 비밀번호를 만들거나 변경하지 않으며 다른 Custom Claims를 보존합니다.
+관리자는 `--role admin`, 앱 권한 회수는 `--inactive`를 사용합니다. 전체 계정의 현재 권한은 `.\.venv\Scripts\python.exe -m backend.bootstrap --list`로 확인합니다. 이 도구는 비밀번호를 만들거나 변경하지 않으며 다른 Custom Claims를 보존합니다.
 계정 비활성화·삭제·이메일/비밀번호 관리는 Firebase Console에서 수행합니다. 현재 역할을 서버가 다시 확인하며 읽기 접근 캐시는 최대 10초입니다. 업무 저장은 캐시 없이 확인합니다.
 2026-09-28에는 두 시험 계정의 역할이 없어 접근이 거절됐으며, 2026-09-29 사용자 승인 후 직원/관리자 역할을 복구하고 재조회했습니다. 초기에 별도 `manufacturingEmployees` 프로필 2개도 생성했으나 최종 인증 기준은 **Firebase Auth의 manufacturingRole**이며 해당 프로필은 인증에 사용하지 않습니다.
 
@@ -88,6 +88,68 @@ Firebase 프로젝트/서비스 계정 관리자는 콘솔을 통해 DB 자체�
 업무 기록은 최대 15초 캐시하며 저장 성공 시 무효화합니다. Copilot은 최근 30개 대화, 대화당 최대 20회 질문을 지원합니다.
 로컬 FAISS 인덱스는 `.local/rag`에 저장합니다. 처음 질문할 때 공개 다국어 임베딩 모델을 다운로드하며, 이번 PC는 이미 준비했습니다. 모델 재학습은 없습니다.
 문서 목록은 `backend/copilot.py`의 SOURCES로 제한합니다. 문서 변경 시 내용 해시를 비교해 인덱스를 다시 만듭니다. 대화·환경 파일·개인정보를 검색 인덱스에 넣지 않습니다.
+
+## 같은 Wi-Fi에서 다른 사람이 접속하기
+
+기본 실행은 이 PC(127.0.0.1)에서만 접속됩니다. 같은 네트워크의 다른 기기에 열려면 다음을 모두 해야 합니다.
+
+1. `ipconfig`에서 **무선 LAN 어댑터 Wi-Fi**의 IPv4 주소를 확인하고 루트 `.env`에 적습니다. 포트와 `http://` 없이, 여러 개는 쉼표로 구분합니다. `*`는 허용하지 않습니다.
+   ```
+   ALLOWED_HOSTS=10.101.134.171
+   ```
+2. 관리자 PowerShell에서 방화벽을 엽니다(네트워크 프로필이 "개인"이어야 적용됩니다).
+   ```powershell
+   New-NetFirewallRule -DisplayName "BatteryFlow 8078" -Direction Inbound -Protocol TCP -LocalPort 8078 -Action Allow -Profile Private
+   ```
+3. `.\start_local.cmd --host 0.0.0.0`으로 실행하면 실행 창에 다른 기기용 주소가 표시됩니다. 접속자는 `http://<IP>:8078`에서 등록된 직원 계정으로 로그인합니다.
+
+주의: http라 비밀번호가 암호화되지 않고 전송됩니다. 신뢰할 수 있는 네트워크와 테스트 계정으로만 사용하세요. 학교·회사 Wi-Fi의 기기 간 통신 차단(AP 격리)이 있으면 설정과 무관하게 접속되지 않습니다. Wi-Fi를 다시 연결해 IP가 바뀌면 `ALLOWED_HOSTS`도 바꿉니다. 로그인 기록의 IP는 접속한 기기의 내부 IP로 남습니다.
+
+## 로그인 기록 (manufacturingAuthLogs)
+
+연결 모드에서 로그인 성공·실패, 로그아웃, 세션 만료를 `manufacturingAuthLogs/{logId}`에 1건씩 저장합니다. 코드는 `backend/auth_log.py`입니다.
+체험 모드와 테스트용 서비스에서는 저장하지 않습니다. 저장 실패는 로그인 결과에 영향을 주지 않습니다(백그라운드 저장, 실행 창에 이벤트 이름과 오류 종류만 표시).
+
+| 필드 | 저장 방식 | 설명 |
+|---|---|---|
+| `event` | 평문 | `login_success`, `login_failed`, `logout`, `session_expired` |
+| `reason` | 평문 | 실패 사유: `invalid_credentials`, `no_permission`, `rate_limited`, `auth_unavailable` / 만료: `expired_or_revoked` |
+| `at`, `expireAt` | Timestamp | 발생 시각, 자동 삭제 시각(기본 180일) |
+| `uid`, `role` | 평문 | Firebase UID(무작위 ID)와 앱 역할. 실패 시 `null` |
+| `sessionId` | SHA-256 앞 16자리 | 로그인과 로그아웃을 연결하는 값. 쿠키 원문은 저장하지 않음 |
+| `emailHmac`, `ipHmac` | HMAC-SHA256 | 복호화 없이 같은 이메일·IP를 찾기 위한 인덱스 |
+| `pii.email`, `pii.name`, `pii.ip`, `pii.userAgent` | **AES-256-GCM** | 필드마다 새 nonce, 문서 ID·필드명을 AAD로 묶어 다른 문서로 옮기면 복호화 실패. 이메일은 로그인·실패 시 입력값, 로그아웃 시 Firebase 계정 이메일(세션 만료는 사용자를 확인할 수 없어 없음) |
+| `keyId`, `schemaVersion` | 평문 | 사용한 키 버전, 문서 형식 버전 |
+
+**비밀번호는 평문·해시 어느 형태로도 저장하지 않습니다.** 비밀번호는 Firebase Authentication이 자체 해시로 관리하며, 서버는 로그인 요청을 Firebase에 전달만 하고 로거에는 넘기지 않습니다.
+
+### 키 준비 (최초 1회, 한 사람만)
+
+```powershell
+.\.venv\Scripts\python.exe -m backend.auth_log init-keys
+```
+
+루트 `.env`에 `LOG_ENC_KEY`, `LOG_HMAC_KEY`(각 32바이트, base64)를 추가하며 값은 화면에 출력하지 않습니다.
+같은 로그를 읽으려면 모든 팀원이 **같은 키**를 써야 하므로, 이 `.env`를 SDK JSON과 같은 방식으로 안전하게 전달하세요.
+키를 바꾸거나 잃어버리면 기존 기록의 개인정보는 복호화할 수 없습니다. 키가 없으면 로그인 기록만 비활성화되고 앱은 정상 실행됩니다.
+
+### 조회 (관리자)
+
+대시보드: 관리자(`manufacturingRole=admin`) 계정으로 로그인하면 상단에 **시스템 로그** 버튼이 보입니다. 최신 200건을 이벤트별로 걸러 보고, 표에서 정렬·검색할 수 있습니다.
+직원 계정에는 버튼이 보이지 않으며 `GET /api/admin/auth-logs`도 매 요청마다 캐시 없이 역할을 다시 확인해 403으로 거절합니다.
+
+명령줄:
+
+```powershell
+.\.venv\Scripts\python.exe -m backend.auth_log show --limit 20
+.\.venv\Scripts\python.exe -m backend.auth_log show --event login_failed
+.\.venv\Scripts\python.exe -m backend.auth_log show --email employee@example.com
+```
+
+### Firebase Console 설정
+
+1. Firestore → TTL 정책 → 컬렉션 그룹 `manufacturingAuthLogs`, 필드 `expireAt`으로 정책을 만듭니다. 기한이 지난 기록을 자동 삭제합니다.
+2. 보안 규칙은 기존처럼 클라이언트 접근 전부 거절을 유지합니다. 서버(Admin SDK)만 씁니다.
 
 ## 연결 검증 상태와 할당량 이력
 

@@ -28,9 +28,21 @@ def open_when_ready(url, mode):
     print(f'화면이 준비되면 브라우저에서 {url} 을 열어 주세요.', flush=True)
 
 
+def lan_address():
+    """Best-effort IPv4 of the active network adapter (no packets are sent)."""
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
+            probe.connect(("10.255.255.255", 1))
+            return probe.getsockname()[0]
+    except OSError:
+        return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="BatteryFlow AI 운영센터 로컬 통합 화면")
     parser.add_argument("--port", type=int, default=8070)
+    parser.add_argument("--host", default="127.0.0.1",
+                        help="접속을 받을 주소. 기본 127.0.0.1(이 PC만). 같은 Wi-Fi 공개는 0.0.0.0")
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument('--demo', action='store_true', help='계정·외부 연결 없는 로컬 분석 체험')
     modes.add_argument('--connected', action='store_true', help='실제 연결 필수; 설정 누락 시 중단')
@@ -62,11 +74,16 @@ def main():
                 return
             raise SystemExit(f'{args.port} 포트에서 다른 서비스 또는 다른 모드가 실행 중입니다. 기존 서버를 종료한 뒤 다시 실행하세요.')
         threading.Thread(target=open_when_ready, args=(login_url, mode), daemon=True).start()
+    # Dash talks to the API inside this PC, whatever address the server listens on.
     os.environ["MANUFACTURING_API_URL"] = f"http://127.0.0.1:{args.port}"
     import uvicorn
     print(f"Dashboard: http://127.0.0.1:{args.port}", flush=True)
     print(f"API docs: http://127.0.0.1:{args.port}/docs", flush=True)
-    uvicorn.run("backend.main:app", host="127.0.0.1", port=args.port, log_level="info")
+    if args.host != "127.0.0.1":
+        address = lan_address()
+        print(f"같은 Wi-Fi 공개 모드: 다른 기기는 http://{address or '이PC의IP'}:{args.port} 로 접속합니다.", flush=True)
+        print(f"http(암호화 없음)입니다. 신뢰할 수 있는 네트워크에서만 사용하고, 방화벽 {args.port} 허용과 허용 주소 설정이 필요합니다.", flush=True)
+    uvicorn.run("backend.main:app", host=args.host, port=args.port, log_level="info")
 
 
 if __name__ == "__main__":

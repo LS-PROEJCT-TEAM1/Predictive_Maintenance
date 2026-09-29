@@ -69,7 +69,7 @@ def results(index):
     columns = [{'field': k, 'headerName': k, 'filter': 'agNumberColumnFilter' if k.endswith(')') else 'agTextColumnFilter'} for k in rows[0] if k != 'id'] if rows else []
     for col in columns:
         if col['field'] == 'AI 판정':
-            col['cellClassRules'] = {'pack-ng': "x === 'NG'", 'pack-ok': "x === 'OK'"}
+            col['cellClassRules'] = {'pack-ng': "params.value === 'NG'", 'pack-ok': "params.value === 'OK'"}
         if col['field'].endswith(')'):
             col['valueFormatter'] = {'function': "params.value == null ? '—' : Number(params.value).toLocaleString('ko-KR', {maximumFractionDigits: 2})"}
     return html.Div([
