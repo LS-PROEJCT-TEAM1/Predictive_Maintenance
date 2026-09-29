@@ -7,7 +7,7 @@ DOMAIN = {"overview": "통합 현황", "demand": "공급망 예측", "maintenanc
 TABS = {"overview": [("summary", "통합 요약")],
         "demand": [("analysis", "예측·계획"), ("review", "발주 검토")],
         "maintenance": [("analysis", "설비 점검"), ("review", "이벤트 기록")],
-        "quality": [("packs", "팩 검사"), ("analysis", "시험 분석"), ("review", "판정·조치")]}
+        "quality": [("packs", "팩 검사"), ("review", "판정·조치")]}
 
 
 def section_note(text):

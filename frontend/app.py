@@ -10,7 +10,7 @@ from dash import ALL, Dash, Input, Output, State, ctx, dcc, html, no_update
 import dash_mantine_components as dmc
 from flask import request as flask_request
 from frontend import copilot_ui, quality_workspace, maintenance_workspace, overview_workspace, spatial, pack_workspace
-from frontend.navigation import navigation_context
+from frontend.navigation import navigation_context, legacy_quality_review
 from frontend.palette import BLUE, BLUE_SHADES
 
 from frontend.components import badge, callout, graph, grid, icon, metric_rows, num, panel, select, settings_disclosure
@@ -89,7 +89,7 @@ def create_dashboard(meta):
             html.Div([dmc.Textarea(id="review-note", label="검토 메모", placeholder="확인한 내용을 입력하세요.", minRows=3, inputProps={"maxLength": 2000}), dmc.Button("확인 처리", id="prepare-review", leftSection=icon("check"), className="spaced-button")], id="review-form")]),
         dmc.Modal(closeButtonProps={"aria-label": "닫기"}, id="confirm-modal", title="업무 기록 저장 확인", centered=True, children=[html.Div(id="confirm-content"),
             callout("직원 공용 업무 기록", "작성자와 시각을 포함해 Firebase에 저장합니다. 이전 기록도 이력에 남습니다."), dmc.Group([dmc.Button("취소", id="cancel-save", variant="default"), dmc.Button("확인 후 저장", id="confirm-save")], justify="flex-end")]),
-        copilot_ui.drawer(), quality_workspace.upload_modal(), maintenance_workspace.modals(), pack_workspace.drawer(),
+        copilot_ui.drawer(), quality_workspace.upload_modal(), maintenance_workspace.modals(),
         dmc.Drawer(id='auth-logs-drawer', title='시스템 로그 · 로그인 기록', position='right', size=960, closeButtonProps={'aria-label': '닫기'}, children=[
             html.P('관리자 전용 · 최신 200건 · 개인정보는 DB에 암호문으로만 저장되며 이 화면에서만 서버가 복호화해 보여줍니다.', className='section-note'),
             dmc.SegmentedControl(id='auth-log-event', value='all', data=[{'label': '전체', 'value': 'all'}, {'label': '로그인', 'value': 'login_success'}, {'label': '로그인 실패', 'value': 'login_failed'}, {'label': '로그아웃', 'value': 'logout'}, {'label': '세션 만료', 'value': 'session_expired'}]),
@@ -175,8 +175,8 @@ def create_dashboard(meta):
         key = domain(path)
         context = navigation_context(key,search,meta)
         tab = context['tab'] if context['tab'] in dict(TABS[key]) else TABS[key][0][0]
-        if key == 'quality' and context.get('q-test') and not context['tab']:
-            tab = 'analysis'
+        if key == 'quality' and context.get('q-test'):
+            tab = 'review'
         title = "D+3 발주량 예측" if key == "demand" else DOMAIN[key]
         return ([dmc.TabsList([dmc.TabsTab(label, value=value) for value, label in TABS[key]])], tab, title, DOMAIN[key],
                 *["nav-link active" if k == key else "nav-link" for k in DOMAIN],
@@ -185,23 +185,23 @@ def create_dashboard(meta):
                 'all' if context['resetLocalFilters'] else no_update,'all' if context['resetLocalFilters'] else no_update,
                 'selected' if key=='quality' and context['resetLocalFilters'] else no_update)
 
-    @app.callback(*[Output(id, "style") for id in ["demand-controls", "maintenance-controls", "quality-controls", "overview-controls", "demand-local", "maintenance-local", "result-kind", "quality-analysis-local", "quality-eval-local", "quality-history-local"]], Input("url", "pathname"), Input("tabs", "value"), Input("q-section", "value"))
-    def control_visibility(path, tab, quality_section):
+    @app.callback(*[Output(id, "style") for id in ["demand-controls", "maintenance-controls", "quality-controls", "overview-controls", "demand-local", "maintenance-local", "result-kind", "quality-analysis-local", "quality-eval-local", "quality-history-local"]], Input("url", "pathname"), Input("tabs", "value"), Input("q-section", "value"), Input("url", "search"))
+    def control_visibility(path, tab, quality_section, url_search):
         key = domain(path)
-        flags = [key == "demand", key == "maintenance", key == "quality" and tab != 'packs', key == "overview" and tab in ["data", "results"], key == "demand" and tab == "review", key == "maintenance" and tab == "review", key == "overview" and tab == "results", key == "quality" and tab == "analysis", False, key == "quality" and tab == "review"]
+        flags = [key == "demand", key == "maintenance", key == "quality" and tab == "review" and legacy_quality_review(url_search), key == "overview" and tab in ["data", "results"], key == "demand" and tab == "review", key == "maintenance" and tab == "review", key == "overview" and tab == "results", key == "quality" and tab == "analysis", False, key == "quality" and tab == "review" and legacy_quality_review(url_search)]
         return [{} if show else {"display": "none"} for show in flags]
 
     @app.callback(Output("page-content", "children"), Output("view-data", "data"), Output("export-data", "data"), Output('analysis-source', 'children'),
         Input("url", "pathname"), Input("tabs", "value"), Input("d-date", "value"), Input("d-part", "value"), Input("d-model", "value"),
         Input("m-run", "value"), Input("m-sup", "value"), Input("m-unsup", "value"), Input("q-test", "value"), Input("q-cell", "value"), Input("q-progress", "value"), Input("q-map", "value"), Input("q-basis", "value"), Input("q-defect", "data"), Input("q-section", "value"), Input("q-eval-scope", "value"), Input("q-history-scope", "value"),
         Input("overview-track", "value"), Input("result-kind", "value"), Input("session-actions", "data"), Input("part-search", "value"), Input("direction-filter", "value"), Input("event-status", "value"), Input("refresh", "n_clicks"),Input('linked-event','data'),
-        Input('pack-index','data'),Input('pack-number','value'),Input('pack-mode','value'),Input('pack-snapshot','value'),Input('pack-view','value'),Input('pack-selected-cell','data'))
-    def render(path, tab, date, part, model, run, sup, unsup, test, cell, progress, mapmode, basis, defect, quality_section, eval_scope, history_scope, track, kind, actions, search, direction, status, _, linked_event, pack_index, pack_number, pack_mode, pack_snapshot, pack_view, pack_cell):
+        Input('pack-index','data'),Input('pack-number','value'),Input('pack-mode','value'),Input('pack-snapshot','value'),Input('pack-view','value'),Input('pack-selected-cell','data'),Input('url','search'))
+    def render(path, tab, date, part, model, run, sup, unsup, test, cell, progress, mapmode, basis, defect, quality_section, eval_scope, history_scope, track, kind, actions, search, direction, status, _, linked_event, pack_index, pack_number, pack_mode, pack_snapshot, pack_view, pack_cell, url_search):
         key = domain(path)
         tab = tab if tab in dict(TABS[key]) else TABS[key][0][0]
         actions = actions or {}
         try:
-            if key == 'quality' and tab == 'packs':
+            if key == 'quality' and (tab == 'packs' or (tab == 'review' and not legacy_quality_review(url_search))):
                 if not pack_index:
                     return html.P('팩 분석 결과를 불러오는 중…'), {'domain':key,'tab':tab,'payload':{}}, [], ''
                 if pack_index.get('error'):
@@ -209,7 +209,7 @@ def create_dashboard(meta):
                 if not pack_index['rows']:
                     return callout('팩 결과 없음','조회할 자동 분석 결과가 없습니다.'), {'domain':key,'tab':tab,'payload':{}}, [], ''
                 rows = pack_workspace.result_rows(pack_index)
-                if pack_view == 'list':
+                if tab == 'packs' and pack_view == 'list':
                     content, rows = pack_workspace.results(pack_index)
                     data = {'scope':'pack-list'}
                 else:
@@ -220,7 +220,10 @@ def create_dashboard(meta):
                         actions = request('/api/records/state')['records']
                     except (ValueError,httpx.HTTPError):
                         actions = {'__unavailable__':True}
-                    content = pack_workspace.inspection(data,pack_cell,actions)
+                    if tab == 'review':
+                        content, rows = pack_workspace.review_page(data,request)
+                    else:
+                        content = pack_workspace.inspection(data,pack_cell,actions)
                 return content, {'domain':key,'tab':tab,'payload':data,'dataVersion':data.get('dataVersion',pack_index['dataVersion'])}, rows, ''
             current_meta = request('/api/analysis/refresh', 'POST') if ctx.triggered_id == 'refresh' else request('/api/meta')
             source = current_meta.get('analysisSource') or {}
@@ -269,16 +272,22 @@ def create_dashboard(meta):
             message = str(exc) if isinstance(exc, ValueError) else "백엔드 연결을 확인하고 새로고침을 눌러 주세요."
             return callout("분석 데이터를 불러오지 못했습니다", message, "warning"), {"domain": key, "tab": tab, "payload": {}}, [], '공식 분석 자료 조회 실패'
 
-    @app.callback(Output('tabs','value',allow_duplicate=True),Input('go-review','n_clicks'),Input('quality-go-review','n_clicks',allow_optional=True),prevent_initial_call=True)
-    def go_review(*clicks):
-        return 'review' if any(clicks) else no_update
+    @app.callback(Output('tabs','value',allow_duplicate=True),Output('url','search',allow_duplicate=True),
+                  Input('go-review','n_clicks'),Input('quality-go-review','n_clicks',allow_optional=True),
+                  State('url','pathname'),State('tabs','value'),prevent_initial_call=True)
+    def go_review(click, quality_click, path, tab):
+        if not (click or quality_click):
+            return no_update,no_update
+        if path=='/quality' and tab=='packs':
+            return 'review','?tab=review'
+        return 'review',no_update
 
     @app.callback(Output('tabs','style'),Output('go-review','style'),Output('quality-controls','className'),
         *[Output(id,'style') for id in ('open-inference','open-maintenance-upload','open-maintenance-report','open-quality-upload')],
         Input('url','pathname'),Input('tabs','value'))
     def workflow_actions(path,tab):
         key=domain(path); hidden={'display':'none'}
-        return (hidden if key=='overview' else {},{} if key!='overview' and tab=='analysis' else hidden,'filter-toolbar'+(' review-mode' if tab=='review' else ''),
+        return (hidden if key=='overview' else {},{} if key!='overview' and tab in ('analysis','packs') else hidden,'filter-toolbar'+(' review-mode' if tab=='review' else ''),
                 {} if key=='demand' else hidden,{} if key=='maintenance' else hidden,{} if key=='maintenance' else hidden,{} if key=='quality' else hidden)
 
     @app.callback(Output("detail-drawer", "opened"), Output("detail-content", "children"), Output("selected-target", "data"), Output("review-form", "style"),

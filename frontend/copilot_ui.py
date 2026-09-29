@@ -146,7 +146,7 @@ def register(app, request):
                     return no_update, no_update, no_update, no_update, callout('질문을 입력하세요', '', 'warning')
                 context = {'track': (path or '/').strip('/') or 'overview', 'date': date, 'part': part, 'model': model,
                     'run': run, 'supervised': sup, 'unsupervised': unsup, 'test': test, 'cell': cell, 'progress': progress,'basis':basis}
-                if path=='/quality' and (view or {}).get('tab')=='packs':
+                if path=='/quality' and ((view or {}).get('tab')=='packs' or (view or {}).get('payload',{}).get('summary',{}).get('pack_id')):
                     data=view.get('payload',{})
                     if not data.get('summary'):
                         raise ValueError('목록에서 팩을 선택한 뒤 질문하세요.')

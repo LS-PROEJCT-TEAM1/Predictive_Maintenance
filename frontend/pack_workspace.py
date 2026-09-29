@@ -7,6 +7,7 @@ from dash import Input, Output, State, ctx, dcc, html, no_update
 import dash_mantine_components as dmc
 
 from frontend import spatial
+from frontend.navigation import legacy_quality_review
 from frontend.components import BLUE, RED, badge, callout, graph, grid, kpi, metric_rows, num, panel, select
 
 STATUS = {'normal': '정상', 'warning': '경고', 'danger': '위험', 'missing': '자료 없음'}
@@ -53,9 +54,53 @@ def controls():
     ], id='pack-controls', className='filter-toolbar pack-controls', style={'display': 'none'})
 
 
-def drawer():
-    return dmc.Drawer(id='pack-review-drawer', title='팩 판정·조치', position='right', size=560,
-                     closeButtonProps={'aria-label': '닫기'}, children=html.Div(id='pack-review-content'))
+def unresolved_defect(row):
+    return row.get('ai_verdict') == 'NG' and not any(
+        (row.get('flags') or {}).get(key) is True for key, *_ in DEFECT_TYPES)
+
+
+def technician_notice(row, action=False):
+    if not unresolved_defect(row):
+        return None
+    return html.Div([
+        callout('불량 의심 유형 미확정 · 숙련 기술자 확인 필요',
+                'AI 이상이 감지되었습니다. 판정·조치에서 숙련 기술자가 원인을 확인하고 후속 조치를 기록해 주세요.', 'warning'),
+        dmc.Button('판정·조치로 이동', id='pack-go-review', variant='outline') if action else None,
+    ], className='pack-review-notice', role='status')
+
+
+def review_page(data, request):
+    row = data['summary']
+    try:
+        records = request(f"/api/battery-packs/{row['pack_id']}/history")['records']
+        latest = records[0] if records else {}
+        unavailable = False
+        history = [html.Article([
+            badge(DECISIONS.get(r['decision'], r['decision'])), html.P(r.get('note') or '메모 없음'),
+            html.Small(f"{r.get('actor', '')} · {r.get('at', '')} · 수정 {r.get('revision', '')}"),
+            html.Small('이전 판정: '+DECISIONS.get(r.get('previousDecision'), '없음')),
+        ], className='record-item') for r in records] or html.P('저장된 작업자 기록이 없습니다.')
+    except (ValueError, httpx.HTTPError) as exc:
+        records, latest, unavailable = [], {}, True
+        history = callout('기록 조회 불가', str(exc) if isinstance(exc, ValueError) else '연결을 확인하세요.', 'warning')
+    names = [name for key, name, *_ in DEFECT_TYPES if (row.get('flags') or {}).get(key) is True]
+    form = panel('작업자 판정', [
+        dmc.Select(id='pack-decision', label='최종 판정', data=[{'label':v,'value':k} for k,v in DECISIONS.items()],
+                   value=latest.get('decision','retest'), allowDeselect=False, persistence=row['pack_id'], persistence_type='memory'),
+        dmc.Textarea(id='pack-note', label='검토 메모', value=latest.get('note',''), minRows=4,
+                     placeholder='확인한 원인과 후속 조치를 입력하세요.', inputProps={'maxLength':2000},
+                     persistence=row['pack_id'], persistence_type='memory'),
+        dmc.Button('저장 내용 확인', id='pack-prepare', className='spaced-button', disabled=unavailable),
+        html.P('확인 후 저장하면 작성자와 시각이 함께 기록됩니다.', className='section-note'),
+    ])
+    evidence = panel(f"팩 {row['pack_no']} · {row['mode']} 판정 근거", [
+        metric_rows([('AI 품질 판정', row['ai_verdict'], '팩 전체'),
+                     ('이상 시점 비율', num(row['anomalyPercent'],1)+' %', '기준 5%'),
+                     ('불량 의심 유형', ' · '.join(names) or ('미확정' if row['ai_verdict']=='NG' else '해당 없음'), '숙련 기술자 확인 후 최종 판정'),
+                     ('작업자 판정', '조회 불가' if unavailable else DECISIONS.get(latest.get('decision'),'미확정'), '최근 저장 기록')]),
+    ])
+    return html.Div([technician_notice(row), html.Div([form,evidence],className='grid-equal'),
+                     panel('작업자 판정 이력',history)],className='pack-workspace pack-review-workspace'), records
 
 
 def result_rows(index):
@@ -114,7 +159,7 @@ def inspection(data, selected, actions):
         metric_rows([('셀 전압',num(chosen['value'],3)+' V',''), ('상대 편차',num(abs(chosen['z']) if chosen['z'] is not None else None,2)+' σ','선택 시점의 셀 간 비교')]) if chosen else None,
         html.P('셀 상태는 상대 편차이며 불량 확정이 아닙니다.', className='section-note'),
         html.Div([html.Small('작업자 판정'), badge('조회 불가' if actions.get('__unavailable__') else DECISIONS.get(decision.get('decision'), '미확정'))], className='pack-decision-line'),
-        dmc.Button('판정·기록', id='pack-open-review', variant='outline', fullWidth=True),
+        dmc.Button('판정·조치', id='pack-open-review', variant='outline', fullWidth=True),
     ], className='pack-cell-detail')
     evidence = html.Details([
         html.Summary(['판정 상세 근거', badge('판정 차이 있음','warning') if mismatch else None]),
@@ -137,6 +182,7 @@ def inspection(data, selected, actions):
                   kpi('전압 편차', num(row.get('dv_mv'),1), '측정 종료 기준', unit='mV'),
                   kpi('온도 편차', num(row.get('temp_dev'),2), '측정 종료 기준', unit='°C')], className='kpi-strip'),
         defect_cards(data),
+        technician_notice(row, action=True),
         panel(f"팩 {row['pack_no']} · {row['mode']} 셀 검사", [counts, html.Div([
             spatial.graph3d(figure,'pack-3d') if figure else callout('셀 자료 없음','이 팩의 선택 시점에 조회할 셀 자료가 없습니다.','warning'), detail], className='pack-inspection-grid')],
             subtitle=('측정 종료' if data['snapshot']['kind']=='last' else '최대 이상 점수')+f" · 측정 행 {num(data['snapshot']['t'])} · 16모듈 / 176셀",
@@ -146,9 +192,9 @@ def inspection(data, selected, actions):
 
 def register(app, request):
     @app.callback(Output('pack-controls','style'), Output('pack-index','data'), Output('pack-number','data'),
-                  Input('url','pathname'), Input('tabs','value'), Input('refresh','n_clicks'))
-    def load(path, tab, _):
-        if path != '/quality' or tab != 'packs':
+                  Input('url','pathname'), Input('tabs','value'), Input('refresh','n_clicks'), Input('url','search'))
+    def load(path, tab, _, search):
+        if path != '/quality' or tab not in ('packs','review') or (tab=='review' and legacy_quality_review(search)):
             return {'display':'none'}, no_update, no_update
         try:
             index = request('/api/battery-packs', params={'refresh':ctx.triggered_id=='refresh'})
@@ -184,33 +230,21 @@ def register(app, request):
         chosen = spatial.selection(click,allowed) if ctx.triggered_id=='pack-3d' else selected if selected in allowed else None
         return chosen if chosen and chosen != current else no_update
 
-    @app.callback(Output('pack-review-drawer','opened'),Output('pack-review-content','children'),
-                  Input('pack-open-review','n_clicks',allow_optional=True),Input('session-actions','data'),Input('pack-number','value'),Input('pack-mode','value'),Input('tabs','value'),Input('url','pathname'),
-                  State('view-data','data'),State('pack-review-drawer','opened'),prevent_initial_call=True)
-    def review(click, actions, number, mode, tab, path, view, opened):
-        if ctx.triggered_id not in ('pack-open-review','session-actions') or tab!='packs' or path!='/quality':
-            return False,no_update
-        if (ctx.triggered_id=='pack-open-review' and not click) or (ctx.triggered_id=='session-actions' and not opened) or not view or not view.get('payload',{}).get('summary'):
-            return no_update,no_update
-        row = view['payload']['summary']
-        try:
-            records = request(f"/api/battery-packs/{row['pack_id']}/history")['records']
-            history = [html.Article([badge(DECISIONS.get(r['decision'],r['decision'])),html.P(r.get('note') or '메모 없음'),
-                        html.Small(f"{r.get('actor','')} · {r.get('at','')} · 수정 {r.get('revision','')}"),
-                        html.Small('이전 판정: '+DECISIONS.get(r.get('previousDecision'),'없음'))],className='record-item') for r in records] or html.P('저장된 작업자 기록이 없습니다.')
-            latest = records[0] if records else {}
-            unavailable = False
-        except (ValueError,httpx.HTTPError) as exc:
-            history, latest, unavailable = callout('기록 조회 불가', str(exc) if isinstance(exc,ValueError) else '연결을 확인하세요.','warning'), {}, True
-        return True, [html.H3(f"팩 {row['pack_no']} · {row['mode']}"),badge('AI '+row['ai_verdict'],'danger' if row['ai_verdict']=='NG' else 'success'),
-                      dmc.Select(id='pack-decision',label='작업자 판정',data=[{'label':v,'value':k} for k,v in DECISIONS.items()],value=latest.get('decision','retest'),allowDeselect=False),
-                      dmc.Textarea(id='pack-note',label='검토 메모',value=latest.get('note',''),minRows=3,inputProps={'maxLength':2000}),
-                      dmc.Button('저장 내용 확인',id='pack-prepare',className='spaced-button',disabled=unavailable), html.H3('작업자 판정 이력'),history]
+    @app.callback(Output('tabs','value',allow_duplicate=True),Output('url','search',allow_duplicate=True),
+                  Input('pack-open-review','n_clicks',allow_optional=True),
+                  Input('pack-go-review','n_clicks',allow_optional=True),prevent_initial_call=True)
+    def open_review(click, notice_click):
+        return ('review','?tab=review') if click or notice_click else (no_update,no_update)
+
+    @app.callback(Output('pack-snapshot','style'),Output('pack-view','style'),Input('tabs','value'))
+    def inspection_controls(tab):
+        style = {'display':'none'} if tab=='review' else {}
+        return style, style
 
     @app.callback(Output('confirm-modal','opened',allow_duplicate=True),Output('confirm-content','children',allow_duplicate=True),Output('pending-action','data',allow_duplicate=True),
                   Input('pack-prepare','n_clicks',allow_optional=True),State('pack-decision','value',allow_optional=True),State('pack-note','value',allow_optional=True),State('view-data','data'),prevent_initial_call=True)
     def prepare(click, decision, note, view):
-        if not click or not view or view.get('tab')!='packs' or not view.get('payload',{}).get('summary'):
+        if not click or not view or view.get('tab')!='review' or not view.get('payload',{}).get('summary'):
             return no_update,no_update,no_update
         try:
             pending = {'track':'quality','target':view['payload']['testId'],'decision':decision,'note':note or '', 'dataVersion':view['dataVersion']}

@@ -166,6 +166,11 @@
 .pack-controls #pack-view { margin-left:auto; }
 .pack-list-tools { margin-bottom:16px; }
 .pack-defect-section { margin-bottom:16px; }
+.pack-review-notice { display:flex; align-items:center; gap:16px; margin-bottom:16px; }
+.pack-review-notice .callout { flex:1; margin:0; min-width:0; }
+.pack-review-notice>.mantine-Button-root { flex-shrink:0; }
+.pack-review-workspace .grid-equal { margin-bottom:16px; }
+.pack-review-workspace .mantine-Textarea-root { margin-top:16px; }
 .pack-defect-title { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:10px; }
 .pack-defect-title h2 { margin:0; font-size:18px; font-weight:750; color:var(--ls-blue); }
 .pack-defect-title>span { font-size:12px; color:var(--text-secondary); }

@@ -1483,3 +1483,12 @@ User requested a comprehensive visual refactor for business stakeholders.
   absent flags read `자료 없음`. Do not require exactly one highlighted card.
 - Show pack-level measurements and their saved thresholds with units. Keep the
   existing battery visualization and distinguish these indicators from cell states.
+
+
+# 42. Pack review workflow — 2026-09-29
+
+- Quality navigation is `팩 검사` and `판정·조치`; remove `시험 분석` from the tab bar.
+- Keep pack number and charge/discharge selection across both tabs.
+- When AI is NG with no saved suspected type, show a compact warning with a direct review action. Repeat the technician guidance on the review page; never force a defect type.
+- Review uses adjacent decision and evidence panels with saved history below. Preserve confirmation before saving and separate pack records from historical test records.
+- Existing explicit test links may open their historical decision records; do not map test IDs to unrelated pack IDs.

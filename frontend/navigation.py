@@ -3,6 +3,11 @@ import re
 from urllib.parse import parse_qs
 
 
+def legacy_quality_review(search):
+    """Keep explicit historical test links separate from pack decisions."""
+    return bool(parse_qs((search or '').lstrip('?')).get('test'))
+
+
 def navigation_context(track, search, meta):
     query = {k:v[-1] for k,v in parse_qs((search or '').lstrip('?')).items() if v}
     result = {}
