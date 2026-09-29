@@ -15,7 +15,7 @@ def files():
         for path in (ROOT / directory).rglob('*'):
             if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc', '.log'):
                 selected.add(path)
-    for relative in ('README.md', 'DESIGN.md', 'AGENTS.md', '.gitignore', '.gitattributes', 'LOCAL_RUN.md', 'TEAM_SETUP.md',
+    for relative in ('README.md', 'DESIGN.md', 'AGENTS.md', '.gitignore', '.gitattributes', '.env.example', 'LOCAL_RUN.md', 'TEAM_SETUP.md',
                      'requirements-local.txt', 'run_local.py', 'setup_local.cmd', 'start_demo.cmd',
                      'start_local.cmd', 'start_local.ps1', 'scripts/team_bundle.py',
                      'CONNECTED_WORKFLOW_VERIFICATION.md', 'COPILOT_TEST_SCENARIOS.md',

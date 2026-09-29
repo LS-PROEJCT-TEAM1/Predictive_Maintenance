@@ -21,11 +21,17 @@ def check(connected=False):
             if not (ROOT / name).is_file():
                 raise ValueError('필수 파일 누락: ' + name)
         if connected:
-            from backend.settings import settings
+            from backend.settings import settings, connection_missing
             from backend.copilot import SOURCES
             config = settings()
-            if not Path(config.get('service_account_file') or '__missing__').is_file() or not config.get('firebase_web_key'):
-                raise ValueError('Firebase 연결 설정이 필요합니다. TEAM_SETUP.md를 참고하거나 start_demo.cmd를 실행하세요.')
+            missing = connection_missing(config)
+            if missing:
+                raise ValueError('실제 연결 설정 누락: ' + ', '.join(missing))
+            from firebase_admin import credentials
+            try:
+                credentials.Certificate(config['service_account_file'])
+            except Exception:
+                raise ValueError('Firebase SDK 인증 키를 읽을 수 없습니다. JSON 파일을 확인하세요.') from None
             for _, relative in SOURCES.values():
                 if not (ROOT / relative).is_file():
                     raise ValueError('Copilot 문서 누락: ' + relative)

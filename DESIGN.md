@@ -1440,3 +1440,12 @@ User correction supersedes rotation and 2D controls in section 37.
 - Quality has 16 framed modules in four rows; maintenance shows 39 logical points.
   Geometry is illustrative and is never a claim about physical equipment placement.
 - Align the materials-menu chevron to the label center; avoid font-glyph baselines.
+
+# 39. Approved login atmosphere — 2026-09-29
+
+- Preserve the light #F7F8FA base, original LS logo, left introduction and right opaque white form.
+- Add subtle blue/teal light with a still weaker red accent at the outer edges.
+- Login-only ambient CSS motion may run slowly over 28–36 seconds; reduced-motion disables it.
+- A static transparent battery-module illustration sits diagonally at the bottom left, behind content.
+- Keep decoration non-interactive and hidden from assistive technology. Shrink or hide it on small screens.
+- No WebGL, moving battery, mouse-following effect or transparent login fields.

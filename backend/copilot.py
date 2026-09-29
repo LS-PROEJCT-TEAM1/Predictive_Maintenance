@@ -7,11 +7,18 @@ import re
 import threading
 from pathlib import Path
 
-import faiss
 import httpx
 import numpy as np
 from fastapi import HTTPException
 from fastembed import TextEmbedding
+
+try:
+    import faiss
+except ImportError:
+    # The dashboard and demo mode do not need FAISS. Keep the API available
+    # when its native Windows extension cannot be loaded; Copilot reports the
+    # missing optional runtime only if retrieval is requested.
+    faiss = None
 
 from backend.settings import ROOT, settings
 
@@ -47,6 +54,8 @@ class Copilot:
         with self._lock:
             if self._index is not None:
                 return
+            if faiss is None:
+                raise HTTPException(503, 'Copilot 검색 라이브러리를 불러오지 못했습니다.')
             directory = Path(self.config['rag_dir'])
             directory.mkdir(parents=True, exist_ok=True)
             sources = [self.source(key) for key in SOURCES]

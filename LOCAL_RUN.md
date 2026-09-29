@@ -21,7 +21,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-local.txt
 ```
 
-팀원은 **setup_local.cmd → start_demo.cmd**로 외부 연결 없이 분석 화면을 확인할 수 있습니다.
+팀원은 **setup_local.cmd → 루트에 .env와 SDK 배치 → start_local.cmd**로 실행합니다. 설정이 없으면 자동 데모입니다. 연결 설정은 [TEAM_SETUP.md](TEAM_SETUP.md)를 기준으로 합니다.
 자세한 절차는 [TEAM_SETUP.md](TEAM_SETUP.md)를 참고하세요.
 CSV 재예측은 앱과 같은 Python 환경 및 `runtime/demand`의 기존 모델을 이용합니다.
 품질 셀 신호는 `runtime/quality`에 포함한 무손실 압축 CSV를 읽습니다.
@@ -56,21 +56,13 @@ CSV 재예측은 앱과 같은 Python 환경 및 `runtime/demand`의 기존 모�
 
 ## 연결 설정과 직원 관리
 
-이 PC에는 `.local/settings.json`으로 외부 파일 경로를 연결했습니다. 해당 폴더와 비밀 파일은 Git에서 제외합니다.
-다른 PC에서는 다음 형식의 설정을 만들고 `MANUFACTURING_SETTINGS`로 경로를 지정하거나 `.local/settings.json`에 저장하세요.
+팀원은 루트 `.env`와 Firebase 관리자 SDK JSON 한 개만 전달받으면 됩니다. `.env.example`은 값이 없는 양식입니다.
+SDK는 루트의 `*firebase-adminsdk*.json`을 자동 인식합니다. 여러 개면 `.env`의 `FIREBASE_SERVICE_ACCOUNT_FILE`에 파일명을 지정하세요.
+프로젝트 ID·Firebase Web API 키·Gemini 키와 모델도 `.env`에 모읍니다. 비밀번호는 설정 파일에 저장하지 않습니다.
 
-```json
-{
-  "project_id": "ls-proejct-team1",
-  "service_account_file": "C:/private/firebase-admin.json",
-  "connections_file": "C:/private/connections.env",
-  "firebase_web_key": "Firebase 웹 앱의 공개 API 키",
-  "gemini_model": "gemini-2.5-flash"
-}
-```
-
-`connections.env`에는 `GEMINI_API_KEY=...`를 넣습니다. 키를 프런트엔드나 저장소에 넣지 마세요.
-비밀번호는 설정 파일에 저장하지 않습니다. 서비스 계정은 FastAPI만 사용합니다.
+기본 `auto`에서는 설정 누락 시 데모를 표시하고 시작합니다. 잘못된 SDK·프로젝트 불일치·연결 후 인증/할당량 장애는 오류로 표시하며 데모로 숨기지 않습니다.
+실제 연결만 허용하려면 `start_local.cmd --connected`, 체험을 강제하려면 `start_demo.cmd`를 사용합니다.
+기존 `.local/settings.json`은 루트 `.env`와 SDK가 모두 없을 때만 호환용으로 읽습니다. 상세 우선순위와 실행 절차는 [TEAM_SETUP.md](TEAM_SETUP.md)를 참고하세요.
 
 1. Firebase Console Authentication에서 이메일/비밀번호 제공자를 켜고 직원 계정을 추가합니다.
 2. 관리자가 로컬에서 다음 명령으로 앱 역할을 부여합니다. Custom Claims는 Firebase Console 기본 사용자 화면에서 직접 편집할 수 없으므로 이 도구를 사용합니다.
@@ -81,7 +73,7 @@ CSV 재예측은 앱과 같은 Python 환경 및 `runtime/demand`의 기존 모�
 
 관리자는 `--role admin`, 앱 권한 회수는 `--inactive`를 사용합니다. 이 도구는 비밀번호를 만들거나 변경하지 않으며 다른 Custom Claims를 보존합니다.
 계정 비활성화·삭제·이메일/비밀번호 관리는 Firebase Console에서 수행합니다. 현재 역할을 서버가 다시 확인하며 읽기 접근 캐시는 최대 10초입니다. 업무 저장은 캐시 없이 확인합니다.
-과거 두 계정에 역할을 부여한 기록이 있으나, 2026-09-28 재검증에서는 두 계정 모두 역할이 없는 상태여서 관리자 확인을 요청했습니다. 초기에 별도 `manufacturingEmployees` 프로필 2개도 생성했으나 최종 인증 기준은 **Firebase Auth의 manufacturingRole**이며 해당 프로필은 인증에 사용하지 않습니다.
+2026-09-28에는 두 시험 계정의 역할이 없어 접근이 거절됐으며, 2026-09-29 사용자 승인 후 직원/관리자 역할을 복구하고 재조회했습니다. 초기에 별도 `manufacturingEmployees` 프로필 2개도 생성했으나 최종 인증 기준은 **Firebase Auth의 manufacturingRole**이며 해당 프로필은 인증에 사용하지 않습니다.
 
 세션은 8시간의 HttpOnly 쿠키입니다. 변경 API는 Origin과 CSRF 토큰을 검사하고 Dash 콜백도 같은 출처와 인증을 확인합니다.
 현재 Firestore 규칙은 클라이언트 접근 전부 거절이며 그대로 유지했습니다. Admin SDK를 사용하는 서버가 사용자 권한과 대화 소유자를 검사합니다.

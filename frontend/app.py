@@ -12,7 +12,7 @@ from flask import request as flask_request
 from frontend import copilot_ui, quality_workspace, maintenance_workspace, overview_workspace, spatial
 from frontend.navigation import navigation_context
 
-from frontend.components import badge, callout, graph, grid, icon, metric_rows, num, panel, select
+from frontend.components import badge, callout, graph, grid, icon, metric_rows, num, panel, select, settings_disclosure
 from frontend.charts import demand_chart, maintenance_chart
 from frontend.views import DOMAIN, TABS, conclusion_view, demand_view, maintenance_view, overview, project_view, quality_view, validation_view
 
@@ -65,12 +65,12 @@ def create_dashboard(meta):
                     dmc.Tabs(id="tabs", value="summary", children=[], className="domain-tabs"),
                     html.Div([
                         html.Div([select("d-date", "목표일", meta["dates"], meta["dates"][-1]), select("d-part", "부품", [{"label": "전체 부품", "value": "ALL"}]+[{"label": p, "value": p} for p in meta["parts"]], "ALL"),
-                                  html.Details([html.Summary('분석 설정'),select("d-model", "예측 모델", [{"label": name + (" · 운영 기본" if name == meta["demandPrimary"] else " · 학습형 보조" if name == meta["demandAuxiliary"] else " · 비교"), "value": name} for name in meta["demandModels"]], meta["demandPrimary"])], className='advanced-controls'),
+                                  settings_disclosure('분석 설정',[select("d-model", "예측 모델", [{"label": name + (" · 운영 기본" if name == meta["demandPrimary"] else " · 학습형 보조" if name == meta["demandAuxiliary"] else " · 비교"), "value": name} for name in meta["demandModels"]], meta["demandPrimary"])]),
                                   ], id="demand-controls", className="filter-toolbar"),
-                        html.Div([select("m-run", "시험 파일", meta["runs"], "WeldingTest_04_NG"), html.Details([html.Summary('분석 설정'),select("m-sup", "지도 모델", meta["supervised"], meta["defaultSupervised"]), select("m-unsup", "비지도 모델", meta["unsupervised"], meta["defaultUnsupervised"])], className='advanced-controls')], id="maintenance-controls", className="filter-toolbar"),
+                        html.Div([select("m-run", "시험 파일", meta["runs"], "WeldingTest_04_NG"), settings_disclosure('분석 설정',[select("m-sup", "지도 모델", meta["supervised"], meta["defaultSupervised"]), select("m-unsup", "비지도 모델", meta["unsupervised"], meta["defaultUnsupervised"])])], id="maintenance-controls", className="filter-toolbar"),
                         html.Div([select("q-test", "시험 ID", meta["tests"], "Test07_NG_dchg"), select("q-cell", "선택 셀", [f"M{m:02d}CV{c:02d}" for m in range(1, 17) for c in range(1, 12)], "M02CV01"),
                                   html.Div([html.Label("조회 시점 (%)"), dmc.Slider(id="q-progress", value=100, min=1, max=100, step=1, marks=[{"value": 10, "label": "10%"}, {"value": 100, "label": "100%"}])], className="progress-control"),
-                                  html.Details([html.Summary('표시 설정'),select("q-map", "위치 지도", [{"label": "셀 전압 16×11", "value": "cell"}, {"label": "모듈 온도 16×2", "value": "temperature"}], "cell"), select("q-basis", "표시 기준", [{"label": "보정값", "value": "clean"}, {"label": "원본값", "value": "raw"}], "clean")],className='advanced-controls'),html.Div([dmc.SegmentedControl(id="q-section", value="cell", data=[{"label":"셀 검사", "value":"cell"},{"label":"이상 구간", "value":"anomaly"}], persistence=True, persistence_type="session")], id="quality-analysis-local", className="quality-local")], id="quality-controls", className="filter-toolbar"),
+                                  settings_disclosure('표시 설정',[select("q-map", "위치 지도", [{"label": "셀 전압 16×11", "value": "cell"}, {"label": "모듈 온도 16×2", "value": "temperature"}], "cell"), select("q-basis", "표시 기준", [{"label": "보정값", "value": "clean"}, {"label": "원본값", "value": "raw"}], "clean")]),html.Div([dmc.SegmentedControl(id="q-section", value="cell", data=[{"label":"셀 검사", "value":"cell"},{"label":"이상 구간", "value":"anomaly"}], persistence=True, persistence_type="session")], id="quality-analysis-local", className="quality-local")], id="quality-controls", className="filter-toolbar"),
 
                         html.Div([select("q-eval-scope", "평가 범위", [{"label":"선택 시험", "value":"selected"},{"label":"잠금 시험 전체", "value":"all"}], "selected"), html.Span("시점 단위 평가 · 조회 시점 슬라이더와 별도로 시험 전체를 평가합니다.", className="section-note")], id="quality-eval-local", className="filter-toolbar compact"),
                         html.Div([select("q-history-scope", "이력 조회 범위", [{"label":"선택 시험", "value":"selected"},{"label":"전체 품질 · 최근 업무 100건 내", "value":"all"}], "selected")], id="quality-history-local", className="filter-toolbar compact"),

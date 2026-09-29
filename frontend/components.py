@@ -24,6 +24,11 @@ def badge(text, tone="neutral"):
     return html.Span(text, className=f"status-badge {tone}")
 
 
+def settings_disclosure(label, controls):
+    return html.Details([html.Summary(label), html.Div(controls, className='settings-panel',
+                         role='group', **{'aria-label': label})], className='advanced-controls')
+
+
 def panel(title, children, subtitle=None, action=None, cls=""):
     return html.Section([html.Div([html.Div([html.H2(title), html.P(subtitle) if subtitle else None]), action], className="panel-head"),
                          html.Div(children, className="panel-body")], className=f"panel {cls}")

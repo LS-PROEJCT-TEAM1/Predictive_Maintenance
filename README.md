@@ -2,11 +2,12 @@
 
 ## 팀원용 빠른 시작
 
-Python 3.12 설치 → Git clone → **setup_local.cmd** → **start_demo.cmd** → http://127.0.0.1:8070
+Python 3.12 설치 → Git clone → **setup_local.cmd** → 루트에 `.env` + SDK JSON 배치 → **start_local.cmd** → http://127.0.0.1:8070
 
 현재 팀원 테스트 배포 브랜치는 **codex/team-local-preview**입니다.
 clone 명령은 아래 팀원 설치 안내를 참고하세요.
 
+설정이 있으면 실제 Firebase·Firestore·Gemini에 연결합니다. 설정이 없으면 자동으로 로컬 체험이 실행됩니다.
 계정이나 API 키 없이 네 화면·필터·CSV 내보내기·발주량 추론을 체험할 수 있습니다.
 체험 모드에서는 Firebase 기록 저장과 Gemini Copilot을 사용하지 않습니다.
 

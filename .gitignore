@@ -4,6 +4,7 @@ __pycache__/
 .local/
 *.env
 .env*
+!.env.example
 *firebase-adminsdk*.json
 /tmp/
 *.log

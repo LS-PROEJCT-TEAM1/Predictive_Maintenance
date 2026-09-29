@@ -28,7 +28,8 @@ def analysis(data, tab, actions, query, direction, columns):
                       '달력 기준 D+3 · 예측 대상은 일별 최종 ERP 발주 계획량이며 실측 소비량은 아닙니다.'))
     if tab=='review':
         buttons = dmc.Group([dmc.Button(f'{label} {num(counts[key])}',id='d-count-'+key,variant='filled' if direction==key else 'outline',
-                    disabled=key=='open' and unavailable) for key,label in [('all','전체'),('up','상향'),('down','하향'),('open','미확인')]],gap='xs')
+                    className='review-direction-'+key, **{'aria-pressed':str(direction==key).lower()},
+                    disabled=key=='open' and unavailable) for key,label in [('all','전체'),('up','↑ 상향'),('down','↓ 하향'),('open','미확인')]],gap='xs')
         return html.Div([context,panel('검토 방향과 확인 상태',buttons,'검색된 검토 대상 기준 · 계획 차이가 max(10개, 계획량의 20%) 이상'),table]),rows
     chart = demand_chart(data['trend'])
     if data['model']!=data['config']['auxiliaryModel']:

@@ -16,7 +16,7 @@ COOKIE = 'manufacturing_session'
 CSRF = 'manufacturing_csrf'
 ASSETS = Path(__file__).resolve().parents[1] / 'frontend' / 'assets'
 BRAND_FONTS = {'notokr-demilight.woff', 'notokr-medium.woff', 'notokr-bold.woff', 'SUIT-Variable.woff2'}
-PUBLIC_BRAND = {'/auth/ci_img02.png', *('/auth/fonts/'+name for name in BRAND_FONTS)}
+PUBLIC_BRAND = {'/auth/ci_img02.png', '/auth/login-battery.png', *('/auth/fonts/'+name for name in BRAND_FONTS)}
 
 
 class Login(BaseModel):
@@ -72,6 +72,10 @@ def install_security(app, service):
     @app.get('/auth/ci_img02.png', include_in_schema=False)
     def brand_logo():
         return FileResponse(ASSETS / 'ci_img02.png', media_type='image/png')
+
+    @app.get('/auth/login-battery.png', include_in_schema=False)
+    def login_decoration():
+        return FileResponse(ASSETS / 'login-battery.png', media_type='image/png')
 
     @app.get('/auth/fonts/{filename}', include_in_schema=False)
     def brand_font(filename: str):

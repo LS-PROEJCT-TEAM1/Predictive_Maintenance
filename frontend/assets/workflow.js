@@ -1,11 +1,23 @@
 // A disclosure action menu closes after choosing an action or pressing Escape.
 document.addEventListener('click', event => {
+  // Mantine renders select options in a portal outside the settings disclosure.
+  if (!event.target.closest('.mantine-Combobox-dropdown')) {
+    document.querySelectorAll('.advanced-controls[open]').forEach(settings => {
+      if (!settings.contains(event.target)) settings.open = false;
+    });
+  }
   const menu = document.getElementById('file-actions');
   if (!menu || !menu.open) return;
   if (!menu.contains(event.target) || event.target.closest('button')) menu.open = false;
 });
 document.addEventListener('keydown', event => {
   if (event.key !== 'Escape') return;
+  // Let an open select consume Escape before closing its containing settings.
+  if (event.target.closest('.advanced-controls')?.querySelector('[aria-expanded="true"]')) return;
+  document.querySelectorAll('.advanced-controls[open]').forEach(settings => {
+    settings.open = false;
+    settings.querySelector('summary')?.focus();
+  });
   const menu = document.getElementById('file-actions');
   if (menu?.open) {
     menu.open = false;

@@ -21,7 +21,11 @@ def overview(data, meta, actions):
 
 DEMAND_COLUMNS = [{"field": "part", "headerName": "부품", "maxWidth": 140}, {"field": "forecast", "headerName": "선택 예측 (개)", "type": "numericColumn"},
     {"field": "plan", "headerName": "기존 계획 (개)", "type": "numericColumn"}, {"field": "gap", "headerName": "계획 대비 (개)", "type": "numericColumn"},
-    {"field": "gapPct", "headerName": "차이 (%)", "type": "numericColumn"}, {"field": "direction", "headerName": "검토 방향"}, {"field": "status", "headerName": "확인 상태"}]
+    {"field": "gapPct", "headerName": "차이 (%)", "type": "numericColumn"},
+    {"field": "direction", "headerName": "검토 방향", "cellClassRules": {
+        "review-direction-up": "params.data && params.data.review && params.data.gap > 0",
+        "review-direction-down": "params.data && params.data.review && params.data.gap < 0"}},
+    {"field": "status", "headerName": "확인 상태"}]
 
 
 def demand_view(data, tab, actions, query, direction):
