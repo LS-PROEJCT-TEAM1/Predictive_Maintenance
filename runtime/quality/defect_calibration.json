@@ -1,0 +1,1561 @@
+{
+  "version": "pack-defects-by-process-4287dcc6bb999111",
+  "schemaVersion": 1,
+  "method": "mean_plus_3_population_std",
+  "comparison": "strict_greater_than",
+  "metricScope": {
+    "capacity": "maximum_adjacent_sample_voltage_change",
+    "weld": "mean_minus_min_voltage_at_saved_AI_peak",
+    "wire": "max_adjacent_cell_gap_at_saved_AI_peak",
+    "sensor": "max_temperature_median_deviation_at_saved_AI_peak"
+  },
+  "units": {
+    "capacity": "mV",
+    "weld": "mV",
+    "wire": "mV",
+    "sensor": "C"
+  },
+  "thresholdsByProcess": {
+    "chg": {
+      "capacity": 358.71066239990216,
+      "weld": 32.50517753437713,
+      "wire": 50.10492885423181,
+      "sensor": 0.9303034294470434
+    },
+    "dchg": {
+      "capacity": 234.57760846854077,
+      "weld": 35.81654685949553,
+      "wire": 40.149670766460375,
+      "sensor": 2.6750673527779707
+    }
+  },
+  "fittingStatistics": {
+    "chg": {
+      "capacity": {
+        "n": 36,
+        "mean": 56.611111111111114,
+        "stdPopulation": 100.69985042959702
+      },
+      "weld": {
+        "n": 36,
+        "mean": 7.548611111111112,
+        "stdPopulation": 8.318855474422007
+      },
+      "wire": {
+        "n": 36,
+        "mean": 11.666666666666666,
+        "stdPopulation": 12.812754062521714
+      },
+      "sensor": {
+        "n": 36,
+        "mean": 0.5708333333333333,
+        "stdPopulation": 0.11982336537123671
+      }
+    },
+    "dchg": {
+      "capacity": {
+        "n": 36,
+        "mean": 59.02777777777778,
+        "stdPopulation": 58.51661023025434
+      },
+      "weld": {
+        "n": 36,
+        "mean": 11.310277777777777,
+        "stdPopulation": 8.168756360572585
+      },
+      "wire": {
+        "n": 36,
+        "mean": 14.416666666666666,
+        "stdPopulation": 8.57766803326457
+      },
+      "sensor": {
+        "n": 36,
+        "mean": 1.0138888888888888,
+        "stdPopulation": 0.5537261546296939
+      }
+    }
+  },
+  "split": {
+    "seed": "pack-defects-v2-20260929",
+    "unit": "pack_number",
+    "fittingPacks": [
+      "1002",
+      "1003",
+      "1004",
+      "1005",
+      "1007",
+      "1008",
+      "1010",
+      "1013",
+      "1015",
+      "1016",
+      "1017",
+      "1018",
+      "1019",
+      "1020",
+      "1021",
+      "1022",
+      "1023",
+      "1024",
+      "1025",
+      "1027",
+      "1029",
+      "1030",
+      "1031",
+      "1033",
+      "1034",
+      "1035",
+      "1036",
+      "1038",
+      "1040",
+      "1041",
+      "1042",
+      "1044",
+      "1045",
+      "1046",
+      "1049",
+      "1050"
+    ],
+    "evaluationPacks": [
+      "1000",
+      "1001",
+      "1006",
+      "1009",
+      "1011",
+      "1012",
+      "1014",
+      "1026",
+      "1028",
+      "1032",
+      "1037",
+      "1039",
+      "1043",
+      "1047",
+      "1048"
+    ]
+  },
+  "evaluation": {
+    "chg": {
+      "capacity": {
+        "n": 15,
+        "flagged": 0,
+        "rate": 0.0,
+        "ids": []
+      },
+      "weld": {
+        "n": 15,
+        "flagged": 2,
+        "rate": 0.13333333333333333,
+        "ids": [
+          "1006_chg",
+          "1014_chg"
+        ]
+      },
+      "wire": {
+        "n": 15,
+        "flagged": 0,
+        "rate": 0.0,
+        "ids": []
+      },
+      "sensor": {
+        "n": 15,
+        "flagged": 1,
+        "rate": 0.06666666666666667,
+        "ids": [
+          "1001_chg"
+        ]
+      },
+      "any": {
+        "n": 15,
+        "flagged": 3,
+        "rate": 0.2,
+        "ids": [
+          "1001_chg",
+          "1006_chg",
+          "1014_chg"
+        ]
+      }
+    },
+    "dchg": {
+      "capacity": {
+        "n": 15,
+        "flagged": 2,
+        "rate": 0.13333333333333333,
+        "ids": [
+          "1009_dchg",
+          "1043_dchg"
+        ]
+      },
+      "weld": {
+        "n": 15,
+        "flagged": 1,
+        "rate": 0.06666666666666667,
+        "ids": [
+          "1028_dchg"
+        ]
+      },
+      "wire": {
+        "n": 15,
+        "flagged": 1,
+        "rate": 0.06666666666666667,
+        "ids": [
+          "1001_dchg"
+        ]
+      },
+      "sensor": {
+        "n": 15,
+        "flagged": 1,
+        "rate": 0.06666666666666667,
+        "ids": [
+          "1048_dchg"
+        ]
+      },
+      "any": {
+        "n": 15,
+        "flagged": 5,
+        "rate": 0.3333333333333333,
+        "ids": [
+          "1001_dchg",
+          "1009_dchg",
+          "1028_dchg",
+          "1043_dchg",
+          "1048_dchg"
+        ]
+      }
+    }
+  },
+  "reference": {
+    "1000_chg": {
+      "pack": "1000",
+      "process": "chg",
+      "metrics": {
+        "capacity": 40.0,
+        "weld": 7.19,
+        "wire": 7.0,
+        "sensor": 0.4
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6009
+    },
+    "1000_dchg": {
+      "pack": "1000",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 66.0,
+        "weld": 4.65,
+        "wire": 5.0,
+        "sensor": 1.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 5358
+    },
+    "1001_chg": {
+      "pack": "1001",
+      "process": "chg",
+      "metrics": {
+        "capacity": 37.0,
+        "weld": 5.94,
+        "wire": 5.0,
+        "sensor": 0.95
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6009
+    },
+    "1001_dchg": {
+      "pack": "1001",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 58.0,
+        "weld": 35.54,
+        "wire": 41.0,
+        "sensor": 2.2
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 5357
+    },
+    "1002_chg": {
+      "pack": "1002",
+      "process": "chg",
+      "metrics": {
+        "capacity": 36.0,
+        "weld": 6.48,
+        "wire": 5.0,
+        "sensor": 0.4
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6008
+    },
+    "1002_dchg": {
+      "pack": "1002",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 140.0,
+        "weld": 3.68,
+        "wire": 5.0,
+        "sensor": 1.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4374
+    },
+    "1003_chg": {
+      "pack": "1003",
+      "process": "chg",
+      "metrics": {
+        "capacity": 38.0,
+        "weld": 5.43,
+        "wire": 9.0,
+        "sensor": 0.65
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6008
+    },
+    "1003_dchg": {
+      "pack": "1003",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 148.0,
+        "weld": 6.45,
+        "wire": 6.0,
+        "sensor": 1.15
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4372
+    },
+    "1004_chg": {
+      "pack": "1004",
+      "process": "chg",
+      "metrics": {
+        "capacity": 58.0,
+        "weld": 26.84,
+        "wire": 44.0,
+        "sensor": 0.55
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 8515
+    },
+    "1004_dchg": {
+      "pack": "1004",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 36.0,
+        "weld": 12.38,
+        "wire": 14.0,
+        "sensor": 0.95
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4795
+    },
+    "1005_chg": {
+      "pack": "1005",
+      "process": "chg",
+      "metrics": {
+        "capacity": 56.0,
+        "weld": 30.53,
+        "wire": 8.0,
+        "sensor": 0.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 8514
+    },
+    "1005_dchg": {
+      "pack": "1005",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 45.0,
+        "weld": 31.46,
+        "wire": 24.0,
+        "sensor": 1.2
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4795
+    },
+    "1006_chg": {
+      "pack": "1006",
+      "process": "chg",
+      "metrics": {
+        "capacity": 40.0,
+        "weld": 35.01,
+        "wire": 3.0,
+        "sensor": 0.4
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4796
+    },
+    "1006_dchg": {
+      "pack": "1006",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 36.0,
+        "weld": 17.11,
+        "wire": 19.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4306
+    },
+    "1007_chg": {
+      "pack": "1007",
+      "process": "chg",
+      "metrics": {
+        "capacity": 23.0,
+        "weld": 4.16,
+        "wire": 8.0,
+        "sensor": 0.3
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4795
+    },
+    "1007_dchg": {
+      "pack": "1007",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 46.0,
+        "weld": 7.77,
+        "wire": 8.0,
+        "sensor": 2.35
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 3920
+    },
+    "1008_chg": {
+      "pack": "1008",
+      "process": "chg",
+      "metrics": {
+        "capacity": 22.0,
+        "weld": 3.6,
+        "wire": 8.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6055
+    },
+    "1008_dchg": {
+      "pack": "1008",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 47.0,
+        "weld": 30.6,
+        "wire": 44.0,
+        "sensor": 2.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4492
+    },
+    "1009_chg": {
+      "pack": "1009",
+      "process": "chg",
+      "metrics": {
+        "capacity": 30.0,
+        "weld": 5.16,
+        "wire": 8.0,
+        "sensor": 0.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6049
+    },
+    "1009_dchg": {
+      "pack": "1009",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 273.0,
+        "weld": 18.02,
+        "wire": 20.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4491
+    },
+    "1010_chg": {
+      "pack": "1010",
+      "process": "chg",
+      "metrics": {
+        "capacity": 36.0,
+        "weld": 2.33,
+        "wire": 3.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6092
+    },
+    "1010_dchg": {
+      "pack": "1010",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 100.0,
+        "weld": 4.85,
+        "wire": 8.0,
+        "sensor": 1.0
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 3777
+    },
+    "1011_chg": {
+      "pack": "1011",
+      "process": "chg",
+      "metrics": {
+        "capacity": 37.0,
+        "weld": 3.67,
+        "wire": 9.0,
+        "sensor": 0.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6093
+    },
+    "1011_dchg": {
+      "pack": "1011",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 49.0,
+        "weld": 24.49,
+        "wire": 5.0,
+        "sensor": 1.75
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 3776
+    },
+    "1012_chg": {
+      "pack": "1012",
+      "process": "chg",
+      "metrics": {
+        "capacity": 42.0,
+        "weld": 9.81,
+        "wire": 39.0,
+        "sensor": 0.75
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 4982
+    },
+    "1012_dchg": {
+      "pack": "1012",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 47.0,
+        "weld": 19.41,
+        "wire": 26.0,
+        "sensor": 0.9
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1967
+    },
+    "1013_chg": {
+      "pack": "1013",
+      "process": "chg",
+      "metrics": {
+        "capacity": 10.0,
+        "weld": 2.08,
+        "wire": 5.0,
+        "sensor": 0.4
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 8240
+    },
+    "1013_dchg": {
+      "pack": "1013",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 1.0,
+        "weld": 3.65,
+        "wire": 8.0,
+        "sensor": 0.4
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 5964
+    },
+    "1014_chg": {
+      "pack": "1014",
+      "process": "chg",
+      "metrics": {
+        "capacity": 41.0,
+        "weld": 32.66,
+        "wire": 27.0,
+        "sensor": 0.4
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 8408
+    },
+    "1014_dchg": {
+      "pack": "1014",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 1.0,
+        "weld": 15.82,
+        "wire": 12.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 5332
+    },
+    "1015_chg": {
+      "pack": "1015",
+      "process": "chg",
+      "metrics": {
+        "capacity": 41.0,
+        "weld": 24.28,
+        "wire": 36.0,
+        "sensor": 0.55
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 8334
+    },
+    "1015_dchg": {
+      "pack": "1015",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 1.0,
+        "weld": 12.08,
+        "wire": 10.0,
+        "sensor": 0.65
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 5382
+    },
+    "1016_chg": {
+      "pack": "1016",
+      "process": "chg",
+      "metrics": {
+        "capacity": 26.0,
+        "weld": 4.65,
+        "wire": 9.0,
+        "sensor": 0.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 5022
+    },
+    "1016_dchg": {
+      "pack": "1016",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 1.0,
+        "weld": 11.85,
+        "wire": 7.0,
+        "sensor": 0.9
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6964
+    },
+    "1017_chg": {
+      "pack": "1017",
+      "process": "chg",
+      "metrics": {
+        "capacity": 0.0,
+        "weld": 1.43,
+        "wire": 2.0,
+        "sensor": 0.55
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 7246
+    },
+    "1017_dchg": {
+      "pack": "1017",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 0.0,
+        "weld": 12.45,
+        "wire": 25.0,
+        "sensor": 0.65
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1432
+    },
+    "1018_chg": {
+      "pack": "1018",
+      "process": "chg",
+      "metrics": {
+        "capacity": 33.0,
+        "weld": 3.1,
+        "wire": 5.0,
+        "sensor": 0.65
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 10454
+    },
+    "1018_dchg": {
+      "pack": "1018",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 51.0,
+        "weld": 16.13,
+        "wire": 12.0,
+        "sensor": 0.75
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1128
+    },
+    "1019_chg": {
+      "pack": "1019",
+      "process": "chg",
+      "metrics": {
+        "capacity": 0.0,
+        "weld": 1.06,
+        "wire": 1.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 10914
+    },
+    "1019_dchg": {
+      "pack": "1019",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 50.0,
+        "weld": 7.11,
+        "wire": 14.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1156
+    },
+    "1020_chg": {
+      "pack": "1020",
+      "process": "chg",
+      "metrics": {
+        "capacity": 31.0,
+        "weld": 1.77,
+        "wire": 2.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 11008
+    },
+    "1020_dchg": {
+      "pack": "1020",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 52.0,
+        "weld": 8.45,
+        "wire": 14.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1123
+    },
+    "1021_chg": {
+      "pack": "1021",
+      "process": "chg",
+      "metrics": {
+        "capacity": 466.0,
+        "weld": 7.27,
+        "wire": 25.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 10998
+    },
+    "1021_dchg": {
+      "pack": "1021",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 53.0,
+        "weld": 7.41,
+        "wire": 23.0,
+        "sensor": 0.85
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1119
+    },
+    "1022_chg": {
+      "pack": "1022",
+      "process": "chg",
+      "metrics": {
+        "capacity": 36.0,
+        "weld": 2.93,
+        "wire": 5.0,
+        "sensor": 0.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 2370
+    },
+    "1022_dchg": {
+      "pack": "1022",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 48.0,
+        "weld": 12.21,
+        "wire": 14.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1051
+    },
+    "1023_chg": {
+      "pack": "1023",
+      "process": "chg",
+      "metrics": {
+        "capacity": 43.0,
+        "weld": 1.14,
+        "wire": 2.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1069
+    },
+    "1023_dchg": {
+      "pack": "1023",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 55.0,
+        "weld": 11.42,
+        "wire": 13.0,
+        "sensor": 1.05
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1048
+    },
+    "1024_chg": {
+      "pack": "1024",
+      "process": "chg",
+      "metrics": {
+        "capacity": 40.0,
+        "weld": 2.0,
+        "wire": 3.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1685
+    },
+    "1024_dchg": {
+      "pack": "1024",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 52.0,
+        "weld": 5.65,
+        "wire": 8.0,
+        "sensor": 2.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1016
+    },
+    "1025_chg": {
+      "pack": "1025",
+      "process": "chg",
+      "metrics": {
+        "capacity": 65.0,
+        "weld": 18.19,
+        "wire": 41.0,
+        "sensor": 0.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1805
+    },
+    "1025_dchg": {
+      "pack": "1025",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 46.0,
+        "weld": 8.99,
+        "wire": 9.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1069
+    },
+    "1026_chg": {
+      "pack": "1026",
+      "process": "chg",
+      "metrics": {
+        "capacity": 232.5,
+        "weld": 6.85,
+        "wire": 10.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1285
+    },
+    "1026_dchg": {
+      "pack": "1026",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 52.0,
+        "weld": 6.73,
+        "wire": 13.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1759
+    },
+    "1027_chg": {
+      "pack": "1027",
+      "process": "chg",
+      "metrics": {
+        "capacity": 33.0,
+        "weld": 6.1,
+        "wire": 15.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1044
+    },
+    "1027_dchg": {
+      "pack": "1027",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 53.0,
+        "weld": 5.78,
+        "wire": 11.0,
+        "sensor": 1.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1069
+    },
+    "1028_chg": {
+      "pack": "1028",
+      "process": "chg",
+      "metrics": {
+        "capacity": 41.0,
+        "weld": 2.44,
+        "wire": 3.0,
+        "sensor": 0.55
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1056
+    },
+    "1028_dchg": {
+      "pack": "1028",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 47.0,
+        "weld": 38.46,
+        "wire": 12.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1583
+    },
+    "1029_chg": {
+      "pack": "1029",
+      "process": "chg",
+      "metrics": {
+        "capacity": 38.0,
+        "weld": 1.51,
+        "wire": 2.0,
+        "sensor": 0.4
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1752
+    },
+    "1029_dchg": {
+      "pack": "1029",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 49.0,
+        "weld": 7.36,
+        "wire": 8.0,
+        "sensor": 0.9
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1255
+    },
+    "1030_chg": {
+      "pack": "1030",
+      "process": "chg",
+      "metrics": {
+        "capacity": 23.0,
+        "weld": 12.43,
+        "wire": 17.0,
+        "sensor": 0.35
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1240
+    },
+    "1030_dchg": {
+      "pack": "1030",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 49.0,
+        "weld": 5.73,
+        "wire": 11.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1111
+    },
+    "1031_chg": {
+      "pack": "1031",
+      "process": "chg",
+      "metrics": {
+        "capacity": 41.0,
+        "weld": 7.32,
+        "wire": 5.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 9609
+    },
+    "1031_dchg": {
+      "pack": "1031",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 43.0,
+        "weld": 15.36,
+        "wire": 20.0,
+        "sensor": 0.45
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 5160
+    },
+    "1032_chg": {
+      "pack": "1032",
+      "process": "chg",
+      "metrics": {
+        "capacity": 0.0,
+        "weld": 0.74,
+        "wire": 1.0,
+        "sensor": 0.65
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6620
+    },
+    "1032_dchg": {
+      "pack": "1032",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 1.0,
+        "weld": 5.18,
+        "wire": 11.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 7021
+    },
+    "1033_chg": {
+      "pack": "1033",
+      "process": "chg",
+      "metrics": {
+        "capacity": 39.0,
+        "weld": 28.78,
+        "wire": 38.0,
+        "sensor": 0.4
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 5061
+    },
+    "1033_dchg": {
+      "pack": "1033",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 44.0,
+        "weld": 12.68,
+        "wire": 33.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 9458
+    },
+    "1034_chg": {
+      "pack": "1034",
+      "process": "chg",
+      "metrics": {
+        "capacity": 43.0,
+        "weld": 4.13,
+        "wire": 5.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 8618
+    },
+    "1034_dchg": {
+      "pack": "1034",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 37.0,
+        "weld": 4.98,
+        "wire": 5.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 9589
+    },
+    "1035_chg": {
+      "pack": "1035",
+      "process": "chg",
+      "metrics": {
+        "capacity": 1.0,
+        "weld": 1.19,
+        "wire": 2.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 7271
+    },
+    "1035_dchg": {
+      "pack": "1035",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 53.0,
+        "weld": 28.6,
+        "wire": 28.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6449
+    },
+    "1036_chg": {
+      "pack": "1036",
+      "process": "chg",
+      "metrics": {
+        "capacity": 1.0,
+        "weld": 1.26,
+        "wire": 2.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 11316
+    },
+    "1036_dchg": {
+      "pack": "1036",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 359.0,
+        "weld": 4.18,
+        "wire": 13.0,
+        "sensor": 0.9
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 6272
+    },
+    "1037_chg": {
+      "pack": "1037",
+      "process": "chg",
+      "metrics": {
+        "capacity": 33.0,
+        "weld": 3.1,
+        "wire": 5.0,
+        "sensor": 0.65
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 11024
+    },
+    "1037_dchg": {
+      "pack": "1037",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 51.0,
+        "weld": 16.13,
+        "wire": 12.0,
+        "sensor": 0.75
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1128
+    },
+    "1038_chg": {
+      "pack": "1038",
+      "process": "chg",
+      "metrics": {
+        "capacity": 1.0,
+        "weld": 0.97,
+        "wire": 1.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 11270
+    },
+    "1038_dchg": {
+      "pack": "1038",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 50.0,
+        "weld": 7.11,
+        "wire": 14.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1156
+    },
+    "1039_chg": {
+      "pack": "1039",
+      "process": "chg",
+      "metrics": {
+        "capacity": 31.0,
+        "weld": 1.77,
+        "wire": 2.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 11008
+    },
+    "1039_dchg": {
+      "pack": "1039",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 52.0,
+        "weld": 8.45,
+        "wire": 14.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1123
+    },
+    "1040_chg": {
+      "pack": "1040",
+      "process": "chg",
+      "metrics": {
+        "capacity": 466.0,
+        "weld": 7.27,
+        "wire": 25.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 10998
+    },
+    "1040_dchg": {
+      "pack": "1040",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 53.0,
+        "weld": 7.41,
+        "wire": 23.0,
+        "sensor": 0.85
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1119
+    },
+    "1041_chg": {
+      "pack": "1041",
+      "process": "chg",
+      "metrics": {
+        "capacity": 65.0,
+        "weld": 18.19,
+        "wire": 41.0,
+        "sensor": 0.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1711
+    },
+    "1041_dchg": {
+      "pack": "1041",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 46.0,
+        "weld": 8.99,
+        "wire": 9.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 509
+    },
+    "1042_chg": {
+      "pack": "1042",
+      "process": "chg",
+      "metrics": {
+        "capacity": 36.0,
+        "weld": 2.93,
+        "wire": 5.0,
+        "sensor": 0.5
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 2369
+    },
+    "1042_dchg": {
+      "pack": "1042",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 48.0,
+        "weld": 12.21,
+        "wire": 14.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1051
+    },
+    "1043_chg": {
+      "pack": "1043",
+      "process": "chg",
+      "metrics": {
+        "capacity": 0.0,
+        "weld": 2.12,
+        "wire": 3.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 12582
+    },
+    "1043_dchg": {
+      "pack": "1043",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 449.0,
+        "weld": 16.16,
+        "wire": 19.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1349
+    },
+    "1044_chg": {
+      "pack": "1044",
+      "process": "chg",
+      "metrics": {
+        "capacity": 34.0,
+        "weld": 2.45,
+        "wire": 4.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 12110
+    },
+    "1044_dchg": {
+      "pack": "1044",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 63.0,
+        "weld": 12.55,
+        "wire": 24.0,
+        "sensor": 1.0
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1823
+    },
+    "1045_chg": {
+      "pack": "1045",
+      "process": "chg",
+      "metrics": {
+        "capacity": 35.0,
+        "weld": 13.4,
+        "wire": 11.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 12005
+    },
+    "1045_dchg": {
+      "pack": "1045",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 53.0,
+        "weld": 9.06,
+        "wire": 14.0,
+        "sensor": 0.7
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1146
+    },
+    "1046_chg": {
+      "pack": "1046",
+      "process": "chg",
+      "metrics": {
+        "capacity": 48.0,
+        "weld": 6.01,
+        "wire": 8.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 11955
+    },
+    "1046_dchg": {
+      "pack": "1046",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 53.0,
+        "weld": 6.34,
+        "wire": 3.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1289
+    },
+    "1047_chg": {
+      "pack": "1047",
+      "process": "chg",
+      "metrics": {
+        "capacity": 43.0,
+        "weld": 1.14,
+        "wire": 2.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1069
+    },
+    "1047_dchg": {
+      "pack": "1047",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 55.0,
+        "weld": 11.42,
+        "wire": 13.0,
+        "sensor": 1.05
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1048
+    },
+    "1048_chg": {
+      "pack": "1048",
+      "process": "chg",
+      "metrics": {
+        "capacity": 40.0,
+        "weld": 2.0,
+        "wire": 3.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1685
+    },
+    "1048_dchg": {
+      "pack": "1048",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 52.0,
+        "weld": 5.65,
+        "wire": 8.0,
+        "sensor": 2.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1015
+    },
+    "1049_chg": {
+      "pack": "1049",
+      "process": "chg",
+      "metrics": {
+        "capacity": 33.0,
+        "weld": 6.1,
+        "wire": 15.0,
+        "sensor": 0.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1044
+    },
+    "1049_dchg": {
+      "pack": "1049",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 53.0,
+        "weld": 5.78,
+        "wire": 11.0,
+        "sensor": 1.6
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1069
+    },
+    "1050_chg": {
+      "pack": "1050",
+      "process": "chg",
+      "metrics": {
+        "capacity": 41.0,
+        "weld": 2.44,
+        "wire": 3.0,
+        "sensor": 0.55
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 2654
+    },
+    "1050_dchg": {
+      "pack": "1050",
+      "process": "dchg",
+      "metrics": {
+        "capacity": 47.0,
+        "weld": 38.46,
+        "wire": 12.0,
+        "sensor": 0.8
+      },
+      "source": "train",
+      "grade": "OK",
+      "n_rows": 1690
+    }
+  },
+  "limitations": [
+    "Reference grade OK is not a confirmed four-type defect label.",
+    "Internal held-out reference exceedance rates, not external defect accuracy.",
+    "Full time-series recomputation unavailable for 92 of the 102 source records.",
+    "No threshold tuning or refitting after viewing evaluation outcomes."
+  ]
+}

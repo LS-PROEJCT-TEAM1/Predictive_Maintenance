@@ -1492,3 +1492,11 @@ User requested a comprehensive visual refactor for business stakeholders.
 - When AI is NG with no saved suspected type, show a compact warning with a direct review action. Repeat the technician guidance on the review page; never force a defect type.
 - Review uses adjacent decision and evidence panels with saved history below. Preserve confirmation before saving and separate pack records from historical test records.
 - Existing explicit test links may open their historical decision records; do not map test IDs to unrelated pack IDs.
+
+
+# 43. Process-specific suspected-defect thresholds — 2026-09-29
+
+- User authorized recalibration of suspected-defect rules while retaining saved AI OK/NG results.
+- Defect cards use the versioned charge/discharge threshold policy applied to saved pack metrics. This supersedes the saved-flag-only requirement in section 41.
+- Label the active charge/discharge basis beside measured value / threshold. Preserve card names, colors and technician-review guidance.
+- Do not imply full-time-series metric recalculation, validated defect classification, or improved accuracy.

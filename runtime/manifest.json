@@ -162,6 +162,12 @@
       "file": "demand/evidence.json",
       "bytes": 803291,
       "sha256": "67b6bda6854da47ca0d04b0a5f261d77bce49918fb6d91ab6b9d639e8bde877b"
+    },
+    {
+      "file": "quality/defect_calibration.json",
+      "bytes": 32750,
+      "sha256": "b0a920c5d2f803b32dfd0b1f445267c8200f179984e18cce2e22510682e9de78",
+      "source": "tools/calibrate_pack_defects.py / normal reference stored metrics"
     }
   ]
 }

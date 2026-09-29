@@ -9,6 +9,7 @@ from pathlib import Path
 from threading import RLock
 
 from fastapi import HTTPException, Query
+from backend.defect_policy import load_policy, apply_policy
 
 DEMO_FILE = Path(__file__).resolve().parents[1] / 'runtime/quality/battery_pack_demo.json.gz'
 
@@ -50,6 +51,7 @@ class BatteryPacks:
 
     def index(self, force=False):
         def read():
+            policy = load_policy()
             if self.demo:
                 packs, config = self._demo()['packs'], self._demo()['config']
                 dashboard = self._demo().get('dashboard') or {}
@@ -63,16 +65,17 @@ class BatteryPacks:
                 if not re.fullmatch(r'\d+_(chg|dchg)', ident) or not doc:
                     continue
                 ratio = number(doc.get('anomaly_ratio'))
-                rows.append({**doc, 'pack_id': ident, 'pack_no': ident.rsplit('_', 1)[0],
+                rows.append(apply_policy({**doc, 'pack_id': ident, 'pack_no': ident.rsplit('_', 1)[0],
                              'process': ident.rsplit('_', 1)[1],
                              'ai_verdict': doc.get('ai_verdict') if doc.get('ai_verdict') in ('OK', 'NG') else '미확인',
-                             'anomalyPercent': ratio*100 if ratio is not None else None})
+                             'anomalyPercent': ratio*100 if ratio is not None else None}, policy))
             rows.sort(key=lambda r: (int(r['pack_no']), r['process']))
-            version = hashlib.sha256(json.dumps({'rows': rows, 'config': config, 'dashboard': dashboard}, sort_keys=True, default=str).encode()).hexdigest()[:20]
+            version = hashlib.sha256(json.dumps({'rows': rows, 'config': config, 'dashboard': dashboard, 'defectPolicy':policy}, sort_keys=True, default=str).encode()).hexdigest()[:20]
             return {'rows': rows, 'packNumbers': sorted({r['pack_no'] for r in rows}, key=int),
                     'count': len(rows), 'ngCount': sum(r['ai_verdict'] == 'NG' for r in rows),
                     'dataVersion': 'battery-packs-'+version, 'config': config,
-                    'defectThresholds': dashboard.get('thresholds') or {}}
+                    'defectThresholds': policy['thresholdsByProcess'],
+                    'defectPolicyVersion': policy['version']}
         return self._read('index', read, force)
 
     def detail(self, ident, snapshot='last', force=False):
@@ -102,7 +105,8 @@ class BatteryPacks:
         return {'summary': row, 'snapshot': {'cells': cells, 't': snap.get('t'), 'kind': snapshot},
                 'counts': counts, 'series': series, 'dataVersion': index['dataVersion'],
                 'testId': 'pack:'+row['pack_id'], 'thresholds': index['config'].get('thresholds') or {},
-                'defectThresholds': index['defectThresholds']}
+                'defectThresholds': index['defectThresholds'][row['process']],
+                'defectPolicyVersion': index['defectPolicyVersion']}
 
     def validate_decision(self, body):
         index = self.index(force=True)

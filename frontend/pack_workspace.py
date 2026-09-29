@@ -21,7 +21,7 @@ DEFECT_TYPES = (
 
 
 def defect_cards(data):
-    """Display stored pack flags; never infer a defect from the selected cell."""
+    """Display pack-level rule flags; never infer a defect from the selected cell."""
     row = data['summary']
     flags, metrics = row.get('flags') or {}, row.get('metrics') or {}
     thresholds = data.get('defectThresholds') or {}
@@ -38,7 +38,7 @@ def defect_cards(data):
         ], className='pack-defect-card '+state))
     return html.Section([
         html.Div([html.H2('4대 불량 의심 유형', id='pack-defect-title'),
-                  html.Span('팩 전체 · 측정값 / 임계값')], className='pack-defect-title'),
+                  html.Span(('충전' if row['process']=='chg' else '방전')+' 기준 · 측정값 / 임계값')], className='pack-defect-title'),
         html.Ul(cards, className='pack-defect-grid'),
     ], className='pack-defect-section', **{'aria-labelledby': 'pack-defect-title'})
 
