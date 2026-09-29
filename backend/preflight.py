@@ -9,7 +9,7 @@ from backend.runtime_assets import ROOT, verify_runtime
 def check(connected=False):
     if sys.version_info[:2] != (3, 12):
         raise SystemExit('Python 3.12로 setup_local.cmd를 실행하세요.')
-    for module in ('dash', 'fastapi', 'xgboost', 'sklearn', 'joblib', 'torch'):
+    for module in ('dash', 'fastapi', 'xgboost', 'sklearn', 'joblib', 'torch', 'cryptography'):
         if importlib.util.find_spec(module) is None:
             raise SystemExit('필수 라이브러리 누락: ' + module + '. setup_local.cmd를 실행하세요.')
     try:
@@ -32,6 +32,10 @@ def check(connected=False):
                 credentials.Certificate(config['service_account_file'])
             except Exception:
                 raise ValueError('Firebase SDK 인증 키를 읽을 수 없습니다. JSON 파일을 확인하세요.') from None
+            from backend.auth_log import PiiCipher
+            if PiiCipher.from_config(config) is None:
+                print('안내: LOG_ENC_KEY/LOG_HMAC_KEY가 없어 로그인 기록을 저장하지 않습니다. '
+                      '.venv\\Scripts\\python.exe -m backend.auth_log init-keys 로 만들 수 있습니다.', flush=True)
             for _, relative in SOURCES.values():
                 if not (ROOT / relative).is_file():
                     raise ValueError('Copilot 문서 누락: ' + relative)

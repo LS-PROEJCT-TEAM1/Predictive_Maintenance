@@ -547,3 +547,6 @@ h1 {font-weight:750;} .panel-head h2{font-weight:750;} .kpi-number{font-weight:7
 .quality-defect-info span,.quality-defect-info small{font-size:12px;line-height:1.5;}
 .quality-defect-info small{font-weight:600;}
 .quality-type-note{font-size:13px;color:var(--text-secondary);margin:8px 0 12px;}
+.auth-log-summary { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 12px; }
+#open-auth-logs { display:inline-flex; align-items:center; gap:4px; }
+.auth-logs-content { margin-top:4px; }

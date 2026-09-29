@@ -50,7 +50,21 @@ def settings():
         'startup_mode': value('BATTERYFLOW_MODE', default='auto').lower(),
         'embedding_model': 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2',
         'rag_dir': ROOT / '.local/rag',
+        'log_enc_key': value('LOG_ENC_KEY'),
+        'log_hmac_key': value('LOG_HMAC_KEY'),
+        'log_key_id': value('LOG_KEY_ID', default='k1'),
+        'log_retention_days': _days(value('LOG_RETENTION_DAYS', default='180')),
     }
+
+
+def _days(raw):
+    try:
+        days = int(raw)
+    except ValueError:
+        raise ValueError('LOG_RETENTION_DAYS는 숫자(일)여야 합니다.') from None
+    if not 1 <= days <= 3650:
+        raise ValueError('LOG_RETENTION_DAYS는 1~3650 사이여야 합니다.')
+    return days
 
 
 def connection_missing(config):
